@@ -1,322 +1,335 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#00000000">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/menu"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:background="@drawable/rounded_corners_50dp"
+        android:background="@drawable/rounded_corners_20dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="5dp"
+        android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <FrameLayout
-            android:id="@+id/menu_item_home"
+
+        <LinearLayout
+            android:id="@+id/btn_home_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:background="@drawable/bg_button"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minWidth="160dp"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="7dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_tv_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <FrameLayout
-                android:id="@+id/menu_circle_home"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:foregroundGravity="center">
+            <ImageView
+                android:id="@+id/menu_home_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/home_1" />
 
-                <ImageView
-                    android:id="@+id/menu_home_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/home_1" />
-            </FrameLayout>
-        </FrameLayout>
+            <TextView
+                android:id="@+id/label_home_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="center|left"
+                android:shadowColor="#0D000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"
+                android:text="HOME"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/menu_item_tv"
+        <LinearLayout
+            android:id="@+id/btn_tv_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:background="@drawable/bg_button"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minWidth="160dp"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="7dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_movie_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_home_menu">
 
-            <FrameLayout
-                android:id="@+id/menu_circle_tv"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:foregroundGravity="center">
+            <ImageView
+                android:id="@+id/menu_tv_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/tv" />
 
-                <ImageView
-                    android:id="@+id/menu_tv_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/tv" />
-            </FrameLayout>
-        </FrameLayout>
+            <TextView
+                android:id="@+id/label_tv_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="center|left"
+                android:shadowColor="#0D000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"
+                android:text="TV"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/menu_item_filmes"
+        <LinearLayout
+            android:id="@+id/btn_movie_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:background="@drawable/bg_button"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minWidth="160dp"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="7dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_series_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_tv_menu">
 
-            <FrameLayout
-                android:id="@+id/menu_circle_filmes"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/rounded_corners_50dp"
-                android:foregroundGravity="center">
+            <ImageView
+                android:id="@+id/menu_filmes_icon"
+                android:layout_width="23dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="2dp"
+                app:srcCompat="@drawable/film_4" />
 
-                <ImageView
-                    android:id="@+id/menu_filmes_icon"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/film_4" />
-            </FrameLayout>
-        </FrameLayout>
+            <TextView
+                android:id="@+id/menu_label_filmes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="center|left"
+                android:shadowColor="#0D000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"
+                android:text="FILMES"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/menu_item_series"
+        <LinearLayout
+            android:id="@+id/btn_series_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:background="@drawable/bg_button"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minWidth="160dp"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="7dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_kids_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_movie_menu">
 
-            <FrameLayout
-                android:id="@+id/menu_circle_series"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:foregroundGravity="center">
+            <ImageView
+                android:id="@+id/menu_series_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/icon_movie" />
 
-                <ImageView
-                    android:id="@+id/menu_series_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/icon_movie" />
-            </FrameLayout>
-        </FrameLayout>
+            <TextView
+                android:id="@+id/menu_label_series"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="center|left"
+                android:shadowColor="#0D000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"
+                android:text="SÉRIES"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/menu_item_infantil"
+        <LinearLayout
+            android:id="@+id/btn_kids_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:background="@drawable/bg_button"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minWidth="160dp"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="7dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_sports_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_series_menu">
 
-            <FrameLayout
-                android:id="@+id/menu_circle_infantil"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:foregroundGravity="center">
+            <ImageView
+                android:id="@+id/menu_infantil_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/bear" />
 
-                <ImageView
-                    android:id="@+id/menu_infantil_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/bear" />
-            </FrameLayout>
-        </FrameLayout>
+            <TextView
+                android:id="@+id/menu_label_infantil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="center|left"
+                android:shadowColor="#0D000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"
+                android:text="INFANTIL"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/menu_item_futebol"
+        <LinearLayout
+            android:id="@+id/btn_sports_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:background="@drawable/bg_button"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minWidth="160dp"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="7dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_adult_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_kids_menu">
 
-            <FrameLayout
-                android:id="@+id/menu_circle_futebol"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:foregroundGravity="center">
+            <ImageView
+                android:id="@+id/menu_futebol_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/football" />
 
-                <ImageView
-                    android:id="@+id/menu_futebol_icon"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/football" />
-            </FrameLayout>
-        </FrameLayout>
+            <TextView
+                android:id="@+id/menu_label_futebol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="center|left"
+                android:shadowColor="#0D000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"
+                android:text="FUTEBOL"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/menu_item_adulto"
+        <LinearLayout
+            android:id="@+id/btn_adult_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:background="@drawable/bg_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minWidth="160dp"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_sports_menu">
 
-            <FrameLayout
-                android:id="@+id/menu_circle_adulto"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:foregroundGravity="center">
+            <ImageView
+                android:id="@+id/menu_adulto_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:srcCompat="@drawable/fire" />
 
-                <ImageView
-                    android:id="@+id/menu_adulto_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/fire" />
-            </FrameLayout>
-        </FrameLayout>
+            <TextView
+                android:id="@+id/menu_label_adulto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="center|left"
+                android:shadowColor="#0D000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"
+                android:text="ADULTO"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </LinearLayout>
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/menu_labels"
-        android:layout_width="5dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:paddingStart="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/menu"
-        app:layout_constraintStart_toEndOf="@+id/menu"
-        app:layout_constraintTop_toTopOf="@+id/menu">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/menu_label_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/comfortaa_light"
-            android:gravity="center|left"
-            android:shadowColor="#0D000000"
-            android:shadowDx="5"
-            android:shadowDy="5"
-            android:shadowRadius="5"
-            android:text="HOME"
-            android:textAlignment="gravity"
-            android:textColor="#80FFFFFF"
-            android:textSize="10sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/menu_label_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/comfortaa_light"
-            android:gravity="center|left"
-            android:shadowColor="#0D000000"
-            android:shadowDx="5"
-            android:shadowDy="5"
-            android:shadowRadius="5"
-            android:text="TV"
-            android:textAlignment="gravity"
-            android:textColor="#80FFFFFF"
-            android:textSize="10sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/menu_label_filmes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/comfortaa_light"
-            android:gravity="center|left"
-            android:shadowColor="#0D000000"
-            android:shadowDx="5"
-            android:shadowDy="5"
-            android:shadowRadius="5"
-            android:text="FILMES"
-            android:textAlignment="gravity"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/menu_label_series"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/comfortaa_light"
-            android:gravity="center|left"
-            android:shadowColor="#0D000000"
-            android:shadowDx="5"
-            android:shadowDy="5"
-            android:shadowRadius="5"
-            android:text="SÉRIES"
-            android:textAlignment="gravity"
-            android:textColor="#80FFFFFF"
-            android:textSize="10dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/menu_label_infantil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/comfortaa_light"
-            android:gravity="center|left"
-            android:shadowColor="#0D000000"
-            android:shadowDx="5"
-            android:shadowDy="5"
-            android:shadowRadius="5"
-            android:text="INFANTIL"
-            android:textAlignment="gravity"
-            android:textColor="#80FFFFFF"
-            android:textSize="10dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/menu_label_futebol"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/comfortaa_light"
-            android:gravity="center|left"
-            android:shadowColor="#0D000000"
-            android:shadowDx="5"
-            android:shadowDy="5"
-            android:shadowRadius="5"
-            android:text="FUTEBOL"
-            android:textAlignment="gravity"
-            android:textColor="#80FFFFFF"
-            android:textSize="10dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/menu_label_adulto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/comfortaa_light"
-            android:gravity="center|left"
-            android:shadowColor="#0D000000"
-            android:shadowDx="5"
-            android:shadowDy="5"
-            android:shadowRadius="5"
-            android:text="ADULTO"
-            android:textAlignment="gravity"
-            android:textColor="#80FFFFFF"
-            android:textSize="10dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
