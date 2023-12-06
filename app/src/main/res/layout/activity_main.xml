@@ -54,30 +54,29 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/main_content"
+        app:layout_constraintBottom_toBottomOf="@+id/main_active_fragment"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/main_content" />
+        app:layout_constraintTop_toTopOf="@+id/main_active_fragment" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main_content"
+
+    <include
+        android:id="@+id/main_active_fragment"
+        layout="@layout/fragment_empty"
+
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/rounded_corners_20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/include_top_bar"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/include_menu"
-        app:layout_constraintTop_toBottomOf="@+id/include_top_bar">
+        app:layout_constraintTop_toBottomOf="@+id/include_top_bar"
+        app:layout_constraintVertical_bias="1.0" />
 
-        <include
-            android:id="@+id/include3"
-            layout="@layout/fragment_search_results"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--    <include layout="@layout/fragment_series" />-->
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

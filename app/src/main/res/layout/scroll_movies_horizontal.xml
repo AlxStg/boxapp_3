@@ -40,25 +40,25 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp">
 
-                <include layout="@layout/thumbnail_movie_serie" />
+                <include layout="@layout/thumb_movie" />
 
-                <include layout="@layout/thumbnail_movie_serie" />
+                <include layout="@layout/thumb_movie" />
 
-                <include layout="@layout/thumbnail_movie_serie" />
+                <include layout="@layout/thumb_movie" />
 
-                <include layout="@layout/thumbnail_movie_serie" />
+                <include layout="@layout/thumb_movie" />
 
-                <include layout="@layout/thumbnail_movie_serie" />
+                <include layout="@layout/thumb_movie" />
 
-                <include layout="@layout/thumbnail_movie_serie" />
+                <include layout="@layout/thumb_movie" />
 
-                <include layout="@layout/thumbnail_movie_serie" />
+                <include layout="@layout/thumb_movie" />
 
-                <include layout="@layout/thumbnail_movie_serie" />
+                <include layout="@layout/thumb_movie" />
 
-                <include layout="@layout/thumbnail_movie_serie" />
+                <include layout="@layout/thumb_movie" />
 
-                <include layout="@layout/thumbnail_movie_serie" />
+                <include layout="@layout/thumb_movie" />
 
 
             </LinearLayout>

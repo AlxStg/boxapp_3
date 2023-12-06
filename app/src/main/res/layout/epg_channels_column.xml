@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-        android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
@@ -13,21 +14,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView30"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:fontFamily="@font/comfortaa_light"
-            android:text="Categorias"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:fontFamily="@font/comfortaa_light"
+        android:text="Canais"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
             android:layout_width="wrap_content"
@@ -51,7 +52,16 @@
 
                 <include layout="@layout/epg_item" />
 
+                <include layout="@layout/epg_item" />
+
+                <include layout="@layout/epg_item" />
+
+                <include layout="@layout/epg_item" />
+
+                <include layout="@layout/epg_item" />
+
                 <LinearLayout
+                    android:id="@+id/linearLayout3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/rounded_corners_8dp"
@@ -62,30 +72,27 @@
                         android:id="@+id/textView31"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:fontFamily="@font/comfortaa_light"
                         android:padding="5dp"
                         android:paddingBottom="3dp"
-                        android:text="Canais Abertos"
-                        android:textColor="#FFFFFF" />
+                        android:text="Rede Globo"
+                        android:textColor="#FFFFFF"
+                        tools:layout_conversion_absoluteHeight="32dp"
+                        tools:layout_conversion_absoluteWidth="93dp"
+                        tools:layout_editor_absoluteX="10dp"
+                        tools:layout_editor_absoluteY="275dp" />
 
                     <ImageView
                         android:id="@+id/imageView20"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center|right"
-                        android:layout_marginStart="5dp"
-                        app:srcCompat="@drawable/arrow_right" />
+                        app:srcCompat="@drawable/arrow_right"
+                        tools:layout_conversion_absoluteHeight="24dp"
+                        tools:layout_conversion_absoluteWidth="24dp"
+                        tools:layout_editor_absoluteX="165dp"
+                        tools:layout_editor_absoluteY="279dp" />
 
                 </LinearLayout>
-
-                <include layout="@layout/epg_item" />
-
-                <include layout="@layout/epg_item" />
-
-                <include layout="@layout/epg_item" />
-
-                <include layout="@layout/epg_item" />
 
                 <include layout="@layout/epg_item" />
 

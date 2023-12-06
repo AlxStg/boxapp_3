@@ -3,216 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_corners_20dp"
+    >
+
+    <include
+        layout="@layout/home_slider"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/include2"
         layout="@layout/scroll_canais_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/home_slider"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/include"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/include2"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/bg_hobbit" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/fundo_preto_esmaecido">
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/comfortaa_light"
-                android:text="Filme"
-                android:textColor="#FFFEFE"
-                android:textSize="8sp"
-                app:layout_constraintStart_toStartOf="@+id/movie_description"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <FrameLayout
-                android:id="@+id/frameLayout2"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/rounded_corners_20dp_black"
-                android:foregroundGravity="center"
-                app:layout_constraintEnd_toStartOf="@+id/frameLayout"
-                app:layout_constraintTop_toTopOf="@+id/textView16">
-
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/arrow_left" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/frameLayout"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/rounded_corners_20dp_black"
-                android:foregroundGravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView16">
-
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/arrow_right" />
-            </FrameLayout>
-
-            <LinearLayout
-                android:id="@+id/btn_play_movie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/bg_button"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingStart="5dp"
-                android:paddingTop="2dp"
-                android:paddingEnd="5dp"
-                android:paddingBottom="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <ImageView
-                    android:id="@+id/imageView8"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"
-                    app:srcCompat="@android:drawable/ic_media_play" />
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/comfortaa_light"
-                    android:text="PLAY"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/fav_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_play_movie"
-                app:layout_constraintStart_toEndOf="@+id/btn_play_movie"
-                app:layout_constraintTop_toTopOf="@+id/btn_play_movie"
-                app:srcCompat="@drawable/icon_favorite" />
-
-            <TextView
-                android:id="@+id/movie_description"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/comfortaa_light"
-                android:text="O Hobbit: A Desolação de Smaug é um filme de fantasia e aventura de 2013, dirigido por Peter Jackson1. É o segundo filme da trilogia que foi adaptada a partir da obra de mesmo nome do escritor britânico J. R. R. Tolkien1. O filme conta a história de Bilbo Bolseiro, que segue em direção à Montanha Solitária com um grupo de anões e Gandalf, para ajudar seus companheiros de missão a retomar a Pedra de Arken"
-                android:textColor="#FFFFFF"
-                android:textSize="8sp"
-                app:layout_constraintBottom_toTopOf="@+id/btn_play_movie"
-                app:layout_constraintStart_toStartOf="@+id/btn_play_movie" />
-
-            <TextView
-                android:id="@+id/genre1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/bg_button"
-                android:backgroundTint="#000000"
-                android:fontFamily="@font/comfortaa_light"
-                android:paddingStart="5dp"
-                android:paddingTop="1dp"
-                android:paddingEnd="5dp"
-                android:paddingBottom="2dp"
-                android:text="Fantasia"
-                android:textColor="#FDFDFD"
-                android:textSize="8sp"
-                app:layout_constraintBottom_toTopOf="@+id/movie_description"
-                app:layout_constraintStart_toStartOf="@+id/movie_description" />
-
-            <TextView
-                android:id="@+id/genre2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/bg_button"
-                android:backgroundTint="#000000"
-                android:fontFamily="@font/comfortaa_light"
-                android:paddingStart="5dp"
-                android:paddingTop="1dp"
-                android:paddingEnd="5dp"
-                android:paddingBottom="2dp"
-                android:text="Aventura"
-                android:textColor="#FDFDFD"
-                android:textSize="8sp"
-                app:layout_constraintBottom_toTopOf="@+id/movie_description"
-                app:layout_constraintStart_toEndOf="@+id/genre1" />
-
-            <TextView
-                android:id="@+id/movie_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
-                android:fontFamily="@font/comfortaa_light"
-                android:text="O Hobbit - A desolação de Smaug"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/genre2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
-
-            <ImageView
-                android:id="@+id/source_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_play_movie"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/netflix_logo" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+        />
 
     <include
         android:id="@+id/include"
         layout="@layout/scroll_horizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/include2"
-        app:layout_constraintTop_toBottomOf="@+id/home_slider" />
+        app:layout_constraintStart_toEndOf="@+id/include2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

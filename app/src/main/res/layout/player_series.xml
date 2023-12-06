@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/e_de_casa2">
+    android:background="@drawable/friends_screen">
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        layout="@layout/player_channel_movies_info"
+        layout="@layout/player_series_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        layout="@layout/player_controls_movies"
+        layout="@layout/player_controls_series"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
