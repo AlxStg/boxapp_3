@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/player_movies_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/avatar_screen">
+
+    <VideoView
+        android:id="@+id/videoView_movies"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -19,7 +28,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/include7"
+        android:visibility="gone"
+        android:id="@+id/movie_info"
         layout="@layout/player_movies_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +39,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/include8"
+        android:visibility="gone"
+        android:id="@+id/player_movies_control"
         layout="@layout/player_controls_movies"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -41,12 +52,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <include
+        android:visibility="gone"
+        android:id="@+id/include_modal_subt_lang"
         layout="@layout/modal_subs_lang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/include8"
-        app:layout_constraintEnd_toStartOf="@+id/include7"
+        app:layout_constraintBottom_toTopOf="@+id/player_movies_control"
+        app:layout_constraintEnd_toStartOf="@+id/movie_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

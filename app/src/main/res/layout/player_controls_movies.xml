@@ -14,7 +14,7 @@
     app:layout_constraintStart_toStartOf="parent">
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/seekBar_movies"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -35,8 +35,8 @@
         android:fontFamily="@font/comfortaa_light"
         android:text="00:00"
         android:textColor="#FFFFFF"
-        app:layout_constraintStart_toStartOf="@+id/seekBar"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+        app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar_movies" />
 
     <TextView
         android:id="@+id/textView25"
@@ -45,14 +45,17 @@
         android:fontFamily="@font/comfortaa_light"
         android:text="09:00"
         android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+        app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar_movies" />
 
     <ImageView
         android:id="@+id/imageView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
+        android:background="@drawable/bg_thumbs"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="@+id/imageView16"
         app:layout_constraintEnd_toStartOf="@+id/imageView16"
         app:layout_constraintTop_toTopOf="@+id/imageView16"
@@ -62,13 +65,15 @@
         android:id="@+id/imageView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corners_20dp"
+        android:background="@drawable/bg_thumbs"
         android:backgroundTint="#03A9F4"
+        android:clickable="true"
+        android:focusable="true"
         android:foregroundTintMode="multiply"
         android:padding="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
         app:srcCompat="@drawable/lb_ic_play" />
 
     <ImageView
@@ -76,6 +81,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
+        android:background="@drawable/bg_thumbs"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="@+id/imageView16"
         app:layout_constraintStart_toEndOf="@+id/imageView16"
         app:layout_constraintTop_toTopOf="@+id/imageView16"
@@ -90,7 +98,7 @@
         android:text="-15s"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView15"
         app:layout_constraintStart_toStartOf="@+id/imageView15"
         app:layout_constraintTop_toBottomOf="@+id/imageView15" />
@@ -105,7 +113,7 @@
         android:text="Play"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView16"
         app:layout_constraintStart_toStartOf="@+id/imageView16"
@@ -120,15 +128,19 @@
         android:text="+15s"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView18"
         app:layout_constraintStart_toStartOf="@+id/imageView18"
         app:layout_constraintTop_toBottomOf="@+id/imageView18" />
 
     <ImageView
-        android:id="@+id/imageView23"
+        android:id="@+id/btn_config_player_movies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="5dp"
         app:layout_constraintEnd_toStartOf="@+id/textView25"
         app:layout_constraintStart_toEndOf="@+id/imageView18"
         app:layout_constraintTop_toTopOf="@+id/imageView18"
@@ -137,15 +149,15 @@
     <TextView
         android:id="@+id/textView36"
         android:layout_width="wrap_content"
-        android:layout_height="16dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/comfortaa_light"
-        android:text="Configurações"
+        android:text="Idioma/Legendas"
         android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView23"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_config_player_movies"
         app:layout_constraintHorizontal_bias="0.538"
-        app:layout_constraintStart_toStartOf="@+id/imageView23"
-        app:layout_constraintTop_toBottomOf="@+id/imageView23" />
+        app:layout_constraintStart_toStartOf="@+id/btn_config_player_movies"
+        app:layout_constraintTop_toBottomOf="@+id/btn_config_player_movies" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

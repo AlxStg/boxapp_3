@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,7 +9,6 @@
         android:id="@+id/home_slider"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="15dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,110 +35,15 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/comfortaa_light"
-                android:text="Filme"
+                android:text="MOVIES"
                 android:textColor="#FFFFFF"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <FrameLayout
-                android:id="@+id/frameLayout2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_button"
-                android:clickable="true"
-                android:focusable="true"
-                android:foregroundGravity="center"
-                app:layout_constraintEnd_toStartOf="@+id/frameLayout"
-                app:layout_constraintTop_toTopOf="@+id/textView16">
-
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="5dp"
-                    app:srcCompat="@drawable/arrow_left" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/frameLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/bg_button"
-                android:clickable="true"
-                android:focusable="true"
-                android:foregroundGravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView16">
-
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="5dp"
-                    app:srcCompat="@drawable/arrow_right" />
-            </FrameLayout>
-
-            <LinearLayout
-                android:id="@+id/btn_play_movie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_button"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingStart="5dp"
-                android:paddingTop="2dp"
-                android:paddingEnd="5dp"
-                android:paddingBottom="2dp"
-                app:layout_constraintStart_toStartOf="@+id/movie_description"
-                app:layout_constraintTop_toBottomOf="@+id/movie_description">
-
-                <ImageView
-                    android:id="@+id/imageView8"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"
-                    app:srcCompat="@android:drawable/ic_media_play" />
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/comfortaa_light"
-                    android:text="PLAY"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/fav_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/bg_button"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingStart="5dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="5dp"
-                android:paddingBottom="4dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_play_movie"
-                app:layout_constraintStart_toEndOf="@+id/btn_play_movie"
-                app:layout_constraintTop_toTopOf="@+id/btn_play_movie"
-                app:srcCompat="@drawable/icon_favorite" />
-
             <TextView
                 android:id="@+id/movie_description"
-                android:layout_width="400dp"
+                android:layout_width="600dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/comfortaa_light"
@@ -146,7 +51,7 @@
                 android:minLines="5"
                 android:text="O Hobbit: A Desolação de Smaug é um filme de fantasia e aventura de 2013, dirigido por Peter Jackson1. É o segundo filme da trilogia que foi adaptada a partir da obra de mesmo nome do escritor britânico J. R. R. Tolkien1. O filme conta a história de Bilbo Bolseiro, que segue em direção à Montanha Solitária com um grupo de anões e Gandalf, para ajudar seus companheiros de missão a retomar a Pedra de Arken"
                 android:textColor="#FFFFFF"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/movie_name"
                 app:layout_constraintTop_toBottomOf="@+id/genre1" />
 
@@ -163,7 +68,7 @@
                 android:paddingBottom="2dp"
                 android:text="Fantasia"
                 android:textColor="#FFFFFF"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/movie_name"
                 app:layout_constraintTop_toBottomOf="@+id/movie_name" />
 
@@ -181,7 +86,7 @@
                 android:paddingBottom="2dp"
                 android:text="Aventura"
                 android:textColor="#FDFDFD"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/genre1"
                 app:layout_constraintTop_toBottomOf="@+id/movie_name" />
 
@@ -190,20 +95,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/comfortaa_light"
+                android:maxLines="1"
                 android:text="O Hobbit - A desolação de Smaug"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView16"
                 app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
             <ImageView
                 android:id="@+id/source_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/frameLayout"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/netflix_logo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

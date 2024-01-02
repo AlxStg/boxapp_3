@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    ImageView bgModal;
 
     View lbl_home;
     View lbl_tv;
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
         // NÃO REMOVER
         // É necessário criar um fragmento inicial para que o aplicativo não fique em branco
         Fragment fragment = new MenuTargetFragment(R.layout.fragment_home);
@@ -57,7 +61,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
         this.setFragmentOnScreen(R.layout.fragment_home);
 
+
+
         btn_home = R.id.btn_home_menu;
+        findViewById(btn_home).requestFocus();
         btn_tv = R.id.btn_tv_menu;
         btn_movies = R.id.btn_movies_menu;
         btn_series = R.id.btn_series_menu;
@@ -78,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
         include_active_fragment = R.id.main_active_fragment;
 
         findViewById(btn_home).setOnClickListener(new MenuOnClickListener(this, R.layout.fragment_home));
-//        findViewById(btn_tv).setOnClickListener(new MenuOnClickListener(this, R.layout.fragment_tv));
-        findViewById(btn_movies).setOnClickListener(new MenuOnClickListener(this, R.layout.fragment_movies));
-        findViewById(btn_series).setOnClickListener(new MenuOnClickListener(this, R.layout.fragment_series));
+        findViewById(btn_tv).setOnClickListener(new MenuOnClickListener(this, btn_tv));
+        findViewById(btn_movies).setOnClickListener(new MenuOnClickListener(this, R.layout.fragment_movie_especific));
+        findViewById(btn_series).setOnClickListener(new MenuOnClickListener(this, R.layout.fragment_movies));
 //        findViewById(btn_kids).setOnClickListener(new MenuClickListener(this, R.layout.fragment_kids));
 //        findViewById(btn_sports).setOnClickListener(new MenuOnClickListener(this, R.layout.fragment_sports));
 //        findViewById(btn_adult).setOnClickListener(new MenuClickListener(this, R.layout.fragment_adult));
@@ -97,7 +104,21 @@ public class MainActivity extends AppCompatActivity {
             lbl.setVisibility(View.GONE);
         }
 
+        // ... other code ...
+
+//findViewById(btn_tv).setOnClickListener(new View.OnClickListener() {
+//    @Override
+//    public void onClick(View v) {
+//        Intent intent = new Intent(MainActivity.this, PlayerTvActivity.class);
+//        startActivity(intent);
+//    }
+//});
+
+
+
     }
+
+
 
     public int getFragmentOnScreen() {
         return fragment_on_screen;
@@ -107,6 +128,11 @@ public class MainActivity extends AppCompatActivity {
         this.fragment_on_screen = layoutId;
     }
 
+
+    public void setInvisibleAnyId(int id) {
+        View view = findViewById(id);
+        view.setVisibility(View.INVISIBLE);
+    }
 
     public void menuColapse(Boolean bool) {
         // Get the menu view

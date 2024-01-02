@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:background="#00000000">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/menu"
@@ -14,13 +13,12 @@
         android:gravity="center"
         android:maxWidth="180dp"
         android:orientation="vertical"
-        android:padding="15dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <LinearLayout
@@ -29,27 +27,29 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_button"
             android:focusable="true"
-            android:gravity="center_vertical"
+            android:gravity="center"
+
             android:orientation="horizontal"
-            android:padding="8dp"
-            android:paddingTop="7dp"
-            android:paddingBottom="7dp"
+            android:paddingEnd="12dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_tv_menu"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/menu_home_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:adjustViewBounds="true"
                 app:srcCompat="@drawable/home_1" />
 
             <TextView
                 android:id="@+id/label_home_menu"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/comfortaa_light"
                 android:gravity="center|left"
@@ -73,25 +73,26 @@
             android:focusable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="8dp"
-            android:paddingTop="7dp"
-            android:paddingBottom="7dp"
+            android:paddingEnd="12dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_movies_menu"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_home_menu">
 
             <ImageView
                 android:id="@+id/menu_tv_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:adjustViewBounds="true"
                 app:srcCompat="@drawable/tv" />
 
             <TextView
                 android:id="@+id/label_tv_menu"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/comfortaa_light"
                 android:gravity="center|left"
@@ -113,29 +114,31 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_button"
             android:focusable="true"
-            android:gravity="center_vertical"
+            android:gravity="center"
+
+            android:minWidth="49dp"
             android:orientation="horizontal"
-            android:padding="8dp"
-            android:paddingTop="7dp"
-            android:paddingBottom="7dp"
+            android:paddingEnd="12dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_series_menu"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_tv_menu">
 
             <ImageView
                 android:id="@+id/menu_filmes_icon"
-                android:layout_width="23dp"
-                android:layout_height="28dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="5dp"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:adjustViewBounds="true"
                 app:srcCompat="@drawable/film_4" />
 
             <TextView
                 android:id="@+id/menu_label_movies"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/comfortaa_light"
                 android:gravity="center|left"
@@ -159,25 +162,27 @@
             android:focusable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="8dp"
-            android:paddingTop="7dp"
-            android:paddingBottom="7dp"
+
+            android:paddingEnd="12dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_kids_menu"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_movies_menu">
 
             <ImageView
                 android:id="@+id/menu_series_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:adjustViewBounds="true"
                 app:srcCompat="@drawable/icon_movie" />
 
             <TextView
                 android:id="@+id/menu_label_series"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/comfortaa_light"
                 android:gravity="center|left"
@@ -201,25 +206,27 @@
             android:focusable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="8dp"
-            android:paddingTop="7dp"
-            android:paddingBottom="7dp"
+
+            android:paddingEnd="12dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_sports_menu"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_series_menu">
 
             <ImageView
                 android:id="@+id/menu_infantil_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:adjustViewBounds="true"
                 app:srcCompat="@drawable/bear" />
 
             <TextView
                 android:id="@+id/menu_label_kids"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/comfortaa_light"
                 android:gravity="center|left"
@@ -243,25 +250,27 @@
             android:focusable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="8dp"
-            android:paddingTop="7dp"
-            android:paddingBottom="7dp"
+
+            android:paddingEnd="12dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_adult_menu"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_kids_menu">
 
             <ImageView
                 android:id="@+id/menu_futebol_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:adjustViewBounds="true"
                 app:srcCompat="@drawable/football" />
 
             <TextView
                 android:id="@+id/menu_label_sports"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/comfortaa_light"
                 android:gravity="center|left"
@@ -286,25 +295,27 @@
             android:focusable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="8dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+
+            android:paddingEnd="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_sports_menu">
 
             <ImageView
                 android:id="@+id/menu_adulto_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:adjustViewBounds="true"
                 app:srcCompat="@drawable/fire" />
 
             <TextView
                 android:id="@+id/menu_label_adult"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/comfortaa_light"
                 android:gravity="center|left"
