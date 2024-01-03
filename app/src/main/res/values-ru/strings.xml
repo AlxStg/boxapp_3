@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Блу Прайм</string>
+    <string name="browse_title">Видео вашей компании</string>
+    <string name="related_movies">Связанные видео</string>
+    <string name="grid_view">Сетка</string>
+    <string name="error_fragment">Фрагмент ошибки</string>
+    <string name="personal_settings">Личные настройки</string>
+    <string name="watch_trailer_1">Смотреть трейлер</string>
+    <string name="watch_trailer_2">БЕСПЛАТНО</string>
+    <string name="rent_1">Аренда на день</string>
+    <string name="rent_2">От $1.99</string>
+    <string name="buy_1">Купить и владеть</string>
+    <string name="buy_2">ЗА $9.99</string>
+    <string name="movie">Фильм</string>
+    <string name="pause">Пауза</string>
+    <string name="play">Воспроизвести</string>
+
+    <!-- Сообщения об ошибках -->
+    <string name="error_fragment_message">Произошла ошибка</string>
+    <string name="dismiss_error">Отмена</string>
+    <string name="loading_data">Загрузка данных</string>
+    <string name="login_error">Ошибка входа</string>
+    <string name="an_error_occurred_while_trying_to_login_please_try_again_later">Произошла ошибка при попытке входа. Пожалуйста, попробуйте позже.</string>
+    <string name="search">Поиск</string>
+    <string name="home">Главная</string>
+    <string name="movies">Фильмы</string>
+    <string name="tv_shows">Телепередачи</string>
+    <string name="my_list">Мой список</string>
+    <string name="switch_profile">Переключить профиль</string>
+    <string name="leave">Выйти</string>
+    <string name="also_watch">Также смотрите</string>
+    <string name="loading_movie_data_try_again_in_moments">Загрузка данных о фильме, попробуйте снова через несколько моментов</string>
+    <string name="favorite_error">Ошибка избранного</string>
+    <string name="occurred_an_error_to_add_this_movie_to_favorites">Произошла ошибка при добавлении этого фильма в избранное</string>
+    <string name="occurred_an_error_to_remove_this_movie_to_favorites">Произошла ошибка при удалении этого фильма из избранного</string>
+    <string name="season_s">Сезон %1$s</string>
+    <string name="seasons">Сезоны</string>
+    <string name="audio">Аудио</string>
+    <string name="subtitle">Субтитры</string>
+    <string name="resolution">Разрешение</string>
+</resources>

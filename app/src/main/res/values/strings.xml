@@ -17,4 +17,27 @@
     <!-- Error messages -->
     <string name="error_fragment_message">An error occurred</string>
     <string name="dismiss_error">Dismiss</string>
+    <string name="loading_data">Loading data</string>
+    <string name="login_error">Login Error</string>
+    <string name="an_error_occurred_while_trying_to_login_please_try_again_later">An error occurred while trying to login. Please try again later.</string>
+    <string name="search">Search</string>
+    <string name="home">Home</string>
+    <string name="movies">Movies</string>
+    <string name="tv_shows">Tv Shows</string>
+    <string name="my_list">My List</string>
+    <string name="switch_profile">Switch Profile</string>
+    <string name="leave">Leave</string>
+    <string name="also_watch">Also watch</string>
+    <string name="loading_movie_data_try_again_in_moments">Loading movie data, try again in moments</string>
+    <string name="favorite_error">Favorite error</string>
+    <string name="occurred_an_error_to_add_this_movie_to_favorites">Occurred an error to add this movie to favorites</string>
+    <string name="occurred_an_error_to_remove_this_movie_to_favorites">Occurred an error to remove this movie to favorites</string>
+    <string name="season_s">Season %1$s</string>
+    <string name="seasons">Seasons</string>
+    <string name="audio">Audio</string>
+    <string name="subtitle">Subtitle</string>
+    <string name="resolution">Resolution</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="resume_from_where_you_left_off">Resume from where you left off?</string>
 </resources>

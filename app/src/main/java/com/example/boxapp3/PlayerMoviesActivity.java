@@ -35,8 +35,8 @@ public class PlayerMoviesActivity extends AppCompatActivity {
         modal_subs_lang = findViewById(R.id.include_modal_subt_lang);
 
         // Set the video path
-        String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.clip_big_bang;
-        videoView_movies.setVideoURI(Uri.parse(videoPath));
+        //String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.clip_big_bang;
+        //videoView_movies.setVideoURI(Uri.parse(videoPath));
 
         // Start the VideoView
         videoView_movies.start();
