@@ -1,20 +1,38 @@
 package com.example.boxapp3;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.View;
+import android.view.ViewTreeObserver;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 
+import com.annimon.stream.Stream;
 import com.example.boxapp3.databinding.ActivityMainBinding;
+import com.example.boxapp3.listeners.activities.MainActivityListener;
 import com.example.boxapp3.models.activities.MainActivityModel;
 import com.example.iptvsdk.common.centerContent.CenterContent;
+import com.example.iptvsdk.common.menu.IptvMenu;
+import com.example.iptvsdk.common.menu.IptvMenuListener;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.subjects.BehaviorSubject;
+
+public class MainActivity extends AppCompatActivity implements MainActivityListener {
 
     private ActivityMainBinding mBinding;
 
     private MainActivityModel mModel;
     private CenterContent mCenterContent;
+    private IptvMenu mIptvMenu;
+
+    private List<View> menu;
+    private BehaviorSubject<Boolean> mMenuFocus = BehaviorSubject.create();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,64 +49,36 @@ public class MainActivity extends AppCompatActivity {
                 new MenuTargetFragment(R.layout.fragment_home));
         mCenterContent.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
 
+        setupMenu();
 
     }
 
-//    public void menuColapse(Boolean bool) {
-//        // Get the menu view
-//        View menu = findViewById(R.id.menu);
-//
-//        // Get the current width of the menu
-//        int currentWidth = menu.getWidth();
-//
-//        if (bool) {
-//            for (int i = 0; i < menuLabels.size(); i++) {
-//                View lbl = (View) menuLabels.get(i);
-//                lbl.setVisibility(View.VISIBLE);
-//            }
-//
-//            // Calculate the new width of the menu when the labels are visible
-//            int newWidth = currentWidth + 100;
-//
-//            // Animate the change in width
-//            ValueAnimator anim = ValueAnimator.ofInt(currentWidth, newWidth);
-//            anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//                @Override
-//                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-//                    int val = (Integer) valueAnimator.getAnimatedValue();
-//                    ViewGroup.LayoutParams layoutParams = menu.getLayoutParams();
-//                    layoutParams.width = val;
-//                    menu.setLayoutParams(layoutParams);
-//                }
-//            });
-//            anim.setDuration(300);
-//            anim.start();
-//
-//
-//        } else {
-//
-//
-//            // Calculate the new width of the menu when the labels are invisible
-//            int newWidth = currentWidth - 100;
-//
-//            // Animate the change in width
-//            ValueAnimator anim = ValueAnimator.ofInt(currentWidth, newWidth);
-//            anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//                @Override
-//                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-//                    int val = (Integer) valueAnimator.getAnimatedValue();
-//                    ViewGroup.LayoutParams layoutParams = menu.getLayoutParams();
-//                    layoutParams.width = val;
-//                    menu.setLayoutParams(layoutParams);
-//                }
-//            });
-//            anim.setDuration(100);
-//            anim.start();
-//            for (int i = 0; i < menuLabels.size(); i++) {
-//                View lbl = (View) menuLabels.get(i);
-//                lbl.setVisibility(View.GONE);
-//            }
-//        }
-//    }
-
+    private void setupMenu() {
+        mIptvMenu = new IptvMenu(new IptvMenuListener() {
+            @Override
+            public void onMenuColapse(boolean colapse) {
+                super.onMenuColapse(colapse);
+                mModel.setShowMenuLabels(!colapse);
+            }
+        });
+       ((ConstraintLayout) mBinding.includeMenu.menu).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+           @Override
+           public void onGlobalLayout() {
+                ((ConstraintLayout) mBinding.includeMenu.menu).getViewTreeObserver()
+                        .removeOnGlobalLayoutListener(this);
+               mIptvMenu.listenMenuFocusAndColapse(mBinding.includeMenu.menu,
+                       mBinding.includeMenu.menu.getWidth(),
+                       100,
+                       new ArrayList<View>(){{
+                           add(mBinding.includeMenu.btnHomeMenu);
+                           add(mBinding.includeMenu.btnTvMenu);
+                           add(mBinding.includeMenu.btnMoviesMenu);
+                           add(mBinding.includeMenu.btnSeriesMenu);
+                           add(mBinding.includeMenu.btnKidsMenu);
+                           add(mBinding.includeMenu.btnSportsMenu);
+                           add(mBinding.includeMenu.btnAdultMenu);
+                       }});
+           }
+       });
+    }
 }

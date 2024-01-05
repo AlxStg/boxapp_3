@@ -40,4 +40,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="resume_from_where_you_left_off">Resume from where you left off?</string>
+    <string name="tv">TV</string>
+    <string name="soccer">Soccer</string>
+    <string name="adult">Adult</string>
 </resources>
