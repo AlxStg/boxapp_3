@@ -44,13 +44,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
 
         mBinding.setModel(mModel);
 
+        setupContent();
+
+        setupMenu();
+
+    }
+
+    private void setupContent() {
         mCenterContent = new CenterContent(this,
                 R.id.main_active_fragment,
                 new MenuTargetFragment(R.layout.fragment_home));
         mCenterContent.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
-
-        setupMenu();
-
     }
 
     private void setupMenu() {
@@ -80,5 +84,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
                        }});
            }
        });
+    }
+
+    @Override
+    public void onMenuSelected(String menu) {
+
     }
 }

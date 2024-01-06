@@ -10,6 +10,7 @@ import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
 
 public class MainActivityModel extends BaseObservable {
+
     private boolean showMenu = false;
     private boolean showMenuLabels = false;
     private boolean showModalAdult = false;
