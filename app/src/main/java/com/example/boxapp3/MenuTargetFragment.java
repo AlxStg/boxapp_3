@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 public class MenuTargetFragment extends Fragment {
 
     int layoutId1; // Replace with your variable

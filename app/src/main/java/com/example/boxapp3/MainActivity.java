@@ -1,8 +1,6 @@
 package com.example.boxapp3;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
@@ -10,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 
-import com.annimon.stream.Stream;
 import com.example.boxapp3.databinding.ActivityMainBinding;
 import com.example.boxapp3.listeners.activities.MainActivityListener;
 import com.example.boxapp3.models.activities.MainActivityModel;
+import com.example.boxapp3.views.fragments.HomeFragment;
 import com.example.iptvsdk.common.centerContent.CenterContent;
 import com.example.iptvsdk.common.menu.IptvMenu;
 import com.example.iptvsdk.common.menu.IptvMenuListener;
@@ -22,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.subjects.BehaviorSubject;
+
 
 public class MainActivity extends AppCompatActivity implements MainActivityListener {
 
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
     private void setupContent() {
         mCenterContent = new CenterContent(this,
                 R.id.main_active_fragment,
-                new MenuTargetFragment(R.layout.fragment_home));
+                new HomeFragment());
         mCenterContent.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
     }
 

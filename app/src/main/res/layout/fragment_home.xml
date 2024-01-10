@@ -16,8 +16,8 @@
         android:background="@drawable/rounded_corners_20dp"
         >
 
-        <include
-            layout="@layout/home_slider"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/slider"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="30dp"
@@ -44,9 +44,10 @@
             android:id="@+id/include"
             layout="@layout/scroll_horizontal"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginStart="30dp"
             android:layout_marginBottom="16dp"
+            app:model="@{model}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

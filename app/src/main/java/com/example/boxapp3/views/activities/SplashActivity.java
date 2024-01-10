@@ -16,6 +16,7 @@ import com.example.iptvsdk.ui.signin.IptvSignIn;
 import com.example.iptvsdk.ui.signin.IptvSigninListener;
 import com.example.iptvsdk.utils.DialogErrorUtil;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
