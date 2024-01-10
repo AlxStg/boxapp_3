@@ -194,7 +194,7 @@
                     android:layout_marginEnd="20dp"
                     app:layout_constraintBottom_toBottomOf="@+id/btn_play_movie"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/netflix_logo" />
+                    app:loadImage="@{model.info.info.logoProvider}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
