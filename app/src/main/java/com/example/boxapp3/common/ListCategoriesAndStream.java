@@ -45,7 +45,7 @@ public class ListCategoriesAndStream {
 
             @Override
             public void onFirstItemLoaded(ListStreamsModel item) {
-                iptvMovies.loadDetails(item.getId(), false);
+                iptvMovies.loadDetails(item.getId(), item.getType(), false);
             }
         });
 

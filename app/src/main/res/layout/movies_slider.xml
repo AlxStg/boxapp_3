@@ -46,7 +46,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/comfortaa_light"
-                    android:text="@{backgroundVodSeriesDataModel.type.equals(StreamXc.TYPE_STREAM_VOD) ? @string/movie : @string/series}"
+                    android:text="@{backgroundVodSeriesDataModel.type}"
                     android:textAllCaps="true"
                     android:textColor="#FFFFFF"
                     android:textSize="14sp"

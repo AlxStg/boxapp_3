@@ -234,6 +234,7 @@
                 android:orientation="horizontal"
                 android:paddingEnd="12dp"
                 android:tag="kids"
+                android:onClick="@{ () -> listener.onMenuClicked(`kids`) }"
                 app:layout_constraintBottom_toTopOf="@+id/btn_sports_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

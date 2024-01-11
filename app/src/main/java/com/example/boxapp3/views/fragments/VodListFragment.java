@@ -37,18 +37,35 @@ public class VodListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        iptvMovies = new IptvMovies(getContext(), type);
+        iptvMovies = new IptvMovies(getContext());
         binding.setBackgroundVodSeriesDataModel(iptvMovies.getBackgroundVodSeriesDataModel());
+        setTypeInUi();
         listStreamsCategories = ListCategoriesAndStream.setupLists(getContext(),
                 iptvMovies,
                 binding.listCategories,
                 type);
 
         listStreamsCategories.setOnItemFocusListener((item, position) -> {
-            iptvMovies.loadDetails(item.getId(), true);
+            iptvMovies.loadDetails(item.getId(), item.getType(), true);
         });
     }
 
+    private void setTypeInUi() {
+        String title = "";
+
+        switch (type) {
+            case "movie":
+                title = getString(com.example.iptvsdk.R.string.movies);
+                break;
+            case "series":
+                title = getString(com.example.iptvsdk.R.string.series);
+                break;
+            case "kids":
+                title = getString(com.example.iptvsdk.R.string.kids);
+                break;
+        }
+        iptvMovies.getBackgroundVodSeriesDataModel().setType(title);
+    }
 
 
 }

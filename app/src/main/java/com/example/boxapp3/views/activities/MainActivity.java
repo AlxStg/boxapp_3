@@ -19,6 +19,7 @@ import com.example.iptvsdk.common.centerContent.CenterContent;
 import com.example.iptvsdk.common.menu.IptvMenu;
 import com.example.iptvsdk.common.menu.IptvMenuListener;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
+import com.example.iptvsdk.ui.list_streams_categories.ListStreamsCategories;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
         mCenterContent.addFragment("home", new HomeFragment());
         mCenterContent.addFragment("movies", new VodListFragment(StreamXc.TYPE_STREAM_VOD));
         mCenterContent.addFragment("series", new VodListFragment(StreamXc.TYPE_STREAM_SERIES));
+        mCenterContent.addFragment("kids", new VodListFragment(ListStreamsCategories.TYPE_KIDS));
     }
 
     private void setupMenu() {
