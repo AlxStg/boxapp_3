@@ -187,6 +187,7 @@
                 android:orientation="horizontal"
                 android:paddingEnd="12dp"
                 android:tag="series"
+                android:onClick="@{ () -> listener.onMenuClicked(`series`) }"
                 app:layout_constraintBottom_toTopOf="@+id/btn_kids_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

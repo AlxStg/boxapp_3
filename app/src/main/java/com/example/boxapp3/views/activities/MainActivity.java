@@ -14,10 +14,11 @@ import com.example.boxapp3.listeners.activities.MainActivityListener;
 import com.example.boxapp3.listeners.models.activities.MainActivityModelListener;
 import com.example.boxapp3.models.activities.MainActivityModel;
 import com.example.boxapp3.views.fragments.HomeFragment;
-import com.example.boxapp3.views.fragments.MoviesFragment;
+import com.example.boxapp3.views.fragments.VodListFragment;
 import com.example.iptvsdk.common.centerContent.CenterContent;
 import com.example.iptvsdk.common.menu.IptvMenu;
 import com.example.iptvsdk.common.menu.IptvMenuListener;
+import com.example.iptvsdk.data.models.xtream.StreamXc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
         mCenterContent.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
 
         mCenterContent.addFragment("home", new HomeFragment());
-        mCenterContent.addFragment("movies", new MoviesFragment());
+        mCenterContent.addFragment("movies", new VodListFragment(StreamXc.TYPE_STREAM_VOD));
+        mCenterContent.addFragment("series", new VodListFragment(StreamXc.TYPE_STREAM_SERIES));
     }
 
     private void setupMenu() {
