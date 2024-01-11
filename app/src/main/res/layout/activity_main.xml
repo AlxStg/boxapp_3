@@ -5,6 +5,9 @@
         <variable
             name="model"
             type="com.example.boxapp3.models.activities.MainActivityModel" />
+        <variable
+            name="listener"
+            type="com.example.boxapp3.listeners.models.activities.MainActivityModelListener" />
         <import type="android.view.View" />
     </data>
 
@@ -17,7 +20,7 @@
         android:background="@drawable/bg_mac_5"
         android:backgroundTint="#33793FFF"
         android:backgroundTintMode="src_over"
-        tools:context=".MainActivity">
+        tools:context=".views.activities.MainActivity">
 
         <LinearLayout
             android:id="@+id/app_logotipo"
@@ -67,6 +70,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="80dp"
             app:model="@{model}"
+            app:listener="@{listener}"
             app:layout_constraintBottom_toBottomOf="@+id/main_active_fragment"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/main_active_fragment" />

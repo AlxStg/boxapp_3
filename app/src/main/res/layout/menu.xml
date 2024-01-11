@@ -6,6 +6,9 @@
         <variable
             name="model"
             type="com.example.boxapp3.models.activities.MainActivityModel" />
+        <variable
+            name="listener"
+            type="com.example.boxapp3.listeners.models.activities.MainActivityModelListener" />
         <import type="android.view.View" />
     </data>
 
@@ -42,6 +45,7 @@
                 android:orientation="horizontal"
                 android:paddingEnd="12dp"
                 android:tag="home"
+                android:onClick="@{ () -> listener.onMenuClicked(`home`) }"
                 app:layout_constraintBottom_toTopOf="@+id/btn_tv_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -135,6 +139,7 @@
                 android:orientation="horizontal"
                 android:paddingEnd="12dp"
                 android:tag="movies"
+                android:onClick="@{ () -> listener.onMenuClicked(`movies`) }"
                 app:layout_constraintBottom_toTopOf="@+id/btn_series_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,5 @@
 package com.example.boxapp3;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -10,6 +9,8 @@ import android.widget.SeekBar;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.boxapp3.views.activities.MainActivity;
 
 public class PlayerMoviesActivity extends AppCompatActivity {
     View btn_back_modal_movies_subt_lang;

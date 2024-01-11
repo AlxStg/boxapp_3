@@ -7,8 +7,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
-import com.bumptech.glide.Glide;
-import com.example.boxapp3.MainActivity;
 import com.example.boxapp3.R;
 import com.example.boxapp3.databinding.ActivitySplashBinding;
 import com.example.iptvsdk.IptvApplication;
@@ -16,7 +14,6 @@ import com.example.iptvsdk.ui.signin.IptvSignIn;
 import com.example.iptvsdk.ui.signin.IptvSigninListener;
 import com.example.iptvsdk.utils.DialogErrorUtil;
 
-import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

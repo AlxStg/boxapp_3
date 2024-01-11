@@ -1,4 +1,4 @@
-package com.example.boxapp3;
+package com.example.boxapp3.views.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,10 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 
+import com.example.boxapp3.R;
 import com.example.boxapp3.databinding.ActivityMainBinding;
 import com.example.boxapp3.listeners.activities.MainActivityListener;
+import com.example.boxapp3.listeners.models.activities.MainActivityModelListener;
 import com.example.boxapp3.models.activities.MainActivityModel;
 import com.example.boxapp3.views.fragments.HomeFragment;
+import com.example.boxapp3.views.fragments.MoviesFragment;
 import com.example.iptvsdk.common.centerContent.CenterContent;
 import com.example.iptvsdk.common.menu.IptvMenu;
 import com.example.iptvsdk.common.menu.IptvMenuListener;
@@ -22,7 +25,7 @@ import java.util.List;
 import io.reactivex.subjects.BehaviorSubject;
 
 
-public class MainActivity extends AppCompatActivity implements MainActivityListener {
+public class MainActivity extends AppCompatActivity implements MainActivityListener, MainActivityModelListener {
 
     private ActivityMainBinding mBinding;
 
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
         mModel = new MainActivityModel();
 
         mBinding.setModel(mModel);
+        mBinding.setListener(this);
 
         setupContent();
 
@@ -54,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
                 R.id.main_active_fragment,
                 new HomeFragment());
         mCenterContent.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
+
+        mCenterContent.addFragment("home", new HomeFragment());
+        mCenterContent.addFragment("movies", new MoviesFragment());
     }
 
     private void setupMenu() {
@@ -88,5 +95,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
     @Override
     public void onMenuSelected(String menu) {
 
+    }
+
+    @Override
+    public void onMenuClicked(String menu) {
+        mCenterContent.showFragment(menu);
     }
 }
