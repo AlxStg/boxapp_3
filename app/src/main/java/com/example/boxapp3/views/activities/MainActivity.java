@@ -1,12 +1,14 @@
 package com.example.boxapp3.views.activities;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 
 import com.example.boxapp3.R;
 import com.example.boxapp3.databinding.ActivityMainBinding;
@@ -14,6 +16,8 @@ import com.example.boxapp3.listeners.activities.MainActivityListener;
 import com.example.boxapp3.listeners.models.activities.MainActivityModelListener;
 import com.example.boxapp3.models.activities.MainActivityModel;
 import com.example.boxapp3.views.fragments.HomeFragment;
+import com.example.boxapp3.views.fragments.MovieDetailsFragment;
+import com.example.boxapp3.views.fragments.SeriesDetailsFragment;
 import com.example.boxapp3.views.fragments.VodListFragment;
 import com.example.iptvsdk.common.centerContent.CenterContent;
 import com.example.iptvsdk.common.menu.IptvMenu;
@@ -22,9 +26,6 @@ import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.ui.list_streams_categories.ListStreamsCategories;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.subjects.BehaviorSubject;
 
 
 public class MainActivity extends AppCompatActivity implements MainActivityListener, MainActivityModelListener {
@@ -35,8 +36,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
     private CenterContent mCenterContent;
     private IptvMenu mIptvMenu;
 
-    private List<View> menu;
-    private BehaviorSubject<Boolean> mMenuFocus = BehaviorSubject.create();
+    private String activeMenu = "home";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +55,45 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
 
     }
 
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if(event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (event.getKeyCode() == KeyEvent.KEYCODE_BACK || event.getKeyCode() == KeyEvent.KEYCODE_ESCAPE) {
+                if(mModel.getShowModalAdult()) {
+                    mModel.setShowModalAdult(false);
+                    return true;
+                }
+
+                if(mModel.getShowModalExit()) {
+                    mModel.setShowModalExit(false);
+                    return true;
+                }
+
+                if (mCenterContent.hasFragmentToBack()) {
+                    mCenterContent.backFragment();
+                } else {
+                    mModel.setShowModalExit(true);
+                }
+                return true;
+            }
+        }
+
+        return super.dispatchKeyEvent(event);
+    }
+
     private void setupContent() {
         mCenterContent = new CenterContent(this,
                 R.id.main_active_fragment,
-                new HomeFragment());
+                new HomeFragment(this));
         mCenterContent.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
 
-        mCenterContent.addFragment("home", new HomeFragment());
-        mCenterContent.addFragment("movies", new VodListFragment(StreamXc.TYPE_STREAM_VOD));
-        mCenterContent.addFragment("series", new VodListFragment(StreamXc.TYPE_STREAM_SERIES));
-        mCenterContent.addFragment("kids", new VodListFragment(ListStreamsCategories.TYPE_KIDS));
+        mCenterContent.addFragment("home", new HomeFragment(this));
+        mCenterContent.addFragment("movies", new VodListFragment(StreamXc.TYPE_STREAM_VOD,
+                this));
+        mCenterContent.addFragment("series", new VodListFragment(StreamXc.TYPE_STREAM_SERIES,
+                this));
+        mCenterContent.addFragment("kids", new VodListFragment(ListStreamsCategories.TYPE_KIDS,
+                this));
     }
 
     private void setupMenu() {
@@ -75,34 +104,66 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
                 mModel.setShowMenuLabels(!colapse);
             }
         });
-       ((ConstraintLayout) mBinding.includeMenu.menu).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-           @Override
-           public void onGlobalLayout() {
+        ((ConstraintLayout) mBinding.includeMenu.menu).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
                 ((ConstraintLayout) mBinding.includeMenu.menu).getViewTreeObserver()
                         .removeOnGlobalLayoutListener(this);
-               mIptvMenu.listenMenuFocusAndColapse(mBinding.includeMenu.menu,
-                       mBinding.includeMenu.menu.getWidth(),
-                       100,
-                       new ArrayList<View>(){{
-                           add(mBinding.includeMenu.btnHomeMenu);
-                           add(mBinding.includeMenu.btnTvMenu);
-                           add(mBinding.includeMenu.btnMoviesMenu);
-                           add(mBinding.includeMenu.btnSeriesMenu);
-                           add(mBinding.includeMenu.btnKidsMenu);
-                           add(mBinding.includeMenu.btnSportsMenu);
-                           add(mBinding.includeMenu.btnAdultMenu);
-                       }});
-           }
-       });
-    }
-
-    @Override
-    public void onMenuSelected(String menu) {
-
+                mIptvMenu.listenMenuFocusAndColapse(mBinding.includeMenu.menu,
+                        mBinding.includeMenu.menu.getWidth(),
+                        100,
+                        new ArrayList<View>() {{
+                            add(mBinding.includeMenu.btnHomeMenu);
+                            add(mBinding.includeMenu.btnTvMenu);
+                            add(mBinding.includeMenu.btnMoviesMenu);
+                            add(mBinding.includeMenu.btnSeriesMenu);
+                            add(mBinding.includeMenu.btnKidsMenu);
+                            add(mBinding.includeMenu.btnSportsMenu);
+                            add(mBinding.includeMenu.btnAdultMenu);
+                        }});
+            }
+        });
     }
 
     @Override
     public void onMenuClicked(String menu) {
+        activeMenu = menu;
         mCenterContent.showFragment(menu);
+    }
+
+    @Override
+    public void openDetails(int id, String type) {
+        Fragment fragment = null;
+        if (type.equals(StreamXc.TYPE_STREAM_VOD) || type.equals("kids")) {
+            fragment = new MovieDetailsFragment(id, this);
+        } else if (type.equals(StreamXc.TYPE_STREAM_SERIES)) {
+            fragment = new SeriesDetailsFragment(id);
+        }
+        if (fragment != null)
+            mCenterContent.changeFragement(fragment);
+    }
+
+    @Override
+    public void onGoToMenu() {
+        switch (activeMenu){
+            case "home":
+                mBinding.includeMenu.btnHomeMenu.requestFocus();
+                break;
+            case "movies":
+                mBinding.includeMenu.btnMoviesMenu.requestFocus();
+                break;
+            case "series":
+                mBinding.includeMenu.btnSeriesMenu.requestFocus();
+                break;
+            case "kids":
+                mBinding.includeMenu.btnKidsMenu.requestFocus();
+                break;
+            case "sports":
+                mBinding.includeMenu.btnSportsMenu.requestFocus();
+                break;
+            case "adult":
+                mBinding.includeMenu.btnAdultMenu.requestFocus();
+                break;
+        }
     }
 }

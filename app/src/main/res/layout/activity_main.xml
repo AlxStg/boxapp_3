@@ -101,6 +101,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <include
+            android:id="@+id/modal_exit"
+            layout="@layout/modal_sair"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{model.showModalExit ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <!--    <include layout="@layout/fragment_series" />-->
 

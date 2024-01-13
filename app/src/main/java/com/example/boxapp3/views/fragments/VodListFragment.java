@@ -1,6 +1,7 @@
 package com.example.boxapp3.views.fragments;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.example.boxapp3.common.ListCategoriesAndStream;
 import com.example.boxapp3.databinding.FragmentVodListBinding;
 import com.example.boxapp3.databinding.ItemListCategoriesBinding;
 import com.example.boxapp3.databinding.ItemListStreamBinding;
+import com.example.boxapp3.listeners.activities.MainActivityListener;
 import com.example.iptvsdk.ui.list_streams_categories.ListStreamsCategories;
 import com.example.iptvsdk.ui.movies.IptvMovies;
 
@@ -21,10 +23,12 @@ public class VodListFragment extends Fragment {
     private FragmentVodListBinding binding;
     private IptvMovies iptvMovies;
     private ListStreamsCategories<ItemListCategoriesBinding, ItemListStreamBinding> listStreamsCategories;
+    private MainActivityListener mainActivityListener;
     private String type;
 
-    public VodListFragment(String type) {
+    public VodListFragment(String type, MainActivityListener mainActivityListener) {
         this.type = type;
+        this.mainActivityListener = mainActivityListener;
     }
 
     @Nullable
@@ -47,6 +51,21 @@ public class VodListFragment extends Fragment {
 
         listStreamsCategories.setOnItemFocusListener((item, position) -> {
             iptvMovies.loadDetails(item.getId(), item.getType(), true);
+        });
+
+        listStreamsCategories.setOnItemClickListener((item, position) -> {
+            mainActivityListener.openDetails(item.getId(), item.getType());
+        });
+        listStreamsCategories.setOnKeyClickListener((keyCode, event, item, position, adapterPosition) -> {
+            if(event.getAction() == KeyEvent.ACTION_DOWN) {
+                if(keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                    if(position == 0) {
+                        mainActivityListener.onGoToMenu();
+                        return true;
+                    }
+                }
+            }
+            return false;
         });
     }
 

@@ -1,19 +1,13 @@
 package com.example.boxapp3.models.activities;
 
-import android.animation.ValueAnimator;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.databinding.BindingAdapter;
 
 public class MainActivityModel extends BaseObservable {
 
     private boolean showMenu = false;
     private boolean showMenuLabels = false;
-    private boolean showModalAdult = false;
+    private boolean showModalAdult, showModalExit = false;
 
 
     @Bindable
@@ -44,5 +38,15 @@ public class MainActivityModel extends BaseObservable {
     public void setShowMenuLabels(boolean showMenuLabels) {
         this.showMenuLabels = showMenuLabels;
         notifyPropertyChanged(com.example.boxapp3.BR.showMenuLabels);
+    }
+
+    @Bindable
+    public boolean getShowModalExit() {
+        return showModalExit;
+    }
+
+    public void setShowModalExit(boolean showModalExit) {
+        this.showModalExit = showModalExit;
+        notifyPropertyChanged(com.example.boxapp3.BR.showModalExit);
     }
 }

@@ -43,4 +43,6 @@
     <string name="tv">TV</string>
     <string name="soccer">Soccer</string>
     <string name="adult">Adult</string>
+    <string name="occurred_an_error_to_load_movie_details">Occurred an error to load movie details</string>
+    <string name="error_to_load_movie_details">Error to load movie details</string>
 </resources>
