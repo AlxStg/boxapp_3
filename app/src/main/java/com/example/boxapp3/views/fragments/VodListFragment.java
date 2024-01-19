@@ -59,7 +59,7 @@ public class VodListFragment extends Fragment {
         listStreamsCategories.setOnKeyClickListener((keyCode, event, item, position, adapterPosition) -> {
             if(event.getAction() == KeyEvent.ACTION_DOWN) {
                 if(keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-                    if(position == 0) {
+                    if(adapterPosition == 0) {
                         mainActivityListener.onGoToMenu();
                         return true;
                     }

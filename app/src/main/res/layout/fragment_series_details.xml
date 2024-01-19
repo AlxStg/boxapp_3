@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+            <variable
+                name="model"
+                type="com.example.iptvsdk.ui.series_details.SeriesDetailsModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/friends"
             app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -24,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/friends" />
+                app:loadImage="@{model.image}" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -58,7 +63,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/comfortaa_light"
-                        android:text="Série"
+                        android:text="@string/series"
                         android:textAlignment="textEnd"
                         android:textColor="#FFFEFE"
                         android:textSize="10sp"
@@ -70,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/comfortaa_light"
-                        android:text="Friends"
+                        android:text="@{model.name}"
                         android:textAlignment="textEnd"
                         android:textColor="#FFFFFF"
                         android:textSize="24sp"
@@ -83,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/comfortaa_light"
                         android:maxLines="7"
-                        android:text="Seis jovens são unidos por laços familiares, românticos e, principalmente, de amizade, enquanto tentam vingar em Nova York. Rachel é a garota mimada que deixa o noivo no altar para viver com a amiga dos tempos de escola Monica, sistemática e apaixonada pela culinária."
+                        android:text="@{model.description}"
                         android:textAlignment="textEnd"
                         android:textColor="#FFFFFF"
                         android:textSize="12sp"
@@ -106,7 +111,7 @@
                             android:paddingTop="1dp"
                             android:paddingEnd="5dp"
                             android:paddingBottom="2dp"
-                            android:text="Sitcom"
+                            android:text="@{model.genre}"
                             android:textColor="#FDFDFD"
                             android:textSize="8sp"
                             app:layout_constraintStart_toStartOf="@+id/movie_name"
@@ -127,6 +132,7 @@
                             android:text="Comédia"
                             android:textColor="#FDFDFD"
                             android:textSize="8sp"
+                            android:visibility="gone"
                             app:layout_constraintStart_toEndOf="@+id/genre1"
                             app:layout_constraintTop_toBottomOf="@+id/movie_name" />
 
@@ -142,10 +148,10 @@
                     android:layout_marginTop="30dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/hbo" />
+                    app:loadImage="@{model.streamService}" />
 
-                <HorizontalScrollView
-
+                <androidx.leanback.widget.HorizontalGridView
+                    android:id="@+id/horizontalGridView2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -154,165 +160,7 @@
                     android:scrollbars="none"
                     app:layout_constraintBottom_toTopOf="@+id/include"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/genre7"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_button"
-                            android:backgroundTint="#33FFFFFF"
-                            android:fontFamily="@font/comfortaa_light"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="3dp"
-                            android:text="Temporada 1"
-                            android:textColor="#FDFDFD"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/genre8"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_button"
-                            android:backgroundTint="#33FFFFFF"
-                            android:fontFamily="@font/comfortaa_light"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="3dp"
-                            android:text="Temporada 2"
-                            android:textColor="#FDFDFD"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/genre9"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_button"
-                            android:backgroundTint="#33FFFFFF"
-                            android:fontFamily="@font/comfortaa_light"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="3dp"
-                            android:text="Temporada 3"
-                            android:textColor="#FDFDFD"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/genre10"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_button"
-                            android:backgroundTint="#33FFFFFF"
-                            android:fontFamily="@font/comfortaa_light"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="3dp"
-                            android:text="Temporada 4"
-                            android:textColor="#FDFDFD"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/genre11"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_button"
-                            android:backgroundTint="#33FFFFFF"
-                            android:fontFamily="@font/comfortaa_light"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="3dp"
-                            android:text="Temporada 5"
-                            android:textColor="#FDFDFD"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/genre12"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_button"
-                            android:backgroundTint="#33FFFFFF"
-                            android:fontFamily="@font/comfortaa_light"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="3dp"
-                            android:text="Temporada 6"
-                            android:textColor="#FDFDFD"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/genre13"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_button"
-                            android:backgroundTint="#33FFFFFF"
-                            android:fontFamily="@font/comfortaa_light"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="3dp"
-                            android:text="Temporada 7"
-                            android:textColor="#FDFDFD"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/genre5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:background="@drawable/bg_button"
-                            android:backgroundTint="#33FFFFFF"
-                            android:fontFamily="@font/comfortaa_light"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="3dp"
-                            android:text="Temporada 8"
-                            android:textColor="#FDFDFD"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/genre6"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:background="@drawable/bg_button"
-                            android:backgroundTint="#33FFFFFF"
-                            android:fontFamily="@font/comfortaa_light"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="3dp"
-                            android:text="Temporada 9"
-                            android:textColor="#FDFDFD"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </HorizontalScrollView>
+                    app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

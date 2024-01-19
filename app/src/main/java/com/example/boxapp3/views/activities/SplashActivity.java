@@ -62,7 +62,12 @@ public class SplashActivity extends BaseActivity {
                 .apply();
     }
 
+    private boolean alreayGoToMainActivity = false;
+
     private void goToMainActivity() {
+        if(alreayGoToMainActivity)
+            return;
+        alreayGoToMainActivity = true;
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
