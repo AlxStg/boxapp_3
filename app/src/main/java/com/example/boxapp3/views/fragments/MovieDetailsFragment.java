@@ -1,6 +1,7 @@
 package com.example.boxapp3.views.fragments;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,13 +46,6 @@ public class MovieDetailsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentMovieDetailsBinding.inflate(inflater, container, false);
-        binding.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                binding.getRoot().getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                binding.favButton.requestFocus();
-            }
-        });
         return binding.getRoot();
     }
 
@@ -84,6 +78,13 @@ public class MovieDetailsFragment extends Fragment {
                             getString(R.string.occurred_an_error_to_load_movie_details));
                 })
                 .subscribe();
+        binding.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                binding.getRoot().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                binding.favButton.requestFocus();
+            }
+        });
     }
 
 
@@ -125,6 +126,18 @@ public class MovieDetailsFragment extends Fragment {
                 binding.setModel(item);
                 binding.getRoot().setOnClickListener(v -> {
                    mainActivityListener.openDetails(item.getId(), item.getType());
+                });
+
+                binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
+                    if(event.getAction() == KeyEvent.ACTION_DOWN) {
+                        if(keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                            if(bindingAdapterPosition == 0) {
+                                mainActivityListener.onGoToMenu();
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
                 });
             }
         });
