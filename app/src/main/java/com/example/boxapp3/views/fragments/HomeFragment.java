@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -73,6 +74,14 @@ public class HomeFragment extends Fragment {
 
         setupContent();
         setupSliderMovies();
+
+        mBinding.include2.channelsFavoriteVgv.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mBinding.include2.channelsFavoriteVgv.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                mBinding.include2.channelsFavoriteVgv.requestFocus();
+            }
+        });
     }
 
     private void setupContent() {

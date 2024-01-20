@@ -23,5 +23,7 @@
         android:paddingBottom="3dp"
         android:text="@{ @string/season + ` ` + model.seasonNumber }"
         android:textColor="#FDFDFD"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:focusable="true"
+        android:clickable="true"/>
 </layout>

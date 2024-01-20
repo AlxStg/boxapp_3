@@ -46,4 +46,5 @@
     <string name="occurred_an_error_to_load_movie_details">Occurred an error to load movie details</string>
     <string name="error_to_load_movie_details">Error to load movie details</string>
     <string name="season">Season</string>
+    <string name="episode_d">Episode %d</string>
 </resources>

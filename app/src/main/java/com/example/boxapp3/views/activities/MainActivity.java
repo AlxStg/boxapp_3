@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
         if (type.equals(StreamXc.TYPE_STREAM_VOD) || type.equals("kids")) {
             fragment = new MovieDetailsFragment(id, this);
         } else if (type.equals(StreamXc.TYPE_STREAM_SERIES)) {
-            fragment = new SeriesDetailsFragment(id);
+            fragment = new SeriesDetailsFragment(id, this);
         }
         if (fragment != null)
             mCenterContent.changeFragement(fragment);

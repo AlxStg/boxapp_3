@@ -36,19 +36,6 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/fundo_preto_esmaecido">
 
-                <include
-                    android:id="@+id/include"
-                    layout="@layout/scroll_temporada"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent" />
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -151,14 +138,26 @@
                     app:loadImage="@{model.streamService}" />
 
                 <androidx.leanback.widget.HorizontalGridView
-                    android:id="@+id/horizontalGridView2"
+                    android:id="@+id/seasons"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:nextFocusDown="@id/episodes"
+                    app:layout_constraintBottom_toTopOf="@+id/episodes"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.leanback.widget.HorizontalGridView
+                    android:id="@+id/episodes"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="130dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="1dp"
-                    android:scrollbarSize="0dp"
-                    android:scrollbars="none"
-                    app:layout_constraintBottom_toTopOf="@+id/include"
+                    android:nextFocusUp="@id/seasons"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
