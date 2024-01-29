@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/bg_cristalizado4" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
+        android:id="@+id/user_pass_box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_modal"
