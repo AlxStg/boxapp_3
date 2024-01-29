@@ -92,6 +92,7 @@
                 android:orientation="horizontal"
                 android:paddingEnd="12dp"
                 android:tag="live"
+                android:onClick="@{ () -> listener.onMenuClicked(`live`) }"
                 app:layout_constraintBottom_toTopOf="@+id/btn_movies_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
