@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
                 this));
         mCenterContent.addFragment("kids", new VodListFragment(ListStreamsCategories.TYPE_KIDS,
                 this));
+        mCenterContent.addFragment("adults", new VodListFragment(ListStreamsCategories.TYPE_ADULTS,
+                this));
     }
 
     private void setupMenu() {
@@ -128,6 +130,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
     @Override
     public void onMenuClicked(String menu) {
         activeMenu = menu;
+        if(menu.equals("adults")){
+            //mModel.setShowModalAdult(true);
+            //return;
+        }
         mCenterContent.showFragment(menu);
     }
 

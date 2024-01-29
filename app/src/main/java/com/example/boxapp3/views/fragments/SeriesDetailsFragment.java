@@ -136,6 +136,7 @@ public class SeriesDetailsFragment extends Fragment {
                 .doOnSuccess(seasons -> {
                     GenericAdapter<SeasonModel, ItemSeasonBinding> adapter =
                             new GenericAdapter<>(getContext(), new GenericAdapter.GenericAdapterHelper<SeasonModel, ItemSeasonBinding>() {
+                                int selectedPosition = 1;
                                 @Override
                                 public ItemSeasonBinding createBinding(LayoutInflater inflater, ViewGroup parent) {
                                     return ItemSeasonBinding.inflate(inflater, parent, false);
@@ -154,9 +155,14 @@ public class SeriesDetailsFragment extends Fragment {
 
                                 @Override
                                 public void setModelToItem(ItemSeasonBinding binding, SeasonModel item, int bindingAdapterPosition, GenericAdapter<SeasonModel, ItemSeasonBinding> adapter) {
+                                    if(selectedPosition == item.getSeasonNumber())
+                                        binding.getRoot().setSelected(true);
+
                                     binding.setModel(item);
                                     binding.getRoot().setOnClickListener(v -> {
                                         iptvSeriesDetails.loadSeason(item.getSeasonNumber());
+                                        selectedPosition = item.getSeasonNumber();
+                                        adapter.notifyDataSetChanged();
                                     });
                                     binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
                                         if (event.getAction() == KeyEvent.ACTION_DOWN) {
