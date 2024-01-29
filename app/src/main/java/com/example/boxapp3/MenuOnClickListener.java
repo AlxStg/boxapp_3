@@ -23,9 +23,6 @@ public class MenuOnClickListener implements View.OnClickListener {
         if (layoutId == mainActivity.btn_tv) {
             Intent intent = new Intent(mainActivity, PlayerTvActivity.class);
             mainActivity.startActivity(intent);
-        } else if (layoutId == mainActivity.btn_movies) {
-            Intent intent = new Intent(mainActivity, PlayerMoviesActivity.class);
-            mainActivity.startActivity(intent);
         } else if (mainActivity.getFragmentOnScreen() != layoutId) {
                 v.setVisibility(View.VISIBLE);
                 Fragment fragment = new MenuTargetFragment(layoutId);

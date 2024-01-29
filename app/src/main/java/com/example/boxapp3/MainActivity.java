@@ -17,6 +17,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     ImageView bgModal;
+    View modal_main;
 
     View lbl_home;
     View lbl_tv;
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         include_active_fragment = R.id.main_active_fragment;
 
         findViewById(btn_home).setOnClickListener(new MenuOnClickListener(this, R.layout.fragment_home));
-        findViewById(btn_tv).setOnClickListener(new MenuOnClickListener(this, btn_tv));
+        findViewById(btn_tv).setOnClickListener(new MenuOnClickListener(this, R.layout.fragment_tv));
         findViewById(btn_movies).setOnClickListener(new MenuOnClickListener(this, R.layout.fragment_movie_especific));
         findViewById(btn_series).setOnClickListener(new MenuOnClickListener(this, R.layout.fragment_movies));
 //        findViewById(btn_kids).setOnClickListener(new MenuClickListener(this, R.layout.fragment_kids));
@@ -113,6 +114,18 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(intent);
 //    }
 //});
+
+//        modal_main = findViewById(R.id.include_modal_main);
+//        View btn_cancel = findViewById(R.id.btn_cancel_modal_adult_enter);
+//
+//
+//        btn_cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                modal_main.setVisibility(View.GONE);
+//            }
+//        });
+
 
 
 

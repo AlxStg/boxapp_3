@@ -78,11 +78,12 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <include
-        android:id="@+id/include"
-        layout="@layout/modal_enter_adult"
+        android:id="@+id/include_modal_main"
+        layout="@layout/modal_continuar"
         android:layout_width="0dp"
+        
         android:layout_height="0dp"
-
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
