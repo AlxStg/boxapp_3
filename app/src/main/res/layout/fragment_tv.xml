@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/rounded_corners_20dp"
     android:backgroundTintMode="add">
-<!--ggs-->
+    <!--ggs-->
     <include
         android:id="@+id/include2"
         layout="@layout/scroll_tv_category"
