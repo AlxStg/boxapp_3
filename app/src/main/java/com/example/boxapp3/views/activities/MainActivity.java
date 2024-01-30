@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
 
     private String activeMenu = "home";
 
+    private boolean adultAccessibile = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,10 +147,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
     @Override
     public void onMenuClicked(String menu) {
         activeMenu = menu;
+
         if(menu.equals("adults")){
-            //mModel.setShowModalAdult(true);
-            //return;
-        }
+            if(adultAccessibile) {
+                mModel.setShowModalAdult(true);
+                return;
+            }
+        } else adultAccessibile = false;
         mCenterContent.showFragment(menu);
     }
 

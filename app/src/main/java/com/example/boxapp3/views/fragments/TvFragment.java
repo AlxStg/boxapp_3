@@ -81,7 +81,7 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
                                 Log.e("TAG", "getItem: ", th);
                             })
                             .doOnSuccess(streamXc -> {
-                                loadEpg(streamXc.getEpgChannelId());
+                                loadEpg(streamXc);
                             })
                             .subscribe();
                 }
@@ -101,7 +101,8 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
                     if (epgRunnable != null)
                         epgHandler.removeCallbacks(epgRunnable);
                     epgRunnable = () -> {
-                        loadEpg(item.getEpgChannelId());
+                        loadEpg(item);
+                        Log.d("TAG", "setModelToItem: " + item.getTvArchiveDuration());
                     };
                     epgHandler.postDelayed(epgRunnable, 1000);
                 });
@@ -110,7 +111,7 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
         mBinding.include3.listChannels.setAdapter(adapter);
     }
 
-    private void loadEpg(String epgChannelId) {
+    private void loadEpg(StreamXc stream) {
         GenericAdapter<EpgDb, ScrollTvEpgItemBinding> adapter =
                 new GenericAdapter<>(getContext(), new GenericAdapter.GenericAdapterHelper<EpgDb, ScrollTvEpgItemBinding>() {
                     @Override
@@ -120,14 +121,13 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
 
                     @Override
                     public Single<EpgDb> getItem(int position) {
-                        return iptvHomeLive.getEpg(epgChannelId,
-                                position);
+                        return iptvHomeLive.getEpg(stream.getEpgChannelId(), position);
                     }
 
                     @Override
                     public Observable<Integer> getTotalItems() {
 
-                        Observable<Integer> totalEpg = iptvHomeLive.getTotalEpg(epgChannelId);
+                        Observable<Integer> totalEpg = iptvHomeLive.getTotalEpg(stream.getEpgChannelId());
 
                         totalEpg
                                 .subscribeOn(Schedulers.io())
@@ -148,6 +148,7 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
                     @Override
                     public void setModelToItem(ScrollTvEpgItemBinding binding, EpgDb item, int bindingAdapterPosition, GenericAdapter<EpgDb, ScrollTvEpgItemBinding> adapter) {
                         binding.setModel(item);
+                        binding.setDaysPlayback(stream.getTvArchiveDuration());
                     }
                 });
         getActivity().runOnUiThread(() -> mBinding.include4.listEpg.setAdapter(adapter));

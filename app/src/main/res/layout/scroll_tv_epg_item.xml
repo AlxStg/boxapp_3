@@ -6,6 +6,9 @@
         <variable
             name="model"
             type="com.example.iptvsdk.data.models.EpgDb" />
+        <variable
+            name="daysPlayback"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -46,6 +49,8 @@
             android:text="@string/playback"
             android:textColor="#BF0000"
             android:textSize="10sp"
+            app:daysPlayback="@{daysPlayback}"
+            app:dateStart="@{model.start}"
             app:layout_constraintBottom_toTopOf="@+id/textView46"
             app:layout_constraintStart_toStartOf="@+id/textView46"
             app:layout_constraintTop_toTopOf="parent" />
