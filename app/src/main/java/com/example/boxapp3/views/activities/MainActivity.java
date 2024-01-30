@@ -13,11 +13,14 @@ import androidx.fragment.app.Fragment;
 import com.example.boxapp3.R;
 import com.example.boxapp3.databinding.ActivityMainBinding;
 import com.example.boxapp3.listeners.activities.MainActivityListener;
+import com.example.boxapp3.listeners.fragments.KeyListener;
+import com.example.boxapp3.listeners.fragments.MainFragmentListener;
 import com.example.boxapp3.listeners.models.activities.MainActivityModelListener;
 import com.example.boxapp3.models.activities.MainActivityModel;
 import com.example.boxapp3.views.fragments.HomeFragment;
 import com.example.boxapp3.views.fragments.MovieDetailsFragment;
 import com.example.boxapp3.views.fragments.SeriesDetailsFragment;
+import com.example.boxapp3.views.fragments.TvFragment;
 import com.example.boxapp3.views.fragments.VodListFragment;
 import com.example.iptvsdk.common.centerContent.CenterContent;
 import com.example.iptvsdk.common.menu.IptvMenu;
@@ -58,6 +61,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if(event.getAction() == KeyEvent.ACTION_DOWN) {
+            if(mCenterContent.getCurrentFragment() instanceof KeyListener){
+                if(((KeyListener) mCenterContent.getCurrentFragment()).dispatchKeyEvent(event))
+                    return true;
+            }
+            if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT){
+                if(mModel.getShowMenuLabels() && mCenterContent.getCurrentFragment() instanceof MainFragmentListener){
+                    ((MainFragmentListener) mCenterContent.getCurrentFragment()).firstFocus()
+                            .requestFocus();
+                    return true;
+                }
+            }
             if (event.getKeyCode() == KeyEvent.KEYCODE_BACK || event.getKeyCode() == KeyEvent.KEYCODE_ESCAPE) {
                 if(mModel.getShowModalAdult()) {
                     mModel.setShowModalAdult(false);
@@ -96,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
                 this));
         mCenterContent.addFragment("adults", new VodListFragment(ListStreamsCategories.TYPE_ADULTS,
                 this));
+        mCenterContent.addFragment("live", new TvFragment());
     }
 
     private void setupMenu() {

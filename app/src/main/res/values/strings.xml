@@ -49,4 +49,9 @@
     <string name="error_to_load_movie_details">Error to load movie details</string>
     <string name="season">Season</string>
     <string name="episode_d">Episode %d</string>
+    <string name="tv_categories">Tv Categories</string>
+    <string name="channels">Channels</string>
+    <string name="guide">Guide</string>
+    <string name="playback">Playback</string>
+    <string name="no_epg_data">No EPG data</string>
 </resources>
