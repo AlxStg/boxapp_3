@@ -36,7 +36,10 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
     private IptvHomeLive iptvHomeLive;
     private TvFragmentModel mModel;
     private Handler epgHandler = new Handler();
+    private Handler categoriesHandler = new Handler();
     private Runnable epgRunnable;
+    private Runnable categoriesRunnable;
+
 
     @Nullable
     @Override
@@ -95,7 +98,7 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
                 binding.setModel(item);
 
                 binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
-                    if(epgRunnable != null)
+                    if (epgRunnable != null)
                         epgHandler.removeCallbacks(epgRunnable);
                     epgRunnable = () -> {
                         loadEpg(item.getEpgChannelId());
@@ -175,6 +178,14 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
                         @Override
                         public void setModelToItem(ScrollTvCategoryItemBinding binding, Category item, int bindingAdapterPosition, GenericAdapter<Category, ScrollTvCategoryItemBinding> adapter) {
                             binding.setModel(item);
+                            binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
+                                if (categoriesRunnable != null)
+                                    categoriesHandler.removeCallbacks(categoriesRunnable);
+                                if (hasFocus) {
+                                    categoriesRunnable = () -> iptvHomeLive.setCategoryId(Integer.parseInt(item.getCategoryId()));
+                                    categoriesHandler.postDelayed(categoriesRunnable, 1000);
+                                }
+                            });
                         }
                     });
                     mBinding.include2.listCategories.setAdapter(adapter);
@@ -184,19 +195,19 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT){
-            if(mBinding.include3.listChannels.hasFocus()){
+        if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
+            if (mBinding.include3.listChannels.hasFocus()) {
                 mBinding.include2.listCategories.requestFocus();
                 return true;
-            } else if(mBinding.include4.listEpg.hasFocus()){
+            } else if (mBinding.include4.listEpg.hasFocus()) {
                 mBinding.include3.listChannels.requestFocus();
                 return true;
             }
-        } else if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT){
-            if(mBinding.include2.listCategories.hasFocus()){
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
+            if (mBinding.include2.listCategories.hasFocus()) {
                 mBinding.include3.listChannels.requestFocus();
                 return true;
-            } else if(mBinding.include3.listChannels.hasFocus()){
+            } else if (mBinding.include3.listChannels.hasFocus()) {
                 mBinding.include4.listEpg.requestFocus();
                 return true;
             }
