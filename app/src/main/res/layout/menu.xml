@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -12,9 +14,7 @@
         <import type="android.view.View" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
@@ -275,12 +275,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_button"
-                android:focusable="true"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingEnd="12dp"
                 android:tag="sports"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/btn_adult_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -308,8 +309,8 @@
                     android:shadowDy="5"
                     android:shadowRadius="5"
                     android:text="@string/soccer"
-                    android:textAllCaps="true"
                     android:textAlignment="center"
+                    android:textAllCaps="true"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -324,14 +325,14 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
+                android:onClick="@{ () -> listener.onMenuClicked(`adults`) }"
                 android:orientation="horizontal"
                 android:paddingEnd="12dp"
                 android:tag="adults"
-                android:onClick="@{ () -> listener.onMenuClicked(`adults`) }"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_sports_menu">
+                app:layout_constraintTop_toBottomOf="@id/btn_kids_menu">
 
                 <ImageView
                     android:id="@+id/menu_adulto_icon"
@@ -355,8 +356,8 @@
                     android:shadowDy="5"
                     android:shadowRadius="5"
                     android:text="@string/adult"
-                    android:textAllCaps="true"
                     android:textAlignment="center"
+                    android:textAllCaps="true"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp"
                     android:textStyle="bold"

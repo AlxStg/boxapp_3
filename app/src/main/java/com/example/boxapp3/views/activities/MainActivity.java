@@ -27,6 +27,7 @@ import com.example.iptvsdk.common.menu.IptvMenu;
 import com.example.iptvsdk.common.menu.IptvMenuListener;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.ui.list_streams_categories.ListStreamsCategories;
+import com.example.iptvsdk.ui.parental.IptvParental;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
     private MainActivityModel mModel;
     private CenterContent mCenterContent;
     private IptvMenu mIptvMenu;
+    private IptvParental mIptvParental;
 
     private String activeMenu = "home";
 
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         mModel = new MainActivityModel();
+
+        mIptvParental = new IptvParental(this);
 
         mBinding.setModel(mModel);
         mBinding.setListener(this);
@@ -74,8 +78,50 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
                     return true;
                 }
             }
+            if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN){
+                if(mModel.getShowModalAdult()){
+                    if(mBinding.include.editTextText2.hasFocus()){
+                        if(!mIptvParental.hasPassword())
+                            mBinding.include.editTextText3.requestFocus();
+                        else
+                            mBinding.include.textView42.requestFocus();
+                        return true;
+                    }
+                    if (mBinding.include.editTextText3.hasFocus()) {
+                        mBinding.include.textView42.requestFocus();
+                        return true;
+                    }
+                    if(mBinding.include
+                            .textView42.hasFocus()){
+                        mBinding.include.editTextText2.requestFocus();
+                        return true;
+                    }
+                    if(mBinding.include.btnCancelModalAdultEnter.hasFocus()){
+                        mBinding.include.editTextText2.requestFocus();
+                        return true;
+                    }
+                }
+            }
+
+            if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP){
+                if(mModel.getShowModalAdult()){
+                    if(mBinding.include.editTextText3.hasFocus()){
+                        mBinding.include.editTextText2.requestFocus();
+                        return true;
+                    }
+                    if (mBinding.include.textView42.hasFocus()) {
+                        if(!mIptvParental.hasPassword())
+                            mBinding.include.editTextText3.requestFocus();
+                        else
+                            mBinding.include.editTextText2.requestFocus();
+                        return true;
+                    }
+                }
+            }
             if (event.getKeyCode() == KeyEvent.KEYCODE_BACK || event.getKeyCode() == KeyEvent.KEYCODE_ESCAPE) {
                 if(mModel.getShowModalAdult()) {
+                    mBinding.include.editTextText2.setText("");
+                    mBinding.include.editTextText3.setText("");
                     mModel.setShowModalAdult(false);
                     return true;
                 }
@@ -149,12 +195,38 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
         activeMenu = menu;
 
         if(menu.equals("adults")){
-            if(adultAccessibile) {
+            if(!adultAccessibile) {
+                mBinding.include.setRegisterPassword(!mIptvParental.hasPassword());
                 mModel.setShowModalAdult(true);
+                mBinding.include.editTextText2.requestFocus();
                 return;
             }
         } else adultAccessibile = false;
         mCenterContent.showFragment(menu);
+    }
+
+    @Override
+    public void onParentalPasswordSet() {
+        if(mIptvParental.hasPassword()) {
+            adultAccessibile = mIptvParental.checkPassword(mBinding.include.editTextText2.getText().toString());
+            if(!adultAccessibile) {
+                mBinding.include.textView41.setText(R.string.wrong_password);
+                return;
+            }
+            mModel.setShowModalAdult(false);
+            mCenterContent.showFragment("adults");
+        } else {
+            adultAccessibile = mIptvParental.setPassword(mBinding.include.editTextText2.getText().toString(),
+                    mBinding.include.editTextText3.getText().toString());
+            if(!adultAccessibile) {
+                mBinding.include.textView41.setText(R.string.password_not_match);
+                return;
+            }
+            mModel.setShowModalAdult(false);
+            mCenterContent.showFragment("adults");
+        }
+        mBinding.include.editTextText2.setText("");
+        mBinding.include.editTextText3.setText("");
     }
 
     @Override

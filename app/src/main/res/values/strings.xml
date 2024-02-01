@@ -54,4 +54,13 @@
     <string name="guide">Guide</string>
     <string name="playback">Playback</string>
     <string name="no_epg_data">No EPG data</string>
+    <string name="atention_">ATENTION!</string>
+    <string name="adult_content">Adult content</string>
+    <string name="access_code_required">Access code required:</string>
+    <string name="repeat_code">Repeat Code</string>
+    <string name="access_code">Access Code</string>
+    <string name="cancel">Cancel</string>
+    <string name="proceed">Proceed</string>
+    <string name="password_not_match">Password not match</string>
+    <string name="wrong_password">Wrong password</string>
 </resources>
