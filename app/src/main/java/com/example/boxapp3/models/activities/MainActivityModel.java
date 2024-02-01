@@ -8,6 +8,7 @@ public class MainActivityModel extends BaseObservable {
     private boolean showMenu = false;
     private boolean showMenuLabels = false;
     private boolean showModalAdult, showModalExit = false;
+    private String actualMenu = "home";
 
 
     @Bindable
@@ -48,5 +49,15 @@ public class MainActivityModel extends BaseObservable {
     public void setShowModalExit(boolean showModalExit) {
         this.showModalExit = showModalExit;
         notifyPropertyChanged(com.example.boxapp3.BR.showModalExit);
+    }
+
+    @Bindable
+    public String getActualMenu() {
+        return actualMenu;
+    }
+
+    public void setActualMenu(String actualMenu) {
+        this.actualMenu = actualMenu;
+        notifyPropertyChanged(com.example.boxapp3.BR.actualMenu);
     }
 }

@@ -192,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
 
     @Override
     public void onMenuClicked(String menu) {
+        mModel.setActualMenu(menu);
         activeMenu = menu;
 
         if(menu.equals("adults")){
