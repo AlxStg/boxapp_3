@@ -63,4 +63,6 @@
     <string name="proceed">Proceed</string>
     <string name="password_not_match">Password not match</string>
     <string name="wrong_password">Wrong password</string>
+    <string name="categories">Categories</string>
+    <string name="error_to_retrieve_channel">Error to retrieve channel</string>
 </resources>

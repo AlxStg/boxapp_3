@@ -23,7 +23,7 @@ import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
 import com.example.iptvsdk.data.models.EpgDb;
 import com.example.iptvsdk.data.models.xtream.Category;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
-import com.example.iptvsdk.ui.home_live.IptvHomeLive;
+import com.example.iptvsdk.ui.live.IptvLive;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -33,7 +33,7 @@ import io.reactivex.schedulers.Schedulers;
 public class TvFragment extends Fragment implements KeyListener, MainFragmentListener {
 
     private FragmentTvBinding mBinding;
-    private IptvHomeLive iptvHomeLive;
+    private IptvLive iptvLive;
     private TvFragmentModel mModel;
     private Handler epgHandler = new Handler();
     private Handler categoriesHandler = new Handler();
@@ -45,7 +45,7 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentTvBinding.inflate(inflater, container, false);
-        iptvHomeLive = new IptvHomeLive(getContext());
+        iptvLive = new IptvLive(getContext());
         mModel = new TvFragmentModel();
 
         mBinding.setModel(mModel);
@@ -71,7 +71,7 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
 
             @Override
             public Single<StreamXc> getItem(int position) {
-                Single<StreamXc> channel = iptvHomeLive.getChannels(position);
+                Single<StreamXc> channel = iptvLive.getChannels(position);
                 if (position == 0 && !loadedFirstEpg) {
                     loadedFirstEpg = true;
                     channel.subscribeOn(Schedulers.io())
@@ -90,7 +90,7 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
 
             @Override
             public Observable<Integer> getTotalItems() {
-                return iptvHomeLive.getTotalChannels();
+                return iptvLive.getTotalChannels();
             }
 
             @Override
@@ -121,13 +121,13 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
 
                     @Override
                     public Single<EpgDb> getItem(int position) {
-                        return iptvHomeLive.getEpg(stream.getEpgChannelId(), position);
+                        return iptvLive.getEpg(stream.getEpgChannelId(), position);
                     }
 
                     @Override
                     public Observable<Integer> getTotalItems() {
 
-                        Observable<Integer> totalEpg = iptvHomeLive.getTotalEpg(stream.getEpgChannelId());
+                        Observable<Integer> totalEpg = iptvLive.getTotalEpg(stream.getEpgChannelId());
 
                         totalEpg
                                 .subscribeOn(Schedulers.io())
@@ -155,7 +155,7 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
     }
 
     private void setupCategories() {
-        iptvHomeLive.getCategories()
+        iptvLive.getCategories()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(th -> Log.e("TAG", "setupCategories: ", th))
@@ -183,7 +183,7 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
                                 if (categoriesRunnable != null)
                                     categoriesHandler.removeCallbacks(categoriesRunnable);
                                 if (hasFocus) {
-                                    categoriesRunnable = () -> iptvHomeLive.setCategoryId(Integer.parseInt(item.getCategoryId()));
+                                    categoriesRunnable = () -> iptvLive.setCategoryId(Integer.parseInt(item.getCategoryId()));
                                     categoriesHandler.postDelayed(categoriesRunnable, 1000);
                                 }
                             });
