@@ -1,5 +1,6 @@
 package com.example.boxapp3.views.fragments.players.tv;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -26,6 +27,8 @@ import com.example.iptvsdk.data.models.xtream.Category;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.ui.live.IptvLive;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -37,6 +40,8 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
     private IptvLive mIptvLive;
     private PlayerTvActivityListener mListener;
 
+    private SharedPreferences mSharedPreferences;
+
     private Handler epgHandler = new Handler();
     private Handler categoriesHandler = new Handler();
     private Runnable epgRunnable;
@@ -44,9 +49,10 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
     private boolean loadedFirstEpg = false;
 
 
-    public PlayerTvPanelsFragment(PlayerTvActivityListener listener, IptvLive iptvLive) {
+    public PlayerTvPanelsFragment(SharedPreferences sharedPreferences, PlayerTvActivityListener listener, IptvLive iptvLive) {
         mListener = listener;
         mIptvLive = iptvLive;
+        mSharedPreferences = sharedPreferences;
     }
 
     @Nullable
@@ -60,7 +66,7 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupCategories();
-        setupChannels(-1);
+        setupChannels();
     }
 
     private void setupCategories() {
@@ -86,24 +92,84 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
                         }
 
                         @Override
-                        public void setModelToItem(ScrollTvCategoryItemBinding binding, Category item, int bindingAdapterPosition, GenericAdapter<Category, ScrollTvCategoryItemBinding> adapter) {
+                        public void setModelToItem(ScrollTvCategoryItemBinding binding,
+                                                   Category item,
+                                                   int bindingAdapterPosition,
+                                                   GenericAdapter<Category, ScrollTvCategoryItemBinding> adapter) {
                             binding.setModel(item);
                             binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
                                 if (categoriesRunnable != null)
                                     categoriesHandler.removeCallbacks(categoriesRunnable);
                                 if (hasFocus) {
-                                    categoriesRunnable = () -> mIptvLive.setCategoryId(Integer.parseInt(item.getCategoryId()));
+                                    categoriesRunnable = () -> mIptvLive.setCategoryId(Integer
+                                            .parseInt(item.getCategoryId()));
                                     categoriesHandler.postDelayed(categoriesRunnable, 1000);
+
+                                    if (item.getCategoryId() != null && !item.getCategoryId()
+                                            .equals(mSharedPreferences.getString("lastCategoryId",
+                                                    "nnnnnnnnnnnnnnnnnnnnnnnnnnnn"))) {
+                                        SharedPreferences.Editor editor = mSharedPreferences.edit();
+                                        editor.putString("lastCategoryId", item.getCategoryId());
+                                        editor.remove("lastChannelId");
+                                        editor.apply();
+                                    }
                                 }
                             });
                         }
                     });
                     mBinding.include.include2.listCategories.setAdapter(adapter);
+                    adapter.totalItemsObservable
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnError(th -> Log.e("TAG", "setupCategories: ", th))
+                            .doOnNext(integer -> {
+                                String lastCategoryId = mSharedPreferences.getString("lastCategoryId", null);
+                                if (lastCategoryId != null) {
+                                    getPositionCategory(lastCategoryId, categories)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .doOnError(th -> Log.e("TAG", "setupCategories: ", th))
+                                            .doOnSuccess(position -> {
+                                                mBinding.include.include2.listCategories
+                                                        .getViewTreeObserver()
+                                                        .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                                                    @Override
+                                                    public void onGlobalLayout() {
+                                                        mBinding.include.include2.listCategories
+                                                                .getViewTreeObserver()
+                                                                .removeOnGlobalLayoutListener(this);
+                                                        mBinding.include.include2.listCategories
+                                                                .scrollToPosition(position);
+                                                        mBinding.include.include2.listCategories
+                                                                .setSelectedPosition(position);
+                                                        mIptvLive.setCategoryId(Integer
+                                                                .parseInt(mSharedPreferences
+                                                                .getString("lastCategoryId",
+                                                                        "-1")));
+                                                    }
+                                                });
+                                            })
+                                            .subscribe();
+                                }
+                            })
+                            .subscribe();
                 })
                 .subscribe();
     }
 
-    private void setupChannels(int startId) {
+    private Single<Integer> getPositionCategory(String lastCategoryId, List<Category> categories) {
+        return Single.create(emitter -> {
+            for (int i = 0; i < categories.size(); i++) {
+                if (categories.get(i).getCategoryId().equals(lastCategoryId)) {
+                    emitter.onSuccess(i);
+                    return;
+                }
+            }
+            emitter.onSuccess(0);
+        });
+    }
+
+    private void setupChannels() {
         GenericAdapter<StreamXc, ScrollTvChannelItemBinding> adapter = new GenericAdapter<>(getContext(), new GenericAdapter.GenericAdapterHelper<StreamXc, ScrollTvChannelItemBinding>() {
             @Override
             public ScrollTvChannelItemBinding createBinding(LayoutInflater inflater, ViewGroup parent) {
@@ -135,7 +201,10 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
             }
 
             @Override
-            public void setModelToItem(ScrollTvChannelItemBinding binding, StreamXc item, int bindingAdapterPosition, GenericAdapter<StreamXc, ScrollTvChannelItemBinding> adapter) {
+            public void setModelToItem(ScrollTvChannelItemBinding binding,
+                                       StreamXc item,
+                                       int bindingAdapterPosition,
+                                       GenericAdapter<StreamXc, ScrollTvChannelItemBinding> adapter) {
                 binding.setModel(item);
 
                 binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
@@ -149,18 +218,19 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
                 });
                 binding.getRoot().setOnClickListener(v -> {
                     mListener.onChannelClick(item.getStreamId());
+                    mSharedPreferences.edit().putInt("lastChannelId", bindingAdapterPosition).apply();
                 });
             }
         });
 
 
         mBinding.include.include3.listChannels.setAdapter(adapter);
-        selectChannelPosition(0);
+        selectChannelPosition(mSharedPreferences.getInt("lastChannelId", 0));
     }
 
     private void selectChannelPosition(int position) {
-        if(mBinding.include.include3.listChannels.getAdapter() == null) return;
-        ((GenericAdapter<?, ?>)mBinding.include.include3.listChannels.getAdapter()).totalItemsObservable
+        if (mBinding.include.include3.listChannels.getAdapter() == null) return;
+        ((GenericAdapter<?, ?>) mBinding.include.include3.listChannels.getAdapter()).totalItemsObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(count -> {
@@ -168,7 +238,6 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
                         mBinding.include.include3.listChannels.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                             @Override
                             public void onGlobalLayout() {
-                                Log.d("TAG", "onGlobalLayout: " + position);
                                 mBinding.include.include3.listChannels.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                                 mBinding.include.include3.listChannels.scrollToPosition(position);
                                 mBinding.include.include3.listChannels.setSelectedPosition(position);
@@ -190,26 +259,26 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
 
                     @Override
                     public Single<EpgDb> getItem(int position) {
-                        return mIptvLive.getEpg(stream.getEpgChannelId(), position);
+                        return mIptvLive.getEpg(stream, position);
                     }
 
                     @Override
                     public Observable<Integer> getTotalItems() {
 
-                        Observable<Integer> totalEpg = mIptvLive.getTotalEpg(stream.getEpgChannelId());
+                        Observable<Integer> totalEpg = mIptvLive.getTotalEpg(stream);
 
-                      //totalEpg
-                      //        .subscribeOn(Schedulers.io())
-                      //        .observeOn(AndroidSchedulers.mainThread())
-                      //        .doOnError(th -> Log.e("TAG", "getTotalItems: ", th))
-                      //        .doOnNext(integer -> {
-                      //            if (integer == 0) {
-                      //                mModel.setShowNoEpgData(true);
-                      //            } else {
-                      //                mModel.setShowNoEpgData(false);
-                      //            }
-                      //        })
-                      //        .subscribe();
+                        //totalEpg
+                        //        .subscribeOn(Schedulers.io())
+                        //        .observeOn(AndroidSchedulers.mainThread())
+                        //        .doOnError(th -> Log.e("TAG", "getTotalItems: ", th))
+                        //        .doOnNext(integer -> {
+                        //            if (integer == 0) {
+                        //                mModel.setShowNoEpgData(true);
+                        //            } else {
+                        //                mModel.setShowNoEpgData(false);
+                        //            }
+                        //        })
+                        //        .subscribe();
 
                         return totalEpg;
                     }

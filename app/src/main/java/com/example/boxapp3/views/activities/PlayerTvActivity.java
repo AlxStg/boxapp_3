@@ -1,5 +1,6 @@
 package com.example.boxapp3.views.activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -28,19 +29,22 @@ public class PlayerTvActivity extends AppCompatActivity implements PlayerTvActiv
     private CenterContent mCenterContent;
 
     private int streamId;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_player_tv);
+        sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
 
         mIptvExoPlayer = new IptvExoPlayer(this, mBinding.playerView);
         mIptvLive = new IptvLive(this);
 
         streamId = getIntent().getIntExtra("streamId", -1);
-        if (streamId == -1)
-            streamId = getSharedPreferences("app", MODE_PRIVATE).getInt("streamId",
+        if (streamId == -1) {
+            streamId = sharedPreferences.getInt("streamId",
                     -1);
+        }
 
 
         mCenterContent = new CenterContent(this, R.id.content,
@@ -59,7 +63,8 @@ public class PlayerTvActivity extends AppCompatActivity implements PlayerTvActiv
     }
 
     private void registerFragments() {
-        mCenterContent.addFragment("panels", new PlayerTvPanelsFragment(this,
+        mCenterContent.addFragment("panels", new PlayerTvPanelsFragment(
+                sharedPreferences,this,
                 mIptvLive));
         mCenterContent.addFragment("channelInfo", new PlayerTvChannelInfoFragment(streamId,
                 mIptvLive, this));
@@ -86,7 +91,8 @@ public class PlayerTvActivity extends AppCompatActivity implements PlayerTvActiv
                     return true;
                 }
                 if (mCenterContent.getCurrentFragment() instanceof PlayerTvChannelInfoFragment) {
-                    mCenterContent.changeFragement(new PlayerTvPanelsFragment(this, mIptvLive));
+                    mCenterContent.changeFragement(new PlayerTvPanelsFragment(
+                            sharedPreferences,this, mIptvLive));
                     return true;
                 }
             }
@@ -138,7 +144,7 @@ public class PlayerTvActivity extends AppCompatActivity implements PlayerTvActiv
     public void onChannelClick(int streamId) {
         this.streamId = streamId;
         mIptvExoPlayer.play(streamId, "m3u8", StreamXc.TYPE_STREAM_LIVE);
-        getSharedPreferences("app", MODE_PRIVATE).edit().putInt("streamId", streamId).apply();
+        sharedPreferences.edit().putInt("streamId", streamId).apply();
         showChannelInfo();
     }
 }

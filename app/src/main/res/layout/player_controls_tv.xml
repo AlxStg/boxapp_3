@@ -25,106 +25,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <HorizontalScrollView
+        <androidx.leanback.widget.HorizontalGridView
             android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView27">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
-
-                <include layout="@layout/player_timeline_item" />
-
-                <include layout="@layout/player_timeline_item" />
-
-                <LinearLayout
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/rounded_corners_20dp"
-                    android:backgroundTint="#03A9F4"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingStart="15dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="15dp"
-                    android:paddingBottom="8dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/comfortaa_light"
-                            android:text="6:50"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/comfortaa_light"
-                            android:text="  -  "
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/comfortaa_light"
-                            android:text="11:45"
-                            android:textAlignment="textEnd"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/comfortaa_light"
-                        android:gravity="center"
-                        android:maxLines="2"
-                        android:minLines="2"
-                        android:text="É de casa"
-                        android:textColor="#FFFFFF" />
-
-                </LinearLayout>
-
-                <include layout="@layout/player_timeline_item" />
-
-                <include layout="@layout/player_timeline_item" />
-
-                <include layout="@layout/player_timeline_item" />
-
-                <include layout="@layout/player_timeline_item" />
-
-                <include layout="@layout/player_timeline_item" />
-
-                <ImageView
-                    android:id="@+id/imageView17"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/button_forward" />
-
-            </LinearLayout>
-        </HorizontalScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
         <SeekBar
             android:id="@+id/seekBar_movies"
@@ -173,7 +82,7 @@
             android:fontFamily="@font/comfortaa_light"
             tools:text="09:00"
             android:textColor="#FFFFFF"
-            app:date="@{epg.en}"
+            app:date="@{epg.end}"
             app:format="@{`HH:mm`}"
             app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
             app:layout_constraintTop_toBottomOf="@+id/seekBar_movies" />

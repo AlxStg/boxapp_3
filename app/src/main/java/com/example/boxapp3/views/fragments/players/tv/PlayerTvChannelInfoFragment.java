@@ -60,8 +60,9 @@ public class PlayerTvChannelInfoFragment extends Fragment {
                             .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                             .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
                             .doOnSuccess(epgDb -> {
-                                mBinding.playerControlsTv.setEpg(epgDb);
                                 int percentage = DateUtils.getPercentageBetweenDates(new Date(), epgDb.getStart(), epgDb.getEnd());
+                                mBinding.playerControlsTv.setEpg(epgDb);
+                                mBinding.playerChannelInfo.setEpg(epgDb);
                                 mBinding.playerControlsTv.setPercentageActualProgramme(percentage);
                             })
                             .doOnError(throwable -> {
@@ -77,12 +78,12 @@ public class PlayerTvChannelInfoFragment extends Fragment {
 
                                 @Override
                                 public Single<EpgDb> getItem(int position) {
-                                    return mIptvLive.getEpg(streamXc.getEpgChannelId(), position);
+                                    return mIptvLive.getEpg(streamXc, position);
                                 }
 
                                 @Override
                                 public Observable<Integer> getTotalItems() {
-                                    return mIptvLive.getTotalEpg(streamXc.getEpgChannelId());
+                                    return mIptvLive.getTotalEpg(streamXc);
                                 }
 
                                 @Override

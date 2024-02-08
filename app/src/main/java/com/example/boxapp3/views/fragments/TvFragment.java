@@ -121,13 +121,13 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
 
                     @Override
                     public Single<EpgDb> getItem(int position) {
-                        return iptvLive.getEpg(stream.getEpgChannelId(), position);
+                        return iptvLive.getEpg(stream, position);
                     }
 
                     @Override
                     public Observable<Integer> getTotalItems() {
 
-                        Observable<Integer> totalEpg = iptvLive.getTotalEpg(stream.getEpgChannelId());
+                        Observable<Integer> totalEpg = iptvLive.getTotalEpg(stream);
 
                         totalEpg
                                 .subscribeOn(Schedulers.io())
