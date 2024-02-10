@@ -119,6 +119,9 @@ public class HomeFragment extends Fragment {
                                                                int bindingAdapterPosition,
                                                                GenericAdapter<IptvHomeStreamsModel, ThumbChannelBinding> adapter) {
                                         binding.setModel(item);
+                                        binding.getRoot().setOnClickListener(v -> {
+                                            mMainActivityListener.openDetails(item.getId(), item.getType());
+                                        });
                                     }
                                 });
                         getActivity().runOnUiThread(() -> {

@@ -1,5 +1,6 @@
 package com.example.boxapp3.views.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -158,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
                 this));
         mCenterContent.addFragment("adults", new VodListFragment(ListStreamsCategories.TYPE_ADULTS,
                 this));
-        mCenterContent.addFragment("live", new TvFragment());
+        mCenterContent.addFragment("live", new TvFragment(this));
     }
 
     private void setupMenu() {
@@ -233,7 +234,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
     @Override
     public void openDetails(int id, String type) {
         Fragment fragment = null;
-        if (type.equals(StreamXc.TYPE_STREAM_VOD) || type.equals("kids")) {
+        if (type.equals(StreamXc.TYPE_STREAM_LIVE)) {
+            Intent intent = new Intent(this, PlayerTvActivity.class);
+            intent.putExtra("streamId", id);
+            startActivity(intent);
+        } else if (type.equals(StreamXc.TYPE_STREAM_VOD) || type.equals("kids")) {
             fragment = new MovieDetailsFragment(id, this);
         } else if (type.equals(StreamXc.TYPE_STREAM_SERIES)) {
             fragment = new SeriesDetailsFragment(id, this);

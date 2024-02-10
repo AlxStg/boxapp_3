@@ -16,6 +16,7 @@ import com.example.boxapp3.databinding.FragmentTvBinding;
 import com.example.boxapp3.databinding.ScrollTvCategoryItemBinding;
 import com.example.boxapp3.databinding.ScrollTvChannelItemBinding;
 import com.example.boxapp3.databinding.ScrollTvEpgItemBinding;
+import com.example.boxapp3.listeners.activities.MainActivityListener;
 import com.example.boxapp3.listeners.fragments.KeyListener;
 import com.example.boxapp3.listeners.fragments.MainFragmentListener;
 import com.example.boxapp3.models.fragments.TvFragmentModel;
@@ -34,12 +35,16 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
 
     private FragmentTvBinding mBinding;
     private IptvLive iptvLive;
+    private MainActivityListener listener;
     private TvFragmentModel mModel;
     private Handler epgHandler = new Handler();
     private Handler categoriesHandler = new Handler();
     private Runnable epgRunnable;
     private Runnable categoriesRunnable;
 
+    public TvFragment(MainActivityListener listener) {
+        this.listener = listener;
+    }
 
     @Nullable
     @Override
@@ -105,6 +110,10 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
                         Log.d("TAG", "setModelToItem: " + item.getTvArchiveDuration());
                     };
                     epgHandler.postDelayed(epgRunnable, 1000);
+                });
+
+                binding.getRoot().setOnClickListener(v -> {
+                    listener.openDetails(item.getStreamId(), StreamXc.TYPE_STREAM_LIVE);
                 });
             }
         });

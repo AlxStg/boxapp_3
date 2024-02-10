@@ -2,17 +2,21 @@ package com.example.boxapp3.views.fragments.players.tv;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.boxapp3.databinding.FragmentTvPlayerChannelInfoBinding;
+import com.example.boxapp3.databinding.PlayerControlsTvBinding;
 import com.example.boxapp3.databinding.PlayerTimelineItemBinding;
 import com.example.boxapp3.listeners.activities.PlayerTvActivityListener;
+import com.example.boxapp3.listeners.fragments.KeyListener;
 import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
 import com.example.iptvsdk.data.models.EpgDb;
 import com.example.iptvsdk.ui.live.IptvLive;
@@ -22,8 +26,10 @@ import java.util.Date;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
-public class PlayerTvChannelInfoFragment extends Fragment {
+public class PlayerTvChannelInfoFragment extends Fragment implements KeyListener {
 
     private IptvLive mIptvLive;
     private PlayerTvActivityListener listener;
@@ -42,7 +48,10 @@ public class PlayerTvChannelInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentTvPlayerChannelInfoBinding.inflate(inflater, container, false);
 
+        mBinding.playerControlsTv.setListener(listener);
+
         mBinding.playerControlsTv.textView23.setFormat24Hour("dd/MM/yyyy - HH:mm:ss");
+        mBinding.playerControlsTv.imageView7.requestFocus();
 
         return mBinding.getRoot();
     }
@@ -92,11 +101,52 @@ public class PlayerTvChannelInfoFragment extends Fragment {
                                 }
                             });
                     mBinding.playerControlsTv.horizontalScrollView.setAdapter(adapter);
+
+                   adapter.totalItemsObservable
+                           .subscribeOn(Schedulers.io())
+                           .observeOn(AndroidSchedulers.mainThread())
+                           .doOnError(th -> Log.e("TAG", "loadEpg: ", th))
+                           .doOnNext(integer -> {
+                               if (integer > 0) {
+                                   mIptvLive.getActualEpgPosition(streamXc)
+                                           .subscribeOn(Schedulers.io())
+                                           .observeOn(AndroidSchedulers.mainThread())
+                                           .doOnError(th -> Log.e("TAG", "loadEpg: ", th))
+                                           .doOnSuccess(position -> {
+                                               mBinding.playerControlsTv.horizontalScrollView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                                                   @Override
+                                                   public void onGlobalLayout() {
+                                                       mBinding.playerControlsTv.horizontalScrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                                       mBinding.playerControlsTv.horizontalScrollView.scrollToPosition(position);
+                                                       mBinding.playerControlsTv.horizontalScrollView.setSelectedPosition(position);
+                                                   }
+                                               });
+                                           })
+                                           .subscribe();
+                               }
+                           })
+                           .subscribe();
                 })
                 .doOnError(throwable -> {
                     Log.e("PlayerTvChannelInfo", "Error getting channel", throwable);
                 })
                 .subscribe();
 
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        checkButtonsChannelbarFocus();
+        return false;
+    }
+
+    private void checkButtonsChannelbarFocus() {
+        PlayerControlsTvBinding playerControlsTv = mBinding.playerControlsTv;
+        if(!(playerControlsTv.horizontalScrollView.hasFocus() || playerControlsTv
+                .imageView7.hasFocus() || playerControlsTv.imageView15.hasFocus() || playerControlsTv
+                .imageView16.hasFocus() || playerControlsTv.imageView18.hasFocus() || playerControlsTv
+                .imageView19.hasFocus()))
+            return;
+        listener.onChannelInfoNavigate();
     }
 }

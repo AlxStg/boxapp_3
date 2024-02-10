@@ -65,6 +65,8 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         setupCategories();
         setupChannels();
     }
@@ -133,21 +135,21 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
                                                 mBinding.include.include2.listCategories
                                                         .getViewTreeObserver()
                                                         .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                                                    @Override
-                                                    public void onGlobalLayout() {
-                                                        mBinding.include.include2.listCategories
-                                                                .getViewTreeObserver()
-                                                                .removeOnGlobalLayoutListener(this);
-                                                        mBinding.include.include2.listCategories
-                                                                .scrollToPosition(position);
-                                                        mBinding.include.include2.listCategories
-                                                                .setSelectedPosition(position);
-                                                        mIptvLive.setCategoryId(Integer
-                                                                .parseInt(mSharedPreferences
-                                                                .getString("lastCategoryId",
-                                                                        "-1")));
-                                                    }
-                                                });
+                                                            @Override
+                                                            public void onGlobalLayout() {
+                                                                mBinding.include.include2.listCategories
+                                                                        .getViewTreeObserver()
+                                                                        .removeOnGlobalLayoutListener(this);
+                                                                mBinding.include.include2.listCategories
+                                                                        .scrollToPosition(position);
+                                                                mBinding.include.include2.listCategories
+                                                                        .setSelectedPosition(position);
+                                                                mIptvLive.setCategoryId(Integer
+                                                                        .parseInt(mSharedPreferences
+                                                                                .getString("lastCategoryId",
+                                                                                        "-1")));
+                                                            }
+                                                        });
                                             })
                                             .subscribe();
                                 }
@@ -217,7 +219,7 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
                     epgHandler.postDelayed(epgRunnable, 1000);
                 });
                 binding.getRoot().setOnClickListener(v -> {
-                    mListener.onChannelClick(item.getStreamId());
+                    mListener.onChannelClick(item);
                     mSharedPreferences.edit().putInt("lastChannelId", bindingAdapterPosition).apply();
                 });
             }
@@ -292,6 +294,31 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
         FragmentActivity activity = getActivity();
         if (activity == null) return;
         activity.runOnUiThread(() -> mBinding.include.include4.listEpg.setAdapter(adapter));
+
+        adapter.totalItemsObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(th -> Log.e("TAG", "loadEpg: ", th))
+                .doOnNext(integer -> {
+                    if (integer > 0) {
+                        mIptvLive.getActualEpgPosition(stream)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnError(th -> Log.e("TAG", "loadEpg: ", th))
+                                .doOnSuccess(position -> {
+                                    mBinding.include.include4.listEpg.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                                        @Override
+                                        public void onGlobalLayout() {
+                                            mBinding.include.include4.listEpg.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                            mBinding.include.include4.listEpg.scrollToPosition(position);
+                                            mBinding.include.include4.listEpg.setSelectedPosition(position);
+                                        }
+                                    });
+                                })
+                                .subscribe();
+                    }
+                })
+                .subscribe();
     }
 
     @Override

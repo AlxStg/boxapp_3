@@ -15,6 +15,7 @@ import com.example.boxapp3.listeners.activities.PlayerTvActivityListener;
 import com.example.boxapp3.listeners.fragments.KeyListener;
 import com.example.boxapp3.views.fragments.players.tv.PlayerTvChannelInfoFragment;
 import com.example.boxapp3.views.fragments.players.tv.PlayerTvPanelsFragment;
+import com.example.iptvsdk.common.IptvSettings;
 import com.example.iptvsdk.common.centerContent.CenterContent;
 import com.example.iptvsdk.common.centerContent.EmptyFragment;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
@@ -26,9 +27,11 @@ public class PlayerTvActivity extends AppCompatActivity implements PlayerTvActiv
     private ActivityPlayerTvBinding mBinding;
     private IptvExoPlayer mIptvExoPlayer;
     private IptvLive mIptvLive;
+    private IptvSettings mIptvSettings;
     private CenterContent mCenterContent;
 
     private int streamId;
+    private StreamXc stream;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -39,6 +42,7 @@ public class PlayerTvActivity extends AppCompatActivity implements PlayerTvActiv
 
         mIptvExoPlayer = new IptvExoPlayer(this, mBinding.playerView);
         mIptvLive = new IptvLive(this);
+        mIptvSettings = new IptvSettings(this);
 
         streamId = getIntent().getIntExtra("streamId", -1);
         if (streamId == -1) {
@@ -55,7 +59,8 @@ public class PlayerTvActivity extends AppCompatActivity implements PlayerTvActiv
 
 
         if (streamId != -1) {
-            mIptvExoPlayer.play(streamId, "m3u8", StreamXc.TYPE_STREAM_LIVE);
+            mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
+            showChannelInfo();
         } else {
             mCenterContent.showFragment("panels");
         }
@@ -88,11 +93,6 @@ public class PlayerTvActivity extends AppCompatActivity implements PlayerTvActiv
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 if (mCenterContent.getCurrentFragment() instanceof EmptyFragment) {
                     showChannelInfo();
-                    return true;
-                }
-                if (mCenterContent.getCurrentFragment() instanceof PlayerTvChannelInfoFragment) {
-                    mCenterContent.changeFragement(new PlayerTvPanelsFragment(
-                            sharedPreferences,this, mIptvLive));
                     return true;
                 }
             }
@@ -141,10 +141,35 @@ public class PlayerTvActivity extends AppCompatActivity implements PlayerTvActiv
     }
 
     @Override
-    public void onChannelClick(int streamId) {
-        this.streamId = streamId;
-        mIptvExoPlayer.play(streamId, "m3u8", StreamXc.TYPE_STREAM_LIVE);
+    public void onChannelClick(StreamXc stream) {
+        this.stream = stream;
+        this.streamId = stream.getStreamId();
+        mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
         sharedPreferences.edit().putInt("streamId", streamId).apply();
         showChannelInfo();
+    }
+
+    @Override
+    public void onChannelInfoNavigate() {
+        channelInfoHandler.removeCallbacks(channelInfoRunnable);
+        channelInfoHandler.postDelayed(channelInfoRunnable, 10000);
+        channelInfoHandler.postDelayed(channelInfoRunnable, 10000);
+    }
+
+    @Override
+    public void onShowPanels() {
+        mCenterContent.changeFragement(new PlayerTvPanelsFragment(
+                sharedPreferences,this, mIptvLive));
+        Log.d("PlayerTvActivity", "onShowPanels: ");
+    }
+
+    @Override
+    public void onRewind() {
+
+    }
+
+    @Override
+    public void onFastForward() {
+
     }
 }

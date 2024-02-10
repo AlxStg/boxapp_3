@@ -39,7 +39,9 @@
                 android:fadingEdge="vertical"
                 android:fadingEdgeLength="20dp"
                 android:requiresFadingEdge="vertical"
-                android:nextFocusLeft="@id/list_channels"/>
+                android:nextFocusLeft="@id/list_channels"
+                android:nextFocusDown="@id/list_epg"
+                android:nextFocusUp="@id/list_epg"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
