@@ -30,7 +30,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="16dp"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:maxLines="10"
         android:text="Avatar é um filme épico de ficção científica estadunidense de 2009, escrito e dirigido por James Cameron, e estrelado por Sam Worthington, Zoë Saldaña, Michelle Rodriguez, Sigourney Weaver e Stephen Lang. O filme, que foi produzido pela Lightstorm Entertainment e distribuído pela 20th Century Fox, tem seu enredo localizado no ano 2154 e é baseado em um conflito em Pandora, uma das luas de Polifemo, um dos três planetas gasosos fictícios que orbitam o sistema Alpha Centauri. Em Pandora, os colonizadores humanos e os Na'vi, nativos humanoides, entram em guerra pelos recursos do planeta e pela continuação da existência da espécie nativa. O título do filme refere-se aos corpos híbridos feitos a partir do ADN/DNA misturado de humanos e Na'vi , criados por um grupo de cientistas através de engenharia genética, para interagir com os nativos de Pandora."
         android:textAlignment="center"
@@ -48,7 +49,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:text="Avatar"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
@@ -60,7 +62,8 @@
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:text="Temporada 01"
         android:textColor="#B3FFFFFF"
         android:textSize="12sp"
@@ -74,7 +77,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:text="Animação"
         android:textColor="#FFFFFF"
         android:textSize="10sp"
@@ -87,7 +91,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:text="Aventura"
         android:textColor="#FFFFFF"
         android:textSize="10sp"
@@ -101,7 +106,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:text="Fic. Científica"
         android:textColor="#FFFFFF"
         android:textSize="10sp"
@@ -114,7 +120,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:text="Ação"
         android:textColor="#FFFFFF"
         android:textSize="10sp"
@@ -127,7 +134,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:text="Friends"
         android:textColor="#FFFFFF"
         android:textSize="16sp"

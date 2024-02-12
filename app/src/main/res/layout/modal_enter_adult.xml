@@ -42,7 +42,8 @@
                 android:id="@+id/textView39"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+                android:fontFamily="@font/aldrich
+"
                 android:text="@string/atention_"
                 android:textColor="#FB8B69"
                 android:textSize="24sp"
@@ -57,7 +58,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:fontFamily="@font/comfortaa_light"
+                android:fontFamily="@font/aldrich
+"
                 android:text="@string/adult_content"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
@@ -70,7 +72,8 @@
                 android:id="@+id/textView41"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+                android:fontFamily="@font/aldrich
+"
                 android:text="@string/access_code_required"
                 android:textColor="#8A8A8A"
                 android:textSize="18sp"

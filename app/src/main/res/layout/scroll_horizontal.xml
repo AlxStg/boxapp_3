@@ -31,10 +31,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:fontFamily="@font/comfortaa_light"
+                android:fontFamily="@font/aldrich
+"
                 android:text="@{model.tileMoviesAndSeriesFavorite}"
                 android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textColor="#FFC107"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 

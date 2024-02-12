@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,89 +14,85 @@
             type="com.example.iptvsdk.data.models.EpgDb" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
 
-        android:layout_width="220dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/rounded_corners_20dp_black"
-        android:backgroundTint="#000000"
+        android:background="#99000000"
+        android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11"
-            tools:srcCompat="@drawable/globo_ong"
-            app:loadImage="@{stream.streamIcon}" />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/comfortaa_light"
+            android:fontFamily="@font/aldrich"
             android:text="@{stream.name}"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/comfortaa_light"
-            android:maxLines="10"
-            android:text="@{epg.description}"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="10sp"
+            android:textColor="#FFC107"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView12"
+            tools:text="Channel Name" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginBottom="6dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toTopOf="@+id/textView11"
+            app:layout_constraintStart_toStartOf="@+id/textView11"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadImage="@{stream.streamIcon}"
+            tools:srcCompat="@drawable/globo_ong" />
 
         <TextView
             android:id="@+id/textView14"
-            android:layout_width="wrap_content"
+            android:layout_width="800dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="10dp"
-            android:fontFamily="@font/comfortaa_light"
+            android:fontFamily="@font/aldrich"
+            android:maxLines="2"
             android:text="@{epg.title}"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/default_color"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Harri Potter e as Relíquias da Morte - Parte 2" />
 
         <TextView
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/comfortaa_light"
-            tools:text="6:50 - 11:45"
+            android:fontFamily="@font/aldrich"
             android:textColor="#B3FFFFFF"
-            android:textSize="12sp"
-            app:dateEpgStart="@{epg.start}"
+            android:textSize="16sp"
             app:dateEpgEnd="@{epg.end}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+            app:dateEpgStart="@{epg.start}"
+            app:layout_constraintEnd_toEndOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/textView14"
+            tools:text="6:50 - 11:45" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="800dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/aldrich"
+            android:maxLines="10"
+            android:text="@{epg.description}"
+            android:textAlignment="textEnd"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            tools:text="On Air - Tv Show Description" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

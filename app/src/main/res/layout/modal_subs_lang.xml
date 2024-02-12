@@ -31,7 +31,8 @@
                 android:id="@+id/txt_idioma"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+                android:fontFamily="@font/aldrich
+"
                 android:text="Idioma"
                 android:textColor="#FBFBFB"
                 android:textSize="20sp"
@@ -60,7 +61,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -74,7 +76,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -88,7 +91,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -102,7 +106,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -116,7 +121,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -130,7 +136,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -144,7 +151,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -158,7 +166,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -172,7 +181,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -186,7 +196,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -200,7 +211,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -224,7 +236,8 @@
                 android:id="@+id/Legendas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+                android:fontFamily="@font/aldrich
+"
                 android:text="Legendas"
                 android:textColor="#FBFBFB"
                 android:textSize="20sp"
@@ -250,7 +263,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -264,7 +278,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -278,7 +293,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -292,7 +308,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -306,7 +323,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -320,7 +338,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -334,7 +353,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -348,7 +368,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -362,7 +383,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -376,7 +398,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -390,7 +413,8 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/aldrich
+"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
@@ -436,7 +460,8 @@
                 android:id="@+id/textView37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+                android:fontFamily="@font/aldrich
+"
                 android:text="Voltar"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"

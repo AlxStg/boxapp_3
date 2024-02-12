@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:text="Resultados da pesquisa"
         android:textAlignment="viewStart"
         android:textColor="#FFFFFF"
@@ -26,7 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:text="&quot;Termo pesquisado&quot;"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"

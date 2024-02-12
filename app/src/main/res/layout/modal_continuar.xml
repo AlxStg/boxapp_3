@@ -31,7 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:fontFamily="@font/comfortaa_light"
+            android:fontFamily="@font/aldrich
+"
             android:text="Deseja continuar de onde parou?"
             android:textColor="#FFFFFF"
             android:textSize="24sp"

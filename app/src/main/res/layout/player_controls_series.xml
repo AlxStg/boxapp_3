@@ -32,7 +32,8 @@
         android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:text="00:00"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
@@ -42,7 +43,8 @@
         android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:text="09:00"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
@@ -95,7 +97,8 @@
         android:id="@+id/textView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:gravity="top"
         android:text="-15s"
         android:textAlignment="center"
@@ -109,7 +112,8 @@
         android:id="@+id/textView33"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:gravity="top"
         android:text="Capítulo\nAnterior"
         android:textAlignment="center"
@@ -124,7 +128,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:gravity="top"
         android:text="Próximo\nCapítulo"
         android:textAlignment="center"
@@ -139,7 +144,8 @@
         android:id="@+id/textView27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:gravity="top"
         android:text="Play"
         android:textAlignment="center"
@@ -153,7 +159,8 @@
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/comfortaa_light"
+        android:fontFamily="@font/aldrich
+"
         android:gravity="top"
         android:text="+15s"
         android:textAlignment="center"
