@@ -52,8 +52,7 @@
                     android:id="@+id/textView19"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/aldrich
-"
+                    android:fontFamily="@font/sulphur_point"
                     android:maxLines="3"
                     android:paddingStart="1dp"
                     android:paddingEnd="1dp"

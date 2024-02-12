@@ -25,8 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginBottom="5dp"
-            android:fontFamily="@font/aldrich
-"
+            android:fontFamily="@font/sulphur_point"
             android:text="Séries favoritas"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
@@ -67,8 +66,7 @@
                             android:id="@+id/thumb_movie_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/aldrich
-"
+                            android:fontFamily="@font/sulphur_point"
                             android:paddingStart="1dp"
                             android:paddingEnd="1dp"
                             android:paddingBottom="5dp"
@@ -106,8 +104,7 @@
                             android:id="@+id/textView19"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/aldrich
-"
+                            android:fontFamily="@font/sulphur_point"
                             android:paddingStart="1dp"
                             android:paddingEnd="1dp"
                             android:paddingBottom="5dp"
@@ -145,8 +142,7 @@
                             android:id="@+id/textView93"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/aldrich
-"
+                            android:fontFamily="@font/sulphur_point"
                             android:paddingStart="1dp"
                             android:paddingEnd="1dp"
                             android:paddingBottom="5dp"
@@ -184,8 +180,7 @@
                             android:id="@+id/thumbnail_channel_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/aldrich
-"
+                            android:fontFamily="@font/sulphur_point"
                             android:paddingStart="1dp"
                             android:paddingEnd="1dp"
                             android:paddingBottom="5dp"
@@ -223,8 +218,7 @@
                             android:id="@+id/textView9"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/aldrich
-"
+                            android:fontFamily="@font/sulphur_point"
                             android:paddingStart="1dp"
                             android:paddingEnd="1dp"
                             android:paddingBottom="5dp"
@@ -262,8 +256,7 @@
                             android:id="@+id/textView192"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/aldrich
-"
+                            android:fontFamily="@font/sulphur_point"
                             android:paddingStart="1dp"
                             android:paddingEnd="1dp"
                             android:paddingBottom="5dp"
@@ -301,8 +294,7 @@
                             android:id="@+id/textView932"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/aldrich
-"
+                            android:fontFamily="@font/sulphur_point"
                             android:paddingStart="1dp"
                             android:paddingEnd="1dp"
                             android:paddingBottom="5dp"
@@ -340,8 +332,7 @@
                             android:id="@+id/thumbnail_channel_name4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/aldrich
-"
+                            android:fontFamily="@font/sulphur_point"
                             android:paddingStart="1dp"
                             android:paddingEnd="1dp"
                             android:paddingBottom="5dp"

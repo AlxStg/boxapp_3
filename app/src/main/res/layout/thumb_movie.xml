@@ -20,11 +20,11 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_gravity="bottom"
             android:layout_margin="3dp"
             android:background="@drawable/bg_hobbit"
-            app:cardCornerRadius="2dp"
+            app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,9 +33,9 @@
             <ImageView
                 android:id="@+id/thumb_channel_image1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 app:loadImage="@{model.image}"
                 tools:srcCompat="@drawable/avatar" />
 
@@ -50,7 +50,7 @@
                     android:id="@+id/textView19"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/aldrich"
+                    android:fontFamily="@font/sulphur_point"
                     android:paddingStart="1dp"
                     android:paddingEnd="1dp"
                     android:paddingBottom="4dp"

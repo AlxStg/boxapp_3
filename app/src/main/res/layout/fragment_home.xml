@@ -19,7 +19,7 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/slider"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="@+id/include"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,12 +40,9 @@
             android:id="@+id/include"
             layout="@layout/scroll_horizontal"
             android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="24dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:model="@{model}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
