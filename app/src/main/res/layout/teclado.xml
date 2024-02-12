@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/rounded_corners_fundo_teclado"
+            android:background="@drawable/bg_modal"
             android:backgroundTintMode="add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +32,7 @@
                 android:layout_width="35dp"
                 android:layout_height="70dp"
                 android:layout_marginEnd="15dp"
-                android:background="@drawable/rounded_corners_20dp"
+                android:background="@drawable/bg_button_keyboard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/linearLayout4"
                 app:layout_constraintTop_toTopOf="@+id/linearLayout4">
@@ -49,7 +49,7 @@
                 android:id="@+id/btn_enter"
                 android:layout_width="35dp"
                 android:layout_height="70dp"
-                android:background="@drawable/rounded_corners_20dp"
+                android:background="@drawable/bg_button_keyboard"
                 app:layout_constraintBottom_toBottomOf="@+id/linearLayout8"
                 app:layout_constraintEnd_toEndOf="@+id/btn_backspace"
                 app:layout_constraintStart_toStartOf="@+id/btn_backspace">
@@ -75,12 +75,15 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_1"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp_focused"
-                    android:backgroundTintMode="src_in">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:backgroundTintMode="src_in"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -92,11 +95,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_2"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -108,11 +114,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_3"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -124,11 +133,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_4"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -140,11 +152,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_5"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -156,11 +171,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_6"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -172,11 +190,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_7"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -188,11 +209,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_8"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -204,11 +228,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_9"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -220,11 +247,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_0"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -247,11 +277,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_q"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -263,11 +296,15 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_w"
+
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -279,11 +316,15 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_e"
+
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -295,11 +336,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_r"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -311,11 +355,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_t"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -327,11 +374,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_y"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -343,11 +393,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_u"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -359,11 +412,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_i"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -375,11 +431,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_o"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -391,11 +450,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_p"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -418,11 +480,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_a"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -434,11 +499,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_s"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -450,11 +518,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_d"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -466,11 +537,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_f"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -482,11 +556,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_g"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -498,11 +575,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_h"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -514,11 +594,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_j"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -530,11 +613,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_k"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -546,11 +632,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_l"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -562,11 +651,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_ç"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -591,11 +683,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_z"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -607,11 +702,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_x"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -623,11 +721,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_c"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -639,11 +740,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_v"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -655,11 +759,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_b"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -671,11 +778,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_n"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -687,11 +797,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_m"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -703,11 +816,14 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/kb_btn_space"
                     android:layout_width="105dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
-                    android:background="@drawable/rounded_corners_20dp">
+                    android:background="@drawable/bg_button_keyboard"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <ImageView
                         android:id="@+id/imageView14"

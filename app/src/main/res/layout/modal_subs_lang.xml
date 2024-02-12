@@ -10,8 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corners_20dp_black"
-        android:backgroundTint="#BFC1C1C1"
+        android:background="@drawable/bg_modal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,15 +30,15 @@
                 android:id="@+id/txt_idioma"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/aldrich
-"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/aldrich"
                 android:text="Idioma"
                 android:textColor="#FBFBFB"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="10dp" />
+                app:layout_constraintStart_toStartOf="@+id/scrollView2"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ScrollView
                 android:id="@+id/scrollView2"
@@ -61,12 +60,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#FFFFFF"
                         android:textSize="14sp" />
 
                     <TextView
@@ -76,12 +74,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#FFFFFF"
                         android:textSize="14sp" />
 
                     <TextView
@@ -91,12 +88,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -106,12 +102,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -121,12 +116,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -136,12 +130,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -151,12 +144,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -166,12 +158,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -181,12 +172,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -196,12 +186,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -211,12 +200,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -236,16 +224,17 @@
                 android:id="@+id/Legendas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/aldrich
-"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/aldrich"
                 android:text="Legendas"
                 android:textColor="#FBFBFB"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="10dp" />
+                app:layout_constraintStart_toStartOf="@+id/scrollView3"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ScrollView
+                android:id="@+id/scrollView3"
                 android:layout_width="wrap_content"
                 android:layout_height="260dp"
                 app:layout_constraintTop_toBottomOf="@+id/Legendas"
@@ -263,12 +252,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -278,12 +266,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -293,12 +280,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -308,12 +294,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -323,12 +308,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -338,12 +322,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -353,12 +336,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -368,12 +350,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -383,12 +364,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -398,12 +378,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                     <TextView
@@ -413,12 +392,11 @@
                         android:background="@drawable/bg_thumbs"
                         android:clickable="true"
                         android:focusable="true"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:maxLines="1"
                         android:paddingStart="10dp"
                         android:text="-  Português"
-                        android:textColor="#000000"
+                        android:textColor="#F4F4F4"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -460,8 +438,7 @@
                 android:id="@+id/textView37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/aldrich
-"
+                android:fontFamily="@font/aldrich"
                 android:text="Voltar"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
