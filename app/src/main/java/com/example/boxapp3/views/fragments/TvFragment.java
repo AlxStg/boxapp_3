@@ -160,7 +160,7 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
                         binding.setDaysPlayback(stream.getTvArchiveDuration());
                     }
                 });
-        getActivity().runOnUiThread(() -> mBinding.include4.listEpg.setAdapter(adapter));
+         getActivity().runOnUiThread(() -> mBinding.include4.listEpg.setAdapter(adapter));
     }
 
     private void setupCategories() {
