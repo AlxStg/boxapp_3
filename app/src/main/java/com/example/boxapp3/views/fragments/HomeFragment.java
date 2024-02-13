@@ -122,6 +122,16 @@ public class HomeFragment extends Fragment {
                                         binding.getRoot().setOnClickListener(v -> {
                                             mMainActivityListener.openDetails(item.getId(), item.getType());
                                         });
+                                        binding.getRoot().setOnKeyListener(new View.OnKeyListener() {
+                                            @Override
+                                            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                                                if (keyCode == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == KeyEvent.ACTION_DOWN && bindingAdapterPosition == 0) {
+                                                   mMainActivityListener.onGoToMenu();
+                                                    return true;
+                                                }
+                                                return false;
+                                            }
+                                        });
                                     }
                                 });
                         getActivity().runOnUiThread(() -> {

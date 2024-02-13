@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:fontFamily="@font/comfortaa_light"
+                android:fontFamily="@font/geo"
                 android:text="@{model.tileMoviesAndSeriesFavorite}"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.example.boxapp3.models.activities.MainActivityModel" />
+
+        <variable
+            name="listener"
+            type="com.example.boxapp3.listeners.models.activities.MainActivityModelListener" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <FrameLayout
+
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/rounded_corners_50dp_black"
+        app:layout_constraintBottom_toBottomOf="@+id/bnt_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bnt_category">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_home_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/textview_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/geo"
+                android:gravity="center"
+                android:onClick="@{ () -> listener.onMenuClicked(`home`) }"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:text="@string/home"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:selected="@{model.actualMenu.equals(`home`) }" />
+
+            <TextView
+                android:id="@+id/btn_tv_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/textview_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/geo"
+                android:gravity="center"
+                android:onClick="@{ () -> listener.onMenuClicked(`live`) }"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:tag="live"
+                android:text="Live TV"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:selected="@{model.actualMenu.equals(`live`) }" />
+
+            <TextView
+                android:id="@+id/btn_movies_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/textview_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/geo"
+                android:gravity="center"
+                android:onClick="@{ () -> listener.onMenuClicked(`movies`) }"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:tag="movies"
+                android:text="Filmes"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:selected="@{model.actualMenu.equals(`movies`)}" />
+
+            <TextView
+                android:id="@+id/btn_series_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/textview_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/geo"
+                android:gravity="center"
+                android:onClick="@{ () -> listener.onMenuClicked(`series`) }"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:tag="series"
+                android:text="Séries"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:selected="@{model.actualMenu.equals(`series`)}" />
+
+            <TextView
+                android:id="@+id/btn_kids_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/textview_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/geo"
+                android:gravity="center"
+                android:onClick="@{ () -> listener.onMenuClicked(`kids`) }"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:tag="kids"
+                android:text="Infantil"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:selected="@{model.actualMenu.equals(`kids`)}" />
+
+            <TextView
+                android:id="@+id/btn_sports_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/textview_background"
+                android:focusable="true"
+                android:fontFamily="@font/geo"
+                android:gravity="center"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:text="Esportes"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/btn_adult_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/textview_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/geo"
+                android:gravity="center"
+                android:onClick="@{ () -> listener.onMenuClicked(`adults`) }"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:text="Adulto"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:selected="@{model.actualMenu.equals(`adults`)}" />
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>

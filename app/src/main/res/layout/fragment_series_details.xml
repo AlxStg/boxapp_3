@@ -12,13 +12,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/default_background">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="#00FFFFFF"
+            app:cardCornerRadius="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,20 +27,21 @@
 
             <ImageView
                 android:id="@+id/imageView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="600dp"
+                android:layout_height="match_parent"
+                android:foreground="@drawable/fundo_preto_esmaecido"
                 android:scaleType="centerCrop"
-                app:loadImage="@{model.image}" />
+                app:loadImage="@{model.image}"
+                tools:srcCompat="@drawable/avengers_age_of_ultron_2015_poster" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/fundo_preto_esmaecido">
+                android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="500dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="50dp"
+                    android:layout_marginEnd="80dp"
                     android:gravity="end"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -49,11 +51,11 @@
                         android:id="@+id/textView10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/geo"
                         android:text="@string/series"
                         android:textAlignment="textEnd"
-                        android:textColor="#FFFEFE"
-                        android:textSize="10sp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,26 +63,31 @@
                         android:id="@+id/movie_name2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/geo"
+                        android:maxLines="2"
                         android:text="@{model.name}"
                         android:textAlignment="textEnd"
-                        android:textColor="#FFFFFF"
-                        android:textSize="24sp"
+                        android:textColor="#F44336"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@+id/textView16"
-                        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView16"
+                        tools:text="Nome" />
 
                     <TextView
                         android:id="@+id/movie_description2"
-                        android:layout_width="350dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/geo"
                         android:maxLines="7"
                         android:text="@{model.description}"
                         android:textAlignment="textEnd"
                         android:textColor="#FFFFFF"
-                        android:textSize="12sp"
+                        android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="@+id/movie_name"
-                        app:layout_constraintTop_toBottomOf="@+id/genre1" />
+                        app:layout_constraintTop_toBottomOf="@+id/genre1"
+                        tools:text="Descrição" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -91,18 +98,20 @@
                             android:id="@+id/genre3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
                             android:background="@drawable/bg_button"
                             android:backgroundTint="#000000"
-                            android:fontFamily="@font/comfortaa_light"
+                            android:fontFamily="@font/geo"
                             android:paddingStart="5dp"
-                            android:paddingTop="1dp"
+                            android:paddingTop="5dp"
                             android:paddingEnd="5dp"
                             android:paddingBottom="2dp"
                             android:text="@{model.genre}"
                             android:textColor="#FDFDFD"
-                            android:textSize="8sp"
+                            android:textSize="14sp"
                             app:layout_constraintStart_toStartOf="@+id/movie_name"
-                            app:layout_constraintTop_toBottomOf="@+id/movie_name" />
+                            app:layout_constraintTop_toBottomOf="@+id/movie_name"
+                            tools:text="Genero" />
 
                         <TextView
                             android:id="@+id/genre4"
@@ -111,7 +120,7 @@
                             android:layout_marginStart="10dp"
                             android:background="@drawable/bg_button"
                             android:backgroundTint="#000000"
-                            android:fontFamily="@font/comfortaa_light"
+                            android:fontFamily="@font/geo"
                             android:paddingStart="5dp"
                             android:paddingTop="1dp"
                             android:paddingEnd="5dp"
@@ -132,7 +141,7 @@
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="50dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="150dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:loadImage="@{model.streamService}" />
@@ -156,6 +165,7 @@
                     android:layout_height="130dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="16dp"
                     android:nextFocusUp="@id/seasons"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

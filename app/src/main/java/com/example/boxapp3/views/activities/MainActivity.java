@@ -170,25 +170,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityListe
                 mModel.setShowMenuLabels(!colapse);
             }
         });
-        ((ConstraintLayout) mBinding.includeMenu.menu).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                ((ConstraintLayout) mBinding.includeMenu.menu).getViewTreeObserver()
-                        .removeOnGlobalLayoutListener(this);
-                mIptvMenu.listenMenuFocusAndColapse(mBinding.includeMenu.menu,
-                        mBinding.includeMenu.menu.getWidth(),
-                        100,
-                        new ArrayList<View>() {{
-                            add(mBinding.includeMenu.btnHomeMenu);
-                            add(mBinding.includeMenu.btnTvMenu);
-                            add(mBinding.includeMenu.btnMoviesMenu);
-                            add(mBinding.includeMenu.btnSeriesMenu);
-                            add(mBinding.includeMenu.btnKidsMenu);
-                            add(mBinding.includeMenu.btnSportsMenu);
-                            add(mBinding.includeMenu.btnAdultMenu);
-                        }});
-            }
-        });
     }
 
     @Override

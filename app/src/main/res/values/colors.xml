@@ -4,9 +4,11 @@
     <color name="fastlane_background">#0096a6</color>
     <color name="search_opaque">#ffaa3f</color>
     <color name="selected_background">#ffaa3f</color>
-    <color name="default_background">#3d3d3d</color>
+    <color name="default_background">#272830</color>
     <color name="tranparent">#00000000</color>
     <color name="cyan">#00F7FF</color>
     <color name="black">#000000</color>
-    <color name="live_epg_text">#FF5722</color>
+    <color name="white">#FFFFFF</color>
+    <color name="lilas">#673AB7</color>
+    <color name="default_bg_color">#1F1E27</color>
 </resources>

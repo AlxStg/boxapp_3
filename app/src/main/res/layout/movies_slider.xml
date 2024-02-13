@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -10,9 +12,7 @@
         <import type="com.example.iptvsdk.data.models.xtream.StreamXc" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -20,8 +20,8 @@
             android:id="@+id/home_slider"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="1dp"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 app:loadImage="@{backgroundVodSeriesDataModel.image}" />
 
@@ -44,46 +44,61 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/comfortaa_light"
+                    android:layout_marginTop="150dp"
+                    android:fontFamily="@font/geo"
                     android:text="@{backgroundVodSeriesDataModel.type}"
                     android:textAllCaps="true"
                     android:textColor="#FFFFFF"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:visibility="@{backgroundVodSeriesDataModel.type == null || backgroundVodSeriesDataModel.type.length() == 0 ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Filmes" />
 
                 <TextView
-                    android:id="@+id/movie_description"
-                    android:layout_width="600dp"
+                    android:id="@+id/movie_name"
+                    android:layout_width="800dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/comfortaa_light"
-                    android:maxLines="5"
-                    android:minLines="5"
-                    android:text="@{backgroundVodSeriesDataModel.description}"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/movie_name"
-                    app:layout_constraintTop_toBottomOf="@+id/genre1" />
+                    android:fontFamily="@font/geo"
+                    android:maxLines="2"
+                    android:text="@{backgroundVodSeriesDataModel.name}"
+                    android:textColor="#F44336"
+                    android:textSize="35dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/textView16"
+                    app:layout_constraintTop_toBottomOf="@+id/textView16"
+                    tools:text="Nome do Filme em Exibição no Slider" />
 
                 <TextView
                     android:id="@+id/genre1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_button"
-                    android:backgroundTint="#000000"
-                    android:fontFamily="@font/comfortaa_light"
+                    android:fontFamily="@font/geo"
                     android:paddingStart="5dp"
                     android:paddingTop="1dp"
                     android:paddingEnd="5dp"
                     android:paddingBottom="2dp"
                     android:text="@{backgroundVodSeriesDataModel.infos}"
                     android:textColor="#FFFFFF"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/movie_name"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/movie_name"
+                    tools:text="Gênero" />
+
+                <TextView
+                    android:id="@+id/movie_description"
+                    android:layout_width="600dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/geo"
+                    android:maxLines="8"
+                    android:minLines="5"
+                    android:text="@{backgroundVodSeriesDataModel.description}"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="@+id/movie_name"
+                    app:layout_constraintTop_toBottomOf="@+id/genre1"
+                    tools:text="Descrição do filme em exibição no Slider" />
 
                 <TextView
                     android:id="@+id/genre2"
@@ -92,7 +107,7 @@
                     android:layout_marginStart="10dp"
                     android:background="@drawable/bg_button"
                     android:backgroundTint="#000000"
-                    android:fontFamily="@font/comfortaa_light"
+                    android:fontFamily="@font/geo"
                     android:paddingStart="5dp"
                     android:paddingTop="1dp"
                     android:paddingEnd="5dp"
@@ -104,25 +119,12 @@
                     app:layout_constraintStart_toEndOf="@+id/genre1"
                     app:layout_constraintTop_toBottomOf="@+id/movie_name" />
 
-                <TextView
-                    android:id="@+id/movie_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_light"
-                    android:maxLines="1"
-                    android:text="@{backgroundVodSeriesDataModel.name}"
-                    android:textColor="#FFFFFF"
-                    android:textSize="30sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/textView16"
-                    app:layout_constraintTop_toBottomOf="@+id/textView16" />
-
                 <ImageView
                     android:id="@+id/source_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="60dp"
                     android:visibility="@{backgroundVodSeriesDataModel.logoProvider != null &amp;&amp; backgroundVodSeriesDataModel.logoProvider.length() > 0 ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

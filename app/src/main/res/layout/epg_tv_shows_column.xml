@@ -55,7 +55,7 @@
                     android:id="@+id/textView31"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_light"
+                    android:fontFamily="@font/geo"
                     android:padding="5dp"
                     android:paddingBottom="3dp"
                     android:text="É de Casa"

@@ -4,8 +4,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@drawable/rounded_corners_20dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -21,13 +20,14 @@
 
             <TextView
                 android:id="@+id/textView8"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+                android:fontFamily="@font/geo"
                 android:text="@string/tv_categories"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
+                android:textAlignment="textStart"
+                android:textColor="#F44336"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <androidx.leanback.widget.VerticalGridView
                 android:id="@+id/list_categories"
@@ -36,8 +36,8 @@
                 android:layout_marginTop="15dp"
                 android:fadingEdge="vertical"
                 android:fadingEdgeLength="20dp"
-                android:requiresFadingEdge="vertical"
-                android:nextFocusRight="@id/list_channels"/>
+                android:nextFocusRight="@id/list_channels"
+                android:requiresFadingEdge="vertical" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

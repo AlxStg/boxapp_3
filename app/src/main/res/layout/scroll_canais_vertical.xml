@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,13 +9,12 @@
                 type="com.example.boxapp3.models.fragments.HomeFragmentModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -27,7 +27,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+                android:fontFamily="@font/geo"
                 android:text="@{model.titleChannelsFavorite}"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
@@ -35,8 +35,12 @@
 
             <androidx.leanback.widget.VerticalGridView
                 android:id="@+id/channels_favorite_vgv"
+                android:fadingEdge="horizontal"
+                android:fadingEdgeLength="20dp"
+                android:requiresFadingEdge="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:nextFocusUp="@id/btn_home_menu" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

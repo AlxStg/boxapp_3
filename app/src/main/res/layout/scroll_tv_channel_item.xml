@@ -14,51 +14,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/bg_btn_epg"
+        android:background="@drawable/bg_thumbs"
         android:clickable="true"
         android:focusable="true">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:orientation="horizontal"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="#00FFFFFF"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.cardview.widget.CardView
+            <ImageView
+                android:id="@+id/imageView6"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                app:cardBackgroundColor="#00FFFFFF"
-                app:cardCornerRadius="7dp"
-                app:cardElevation="0dp">
+                android:layout_height="60dp"
+                android:adjustViewBounds="true"
+                android:maxWidth="60dp"
+                android:scaleType="fitCenter"
+                app:loadImage="@{model.streamIcon}"
+                tools:srcCompat="@drawable/hbo" />
+        </androidx.cardview.widget.CardView>
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    app:loadImage="@{model.streamIcon}" />
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/textView45"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:maxLines="2"
-                android:text="@{model.name}"
-                android:textAlignment="textStart"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView45"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/geo"
+            android:maxLines="3"
+            android:text="@{model.name}"
+            android:textAlignment="textStart"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Canal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/rounded_corners_20dp"
         android:backgroundTintMode="add">
 
         <LinearLayout
@@ -23,13 +22,15 @@
 
             <TextView
                 android:id="@+id/textView8"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/geo"
                 android:text="@string/guide"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
+                android:textAlignment="textStart"
+                android:textColor="#F44336"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <androidx.leanback.widget.VerticalGridView
                 android:id="@+id/list_epg"
@@ -38,10 +39,10 @@
                 android:layout_marginTop="15dp"
                 android:fadingEdge="vertical"
                 android:fadingEdgeLength="20dp"
-                android:requiresFadingEdge="vertical"
                 android:nextFocusLeft="@id/list_channels"
+                android:nextFocusUp="@id/list_epg"
                 android:nextFocusDown="@id/list_epg"
-                android:nextFocusUp="@id/list_epg"/>
+                android:requiresFadingEdge="vertical" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

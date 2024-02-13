@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.example.boxapp3.R;
 import com.example.boxapp3.databinding.FragmentTvPlayerPanelsBinding;
 import com.example.boxapp3.databinding.ScrollTvCategoryItemBinding;
 import com.example.boxapp3.databinding.ScrollTvChannelItemBinding;
@@ -28,7 +27,6 @@ import com.example.iptvsdk.data.models.xtream.Category;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.ui.live.IptvLive;
 
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -51,9 +49,7 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
     private boolean loadedFirstEpg = false;
 
 
-    public PlayerTvPanelsFragment(SharedPreferences sharedPreferences,
-                                  PlayerTvActivityListener listener,
-                                  IptvLive iptvLive) {
+    public PlayerTvPanelsFragment(SharedPreferences sharedPreferences, PlayerTvActivityListener listener, IptvLive iptvLive) {
         mListener = listener;
         mIptvLive = iptvLive;
         mSharedPreferences = sharedPreferences;
@@ -255,13 +251,7 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
 
     }
 
-    private int epgAlreadyLoaded = -1;
-
     private void loadEpg(StreamXc stream) {
-        if(epgAlreadyLoaded == stream.getStreamId()) return;
-
-        epgAlreadyLoaded = stream.getStreamId();
-
         GenericAdapter<EpgDb, ScrollTvEpgItemBinding> adapter =
                 new GenericAdapter<>(getContext(), new GenericAdapter.GenericAdapterHelper<EpgDb, ScrollTvEpgItemBinding>() {
                     @Override
@@ -296,32 +286,9 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
                     }
 
                     @Override
-                    public void setModelToItem(ScrollTvEpgItemBinding binding,
-                                               EpgDb item,
-                                               int bindingAdapterPosition,
-                                               GenericAdapter<EpgDb, ScrollTvEpgItemBinding> adapter) {
+                    public void setModelToItem(ScrollTvEpgItemBinding binding, EpgDb item, int bindingAdapterPosition, GenericAdapter<EpgDb, ScrollTvEpgItemBinding> adapter) {
                         binding.setModel(item);
                         binding.setDaysPlayback(stream.getTvArchiveDuration());
-                        binding.getRoot().setOnClickListener(v -> {
-                            mListener.onEpgClick(item, stream.getTvArchiveDuration());
-                        });
-
-                        Single.<Boolean>create(emitter -> {
-                                    Date now = new Date();
-                                    emitter.onSuccess(item.getStart().before(now) && item.getEnd().after(now));
-                                })
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .doOnError(th -> Log.e("TAG", "setModelToItem: ", th))
-                                .doOnSuccess(isLive -> {
-                                    if (isLive) {
-                                        binding.textView44.setText(R.string.live);
-                                        binding.textView44.setTextColor(getResources()
-                                                .getColor(R.color.live_epg_text));
-                                        binding.textView44.setVisibility(View.VISIBLE);
-                                    }
-                                })
-                                .subscribe();
                     }
                 });
         FragmentActivity activity = getActivity();
