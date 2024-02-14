@@ -7,6 +7,9 @@
         <variable
             name="model"
             type="com.example.iptvsdk.ui.movie_details.MovieDetailsModel" />
+        <variable
+            name="listener"
+            type="com.example.boxapp3.listeners.fragments.MovieDetailsFragmentListener" />
     </data>
 
 
@@ -317,7 +320,8 @@
                         android:paddingTop="10dp"
                         android:paddingEnd="30dp"
                         android:paddingBottom="10dp"
-                        android:visibility="visible">
+                        android:visibility="visible"
+                        android:onClick="@{ (v) -> listener.onPlayClicked() }">
 
                         <ImageView
                             android:id="@+id/imageView23"

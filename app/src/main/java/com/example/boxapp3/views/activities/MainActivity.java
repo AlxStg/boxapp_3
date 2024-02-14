@@ -6,7 +6,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -33,7 +32,7 @@ import com.example.iptvsdk.ui.parental.IptvParental;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements MainActivityListener, MainActivityModelListener {
+public class MainActivity extends BaseActivity implements MainActivityListener, MainActivityModelListener {
 
     private ActivityMainBinding mBinding;
 
