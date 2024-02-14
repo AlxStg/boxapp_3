@@ -1,5 +1,6 @@
 package com.example.boxapp3.views.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import com.example.boxapp3.R;
 import com.example.boxapp3.databinding.FragmentMovieDetailsBinding;
 import com.example.boxapp3.databinding.ItemListStreamBinding;
 import com.example.boxapp3.listeners.activities.MainActivityListener;
+import com.example.boxapp3.listeners.fragments.MovieDetailsFragmentListener;
+import com.example.boxapp3.views.activities.PlayerVodActivity;
 import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.ui.list_stream.IptvListStream;
@@ -31,7 +34,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class MovieDetailsFragment extends Fragment {
+public class MovieDetailsFragment extends Fragment implements MovieDetailsFragmentListener {
     FragmentMovieDetailsBinding binding;
     IptvMovieDetails iptvMovieDetails;
     MainActivityListener mainActivityListener;
@@ -52,6 +55,8 @@ public class MovieDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        binding.setListener(this);
 
         iptvMovieDetails = new IptvMovieDetails(getContext());
         iptvMovieDetails.loadLogos();
@@ -142,5 +147,13 @@ public class MovieDetailsFragment extends Fragment {
             }
         });
         binding.horizontalGridView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onPlayClicked() {
+        Intent intent = new Intent(getContext(), PlayerVodActivity.class);
+        intent.putExtra("id", id);
+        intent.putExtra("type", StreamXc.TYPE_STREAM_VOD);
+        startActivity(intent);
     }
 }

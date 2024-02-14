@@ -5,9 +5,9 @@
 
     <data>
 
-            <variable
-                name="percentageActualProgramme"
-                type="Integer" />
+        <variable
+            name="percentageActualProgramme"
+            type="Integer" />
         <variable
             name="epg"
             type="com.example.iptvsdk.data.models.EpgDb" />

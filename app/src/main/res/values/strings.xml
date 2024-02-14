@@ -68,4 +68,7 @@
     <string name="minus_10_s">-10s</string>
     <string name="plus_10_s">+10s</string>
     <string name="epg">Epg</string>
+    <string name="live">Live</string>
+    <string name="impossible_load_vod_without_id">Impossible load vod without id</string>
+    <string name="audio_subtitle">Audio/Subtitle</string>
 </resources>

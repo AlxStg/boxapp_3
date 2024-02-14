@@ -11,6 +11,7 @@
         <variable
             name="focus"
             type="Boolean" />
+        <import type="com.example.iptvsdk.common.IptvSettings" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,7 +41,7 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                app:loadImage="@{model.image}"
+                app:loadImage="@{IptvSettings.resizeImage(model.image, 300, 0)}"
                 tools:srcCompat="@drawable/avengers_age_of_ultron_2015_poster" />
 
             <LinearLayout

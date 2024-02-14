@@ -8,6 +8,7 @@
         <variable
             name="model"
             type="com.example.iptvsdk.data.models.xtream.StreamXc" />
+        <import type="com.example.iptvsdk.common.IptvSettings" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,29 +40,19 @@
                 android:adjustViewBounds="true"
                 android:maxWidth="60dp"
                 android:scaleType="fitCenter"
-                app:loadImage="@{model.streamIcon}"
+                app:loadImage="@{IptvSettings.resizeImage(model.streamIcon, 250, 0)}"
                 tools:srcCompat="@drawable/hbo" />
+
+            <TextView
+                android:id="@+id/textView45"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:maxLines="2"
+                android:text="@{model.name}"
+                android:textAlignment="textStart"
+                android:textColor="#FFFFFF" />
         </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/textView45"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/geo"
-            android:maxLines="3"
-            android:text="@{model.name}"
-            android:textAlignment="textStart"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cardView"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Canal" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

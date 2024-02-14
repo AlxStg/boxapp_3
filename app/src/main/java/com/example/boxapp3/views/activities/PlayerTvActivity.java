@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.boxapp3.R;
@@ -22,7 +21,10 @@ import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.player.exo.IptvExoPlayer;
 import com.example.iptvsdk.ui.live.IptvLive;
 
-public class PlayerTvActivity extends AppCompatActivity implements PlayerTvActivityListener {
+import java.util.Calendar;
+import java.util.Date;
+
+public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityListener {
 
     private ActivityPlayerTvBinding mBinding;
     private IptvExoPlayer mIptvExoPlayer;
