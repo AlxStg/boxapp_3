@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/sulphur_point"
                 android:textAlignment="textEnd"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/default_text"
                 android:textSize="10sp"
                 app:date="@{model.start}"
                 app:format="@{`HH:mm`}"
@@ -53,7 +53,7 @@
                 android:fontFamily="@font/sulphur_point"
                 android:text="  -  "
                 android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/default_text"
                 android:textSize="10sp" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/sulphur_point"
                 android:textAlignment="textStart"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/default_text"
                 android:textSize="10sp"
                 app:date="@{model.end}"
                 app:format="@{`HH:mm`}"
