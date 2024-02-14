@@ -19,11 +19,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/rounded_corners_20dp_black"
-        android:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -31,217 +26,254 @@
         <androidx.leanback.widget.HorizontalGridView
             android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="70dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.leanback.widget.HorizontalGridView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/rounded_corners_player_channel_info"
+            android:paddingStart="30dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
 
-        <SeekBar
-            android:id="@+id/seekBar_movies"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:progressBackgroundTint="#FFFFFF"
-            android:progressTint="#FFFFFF"
-            android:thumbTint="#FFFFFF"
-            android:progress="@{percentageActualProgramme}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
-        <TextClock
-            android:id="@+id/textView23"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/geo"
-            tools:text="24/11/2023  -  08:21"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:id="@+id/linearLayout15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
+                app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/geo"
-            tools:text="08:00"
-            android:textColor="#FFFFFF"
-            app:date="@{epg.start}"
-            app:format="@{`HH:mm`}"
-            app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
-            app:layout_constraintTop_toBottomOf="@+id/seekBar_movies" />
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/bg_btn_player_tv"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{() -> listener.onShowPanels()}"
+                    android:padding="4dp"
+                    app:srcCompat="@drawable/baseline_density_small_24" />
 
-        <TextView
-            android:id="@+id/textView25"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/geo"
-            tools:text="09:00"
-            android:textColor="#FFFFFF"
-            app:date="@{epg.end}"
-            app:format="@{`HH:mm`}"
-            app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
-            app:layout_constraintTop_toBottomOf="@+id/seekBar_movies" />
+                <TextView
+                    android:id="@+id/textView30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/geo"
+                    android:gravity="top"
+                    android:text="@string/channels"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/bg_btn_player_tv"
-            android:focusable="true"
-            android:clickable="true"
-            android:onClick="@{() -> listener.onShowPanels()}"
-            app:layout_constraintBottom_toTopOf="@+id/textView26"
-            app:layout_constraintEnd_toStartOf="@+id/imageView15"
-            app:layout_constraintTop_toTopOf="@+id/imageView15"
-            app:srcCompat="@drawable/baseline_density_small_24" />
+            <android.widget.SeekBar
+                android:id="@+id/seekBar_movies"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:progress="@{percentageActualProgramme}"
+                android:progressBackgroundTint="#FFFFFF"
+                android:progressTint="#FFFFFF"
+                android:thumbTint="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout15" />
 
-        <ImageView
-            android:id="@+id/imageView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/bg_btn_player_tv"
-            android:focusable="true"
-            android:clickable="true"
-            android:nextFocusRight="@id/imageView16"
-            android:nextFocusLeft="@id/imageView7"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView16"
-            app:layout_constraintEnd_toStartOf="@+id/imageView16"
-            app:layout_constraintTop_toTopOf="@+id/imageView16"
-            app:srcCompat="@drawable/button_rewind" />
+            <TextClock
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/geo"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
+                app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
+                app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
+                tools:text="24/11/2023  -  08:21" />
 
-        <ImageView
-            android:id="@+id/imageView16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:background="@drawable/bg_btn_player_tv"
-            android:focusable="true"
-            android:clickable="true"
-            android:nextFocusLeft="@id/imageView15"
-            android:nextFocusRight="@id/imageView18"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
-            app:srcCompat="@drawable/lb_ic_play" />
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/geo"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:date="@{epg.start}"
+                app:format="@{`HH:mm`}"
+                app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
+                app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
+                tools:text="08:00" />
 
-        <ImageView
-            android:id="@+id/imageView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:layout_marginStart="40dp"
-            android:background="@drawable/bg_btn_player_tv"
-            android:focusable="true"
-            android:clickable="true"
-            android:nextFocusLeft="@id/imageView16"
-            android:nextFocusRight="@id/imageView18"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView16"
-            app:layout_constraintStart_toEndOf="@+id/imageView16"
-            app:layout_constraintTop_toTopOf="@+id/imageView16"
-            app:srcCompat="@drawable/button_forward" />
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/geo"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:date="@{epg.end}"
+                app:format="@{`HH:mm`}"
+                app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
+                app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
+                tools:text="09:00" />
 
-        <ImageView
-            android:id="@+id/imageView19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView18"
-            app:layout_constraintTop_toTopOf="@+id/imageView16"
-            android:background="@drawable/bg_btn_player_tv"
-            android:focusable="true"
-            android:clickable="true"
-            android:visibility="gone"
-            app:srcCompat="@drawable/button_epg" />
+            <ImageView
+                android:id="@+id/imageView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_btn_player_tv"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/button_epg" />
 
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/geo"
-            android:gravity="top"
-            android:text="@string/minus_10_s"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView15"
-            app:layout_constraintStart_toStartOf="@+id/imageView15"
-            app:layout_constraintTop_toBottomOf="@+id/imageView15"
-            tools:ignore="RtlCompat" />
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/geo"
+                android:gravity="top"
+                android:text="@string/epg"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlCompat" />
 
-        <TextView
-            android:id="@+id/textView30"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/geo"
-            android:gravity="top"
-            android:text="@string/channels"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@id/imageView7"
-            app:layout_constraintStart_toStartOf="@id/imageView7"
-            app:layout_constraintTop_toBottomOf="@id/imageView7"
-            tools:ignore="RtlCompat" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/textView27"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/geo"
-            android:gravity="top"
-            android:text="@string/play"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView16"
-            app:layout_constraintStart_toStartOf="@+id/imageView16"
-            app:layout_constraintTop_toBottomOf="@+id/imageView16"
-            tools:ignore="RtlCompat" />
+                <ImageView
+                    android:id="@+id/imageView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:background="@drawable/bg_btn_player_tv"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:nextFocusLeft="@id/imageView7"
+                    android:nextFocusRight="@id/imageView16"
+                    android:padding="2dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView16"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/imageView16"
+                    app:srcCompat="@drawable/button_rewind" />
 
-        <TextView
-            android:id="@+id/textView28"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/geo"
-            android:gravity="top"
-            android:text="@string/plus_10_s"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView18"
-            app:layout_constraintStart_toStartOf="@+id/imageView18"
-            app:layout_constraintTop_toBottomOf="@+id/imageView18"
-            tools:ignore="RtlCompat" />
+                <ImageView
+                    android:id="@+id/imageView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_btn_player_tv"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:nextFocusLeft="@id/imageView16"
+                    android:nextFocusRight="@id/imageView18"
+                    android:padding="2dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView16"
+                    app:layout_constraintTop_toTopOf="@+id/imageView16"
+                    app:srcCompat="@drawable/button_forward" />
 
-        <TextView
-            android:id="@+id/textView29"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/geo"
-            android:gravity="top"
-            android:text="@string/epg"
-            android:textAllCaps="true"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/imageView19"
-            app:layout_constraintStart_toStartOf="@+id/imageView19"
-            app:layout_constraintTop_toBottomOf="@+id/imageView19"
-            tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/geo"
+                    android:gravity="top"
+                    android:text="@string/minus_10_s"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView15"
+                    app:layout_constraintStart_toStartOf="@+id/imageView15"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView15"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/geo"
+                    android:gravity="top"
+                    android:text="@string/play"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView16"
+                    app:layout_constraintStart_toStartOf="@+id/imageView16"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView16"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/geo"
+                    android:gravity="top"
+                    android:text="@string/plus_10_s"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView18"
+                    app:layout_constraintStart_toStartOf="@+id/imageView18"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView18"
+                    tools:ignore="RtlCompat" />
+
+                <ImageView
+                    android:id="@+id/imageView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_btn_player_tv"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:nextFocusLeft="@id/imageView15"
+                    android:nextFocusRight="@id/imageView18"
+                    android:padding="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/lb_ic_play" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
