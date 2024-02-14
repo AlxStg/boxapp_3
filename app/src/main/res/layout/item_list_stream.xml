@@ -10,6 +10,7 @@
         <variable
             name="focus"
             type="Boolean" />
+        <import type="com.example.iptvsdk.common.IptvSettings" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +40,7 @@
                 android:layout_height="140dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                app:loadImage="@{model.image}" />
+                app:loadImage="@{IptvSettings.resizeImage(model.image, 300, 0)}" />
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -50,7 +50,7 @@ public class PlayerTvChannelInfoFragment extends Fragment implements KeyListener
 
         mBinding.playerControlsTv.setListener(listener);
 
-        mBinding.playerControlsTv.textView23.setFormat24Hour("dd/MM/yyyy - HH:mm:ss");
+        mBinding.playerControlsTv.textView23.setFormat24Hour("dd/MM/yyyy - HH:mm");
         mBinding.playerControlsTv.imageView7.requestFocus();
 
         return mBinding.getRoot();

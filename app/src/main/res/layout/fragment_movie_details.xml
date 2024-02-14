@@ -7,6 +7,9 @@
         <variable
             name="model"
             type="com.example.iptvsdk.ui.movie_details.MovieDetailsModel" />
+        <variable
+            name="listener"
+            type="com.example.boxapp3.listeners.fragments.MovieDetailsFragmentListener" />
     </data>
 
 
@@ -316,6 +319,7 @@
                     android:background="@drawable/bg_button"
                     android:clickable="true"
                     android:focusable="true"
+                        android:onClick="@{ (v) -> listener.onPlayClicked() }"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:paddingStart="30dp"

@@ -8,6 +8,7 @@
         <variable
             name="model"
             type="com.example.iptvsdk.data.models.xtream.StreamXc" />
+        <import type="com.example.iptvsdk.common.IptvSettings" />
     </data>
 
 
@@ -38,7 +39,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:loadImage="@{model.streamIcon}"
+                    app:loadImage="@{IptvSettings.resizeImage(model.streamIcon, 250, 0)}"
             tools:srcCompat="@drawable/hbo" />
 
         <TextView
