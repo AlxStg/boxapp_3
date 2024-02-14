@@ -31,7 +31,7 @@
         <activity
             android:name=".views.activities.PlayerTvActivity"
             android:exported="false" />
-        <activity android:name=".PlayerMoviesActivity" />
+        <activity android:name=".views.activities.PlayerVodActivity" />
         <activity
             android:name=".views.activities.SplashActivity"
             android:banner="@drawable/app_icon_your_company"
@@ -50,19 +50,6 @@
         <activity
             android:name=".views.activities.MainActivity"
             android:exported="false" />
-        <activity
-            android:name=".DetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PlaybackActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BrowseErrorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity_player"
-            android:exported="true" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -2,10 +2,10 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="media-test-session-current">
+      <entry key="app">
         <State />
       </entry>
-      <entry key="newApp4">
+      <entry key="media-test-session-current">
         <State />
       </entry>
     </value>

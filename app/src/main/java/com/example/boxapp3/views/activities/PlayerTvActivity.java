@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.boxapp3.R;
@@ -18,11 +17,15 @@ import com.example.boxapp3.views.fragments.players.tv.PlayerTvPanelsFragment;
 import com.example.iptvsdk.common.IptvSettings;
 import com.example.iptvsdk.common.centerContent.CenterContent;
 import com.example.iptvsdk.common.centerContent.EmptyFragment;
+import com.example.iptvsdk.data.models.EpgDb;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.player.exo.IptvExoPlayer;
 import com.example.iptvsdk.ui.live.IptvLive;
 
-public class PlayerTvActivity extends AppCompatActivity implements PlayerTvActivityListener {
+import java.util.Calendar;
+import java.util.Date;
+
+public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityListener {
 
     private ActivityPlayerTvBinding mBinding;
     private IptvExoPlayer mIptvExoPlayer;
@@ -171,5 +174,24 @@ public class PlayerTvActivity extends AppCompatActivity implements PlayerTvActiv
     @Override
     public void onFastForward() {
 
+    }
+
+    @Override
+    public void onEpgClick(EpgDb item, int daysPlayback) {
+        if (daysPlayback > 0) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_MONTH, -daysPlayback);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 1);
+            Date date = calendar.getTime();
+            Date dateStart = item.getStart();
+
+            if (dateStart.after(date) && dateStart.before(new Date())) {
+                String urlPlayback = mIptvLive.generatePlaybacklUrl(this, String.valueOf(streamId), dateStart);
+                mIptvExoPlayer.play(urlPlayback);
+                return;
+            }
+        }
     }
 }
