@@ -28,7 +28,9 @@
             android:id="@+id/thumb_movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:fontFamily="@font/comfortaa_light"
+            android:gravity="center"
             android:paddingStart="1dp"
             android:paddingEnd="1dp"
             android:paddingBottom="5dp"
@@ -36,6 +38,17 @@
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="10sp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:progressBackgroundTint="#FFFFFF"
+            android:progressTint="#F679FF"
+            android:secondaryProgressTint="#538DFF" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
