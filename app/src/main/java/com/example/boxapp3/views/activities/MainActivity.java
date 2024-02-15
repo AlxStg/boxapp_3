@@ -269,4 +269,13 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                 break;
         }
     }
+
+    @Override
+    public void onPlayEpisode(int streamId, int episodeId) {
+        Intent intent = new Intent(this, PlayerVodActivity.class);
+        intent.putExtra("seriesId", streamId);
+        intent.putExtra("id", episodeId);
+        intent.putExtra("type", StreamXc.TYPE_STREAM_SERIES);
+        startActivity(intent);
+    }
 }

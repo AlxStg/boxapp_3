@@ -122,6 +122,9 @@ public class SeriesDetailsFragment extends Fragment {
                             }
                             return false;
                         });
+                        binding.getRoot().setOnClickListener(v -> {
+                            mainActivityListener.onPlayEpisode(id, Integer.parseInt(item.getId()));
+                        });
                     }
                 });
         getActivity().runOnUiThread(() -> {
