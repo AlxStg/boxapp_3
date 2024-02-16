@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Blue Prime</string>
     <string name="browse_title">Vidéos de Votre Entreprise</string>
     <string name="related_movies">Vidéos Connexes</string>
     <string name="grid_view">Vue en Grille</string>

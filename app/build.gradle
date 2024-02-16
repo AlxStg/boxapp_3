@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.14boxapp3'
+    namespace 'com.example.boxapp3'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.14boxapp3"
+        applicationId "com.example.boxapp14"
         minSdk 24
         targetSdk 33
         versionCode 1
