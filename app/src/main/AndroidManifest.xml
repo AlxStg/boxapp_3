@@ -50,6 +50,9 @@
         <activity
             android:name=".views.activities.MainActivity"
             android:exported="false" />
+        <activity
+            android:name=".views.activities.LoginActivity"
+            android:exported="false" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
