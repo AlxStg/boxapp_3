@@ -18,7 +18,7 @@ android {
         buildConfigField("Boolean", "IS_MOBILE", "false")
         buildConfigField("Boolean", "FORCE_LOGIN", "true")
         buildConfigField("Boolean", "LOGIN_URL", "false")
-        buildConfigField("Boolean", "LOGIN_MAG", "true")
+        buildConfigField("Boolean", "LOGIN_MAG", "false")
         buildConfigField("Boolean", "LOGIN_XC_DATA", "false")
         multiDexEnabled = true
     }
