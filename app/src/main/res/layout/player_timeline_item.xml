@@ -11,9 +11,9 @@
     </data>
 
     <LinearLayout
-        android:layout_width="200dp"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginBottom="4dp"
         android:background="@drawable/bg_btn_epg2"
         android:backgroundTintMode="add"
@@ -41,7 +41,7 @@
                 android:fontFamily="@font/sulphur_point"
                 android:textAlignment="textEnd"
                 android:textColor="@color/default_text"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 app:date="@{model.start}"
                 app:format="@{`HH:mm`}"
                 tools:text="06:00" />
@@ -54,7 +54,7 @@
                 android:text="  -  "
                 android:textAlignment="center"
                 android:textColor="@color/default_text"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                 android:fontFamily="@font/sulphur_point"
                 android:textAlignment="textStart"
                 android:textColor="@color/default_text"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 app:date="@{model.end}"
                 app:format="@{`HH:mm`}"
                 tools:text="06:50" />
@@ -71,15 +71,17 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sulphur_point"
             android:gravity="center"
             android:maxLines="1"
             android:minLines="1"
             android:text="@{model.title}"
+            android:textAlignment="center"
             android:textColor="@color/default_color"
-            android:textSize="14sp"
+            android:textSize="16sp"
+            android:textStyle="bold"
             tools:text="The Big Bang Theory" />
 
         <TextView
@@ -91,7 +93,7 @@
             android:gravity="top"
             android:text="Gravado"
             android:textAlignment="center"
-            android:textColor="#FF9800"
+            android:textColor="#FF5722"
             android:textSize="10sp"
             tools:ignore="RtlCompat" />
 

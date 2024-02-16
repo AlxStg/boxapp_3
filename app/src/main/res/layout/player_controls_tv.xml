@@ -19,7 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#CCFFFFFF"
+        android:background="#99FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -38,7 +38,8 @@
             app:layout_constraintHorizontal_bias="0.467"
             app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
             app:layout_constraintTop_toBottomOf="@+id/textView25"
-            app:srcCompat="@drawable/baseline_density_small_24" />
+            app:srcCompat="@drawable/baseline_density_small_24"
+            app:tint="@color/default_text" />
 
         <TextView
             android:id="@+id/textView29"
@@ -71,11 +72,12 @@
             app:layout_constraintTop_toBottomOf="@+id/textView29"
             app:layout_constraintVertical_bias="0.0" />
 
-        <SeekBar
+        <android.widget.SeekBar
             android:id="@+id/seekBar_movies"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:progress="@{percentageActualProgramme}"
             android:progressBackgroundTint="#FFFFFF"
@@ -92,9 +94,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/sulphur_point"
+            android:textAlignment="center"
             android:textColor="@color/default_color"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
+            app:layout_constraintEnd_toEndOf="@+id/imageView7"
+            app:layout_constraintStart_toStartOf="@+id/imageView7"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="24/11/2023  -  08:21" />
 

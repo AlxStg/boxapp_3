@@ -16,11 +16,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
-        android:layout_width="match_parent"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="#99000000"
-        android:padding="15dp"
+        android:background="#99FFFFFF"
+        android:padding="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -31,8 +30,9 @@
             android:fontFamily="@font/sulphur_point"
             android:text="@{stream.name}"
             android:textColor="@color/default_color"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="20dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView12"
             tools:text="Channel Name" />
@@ -40,57 +40,61 @@
         <ImageView
             android:id="@+id/imageView12"
             android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_marginBottom="6dp"
+            android:layout_height="65dp"
             android:adjustViewBounds="true"
-            app:layout_constraintBottom_toTopOf="@+id/textView11"
-            app:layout_constraintStart_toStartOf="@+id/textView11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:loadImage="@{stream.streamIcon}"
             tools:srcCompat="@drawable/globo_ong" />
 
         <TextView
             android:id="@+id/textView14"
-            android:layout_width="800dp"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/sulphur_point"
             android:maxLines="2"
             android:text="@{epg.title}"
-            android:textAlignment="textEnd"
+            android:textAlignment="center"
             android:textColor="@color/default_color"
-            android:textSize="24sp"
+            android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11"
             tools:text="Harri Potter e as Relíquias da Morte - Parte 2" />
 
         <TextView
             android:id="@+id/textView15"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sulphur_point"
-            android:textColor="#B3FFFFFF"
+            android:textAlignment="center"
+            android:textColor="#5A5A5A"
             android:textSize="16sp"
             app:dateEpgEnd="@{epg.end}"
             app:dateEpgStart="@{epg.start}"
-            app:layout_constraintEnd_toEndOf="@+id/textView14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14"
             tools:text="6:50 - 11:45" />
 
         <TextView
             android:id="@+id/textView13"
-            android:layout_width="800dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/sulphur_point"
-            android:maxLines="10"
+            android:maxLines="7"
             android:text="@{epg.description}"
-            android:textAlignment="textEnd"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
+            android:textAlignment="center"
+            android:textColor="@color/default_text"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView15"
             tools:text="On Air - Tv Show Description" />
 
