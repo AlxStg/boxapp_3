@@ -34,11 +34,7 @@
         <activity android:name=".views.activities.PlayerVodActivity" />
         <activity
             android:name=".views.activities.SplashActivity"
-            android:banner="@drawable/app_icon_your_company"
             android:exported="true"
-            android:icon="@drawable/app_icon_your_company"
-            android:label="@string/title_activity_player"
-            android:logo="@drawable/app_icon_your_company"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

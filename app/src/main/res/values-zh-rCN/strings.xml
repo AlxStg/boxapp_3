@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">蓝色首选</string>
     <string name="browse_title">贵公司的视频</string>
     <string name="related_movies">相关视频</string>
     <string name="grid_view">网格视图</string>
