@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">بلو برايم</string>
     <string name="browse_title">فيديوهات شركتك</string>
     <string name="related_movies">فيديوهات ذات صلة</string>
     <string name="grid_view">عرض الشبكة</string>
