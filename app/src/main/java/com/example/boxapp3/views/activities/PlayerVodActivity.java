@@ -3,9 +3,11 @@ package com.example.boxapp3.views.activities;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -83,18 +85,18 @@ public class PlayerVodActivity extends BaseActivity implements PlayerVodActivity
             @Override
             public void alreadyWatched(boolean isAlreadyWatched) {
                 super.alreadyWatched(isAlreadyWatched);
-                //  model.setShowResumeModal(isAlreadyWatched);
-                //  if (isAlreadyWatched) {
-                //      mBinding.modalResume.btnYes.btnYes.requestFocus();
-                //      mBinding.modalResume.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                //          @Override
-                //          public void onGlobalLayout() {
-                //              mBinding.modalResume.getRoot().getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                //              new Handler(Looper.getMainLooper())
-                //                      .postDelayed(() -> mBinding.modalResume.btnYes.btnYes.requestFocus(), 500);
-                //          }
-                //      });
-                //  }
+                mModel.setShowResumeModal(isAlreadyWatched);
+                if (isAlreadyWatched) {
+                    mBinding.modalResume.btnYes.requestFocus();
+                    mBinding.modalResume.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            mBinding.modalResume.getRoot().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            new Handler(Looper.getMainLooper())
+                                    .postDelayed(() -> mBinding.modalResume.btnYes.requestFocus(), 500);
+                        }
+                    });
+                }
             }
 
             @Override

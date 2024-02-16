@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.boxapp3.R;
+import com.example.boxapp3.common.GenericUtils;
 import com.example.boxapp3.databinding.ActivitySplashBinding;
 import com.example.iptvsdk.IptvApplication;
 import com.example.iptvsdk.ui.signin.IptvSignIn;
@@ -29,7 +30,8 @@ public class SplashActivity extends BaseActivity {
 
         IptvApplication application = (IptvApplication) getApplication();
 
-        IptvSignIn iptvSignIn = new IptvSignIn(this, new IptvSigninListener() {
+        IptvSignIn iptvSignIn = new IptvSignIn(this, GenericUtils.getLoginType(),
+                new IptvSigninListener() {
 
             @Override
             public void onSigninSuccess(Context context) {
@@ -49,6 +51,12 @@ public class SplashActivity extends BaseActivity {
                         .subscribe();
             }
 
+            @Override
+            public void onMissingLogin() {
+                super.onMissingLogin();
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
         }, false);
         removerColumnsSaved();
     }

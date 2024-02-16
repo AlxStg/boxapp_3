@@ -71,4 +71,7 @@
     <string name="live">Live</string>
     <string name="impossible_load_vod_without_id">Impossible load vod without id</string>
     <string name="audio_subtitle">Audio/Subtitle</string>
+    <string name="mag_login">Mag Login</string>
+    <string name="enter_mac_adress_here">Enter MAC adress here...</string>
+    <string name="enter_portal_adress_here_http">Enter portal adress here... http://...</string>
 </resources>
