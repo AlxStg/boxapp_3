@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BoxApp3</string>
+    <string name="app_name" translatable="false">BoxApp13</string>
     <string name="title_activity_player">Leanback Activity_player</string>
     <string name="browse_title">Videos by Your Company</string>
     <string name="related_movies">Related Videos</string>
