@@ -188,19 +188,19 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
             @Override
             public Single<StreamXc> getItem(int position) {
                 Single<StreamXc> channel = mIptvLive.getChannels(position);
-                if (position == 0 && !loadedFirstEpg) {
-                    loadedFirstEpg = true;
-                    channel.subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doOnError(th -> {
-                                loadedFirstEpg = false;
-                                Log.e("TAG", "getItem: ", th);
-                            })
-                            .doOnSuccess(streamXc -> {
-                                loadEpg(streamXc);
-                            })
-                            .subscribe();
-                }
+               // if (position == 0 && !loadedFirstEpg) {
+               //     loadedFirstEpg = true;
+               //     channel.subscribeOn(Schedulers.io())
+               //             .observeOn(AndroidSchedulers.mainThread())
+               //             .doOnError(th -> {
+               //                 loadedFirstEpg = false;
+               //                 Log.e("TAG", "getItem: ", th);
+               //             })
+               //             .doOnSuccess(streamXc -> {
+               //                 loadEpg(streamXc);
+               //             })
+               //             .subscribe();
+               // }
                 return channel;
             }
 
@@ -217,10 +217,10 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
                 binding.setModel(item);
 
                 binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
+                    loadEpg(item);
                     if (epgRunnable != null)
                         epgHandler.removeCallbacks(epgRunnable);
                     epgRunnable = () -> {
-                        loadEpg(item);
                         Log.d("TAG", "setModelToItem: " + item.getTvArchiveDuration());
                     };
                     epgHandler.postDelayed(epgRunnable, 1000);

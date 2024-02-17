@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -103,13 +104,13 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
                 binding.setModel(item);
 
                 binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
-                    if (epgRunnable != null)
-                        epgHandler.removeCallbacks(epgRunnable);
-                    epgRunnable = () -> {
-                        loadEpg(item);
-                        Log.d("TAG", "setModelToItem: " + item.getTvArchiveDuration());
-                    };
-                    epgHandler.postDelayed(epgRunnable, 1000);
+                    loadEpg(item);
+                    //if (epgRunnable != null)
+                    //    epgHandler.removeCallbacks(epgRunnable);
+                    //epgRunnable = () -> {
+                    //    Log.d("TAG", "setModelToItem: " + item.getTvArchiveDuration());
+                    //};
+                    //epgHandler.postDelayed(epgRunnable, 1000);
                 });
 
                 binding.getRoot().setOnClickListener(v -> {
@@ -120,7 +121,13 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
         mBinding.include3.listChannels.setAdapter(adapter);
     }
 
+    private int epgAlreadyLoaded = -1;
+
     private void loadEpg(StreamXc stream) {
+        if(epgAlreadyLoaded == stream.getStreamId()) return;
+
+        epgAlreadyLoaded = stream.getStreamId();
+
         GenericAdapter<EpgDb, ScrollTvEpgItemBinding> adapter =
                 new GenericAdapter<>(getContext(), new GenericAdapter.GenericAdapterHelper<EpgDb, ScrollTvEpgItemBinding>() {
                     @Override
@@ -161,6 +168,31 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
                     }
                 });
         getActivity().runOnUiThread(() -> mBinding.include4.listEpg.setAdapter(adapter));
+
+        adapter.totalItemsObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(th -> Log.e("TAG", "loadEpg: ", th))
+                .doOnNext(integer -> {
+                    if (integer > 0) {
+                        iptvLive.getActualEpgPosition(stream)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnError(th -> Log.e("TAG", "loadEpg: ", th))
+                                .doOnSuccess(position -> {
+                                    mBinding.include4.listEpg.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                                        @Override
+                                        public void onGlobalLayout() {
+                                            mBinding.include4.listEpg.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                            mBinding.include4.listEpg.scrollToPosition(position);
+                                            mBinding.include4.listEpg.setSelectedPosition(position);
+                                        }
+                                    });
+                                })
+                                .subscribe();
+                    }
+                })
+                .subscribe();
     }
 
     private void setupCategories() {
