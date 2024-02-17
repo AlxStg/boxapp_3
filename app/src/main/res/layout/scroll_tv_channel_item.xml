@@ -9,6 +9,7 @@
             name="model"
             type="com.example.iptvsdk.data.models.xtream.StreamXc" />
         <import type="com.example.iptvsdk.common.IptvSettings" />
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,6 +60,12 @@
                 android:text="@{model.name}"
                 android:textAlignment="textStart"
                 android:textColor="#FFFFFF" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_favorite_24"
+                android:visibility="@{model.favorite ? View.VISIBLE : View.GONE}"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

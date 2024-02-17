@@ -20,6 +20,7 @@ import com.example.iptvsdk.common.centerContent.EmptyFragment;
 import com.example.iptvsdk.data.models.EpgDb;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.player.exo.IptvExoPlayer;
+import com.example.iptvsdk.services.StreamPlayedDurationService;
 import com.example.iptvsdk.ui.live.IptvLive;
 
 import java.util.Calendar;
@@ -32,6 +33,7 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
     private IptvLive mIptvLive;
     private IptvSettings mIptvSettings;
     private CenterContent mCenterContent;
+    private StreamPlayedDurationService mStreamPlayedDurationService;
 
     private int streamId;
     private StreamXc stream;
@@ -46,6 +48,7 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
         mIptvExoPlayer = new IptvExoPlayer(this, mBinding.playerView);
         mIptvLive = new IptvLive(this);
         mIptvSettings = new IptvSettings(this);
+        mStreamPlayedDurationService = new StreamPlayedDurationService(this);
 
         streamId = getIntent().getIntExtra("streamId", -1);
         if (streamId == -1) {
@@ -149,6 +152,7 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
         this.streamId = stream.getStreamId();
         mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
         sharedPreferences.edit().putInt("streamId", streamId).apply();
+        mStreamPlayedDurationService.insertOrUpdate(streamId, mIptvExoPlayer.getCurrentPosition(), StreamXc.TYPE_STREAM_LIVE);
         showChannelInfo();
     }
 

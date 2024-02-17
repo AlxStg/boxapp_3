@@ -26,6 +26,7 @@ import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
 import com.example.iptvsdk.data.models.EpgDb;
 import com.example.iptvsdk.data.models.xtream.Category;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
+import com.example.iptvsdk.services.FavoritesService;
 import com.example.iptvsdk.ui.live.IptvLive;
 
 import java.util.Date;
@@ -41,6 +42,7 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
     private FragmentTvPlayerPanelsBinding mBinding;
     private IptvLive mIptvLive;
     private PlayerTvActivityListener mListener;
+    private FavoritesService mFavoritesService;
 
     private SharedPreferences mSharedPreferences;
 
@@ -63,6 +65,7 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentTvPlayerPanelsBinding.inflate(inflater, container, false);
+        mFavoritesService = new FavoritesService(getContext());
         return mBinding.getRoot();
     }
 
@@ -225,6 +228,15 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
                 binding.getRoot().setOnClickListener(v -> {
                     mListener.onChannelClick(item);
                     mSharedPreferences.edit().putInt("lastChannelId", bindingAdapterPosition).apply();
+                });
+                binding.getRoot().setOnLongClickListener(v -> {
+                    mFavoritesService.toggleFavorite(item)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(Schedulers.computation())
+                            .doOnError(th -> Log.e("TAG", "setModelToItem: ", th))
+                            .doOnSuccess(item::setFavorite)
+                            .subscribe();
+                    return true;
                 });
             }
         });
