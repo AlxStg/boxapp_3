@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">ブループライム</string>
     <string name="browse_title">貴社のビデオ</string>
     <string name="related_movies">関連するビデオ</string>
     <string name="grid_view">グリッドビュー</string>

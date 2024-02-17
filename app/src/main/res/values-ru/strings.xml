@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Блу Прайм</string>
     <string name="browse_title">Видео вашей компании</string>
     <string name="related_movies">Связанные видео</string>
     <string name="grid_view">Сетка</string>
