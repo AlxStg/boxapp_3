@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -13,16 +15,14 @@
         <import type="android.view.View" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/rounded_corners_20dp_black"
-        android:backgroundTint="#000000"
+        android:backgroundTint="#7C7C7C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -34,17 +34,16 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
+            android:clickable="@{model.showController ? true : false}"
+            android:focusable="@{model.showController ? true : false}"
+            android:nextFocusUp="@id/imageButton"
             android:progressBackgroundTint="#FFFFFF"
             android:progressTint="#FFFFFF"
             android:thumbTint="#FFFFFF"
-            android:focusable="@{model.showController ? true : false}"
-            android:clickable="@{model.showController ? true : false}"
-            android:nextFocusUp="@id/imageButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView24"
@@ -72,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
             android:background="@drawable/bg_thumbs"
+            android:backgroundTint="#B3FF00F2"
             android:clickable="true"
             android:focusable="true"
             android:onClick="@{() -> model.rewind()}"
@@ -85,17 +85,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_thumbs"
-            android:backgroundTint="#03A9F4"
-            android:focusable="@{model.showController ? true : false}"
+            android:backgroundTint="#80C5A1FF"
             android:clickable="@{model.showController ? true : false}"
+            android:focusable="@{model.showController ? true : false}"
             android:foregroundTintMode="multiply"
-            android:padding="2dp"
             android:onClick="@{() -> model.playPauseToggle()}"
-            tools:src="@drawable/baseline_pause_24"
+            android:padding="2dp"
+            android:src="@{model.isPlaying ? @drawable/baseline_pause_24 : @drawable/lb_ic_play}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
-            android:src="@{model.isPlaying ? @drawable/baseline_pause_24 : @drawable/lb_ic_play}" />
+            tools:src="@drawable/baseline_pause_24" />
 
         <ImageView
             android:id="@+id/imageView18"
@@ -103,6 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:background="@drawable/bg_thumbs"
+            android:backgroundTint="#80415CF6"
             android:clickable="true"
             android:focusable="true"
             android:onClick="@{() -> model.fastForward()}"
@@ -132,7 +133,6 @@
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/comfortaa_light"
             android:gravity="top"
-            tools:text="Pause"
             android:text="@{!model.isPlaying ? @string/play : @string/pause}"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
@@ -140,7 +140,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/imageView16"
             app:layout_constraintStart_toStartOf="@+id/imageView16"
-            app:layout_constraintTop_toBottomOf="@+id/imageView16" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView16"
+            tools:text="Pause" />
 
         <TextView
             android:id="@+id/textView28"
@@ -163,8 +164,8 @@
             android:background="@drawable/bg_button"
             android:clickable="true"
             android:focusable="true"
-            android:padding="5dp"
             android:onClick="@{() -> model.selectTracks()}"
+            android:padding="5dp"
             app:layout_constraintEnd_toStartOf="@+id/textView25"
             app:layout_constraintStart_toEndOf="@+id/imageView18"
             app:layout_constraintTop_toTopOf="@+id/imageView18"
