@@ -1,10 +1,13 @@
 package com.example.boxapp3.views.activities;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
@@ -49,6 +52,8 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         mModel = new MainActivityModel();
@@ -62,6 +67,13 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
         setupMenu();
 
+        ImageView imageView = findViewById(R.id.imageView17);
+
+        ObjectAnimator rotate = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 360f);
+        rotate.setDuration(2000);
+        rotate.setInterpolator(new LinearInterpolator());
+        rotate.setRepeatCount(ObjectAnimator.INFINITE);
+        rotate.start();
     }
 
     @Override
