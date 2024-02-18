@@ -188,19 +188,19 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
             @Override
             public Single<StreamXc> getItem(int position) {
                 Single<StreamXc> channel = mIptvLive.getChannels(position);
-               // if (position == 0 && !loadedFirstEpg) {
-               //     loadedFirstEpg = true;
-               //     channel.subscribeOn(Schedulers.io())
-               //             .observeOn(AndroidSchedulers.mainThread())
-               //             .doOnError(th -> {
-               //                 loadedFirstEpg = false;
-               //                 Log.e("TAG", "getItem: ", th);
-               //             })
-               //             .doOnSuccess(streamXc -> {
-               //                 loadEpg(streamXc);
-               //             })
-               //             .subscribe();
-               // }
+                //if (position == 0 && !loadedFirstEpg) {
+                //    loadedFirstEpg = true;
+                //    channel.subscribeOn(Schedulers.io())
+                //            .observeOn(AndroidSchedulers.mainThread())
+                //            .doOnError(th -> {
+                //                loadedFirstEpg = false;
+                //                Log.e("TAG", "getItem: ", th);
+                //            })
+                //            .doOnSuccess(streamXc -> {
+                //                loadEpg(streamXc);
+                //            })
+                //            .subscribe();
+                //}
                 return channel;
             }
 
@@ -218,12 +218,12 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
 
                 binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
                     loadEpg(item);
-                    if (epgRunnable != null)
-                        epgHandler.removeCallbacks(epgRunnable);
-                    epgRunnable = () -> {
-                        Log.d("TAG", "setModelToItem: " + item.getTvArchiveDuration());
-                    };
-                    epgHandler.postDelayed(epgRunnable, 1000);
+                    //if (epgRunnable != null)
+                    //    epgHandler.removeCallbacks(epgRunnable);
+                    //epgRunnable = () -> {
+                    //    Log.d("TAG", "setModelToItem: " + item.getTvArchiveDuration());
+                    //};
+                    //epgHandler.postDelayed(epgRunnable, 1000);
                 });
                 binding.getRoot().setOnClickListener(v -> {
                     mListener.onChannelClick(item);
@@ -270,7 +270,7 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
     private int epgAlreadyLoaded = -1;
 
     private void loadEpg(StreamXc stream) {
-        if(epgAlreadyLoaded == stream.getStreamId()) return;
+        if (epgAlreadyLoaded == stream.getStreamId()) return;
 
         epgAlreadyLoaded = stream.getStreamId();
 
@@ -368,23 +368,23 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
-            if (mBinding.include.include3.listChannels.hasFocus()) {
-                mBinding.include.include2.listCategories.requestFocus();
-                return true;
-            } else if (mBinding.include.include4.listEpg.hasFocus()) {
-                mBinding.include.include3.listChannels.requestFocus();
-                return true;
-            }
-        } else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
-            if (mBinding.include.include2.listCategories.hasFocus()) {
-                mBinding.include.include3.listChannels.requestFocus();
-                return true;
-            } else if (mBinding.include.include3.listChannels.hasFocus()) {
-                mBinding.include.include4.listEpg.requestFocus();
-                return true;
-            }
-        }
+        //if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
+        //    if (mBinding.include.include3.listChannels.hasFocus()) {
+        //        mBinding.include.include2.listCategories.requestFocus();
+        //        return true;
+        //    } else if (mBinding.include.include4.listEpg.hasFocus()) {
+        //        mBinding.include.include3.listChannels.requestFocus();
+        //        return true;
+        //    }
+        //} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
+        //    if (mBinding.include.include2.listCategories.hasFocus()) {
+        //        mBinding.include.include3.listChannels.requestFocus();
+        //        return true;
+        //    } else if (mBinding.include.include3.listChannels.hasFocus()) {
+        //        mBinding.include.include4.listEpg.requestFocus();
+        //        return true;
+        //    }
+        //}
         return false;
     }
 }
