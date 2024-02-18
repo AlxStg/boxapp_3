@@ -294,7 +294,8 @@
                         android:paddingTop="10dp"
                         android:paddingEnd="10dp"
                         android:paddingBottom="10dp"
-                        android:visibility="visible">
+                        android:visibility="visible"
+                        android:nextFocusDown="@id/horizontalGridView">
 
                         <ImageView
                             android:id="@+id/imageView243"
@@ -321,7 +322,8 @@
                         android:paddingEnd="30dp"
                         android:paddingBottom="10dp"
                         android:visibility="visible"
-                        android:onClick="@{ (v) -> listener.onPlayClicked() }">
+                        android:onClick="@{ (v) -> listener.onPlayClicked() }"
+                        android:nextFocusDown="@id/horizontalGridView">
 
                         <ImageView
                             android:id="@+id/imageView23"
@@ -372,7 +374,8 @@
                     <androidx.leanback.widget.HorizontalGridView
                         android:id="@+id/horizontalGridView"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp" />
+                        android:layout_height="150dp"
+                        android:nextFocusUp="@id/linearLayout12"/>
 
                 </LinearLayout>
 

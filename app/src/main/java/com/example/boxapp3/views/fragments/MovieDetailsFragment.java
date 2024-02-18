@@ -19,6 +19,7 @@ import com.example.boxapp3.listeners.activities.MainActivityListener;
 import com.example.boxapp3.listeners.fragments.MovieDetailsFragmentListener;
 import com.example.boxapp3.views.activities.PlayerVodActivity;
 import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
+import com.example.iptvsdk.data.models.tmdb.Images;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.ui.list_stream.IptvListStream;
 import com.example.iptvsdk.ui.list_streams_categories.model.ListStreamsModel;
@@ -70,6 +71,11 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsFragme
             public void loadAlsoWatch(boolean isKids) {
                 alsoWatch(isKids);
             }
+
+            @Override
+            public void onImagesTmdbLoaded(Images images) {
+                chooseImage(images);
+            }
         });
         iptvMovieDetails.getModel(id)
                 .subscribeOn(Schedulers.computation())
@@ -92,6 +98,18 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsFragme
         });
     }
 
+    private void chooseImage(Images images) {
+        if (images != null) {
+            if (images.getPosters() != null &&
+                    images.getPosters().size() > 0) {
+                binding.getModel().setImage(images.getPosters().get(0).getImageUrl());
+
+            } else if (images.getBackdrops() != null &&
+                    images.getBackdrops().size() > 0) {
+                binding.getModel().setImage(images.getBackdrops().get(0).getImageUrl());
+            }
+        }
+    }
 
 
     private void alsoWatch(boolean isKids) {
@@ -104,7 +122,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsFragme
 
 
         GenericAdapter<ListStreamsModel, ItemListStreamBinding> adapter = new
-                GenericAdapter<>(getContext(), new GenericAdapter.GenericAdapterHelper<ListStreamsModel, ItemListStreamBinding>(){
+                GenericAdapter<>(getContext(), new GenericAdapter.GenericAdapterHelper<ListStreamsModel, ItemListStreamBinding>() {
 
             @Override
             public ItemListStreamBinding createBinding(LayoutInflater inflater, ViewGroup parent) {
@@ -130,13 +148,13 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsFragme
                 idsAlreadyUsed.add(item.getId());
                 binding.setModel(item);
                 binding.getRoot().setOnClickListener(v -> {
-                   mainActivityListener.openDetails(item.getId(), item.getType());
+                    mainActivityListener.openDetails(item.getId(), item.getType());
                 });
 
                 binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
-                    if(event.getAction() == KeyEvent.ACTION_DOWN) {
-                        if(keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-                            if(bindingAdapterPosition == 0) {
+                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                        if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                            if (bindingAdapterPosition == 0) {
                                 mainActivityListener.onGoToMenu();
                                 return true;
                             }
