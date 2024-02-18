@@ -48,6 +48,27 @@ android {
     hilt {
         enableAggregatingTask = true
     }
+
+    flavorDimensions "layout"
+
+    productFlavors {
+        boxApp3 {
+            dimension "layout"
+            applicationId "com.example.boxapp3"
+        }
+        boxApp4 {
+            dimension "layout"
+            applicationId "com.example.boxapp4"
+        }
+        boxApp13 {
+            dimension "layout"
+            applicationId "com.example.boxapp13"
+        }
+        boxApp14 {
+            dimension "layout"
+            applicationId "com.example.boxapp14"
+        }
+    }
 }
 
 dependencies {

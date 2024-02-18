@@ -1,0 +1,40 @@
+<resources>
+    <string name="browse_title">Videos von Ihrem Unternehmen</string>
+    <string name="related_movies">Verwandte Videos</string>
+    <string name="grid_view">Rasteransicht</string>
+    <string name="error_fragment">Fehlerfragment</string>
+    <string name="personal_settings">Persönliche Einstellungen</string>
+    <string name="watch_trailer_1">Trailer ansehen</string>
+    <string name="watch_trailer_2">KOSTENLOS</string>
+    <string name="rent_1">Tageweise mieten</string>
+    <string name="rent_2">Ab $1,99</string>
+    <string name="buy_1">Kaufen und besitzen</string>
+    <string name="buy_2">BEI $9.99</string>
+    <string name="movie">Film</string>
+    <string name="pause">Pause</string>
+    <string name="play">Abspielen</string>
+
+    <!-- Fehlermeldungen -->
+    <string name="error_fragment_message">Ein Fehler ist aufgetreten</string>
+    <string name="dismiss_error">Abbrechen</string>
+    <string name="loading_data">Daten werden geladen</string>
+    <string name="login_error">Anmeldefehler</string>
+    <string name="an_error_occurred_while_trying_to_login_please_try_again_later">Ein Fehler ist aufgetreten beim Versuch sich anzumelden. Bitte versuchen Sie es später erneut.</string>
+    <string name="search">Suche</string>
+    <string name="home">Startseite</string>
+    <string name="movies">Filme</string>
+    <string name="tv_shows">TV-Sendungen</string>
+    <string name="my_list">Meine Liste</string>
+    <string name="switch_profile">Profil wechseln</string>
+    <string name="leave">Verlassen</string>
+    <string name="also_watch">Auch ansehen</string>
+    <string name="loading_movie_data_try_again_in_moments">Filmdaten werden geladen, versuchen Sie es in Kürze erneut</string>
+    <string name="favorite_error">Favoritenfehler</string>
+    <string name="occurred_an_error_to_add_this_movie_to_favorites">Ein Fehler ist aufgetreten beim Hinzufügen dieses Films zu den Favoriten</string>
+    <string name="occurred_an_error_to_remove_this_movie_to_favorites">Ein Fehler ist aufgetreten beim Entfernen dieses Films aus den Favoriten</string>
+    <string name="season_s">Staffel %1$s</string>
+    <string name="seasons">Staffeln</string>
+    <string name="audio">Audio</string>
+    <string name="subtitle">Untertitel</string>
+    <string name="resolution">Auflösung</string>
+</resources>

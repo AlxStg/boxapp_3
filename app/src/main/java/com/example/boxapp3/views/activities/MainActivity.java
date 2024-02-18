@@ -9,7 +9,6 @@ import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -181,10 +180,10 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                 mModel.setShowMenuLabels(!colapse);
             }
         });
-        ((ConstraintLayout) mBinding.includeMenu.menu).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        ((View) mBinding.includeMenu.menu).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                ((ConstraintLayout) mBinding.includeMenu.menu).getViewTreeObserver()
+                ((View) mBinding.includeMenu.menu).getViewTreeObserver()
                         .removeOnGlobalLayoutListener(this);
                 mIptvMenu.listenMenuFocusAndColapse(mBinding.includeMenu.menu,
                         mBinding.includeMenu.menu.getWidth(),

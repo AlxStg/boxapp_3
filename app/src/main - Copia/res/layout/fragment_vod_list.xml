@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="backgroundVodSeriesDataModel"
+            type="com.example.iptvsdk.ui.movies.models.BackgroundVodSeriesDataModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.example.iptvsdk.data.models.xtream.StreamXc" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_corners_20dp">
+
+        <include
+            layout="@layout/movies_slider"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:backgroundVodSeriesDataModel="@{backgroundVodSeriesDataModel}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.leanback.widget.VerticalGridView
+            android:id="@+id/list_categories"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:fadingEdge="vertical"
+            android:fadingEdgeLength="20dp"
+            android:requiresFadingEdge="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
