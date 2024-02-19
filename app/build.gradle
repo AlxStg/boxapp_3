@@ -68,6 +68,11 @@ android {
             dimension "layout"
             applicationId "com.example.boxapp14"
         }
+        boxApp15 {
+            dimension "layout"
+            applicationId "com.example.boxapp15"
+        }
+
     }
 }
 

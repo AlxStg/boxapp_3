@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -9,8 +10,8 @@
                 type="com.example.iptvsdk.data.models.EpgDb" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="150dp"
+    <LinearLayout
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -30,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:gravity="top"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
@@ -38,11 +39,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/comfortaa_light"
-                tools:text="06:00"
                 android:textColor="#FFFFFF"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 app:date="@{model.start}"
-                app:format="@{`HH:mm`}"/>
+                app:format="@{`HH:mm`}"
+                tools:text="06:00" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,31 +53,31 @@
                 android:text="  -  "
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/comfortaa_light"
-                tools:text="06:50"
                 android:textAlignment="textEnd"
                 android:textColor="#FFFFFF"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 app:date="@{model.end}"
-                app:format="@{`HH:mm`}" />
+                app:format="@{`HH:mm`}"
+                tools:text="06:50" />
 
             <TextView
                 android:id="@+id/textView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="fill_horizontal"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:gravity="top"
+                android:paddingStart="5dp"
                 android:text="Gravado"
                 android:textAlignment="center"
-                android:textColor="#E91E63"
-                android:textSize="8sp"
+                android:textColor="#F44336"
+                android:textSize="13sp"
                 tools:ignore="RtlCompat" />
         </LinearLayout>
 
@@ -89,7 +90,7 @@
             android:minLines="2"
             android:text="@{model.title}"
             android:textColor="#FFFFFF"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 </layout>

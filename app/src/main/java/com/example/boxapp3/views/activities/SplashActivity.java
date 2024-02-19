@@ -1,8 +1,11 @@
 package com.example.boxapp3.views.activities;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -59,6 +62,14 @@ public class SplashActivity extends BaseActivity {
             }
         }, false);
         removerColumnsSaved();
+
+        ImageView imageView = findViewById(R.id.imageView17);
+
+        ObjectAnimator rotate = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 360f);
+        rotate.setDuration(2000);
+        rotate.setInterpolator(new LinearInterpolator());
+        rotate.setRepeatCount(ObjectAnimator.INFINITE);
+        rotate.start();
     }
 
     private void removerColumnsSaved() {

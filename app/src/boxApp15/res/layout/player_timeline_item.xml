@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+            <variable
+                name="model"
+                type="com.example.iptvsdk.data.models.EpgDb" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_btn_epg2"
+        android:backgroundTintMode="add"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="8dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="top"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/sulphur_point"
+                android:textAlignment="textEnd"
+                android:textColor="@color/default_text"
+                android:textSize="14sp"
+                app:date="@{model.start}"
+                app:format="@{`HH:mm`}"
+                tools:text="06:00" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/sulphur_point"
+                android:text="  -  "
+                android:textAlignment="center"
+                android:textColor="@color/default_text"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/sulphur_point"
+                android:textAlignment="textStart"
+                android:textColor="@color/default_text"
+                android:textSize="14sp"
+                app:date="@{model.end}"
+                app:format="@{`HH:mm`}"
+                tools:text="06:50" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sulphur_point"
+            android:gravity="center"
+            android:maxLines="1"
+            android:minLines="1"
+            android:text="@{model.title}"
+            android:textAlignment="center"
+            android:textColor="@color/default_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="The Big Bang Theory" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:fontFamily="@font/sulphur_point"
+            android:gravity="top"
+            android:text="Gravado"
+            android:textAlignment="center"
+            android:textColor="#FF5722"
+            android:textSize="10sp"
+            tools:ignore="RtlCompat" />
+
+    </LinearLayout>
+</layout>

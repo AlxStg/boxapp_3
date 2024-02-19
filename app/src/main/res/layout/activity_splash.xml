@@ -8,5 +8,8 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_mac_5">
 
+        <include layout="@layout/modal_loading" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

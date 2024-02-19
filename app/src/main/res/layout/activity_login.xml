@@ -141,13 +141,14 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_loginbox"
             android:gravity="center"
-            android:visibility="@{model.type.equals(IptvSignIn.LOGIN_TYPE_MAG) ? View.VISIBLE : View.GONE}"
-            android:padding="50dp"
             android:orientation="vertical"
+            android:padding="50dp"
+            android:visibility="@{model.type.equals(IptvSignIn.LOGIN_TYPE_MAG) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
 
             <TextView
                 android:id="@+id/textView39"
@@ -168,7 +169,7 @@
                 android:text="Mac adress required."
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/editTextText2"
@@ -180,11 +181,11 @@
                 android:ems="10"
                 android:hint="@string/enter_portal_adress_here_http"
                 android:inputType="textUri"
+                android:text="@={model.magUrl}"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#99FFFFFF"
-                android:textSize="20sp"
-                android:text="@={model.magUrl}"/>
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextText3"
@@ -196,11 +197,11 @@
                 android:ems="10"
                 android:hint="@string/enter_mac_adress_here"
                 android:inputType="textCapCharacters"
+                android:text="@={model.macAddress}"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#99FFFFFF"
-                android:textSize="20sp"
-                android:text="@={model.macAddress}"/>
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -217,6 +218,7 @@
                     android:background="@drawable/bg_button_login"
                     android:clickable="true"
                     android:focusable="true"
+                    android:onClick="@{(v) -> listener.onMagLogin() }"
                     android:paddingStart="40dp"
                     android:paddingTop="10dp"
                     android:paddingEnd="40dp"
@@ -225,8 +227,7 @@
                     android:textAlignment="center"
                     android:textColor="#66000000"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:onClick="@{(v) -> listener.onMagLogin() }"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView47"
