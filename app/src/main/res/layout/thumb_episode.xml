@@ -53,7 +53,7 @@
                     android:paddingStart="1dp"
                     android:paddingEnd="1dp"
                     android:paddingBottom="5dp"
-                    android:text="@{model.episodeNumber}"
+                    android:text="@{model.episodeNumber + ``}"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
                     android:textSize="10sp" />

@@ -65,6 +65,15 @@ public class SeriesDetailsFragment extends Fragment {
             public void episodes(List<EpisodeModel> episodes) {
                 showEpisodes(episodes);
             }
+
+            @Override
+            public void onAlreadyWatched(int season, int episode) {
+                super.onAlreadyWatched(season, episode);
+                binding.episodes.setSelectedPosition(episode);
+                binding.episodes.scrollToPosition(episode);
+                binding.seasons.setSelectedPosition(season);
+                binding.seasons.scrollToPosition(season);
+            }
         });
         iptvSeriesDetails.getModel(id)
                 .subscribeOn(Schedulers.computation())
