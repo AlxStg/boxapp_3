@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.boxapp3.BuildConfig;
 import com.example.boxapp3.databinding.FragmentTvBinding;
 import com.example.boxapp3.databinding.ScrollTvCategoryItemBinding;
 import com.example.boxapp3.databinding.ScrollTvChannelItemBinding;
@@ -116,6 +117,16 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
                 binding.getRoot().setOnClickListener(v -> {
                     listener.openDetails(item.getStreamId(), StreamXc.TYPE_STREAM_LIVE);
                 });
+
+                binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
+                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                        if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0) {
+                            listener.onGoToMenu();
+                            return true;
+                        }
+                    }
+                    return false;
+                });
             }
         });
         mBinding.include3.listChannels.setAdapter(adapter);
@@ -165,6 +176,16 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
                     public void setModelToItem(ScrollTvEpgItemBinding binding, EpgDb item, int bindingAdapterPosition, GenericAdapter<EpgDb, ScrollTvEpgItemBinding> adapter) {
                         binding.setModel(item);
                         binding.setDaysPlayback(stream.getTvArchiveDuration());
+
+                        binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
+                            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                                if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0) {
+                                    listener.onGoToMenu();
+                                    return true;
+                                }
+                            }
+                            return false;
+                        });
                     }
                 });
         getActivity().runOnUiThread(() -> mBinding.include4.listEpg.setAdapter(adapter));
@@ -227,6 +248,18 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
                                     categoriesRunnable = () -> iptvLive.setCategoryId(Integer.parseInt(item.getCategoryId()));
                                     categoriesHandler.postDelayed(categoriesRunnable, 1000);
                                 }
+                            });
+
+                            binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
+                                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                                    if(BuildConfig.FLAVOR.equals("boxApp4")) {
+                                        if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0) {
+                                            listener.onGoToMenu();
+                                            return true;
+                                        }
+                                    }
+                                }
+                                return false;
                             });
                         }
                     });

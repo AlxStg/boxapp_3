@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import com.example.boxapp3.BuildConfig;
 import com.example.boxapp3.R;
 import com.example.boxapp3.databinding.ActivityMainBinding;
 import com.example.boxapp3.databinding.ModalSairBinding;
@@ -190,7 +191,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
             public void onGlobalLayout() {
                 ((View) mBinding.includeMenu.menu).getViewTreeObserver()
                         .removeOnGlobalLayoutListener(this);
-                mIptvMenu.listenMenuFocusAndColapse(mBinding.includeMenu.menu,
+                mIptvMenu.listenMenuFocusAndColapse(BuildConfig.FLAVOR, mBinding.includeMenu.menu,
                         mBinding.includeMenu.menu.getWidth(),
                         100,
                         new ArrayList<View>() {{
@@ -279,6 +280,9 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
         switch (activeMenu) {
             case "home":
                 mBinding.includeMenu.btnHomeMenu.requestFocus();
+                break;
+            case "live":
+                mBinding.includeMenu.btnTvMenu.requestFocus();
                 break;
             case "movies":
                 mBinding.includeMenu.btnMoviesMenu.requestFocus();
