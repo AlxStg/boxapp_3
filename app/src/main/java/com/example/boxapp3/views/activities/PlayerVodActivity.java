@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
@@ -134,12 +133,6 @@ public class PlayerVodActivity extends BaseActivity implements PlayerVodActivity
         mModel.setShowController(true, false);
 
         iptvPlayerVod.setSeekbar(mBinding.playerMoviesControl.seekBarMovies);
-
-
-
-
-
-
 
         ImageView imageView = findViewById(R.id.imageView17);
 

@@ -74,4 +74,7 @@
     <string name="mag_login">Mag Login</string>
     <string name="enter_mac_adress_here">Enter MAC adress here...</string>
     <string name="enter_portal_adress_here_http">Enter portal adress here... http://...</string>
+    <string name="atention">ATENTION</string>
+    <string name="you_re_about_to_leave_the_app">You\'re about to leave the app.</string>
+    <string name="are_you_sure">Are you sure?</string>
 </resources>
