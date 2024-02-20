@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import com.example.boxapp3.BuildConfig;
 import com.example.boxapp3.R;
 import com.example.boxapp3.databinding.ActivityMainBinding;
 import com.example.boxapp3.listeners.activities.MainActivityListener;
@@ -185,7 +186,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
             public void onGlobalLayout() {
                 ((View) mBinding.includeMenu.menu).getViewTreeObserver()
                         .removeOnGlobalLayoutListener(this);
-                mIptvMenu.listenMenuFocusAndColapse(mBinding.includeMenu.menu,
+                mIptvMenu.listenMenuFocusAndColapse(BuildConfig.FLAVOR, mBinding.includeMenu.menu,
                         mBinding.includeMenu.menu.getWidth(),
                         100,
                         new ArrayList<View>() {{
