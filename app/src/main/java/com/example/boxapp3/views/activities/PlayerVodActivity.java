@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
@@ -66,6 +65,7 @@ public class PlayerVodActivity extends BaseActivity implements PlayerVodActivity
             @Override
             public void onTotalDurationReceived(long duration) {
                 super.onTotalDurationReceived(duration);
+                mModel.setShowLoading(false);
                 mModel.setDuration(iptvPlayerVod.formatTime(duration));
             }
 
@@ -122,6 +122,8 @@ public class PlayerVodActivity extends BaseActivity implements PlayerVodActivity
         };
 
         mModel = new PlayerVodActivityModel(iptvPlayerVodListener);
+        mModel.setShowLoading(true);
+
         mBinding.setModel(mModel);
         mBinding.setListener(this);
         iptvPlayerVod = new IptvPlayerVod(this,
@@ -134,12 +136,6 @@ public class PlayerVodActivity extends BaseActivity implements PlayerVodActivity
         mModel.setShowController(true, false);
 
         iptvPlayerVod.setSeekbar(mBinding.playerMoviesControl.seekBarMovies);
-
-
-
-
-
-
 
         ImageView imageView = findViewById(R.id.imageView17);
 

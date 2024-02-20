@@ -86,7 +86,7 @@
                 android:textColor="#BDBDBD"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:onClick="@{(v) -> model.setShowResumeModal(false)}"
+                android:onClick="@{(v) -> model.cancelContinueWatching()}"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_yes"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btn_yes"

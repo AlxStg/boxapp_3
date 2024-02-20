@@ -52,6 +52,7 @@
             android:layout_marginTop="32dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{ model.showController ? View.VISIBLE : View.GONE }"
             app:model="@{model}" />
 
         <include
@@ -75,9 +76,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/player_movies_control"
-            app:layout_constraintEnd_toStartOf="@+id/movie_info"
+            android:visibility="@{model.showTracks ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:model="@{model}" />
@@ -87,12 +88,12 @@
             layout="@layout/modal_loading"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="gone"
+            tools:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="@{model.isPlaying ? View.GONE : View.VISIBLE}" />
+            android:visibility="@{!model.showLoading ? View.GONE : View.VISIBLE}" />
         <include
             android:id="@+id/modal_resume"
             layout="@layout/modal_continuar"
