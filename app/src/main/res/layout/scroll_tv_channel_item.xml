@@ -1,54 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_btn_epg"
-    android:clickable="true"
-    android:focusable="true"
-    android:maxWidth="200dp">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <data>
+
+        <variable
+            name="model"
+            type="com.example.iptvsdk.data.models.xtream.StreamXc" />
+        <import type="com.example.iptvsdk.common.IptvSettings" />
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/bg_btn_epg"
+        android:backgroundTint="#66000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="3dp"
+        android:paddingBottom="10dp">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             app:cardBackgroundColor="#00FFFFFF"
             app:cardCornerRadius="7dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/discovery_logo" />
+                android:scaleType="centerInside"
+                app:loadImage="@{IptvSettings.resizeImage(model.streamIcon, 250, 0)}"
+                tools:srcCompat="@drawable/hbo" />
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/textView45"
-            android:layout_width="130dp"
+            android:id="@+id/lbl_watch"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:maxLines="2"
-            android:text="Channel Name - Nome do canal"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/comfortaa_light"
+            android:maxLines="3"
+            android:text="@{model.name}"
             android:textAlignment="textStart"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icon_watch"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Channel Name" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/icon_watch"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+
+            android:adjustViewBounds="true"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/arrow_right" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

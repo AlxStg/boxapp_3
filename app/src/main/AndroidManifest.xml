@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
 
     <uses-feature
         android:name="android.hardware.touchscreen"
@@ -12,7 +15,8 @@
         android:required="true" />
 
     <application
-        android:allowBackup="true"
+        android:name=".App"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -20,18 +24,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BoxApp3"
+        android:largeHeap="true"
+        android:hardwareAccelerated="true"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".PlayerTvActivity"
+            android:name=".views.activities.PlayerTvActivity"
             android:exported="false" />
-        <activity android:name=".PlayerMoviesActivity" />
+        <activity android:name=".views.activities.PlayerVodActivity" />
         <activity
-            android:name=".MainActivity"
-            android:banner="@drawable/app_icon_your_company"
+            android:name=".views.activities.SplashActivity"
             android:exported="true"
-            android:icon="@drawable/app_icon_your_company"
-            android:label="@string/title_activity_player"
-            android:logo="@drawable/app_icon_your_company"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,18 +44,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetailsActivity"
+            android:name=".views.activities.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".PlaybackActivity"
+            android:name=".views.activities.LoginActivity"
             android:exported="false" />
-        <activity
-            android:name=".BrowseErrorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity_player"
-            android:exported="true" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

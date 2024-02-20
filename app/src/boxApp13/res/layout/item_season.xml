@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.example.iptvsdk.ui.series_details.SeasonModel" />
+    </data>
+
+    <TextView
+        android:id="@+id/genre7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_thumbs"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/aldrich"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="3dp"
+        android:text="@{ @string/season + ` ` + model.seasonNumber }"
+        android:textColor="#FDFDFD"
+        android:textSize="12sp" />
+</layout>
