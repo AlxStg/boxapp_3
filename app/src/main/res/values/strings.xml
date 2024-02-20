@@ -71,10 +71,12 @@
     <string name="live">Live</string>
     <string name="impossible_load_vod_without_id">Impossible load vod without id</string>
     <string name="audio_subtitle">Audio/Subtitle</string>
-    <string name="mag_login">Mag Login</string>
+    <string name="mag_login">Mac Login</string>
     <string name="enter_mac_adress_here">Enter MAC adress here...</string>
     <string name="enter_portal_adress_here_http">Enter portal adress here... http://...</string>
     <string name="atention">ATENTION</string>
     <string name="you_re_about_to_leave_the_app">You\'re about to leave the app.</string>
     <string name="are_you_sure">Are you sure?</string>
+    <string name="add_to_favorites">Add to favorites</string>
+    <string name="remove_from_favorites">Remove from Favorites</string>
 </resources>

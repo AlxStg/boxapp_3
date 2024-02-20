@@ -57,7 +57,14 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
 
         mBinding.setModel(mModel);
 
+        showEpg();
+
         return mBinding.getRoot();
+    }
+
+    private void showEpg() {
+        mModel.setShowEpg(true);
+        mModel.setShowChannelOptions(false);
     }
 
     @Override

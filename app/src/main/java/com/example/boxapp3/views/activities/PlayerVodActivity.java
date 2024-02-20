@@ -65,6 +65,7 @@ public class PlayerVodActivity extends BaseActivity implements PlayerVodActivity
             @Override
             public void onTotalDurationReceived(long duration) {
                 super.onTotalDurationReceived(duration);
+                mModel.setShowLoading(false);
                 mModel.setDuration(iptvPlayerVod.formatTime(duration));
             }
 
@@ -121,6 +122,8 @@ public class PlayerVodActivity extends BaseActivity implements PlayerVodActivity
         };
 
         mModel = new PlayerVodActivityModel(iptvPlayerVodListener);
+        mModel.setShowLoading(true);
+
         mBinding.setModel(mModel);
         mBinding.setListener(this);
         iptvPlayerVod = new IptvPlayerVod(this,

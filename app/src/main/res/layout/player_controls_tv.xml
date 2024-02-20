@@ -23,7 +23,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/rounded_corners_20dp_black"
-        android:backgroundTint="#000000"
+        android:backgroundTint="#B36A6A6A"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -31,7 +31,7 @@
         <androidx.leanback.widget.HorizontalGridView
             android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="90dp"
             android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,10 +44,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:progress="@{percentageActualProgramme}"
             android:progressBackgroundTint="#FFFFFF"
             android:progressTint="#FFFFFF"
             android:thumbTint="#FFFFFF"
-            android:progress="@{percentageActualProgramme}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,42 +59,41 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/comfortaa_light"
-            tools:text="24/11/2023  -  08:21"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="24/11/2023  -  08:21" />
 
         <TextView
             android:id="@+id/textView24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/comfortaa_light"
-            tools:text="08:00"
             android:textColor="#FFFFFF"
             app:date="@{epg.start}"
             app:format="@{`HH:mm`}"
             app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
-            app:layout_constraintTop_toBottomOf="@+id/seekBar_movies" />
+            app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
+            tools:text="08:00" />
 
         <TextView
             android:id="@+id/textView25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/comfortaa_light"
-            tools:text="09:00"
             android:textColor="#FFFFFF"
             app:date="@{epg.end}"
             app:format="@{`HH:mm`}"
             app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
-            app:layout_constraintTop_toBottomOf="@+id/seekBar_movies" />
+            app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
+            tools:text="09:00" />
 
         <ImageView
             android:id="@+id/imageView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
             android:background="@drawable/bg_btn_player_tv"
             android:clickable="true"
             android:focusable="true"
@@ -102,7 +101,8 @@
             android:padding="2dp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/textView26"
-            app:layout_constraintEnd_toStartOf="@+id/imageView15"
+            app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
+            app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
             app:layout_constraintTop_toTopOf="@+id/imageView15"
             app:srcCompat="@drawable/baseline_density_small_24" />
 
@@ -160,14 +160,14 @@
             android:id="@+id/imageView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_player_tv"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/imageView16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView18"
             app:layout_constraintTop_toTopOf="@+id/imageView16"
-            android:background="@drawable/bg_btn_player_tv"
-            android:focusable="true"
-            android:clickable="true"
-            android:visibility="gone"
             app:srcCompat="@drawable/button_epg" />
 
         <TextView
@@ -241,8 +241,8 @@
             android:fontFamily="@font/comfortaa_light"
             android:gravity="top"
             android:text="@string/epg"
-            android:textAllCaps="true"
             android:textAlignment="center"
+            android:textAllCaps="true"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
             android:visibility="gone"
