@@ -98,6 +98,10 @@ public class PlayerTvChannelInfoFragment extends Fragment implements KeyListener
                                 @Override
                                 public void setModelToItem(PlayerTimelineItemBinding binding, EpgDb item, int bindingAdapterPosition, GenericAdapter<EpgDb, PlayerTimelineItemBinding> adapter) {
                                     binding.setModel(item);
+                                    binding.setDaysPlayback(streamXc.getTvArchiveDuration());
+                                    binding.getRoot().setOnClickListener(v -> {
+                                        listener.onEpgClick(item, streamXc.getTvArchiveDuration());
+                                    });
                                 }
                             });
                     mBinding.playerControlsTv.horizontalScrollView.setAdapter(adapter);
