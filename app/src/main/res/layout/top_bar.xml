@@ -12,6 +12,7 @@
 
 
     <LinearLayout
+        android:id="@+id/search_input_layout"
         android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
