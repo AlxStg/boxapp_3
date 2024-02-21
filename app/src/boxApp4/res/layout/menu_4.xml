@@ -140,23 +140,6 @@
                 app:selected="@{model.actualMenu.equals(`kids`)}" />
 
             <TextView
-                android:id="@+id/btn_sports_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/textview_background"
-                android:focusable="true"
-                android:fontFamily="@font/geo"
-                android:gravity="center"
-                android:paddingStart="20dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="5dp"
-                android:text="Esportes"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
-
-            <TextView
                 android:id="@+id/btn_adult_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

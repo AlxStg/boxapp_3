@@ -33,16 +33,19 @@
                 <ImageView
                     android:id="@+id/imageView11"
                     android:layout_width="850dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
+                    android:layout_height="0dp"
+                    android:adjustViewBounds="false"
                     android:cropToPadding="false"
                     android:foreground="@drawable/fundo_preto_esmaecido"
-                    android:scaleType="centerCrop"
+                    android:foregroundTint="#1A272830"
+                    android:foregroundTintMode="src_atop"
+                    android:scaleType="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:loadImage="@{model.streamIcon}" />
+                    app:loadImage="@{model.streamIcon}"
+                    tools:srcCompat="@drawable/house_capa" />
 
                 <TextView
                     android:id="@+id/textView16"
