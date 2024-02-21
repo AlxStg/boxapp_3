@@ -22,6 +22,8 @@ import com.example.boxapp3.databinding.ScrollTvChannelItemBinding;
 import com.example.boxapp3.databinding.ScrollTvEpgItemBinding;
 import com.example.boxapp3.listeners.activities.PlayerTvActivityListener;
 import com.example.boxapp3.listeners.fragments.KeyListener;
+import com.example.boxapp3.listeners.fragments.PlayerTvPanelsFragmentListener;
+import com.example.boxapp3.models.fragments.TvFragmentModel;
 import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
 import com.example.iptvsdk.data.models.EpgDb;
 import com.example.iptvsdk.data.models.xtream.Category;
@@ -37,9 +39,10 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
+public class PlayerTvPanelsFragment extends Fragment implements KeyListener, PlayerTvPanelsFragmentListener {
 
     private FragmentTvPlayerPanelsBinding mBinding;
+    private TvFragmentModel mModel;
     private IptvLive mIptvLive;
     private PlayerTvActivityListener mListener;
     private FavoritesService mFavoritesService;
@@ -67,6 +70,11 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentTvPlayerPanelsBinding.inflate(inflater, container, false);
+
+        mModel = new TvFragmentModel();
+        mBinding.include.setModel(mModel);
+        mBinding.include.include25.setListener(this);
+
         mFavoritesService = new FavoritesService(getContext());
         return mBinding.getRoot();
     }
@@ -184,6 +192,10 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
         });
     }
 
+    private StreamXc actualStream;
+    private Handler channelOptionsHandler = new Handler();
+    private Runnable channelOptionsRunnable;
+
     private void setupChannels() {
         GenericAdapter<StreamXc, ScrollTvChannelItemBinding> adapter = new GenericAdapter<>(getContext(), new GenericAdapter.GenericAdapterHelper<StreamXc, ScrollTvChannelItemBinding>() {
             @Override
@@ -223,13 +235,23 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
                 binding.setModel(item);
 
                 binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
-                    loadEpg(item);
-                    //if (epgRunnable != null)
-                    //    epgHandler.removeCallbacks(epgRunnable);
-                    //epgRunnable = () -> {
-                    //    Log.d("TAG", "setModelToItem: " + item.getTvArchiveDuration());
-                    //};
-                    //epgHandler.postDelayed(epgRunnable, 1000);
+                   actualStream = item;
+                   if(channelOptionsRunnable != null) {
+                        channelOptionsHandler.removeCallbacks(channelOptionsRunnable);
+                    }
+                    if (hasFocus) {
+                        channelOptionsRunnable = () -> {
+                            mModel.setShowEpg(false);
+                            mModel.setShowChannelOptions(true);
+                            mFavoritesService.isFavorite(item)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .doOnError(th -> Log.e("TAG", "setModelToItem: ", th))
+                                    .doOnSuccess(isFav -> mBinding.include.include25.setIsFavorite(isFav))
+                                    .subscribe();
+                        };
+                        channelOptionsHandler.postDelayed(channelOptionsRunnable, 1000);
+                    }
                 });
                 binding.getRoot().setOnClickListener(v -> {
                     mListener.onChannelClick(item);
@@ -392,5 +414,28 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
         //    }
         //}
         return false;
+    }
+
+    @Override
+    public void onChannelOptionsPlay() {
+        mListener.onChannelClick(actualStream);
+    }
+
+    @Override
+    public void onChannelOptionsFavorite() {
+        mBinding.include.include25.setIsFavorite(!mBinding.include.include25.getIsFavorite());
+        mFavoritesService.toggleFavorite(actualStream)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.computation())
+                .doOnError(th -> Log.e("TAG", "onChannelOptionsFavorite: ", th))
+                .doOnSuccess(actualStream::setFavorite)
+                .subscribe();
+    }
+
+    @Override
+    public void onChannelOptionsEpg() {
+        mModel.setShowEpg(true);
+        mModel.setShowChannelOptions(false);
+        loadEpg(actualStream);
     }
 }

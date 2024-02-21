@@ -1,10 +1,12 @@
 package com.example.boxapp3.views.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,6 +50,18 @@ public class VodListFragment extends Fragment {
                 iptvMovies,
                 binding.listCategories,
                 type);
+
+        binding.listCategories.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if(binding.listCategories.getChildCount() > 0) {
+                    binding.listCategories.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    new Handler().postDelayed(() -> {
+                        binding.listCategories.requestFocus();
+                    }, 1000);
+                }
+            }
+        });
 
         listStreamsCategories.setOnItemFocusListener((item, position) -> {
             iptvMovies.loadDetails(item.getId(), item.getType(), true);

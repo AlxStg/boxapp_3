@@ -3,6 +3,7 @@ package com.example.boxapp3.views.activities;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.boxapp3.BuildConfig;
 import com.example.boxapp3.R;
 import com.example.boxapp3.databinding.ActivityMainBinding;
+import com.example.boxapp3.databinding.ModalSairBinding;
 import com.example.boxapp3.listeners.activities.MainActivityListener;
 import com.example.boxapp3.listeners.fragments.KeyListener;
 import com.example.boxapp3.listeners.fragments.MainFragmentListener;
@@ -53,7 +55,6 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
         super.onCreate(savedInstanceState);
 
 
-
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         mModel = new MainActivityModel();
@@ -78,22 +79,22 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if(event.getAction() == KeyEvent.ACTION_DOWN) {
-            if(mCenterContent.getCurrentFragment() instanceof KeyListener){
-                if(((KeyListener) mCenterContent.getCurrentFragment()).dispatchKeyEvent(event))
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (mCenterContent.getCurrentFragment() instanceof KeyListener) {
+                if (((KeyListener) mCenterContent.getCurrentFragment()).dispatchKeyEvent(event))
                     return true;
             }
-            if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT){
-                if(mModel.getShowMenuLabels() && mCenterContent.getCurrentFragment() instanceof MainFragmentListener){
+            if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                if (mModel.getShowMenuLabels() && mCenterContent.getCurrentFragment() instanceof MainFragmentListener) {
                     ((MainFragmentListener) mCenterContent.getCurrentFragment()).firstFocus()
                             .requestFocus();
                     return true;
                 }
             }
-            if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN){
-                if(mModel.getShowModalAdult()){
-                    if(mBinding.include.editTextText2.hasFocus()){
-                        if(!mIptvParental.hasPassword())
+            if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
+                if (mModel.getShowModalAdult()) {
+                    if (mBinding.include.editTextText2.hasFocus()) {
+                        if (!mIptvParental.hasPassword())
                             mBinding.include.editTextText3.requestFocus();
                         else
                             mBinding.include.textView42.requestFocus();
@@ -103,26 +104,26 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                         mBinding.include.textView42.requestFocus();
                         return true;
                     }
-                    if(mBinding.include
-                            .textView42.hasFocus()){
+                    if (mBinding.include
+                            .textView42.hasFocus()) {
                         mBinding.include.editTextText2.requestFocus();
                         return true;
                     }
-                    if(mBinding.include.btnCancelModalAdultEnter.hasFocus()){
+                    if (mBinding.include.btnCancelModalAdultEnter.hasFocus()) {
                         mBinding.include.editTextText2.requestFocus();
                         return true;
                     }
                 }
             }
 
-            if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP){
-                if(mModel.getShowModalAdult()){
-                    if(mBinding.include.editTextText3.hasFocus()){
+            if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
+                if (mModel.getShowModalAdult()) {
+                    if (mBinding.include.editTextText3.hasFocus()) {
                         mBinding.include.editTextText2.requestFocus();
                         return true;
                     }
                     if (mBinding.include.textView42.hasFocus()) {
-                        if(!mIptvParental.hasPassword())
+                        if (!mIptvParental.hasPassword())
                             mBinding.include.editTextText3.requestFocus();
                         else
                             mBinding.include.editTextText2.requestFocus();
@@ -131,14 +132,14 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                 }
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_BACK || event.getKeyCode() == KeyEvent.KEYCODE_ESCAPE) {
-                if(mModel.getShowModalAdult()) {
+                if (mModel.getShowModalAdult()) {
                     mBinding.include.editTextText2.setText("");
                     mBinding.include.editTextText3.setText("");
                     mModel.setShowModalAdult(false);
                     return true;
                 }
 
-                if(mModel.getShowModalExit()) {
+                if (mModel.getShowModalExit()) {
                     mModel.setShowModalExit(false);
                     return true;
                 }
@@ -147,6 +148,10 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                     mCenterContent.backFragment();
                 } else {
                     mModel.setShowModalExit(true);
+                    new Handler().postDelayed(() -> {
+                        if (mModel.getShowModalExit())
+                            ((ModalSairBinding) mBinding.modalExit).btnYes.requestFocus();
+                    }, 1000);
                 }
                 return true;
             }
@@ -207,8 +212,8 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
         mModel.setActualMenu(menu);
         activeMenu = menu;
 
-        if(menu.equals("adults")){
-            if(!adultAccessibile) {
+        if (menu.equals("adults")) {
+            if (!adultAccessibile) {
                 mBinding.include.setRegisterPassword(!mIptvParental.hasPassword());
                 mModel.setShowModalAdult(true);
                 mBinding.include.editTextText2.requestFocus();
@@ -220,9 +225,9 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
     @Override
     public void onParentalPasswordSet() {
-        if(mIptvParental.hasPassword()) {
+        if (mIptvParental.hasPassword()) {
             adultAccessibile = mIptvParental.checkPassword(mBinding.include.editTextText2.getText().toString());
-            if(!adultAccessibile) {
+            if (!adultAccessibile) {
                 mBinding.include.textView41.setText(R.string.wrong_password);
                 return;
             }
@@ -231,7 +236,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
         } else {
             adultAccessibile = mIptvParental.setPassword(mBinding.include.editTextText2.getText().toString(),
                     mBinding.include.editTextText3.getText().toString());
-            if(!adultAccessibile) {
+            if (!adultAccessibile) {
                 mBinding.include.textView41.setText(R.string.password_not_match);
                 return;
             }
@@ -240,6 +245,18 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
         }
         mBinding.include.editTextText2.setText("");
         mBinding.include.editTextText3.setText("");
+    }
+
+    @Override
+    public void onModalExitCancel() {
+        mModel.setShowModalExit(false);
+        onGoToMenu();
+    }
+
+    @Override
+    public void onModalExitConfirm() {
+        finish();
+        System.exit(0);
     }
 
     @Override
@@ -265,9 +282,12 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
     @Override
     public void onGoToMenu() {
-        switch (activeMenu){
+        switch (activeMenu) {
             case "home":
                 mBinding.includeMenu.btnHomeMenu.requestFocus();
+                break;
+            case "live":
+                mBinding.includeMenu.btnTvMenu.requestFocus();
                 break;
             case "movies":
                 mBinding.includeMenu.btnMoviesMenu.requestFocus();
