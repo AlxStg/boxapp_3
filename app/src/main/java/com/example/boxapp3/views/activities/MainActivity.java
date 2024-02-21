@@ -75,6 +75,8 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
         rotate.setInterpolator(new LinearInterpolator());
         rotate.setRepeatCount(ObjectAnimator.INFINITE);
         rotate.start();
+
+        new Handler().postDelayed(() -> onGoToSearch(), 3000);
     }
 
     @Override
@@ -305,6 +307,11 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                 mBinding.includeMenu.btnAdultMenu.requestFocus();
                 break;
         }
+    }
+
+    @Override
+    public void onGoToSearch() {
+        mBinding.includeTopBar.searchInputLayout.requestFocus();
     }
 
     @Override
