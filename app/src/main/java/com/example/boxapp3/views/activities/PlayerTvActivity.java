@@ -38,6 +38,7 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
     private int streamId;
     private StreamXc stream;
     private SharedPreferences sharedPreferences;
+    private boolean isAdult = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
             streamId = sharedPreferences.getInt("streamId",
                     -1);
         }
+        isAdult = getIntent().getBooleanExtra("isAdult", false);
 
 
         mCenterContent = new CenterContent(this, R.id.content,
@@ -76,7 +78,7 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
     private void registerFragments() {
         mCenterContent.addFragment("panels", new PlayerTvPanelsFragment(
                 sharedPreferences,this,
-                mIptvLive));
+                mIptvLive, isAdult));
         mCenterContent.addFragment("channelInfo", new PlayerTvChannelInfoFragment(streamId,
                 mIptvLive, this));
     }
@@ -166,7 +168,7 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
     @Override
     public void onShowPanels() {
         mCenterContent.changeFragement(new PlayerTvPanelsFragment(
-                sharedPreferences,this, mIptvLive));
+                sharedPreferences,this, mIptvLive, isAdult));
         Log.d("PlayerTvActivity", "onShowPanels: ");
     }
 

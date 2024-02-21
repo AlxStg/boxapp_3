@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="model"
             type="com.example.boxapp3.models.activities.PlayerVodActivityModel" />
+
         <variable
             name="listener"
             type="com.example.boxapp3.listeners.activities.PlayerVodActivityListener" />
+
         <import type="android.view.View" />
     </data>
 
@@ -50,9 +53,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
+            android:visibility="@{model.showController ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:visibility="@{ model.showController ? View.VISIBLE : View.GONE }"
             app:model="@{model}" />
 
         <include

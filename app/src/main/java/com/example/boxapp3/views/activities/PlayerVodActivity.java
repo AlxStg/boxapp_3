@@ -1,6 +1,5 @@
 package com.example.boxapp3.views.activities;
 
-import android.animation.ObjectAnimator;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,8 +8,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.animation.LinearInterpolator;
-import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -136,15 +133,6 @@ public class PlayerVodActivity extends BaseActivity implements PlayerVodActivity
         mModel.setShowController(true, false);
 
         iptvPlayerVod.setSeekbar(mBinding.playerMoviesControl.seekBarMovies);
-
-        ImageView imageView = findViewById(R.id.imageView17);
-
-        ObjectAnimator rotate = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 360f);
-        rotate.setDuration(2000);
-        rotate.setInterpolator(new LinearInterpolator());
-        rotate.setRepeatCount(ObjectAnimator.INFINITE);
-        rotate.start();
-
 
     }
 
