@@ -201,6 +201,16 @@ public class HomeFragment extends Fragment {
                         info.setInfo(optInfo_.get());
                         stream.setInfo(info);
                         mainHomeSliderBinding.setModel(stream);
+                        getPosterMovie(info.getInfo().getTmdbId())
+                                .subscribeOn(Schedulers.computation())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnSuccess(poster -> {
+                                    mainHomeSliderBinding.getModel().setStreamIcon(poster);
+                                })
+                                .doOnError(throwable -> {
+                                    Log.e("SliderVod", "Error to get movie poster", throwable);
+                                })
+                                .subscribe();
                     }
                 } else {
                     sliderVod.getMovieInfo(stream.getStreamId())
@@ -212,6 +222,16 @@ public class HomeFragment extends Fragment {
                                 info.setInfo(info_);
                                 stream.setInfo(info);
                                 mainHomeSliderBinding.setModel(stream);
+                                getPosterMovie(info_.getTmdbId())
+                                        .subscribeOn(Schedulers.computation())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .doOnSuccess(poster -> {
+                                            mainHomeSliderBinding.getModel().setStreamIcon(poster);
+                                        })
+                                        .doOnError(throwable -> {
+                                            Log.e("SliderVod", "Error to get movie poster", throwable);
+                                        })
+                                        .subscribe();
                             })
                             .doOnError(throwable -> {
                                 Log.e("SliderVod", "Error to get movie info", throwable);
@@ -249,6 +269,27 @@ public class HomeFragment extends Fragment {
                 position.getAndIncrement();
                 return mainHomeSliderBinding.getRoot();
             }
+        });
+    }
+
+    private Single<String> getPosterMovie(String tmdbId) {
+        return Single.create(emitter -> {
+            mIptvHome.getPosterMovie(tmdbId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSuccess(images -> {
+                        String urlImage = "";
+                        if(images != null) {
+                            if(images.getPosters() != null && images.getPosters().size() > 0) {
+                                urlImage = images.getPosters().get(0).getImageUrl();
+                            } else if(images.getBackdrops() != null && images.getBackdrops().size() > 0) {
+                                urlImage = images.getBackdrops().get(0).getImageUrl();
+                            }
+                           emitter.onSuccess(urlImage);
+                        }
+                    })
+                    .doOnError(emitter::onError)
+                    .subscribe();
         });
     }
 
