@@ -3,11 +3,10 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/modal_loading"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#80000000"
-    android:id="@+id/modal_loading"
-    >
+    android:background="#4D000000">
 
     <ImageView
         android:id="@+id/imageView17"
@@ -19,5 +18,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_loading" />
+        app:srcCompat="@drawable/loading_process_svgrepo_com" />
 </androidx.constraintlayout.widget.ConstraintLayout>
