@@ -36,7 +36,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MovieDetailsFragment extends Fragment implements MovieDetailsFragmentListener {
-    FragmentMovieDetailsBinding binding;
+    FragmentMovieDetailsBinding mBinding;
     IptvMovieDetails iptvMovieDetails;
     MainActivityListener mainActivityListener;
     int id;
@@ -49,22 +49,22 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsFragme
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentMovieDetailsBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        mBinding = FragmentMovieDetailsBinding.inflate(inflater, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.setListener(this);
+        mBinding.setListener(this);
 
         iptvMovieDetails = new IptvMovieDetails(getContext());
         iptvMovieDetails.loadLogos();
         iptvMovieDetails.setMoviesDetailsListener(new MoviesDetailsListener() {
             @Override
             public void onChangeFavorite(boolean isFavorite) {
-                binding.imageView243.setSelected(isFavorite);
+                mBinding.imageView243.setSelected(isFavorite);
             }
 
             @Override
@@ -81,7 +81,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsFragme
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess(model -> {
-                    binding.setModel(model);
+                    mBinding.setModel(model);
                 })
                 .doOnError(throwable -> {
                     DialogErrorUtil.showError(getActivity(), throwable,
@@ -89,11 +89,11 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsFragme
                             getString(R.string.occurred_an_error_to_load_movie_details));
                 })
                 .subscribe();
-        binding.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        mBinding.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                binding.getRoot().getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                binding.favButton.requestFocus();
+                mBinding.getRoot().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                mBinding.favButton.requestFocus();
             }
         });
     }
@@ -102,11 +102,11 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsFragme
         if (images != null) {
             if (images.getPosters() != null &&
                     images.getPosters().size() > 0) {
-                binding.getModel().setImage(images.getPosters().get(0).getImageUrl());
+                mBinding.getModel().setImage(images.getPosters().get(0).getImageUrl());
 
             } else if (images.getBackdrops() != null &&
                     images.getBackdrops().size() > 0) {
-                binding.getModel().setImage(images.getBackdrops().get(0).getImageUrl());
+                mBinding.getModel().setImage(images.getBackdrops().get(0).getImageUrl());
             }
         }
     }
@@ -159,12 +159,16 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsFragme
                                 return true;
                             }
                         }
+                        if(keyCode == KeyEvent.KEYCODE_DPAD_UP){
+                            mBinding.favButton.requestFocus();
+                            return true;
+                        }
                     }
                     return false;
                 });
             }
         });
-        binding.horizontalGridView.setAdapter(adapter);
+        mBinding.horizontalGridView.setAdapter(adapter);
     }
 
     @Override

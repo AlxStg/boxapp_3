@@ -8,6 +8,7 @@
         <variable
             name="model"
             type="com.example.iptvsdk.ui.series_details.EpisodeModel" />
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,7 +58,7 @@
                     android:paddingStart="1dp"
                     android:paddingEnd="10dp"
                     android:paddingBottom="2dp"
-                    android:text="@{model.episodeName}"
+                    android:text="@{model.episodeNumber + ``}"
                     android:textAlignment="textEnd"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp"
@@ -72,9 +73,10 @@
                     android:layout_marginBottom="5dp"
                     android:paddingStart="1dp"
                     android:paddingEnd="1dp"
-                    android:progress="50"
                     android:max="100"
                     android:progressDrawable="@drawable/gradient_progress"
+                    android:progress="@{model.percentage}"
+                    android:visibility="@{model.percentage > 0 ? View.VISIBLE : View.GONE }"
                     />
             </LinearLayout>
 

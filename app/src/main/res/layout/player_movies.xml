@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="model"
             type="com.example.boxapp3.models.activities.PlayerVodActivityModel" />
+
         <variable
             name="listener"
             type="com.example.boxapp3.listeners.activities.PlayerVodActivityListener" />
+
         <import type="android.view.View" />
     </data>
 
@@ -50,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
+            android:visibility="@{model.showController ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:model="@{model}" />
@@ -75,9 +79,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/player_movies_control"
-            app:layout_constraintEnd_toStartOf="@+id/movie_info"
+            android:visibility="@{model.showTracks ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:model="@{model}" />
@@ -87,12 +91,12 @@
             layout="@layout/modal_loading"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="gone"
+            tools:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="@{model.isPlaying ? View.GONE : View.VISIBLE}" />
+            android:visibility="@{!model.showLoading ? View.GONE : View.VISIBLE}" />
         <include
             android:id="@+id/modal_resume"
             layout="@layout/modal_continuar"

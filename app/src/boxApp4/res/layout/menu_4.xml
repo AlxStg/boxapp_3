@@ -52,6 +52,7 @@
                 android:text="@string/home"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
+                android:tag="home"
                 app:selected="@{model.actualMenu.equals(`home`) }" />
 
             <TextView
@@ -173,6 +174,7 @@
                 android:text="Adulto"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
+                android:tag="adults"
                 app:selected="@{model.actualMenu.equals(`adults`)}" />
 
         </LinearLayout>
