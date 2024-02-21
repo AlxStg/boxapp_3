@@ -249,6 +249,11 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
             Intent intent = new Intent(this, PlayerTvActivity.class);
             intent.putExtra("streamId", id);
             startActivity(intent);
+        } else if (type.equals(StreamXc.TYPE_STREAM_ADULTS)) {
+            Intent intent = new Intent(this, PlayerTvActivity.class);
+            intent.putExtra("streamId", id);
+            intent.putExtra("isAdult", true);
+            startActivity(intent);
         } else if (type.equals(StreamXc.TYPE_STREAM_VOD) || type.equals("kids")) {
             fragment = new MovieDetailsFragment(id, this);
         } else if (type.equals(StreamXc.TYPE_STREAM_SERIES)) {

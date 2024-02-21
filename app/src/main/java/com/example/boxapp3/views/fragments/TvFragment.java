@@ -196,7 +196,7 @@ public class TvFragment extends Fragment implements KeyListener, MainFragmentLis
     }
 
     private void setupCategories() {
-        iptvLive.getCategories()
+        iptvLive.getCategories(false)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(th -> Log.e("TAG", "setupCategories: ", th))

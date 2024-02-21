@@ -50,15 +50,17 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
     private Handler categoriesHandler = new Handler();
     private Runnable epgRunnable;
     private Runnable categoriesRunnable;
-    private boolean loadedFirstEpg = false;
+    private boolean firstCategoryLoaded = false;
+    private boolean isAdult;
 
 
     public PlayerTvPanelsFragment(SharedPreferences sharedPreferences,
                                   PlayerTvActivityListener listener,
-                                  IptvLive iptvLive) {
+                                  IptvLive iptvLive, boolean isAdult) {
         mListener = listener;
         mIptvLive = iptvLive;
         mSharedPreferences = sharedPreferences;
+        this.isAdult = isAdult;
     }
 
     @Nullable
@@ -79,7 +81,7 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
     }
 
     private void setupCategories() {
-        mIptvLive.getCategories()
+        mIptvLive.getCategories(isAdult)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(th -> Log.e("TAG", "setupCategories: ", th))
@@ -105,6 +107,10 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener {
                                                    Category item,
                                                    int bindingAdapterPosition,
                                                    GenericAdapter<Category, ScrollTvCategoryItemBinding> adapter) {
+                            if(!firstCategoryLoaded){
+                                firstCategoryLoaded = true;
+                                mIptvLive.setCategoryId(Integer.parseInt(item.getCategoryId()));
+                            }
                             binding.setModel(item);
                             binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
                                 if (categoriesRunnable != null)
