@@ -200,7 +200,6 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                             add(mBinding.includeMenu.btnMoviesMenu);
                             add(mBinding.includeMenu.btnSeriesMenu);
                             add(mBinding.includeMenu.btnKidsMenu);
-                            add(mBinding.includeMenu.btnSportsMenu);
                             add(mBinding.includeMenu.btnAdultMenu);
                         }});
             }
@@ -297,9 +296,6 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                 break;
             case "kids":
                 mBinding.includeMenu.btnKidsMenu.requestFocus();
-                break;
-            case "sports":
-                mBinding.includeMenu.btnSportsMenu.requestFocus();
                 break;
             case "adult":
                 mBinding.includeMenu.btnAdultMenu.requestFocus();
