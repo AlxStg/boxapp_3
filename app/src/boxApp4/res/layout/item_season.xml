@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_weight="1"
-        android:background="@drawable/bg_thumbs"
+        android:background="@drawable/bg_button_season"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/geo"
@@ -24,5 +24,5 @@
         android:paddingBottom="5dp"
         android:text="@{ @string/season + ` ` + model.seasonNumber }"
         android:textColor="#FDFDFD"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 </layout>

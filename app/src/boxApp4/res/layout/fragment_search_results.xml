@@ -15,8 +15,8 @@
         android:fontFamily="@font/geo"
         android:text="Resultados da pesquisa"
         android:textAlignment="viewStart"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:textColor="#F44336"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
