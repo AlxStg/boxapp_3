@@ -5,4 +5,5 @@ public interface MainActivityModelListener {
     void onParentalPasswordSet();
     void onModalExitCancel();
     void onModalExitConfirm();
+    void onSearchIconClicked();
 }

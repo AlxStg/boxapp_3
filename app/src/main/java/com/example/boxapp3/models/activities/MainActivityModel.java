@@ -3,13 +3,25 @@ package com.example.boxapp3.models.activities;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import com.example.boxapp3.listeners.models.activities.MainActivityModelListener;
+
+import io.reactivex.subjects.BehaviorSubject;
+
 public class MainActivityModel extends BaseObservable {
 
     private boolean showMenu = false;
     private boolean showMenuLabels = false;
     private boolean showModalAdult, showModalExit = false;
+    private boolean showSearchInput = false;
     private String actualMenu = "home";
+    private String search = "";
+    public BehaviorSubject<String> searchQuery = BehaviorSubject.create();
 
+    private MainActivityModelListener listener;
+
+    public MainActivityModel(MainActivityModelListener listener) {
+        this.listener = listener;
+    }
 
     @Bindable
     public boolean getShowMenu() {
@@ -59,5 +71,28 @@ public class MainActivityModel extends BaseObservable {
     public void setActualMenu(String actualMenu) {
         this.actualMenu = actualMenu;
         notifyPropertyChanged(com.example.boxapp3.BR.actualMenu);
+    }
+
+    @Bindable
+    public boolean getShowSearchInput() {
+        return showSearchInput;
+    }
+
+    public void setShowSearchInput(boolean showSearchInput) {
+        this.showSearchInput = showSearchInput;
+        if(showSearchInput)
+            listener.onSearchIconClicked();
+        notifyPropertyChanged(com.example.boxapp3.BR.showSearchInput);
+    }
+
+    @Bindable
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+        searchQuery.onNext(search);
+        notifyPropertyChanged(com.example.boxapp3.BR.search);
     }
 }
