@@ -15,8 +15,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/rounded_corners_20dp"
-        android:backgroundTintMode="add">
+        android:background="@color/default_background"
+        android:backgroundTintMode="add"
+        android:paddingStart="200dp">
         <!--ggs-->
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

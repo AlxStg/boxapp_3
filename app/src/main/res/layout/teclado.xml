@@ -630,9 +630,9 @@
 
                 <ImageView
                     android:id="@+id/imageView14"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="40dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="10dp"
                     android:background="@drawable/bg_button_teclado"
                     android:clickable="true"
                     android:focusable="true"
