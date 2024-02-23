@@ -1,14 +1,12 @@
 package com.example.boxapp3.views.activities;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.LinearInterpolator;
-import android.widget.ImageView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -17,13 +15,16 @@ import com.example.boxapp3.BuildConfig;
 import com.example.boxapp3.R;
 import com.example.boxapp3.databinding.ActivityMainBinding;
 import com.example.boxapp3.databinding.ModalSairBinding;
+import com.example.boxapp3.databinding.TopBarBinding;
 import com.example.boxapp3.listeners.activities.MainActivityListener;
 import com.example.boxapp3.listeners.fragments.KeyListener;
 import com.example.boxapp3.listeners.fragments.MainFragmentListener;
+import com.example.boxapp3.listeners.fragments.SearchFragmentListener;
 import com.example.boxapp3.listeners.models.activities.MainActivityModelListener;
 import com.example.boxapp3.models.activities.MainActivityModel;
 import com.example.boxapp3.views.fragments.HomeFragment;
 import com.example.boxapp3.views.fragments.MovieDetailsFragment;
+import com.example.boxapp3.views.fragments.SearchFragment;
 import com.example.boxapp3.views.fragments.SeriesDetailsFragment;
 import com.example.boxapp3.views.fragments.TvFragment;
 import com.example.boxapp3.views.fragments.VodListFragment;
@@ -32,6 +33,7 @@ import com.example.iptvsdk.common.menu.IptvMenu;
 import com.example.iptvsdk.common.menu.IptvMenuListener;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.ui.list_streams_categories.ListStreamsCategories;
+import com.example.iptvsdk.ui.mobile.IptvMobile;
 import com.example.iptvsdk.ui.parental.IptvParental;
 
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
     private CenterContent mCenterContent;
     private IptvMenu mIptvMenu;
     private IptvParental mIptvParental;
+    private IptvMobile mIptvMobile;
 
     private String activeMenu = "home";
 
@@ -57,7 +60,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        mModel = new MainActivityModel();
+        mModel = new MainActivityModel(this);
 
         mIptvParental = new IptvParental(this);
 
@@ -67,14 +70,23 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
         setupContent();
 
         setupMenu();
+        setupSearch();
 
-        ImageView imageView = findViewById(R.id.imageView17);
+    }
 
-        ObjectAnimator rotate = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 360f);
-        rotate.setDuration(2000);
-        rotate.setInterpolator(new LinearInterpolator());
-        rotate.setRepeatCount(ObjectAnimator.INFINITE);
-        rotate.start();
+    private void setupSearch() {
+        mModel.searchQuery
+                .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+                .doOnNext(s -> {
+                    if (s.length() > 0) {
+                        mCenterContent.changeFragement(new SearchFragment(s, this), false);
+                    } else {
+                        mCenterContent.backFragment();
+                    }
+                })
+                .doOnError(th -> Log.e("MainActivity", "setupSearch: ", th))
+                .subscribe();
     }
 
     @Override
@@ -92,6 +104,13 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                 }
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
+                if(((TopBarBinding)mBinding.includeTopBar).editTextText4.hasFocus()){
+                    if(mCenterContent.getCurrentFragment() instanceof SearchFragmentListener){
+                        ((SearchFragmentListener) mCenterContent.getCurrentFragment()).onFocused();
+                        mModel.setShowSearchInput(false);
+                        return true;
+                    }
+                }
                 if (mModel.getShowModalAdult()) {
                     if (mBinding.include.editTextText2.hasFocus()) {
                         if (!mIptvParental.hasPassword())
@@ -141,6 +160,11 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
                 if (mModel.getShowModalExit()) {
                     mModel.setShowModalExit(false);
+                    return true;
+                }
+
+                if(mModel.getShowModalMobile()){
+                    mModel.setShowModalMobile(false);
                     return true;
                 }
 
@@ -260,6 +284,24 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
     }
 
     @Override
+    public void onModalMobileConfirm() {
+        mModel.setShowModalMobile(false);
+    }
+
+    @Override
+    public void onSearchIconClicked() {
+        ((TopBarBinding)mBinding.includeTopBar).editTextText4.getViewTreeObserver()
+                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        ((TopBarBinding)mBinding.includeTopBar).editTextText4.getViewTreeObserver()
+                                .removeOnGlobalLayoutListener(this);
+                        ((TopBarBinding)mBinding.includeTopBar).editTextText4.requestFocus();
+                    }
+                });
+    }
+
+    @Override
     public void openDetails(int id, String type) {
         Fragment fragment = null;
         if (type.equals(StreamXc.TYPE_STREAM_LIVE)) {
@@ -308,11 +350,41 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
     }
 
     @Override
+    public void onGoToSearch() {
+        mBinding.includeTopBar.editTextText4.requestFocus();
+    }
+
+    @Override
     public void onPlayEpisode(int streamId, int episodeId) {
         Intent intent = new Intent(this, PlayerVodActivity.class);
         intent.putExtra("seriesId", streamId);
         intent.putExtra("id", episodeId);
         intent.putExtra("type", StreamXc.TYPE_STREAM_SERIES);
         startActivity(intent);
+    }
+
+    @Override
+    public void onModalMobileOpened() {
+        if(mIptvMobile == null)
+            mIptvMobile = new IptvMobile(this, BuildConfig.IS_MOBILE);
+        mBinding.includeModalMobile.getRoot()
+                        .getViewTreeObserver()
+                        .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                mBinding.includeModalMobile.getRoot()
+                                        .getViewTreeObserver()
+                                        .removeOnGlobalLayoutListener(this);
+                                mBinding.includeModalMobile.btnYes.requestFocus();
+                            }
+                        });
+        mIptvMobile.getAccessCode()
+                .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+                .doOnSuccess(s -> {
+                    mModel.setMobileCode(s);
+                })
+                .doOnError(th -> Log.e("MainActivity", "onModalMobileOpened: ", th))
+                .subscribe();
     }
 }
