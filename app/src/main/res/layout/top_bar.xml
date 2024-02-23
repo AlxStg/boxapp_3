@@ -96,6 +96,7 @@
                 android:focusable="auto"
                 android:focusableInTouchMode="true"
                 android:padding="5dp"
+                android:onClick="@{(v) -> model.setShowModalMobile(true)}"
                 app:srcCompat="@drawable/icon_cellphone" />
         </LinearLayout>
 

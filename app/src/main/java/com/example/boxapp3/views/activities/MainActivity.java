@@ -33,6 +33,7 @@ import com.example.iptvsdk.common.menu.IptvMenu;
 import com.example.iptvsdk.common.menu.IptvMenuListener;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.ui.list_streams_categories.ListStreamsCategories;
+import com.example.iptvsdk.ui.mobile.IptvMobile;
 import com.example.iptvsdk.ui.parental.IptvParental;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
     private CenterContent mCenterContent;
     private IptvMenu mIptvMenu;
     private IptvParental mIptvParental;
+    private IptvMobile mIptvMobile;
 
     private String activeMenu = "home";
 
@@ -105,6 +107,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                 if(((TopBarBinding)mBinding.includeTopBar).editTextText4.hasFocus()){
                     if(mCenterContent.getCurrentFragment() instanceof SearchFragmentListener){
                         ((SearchFragmentListener) mCenterContent.getCurrentFragment()).onFocused();
+                        mModel.setShowSearchInput(false);
                         return true;
                     }
                 }
@@ -157,6 +160,11 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
                 if (mModel.getShowModalExit()) {
                     mModel.setShowModalExit(false);
+                    return true;
+                }
+
+                if(mModel.getShowModalMobile()){
+                    mModel.setShowModalMobile(false);
                     return true;
                 }
 
@@ -276,8 +284,21 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
     }
 
     @Override
+    public void onModalMobileConfirm() {
+        mModel.setShowModalMobile(false);
+    }
+
+    @Override
     public void onSearchIconClicked() {
-        mBinding.includeTopBar.editTextText4.requestFocus();
+        ((TopBarBinding)mBinding.includeTopBar).editTextText4.getViewTreeObserver()
+                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        ((TopBarBinding)mBinding.includeTopBar).editTextText4.getViewTreeObserver()
+                                .removeOnGlobalLayoutListener(this);
+                        ((TopBarBinding)mBinding.includeTopBar).editTextText4.requestFocus();
+                    }
+                });
     }
 
     @Override
@@ -340,5 +361,30 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
         intent.putExtra("id", episodeId);
         intent.putExtra("type", StreamXc.TYPE_STREAM_SERIES);
         startActivity(intent);
+    }
+
+    @Override
+    public void onModalMobileOpened() {
+        if(mIptvMobile == null)
+            mIptvMobile = new IptvMobile(this, BuildConfig.IS_MOBILE);
+        mBinding.includeModalMobile.getRoot()
+                        .getViewTreeObserver()
+                        .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                mBinding.includeModalMobile.getRoot()
+                                        .getViewTreeObserver()
+                                        .removeOnGlobalLayoutListener(this);
+                                mBinding.includeModalMobile.btnYes.requestFocus();
+                            }
+                        });
+        mIptvMobile.getAccessCode()
+                .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+                .doOnSuccess(s -> {
+                    mModel.setMobileCode(s);
+                })
+                .doOnError(th -> Log.e("MainActivity", "onModalMobileOpened: ", th))
+                .subscribe();
     }
 }

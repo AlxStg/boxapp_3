@@ -11,10 +11,11 @@ public class MainActivityModel extends BaseObservable {
 
     private boolean showMenu = false;
     private boolean showMenuLabels = false;
-    private boolean showModalAdult, showModalExit = false;
+    private boolean showModalAdult, showModalExit, showModalMobile = false;
     private boolean showSearchInput = false;
     private String actualMenu = "home";
     private String search = "";
+    private String mobileCode = "";
     public BehaviorSubject<String> searchQuery = BehaviorSubject.create();
 
     private MainActivityModelListener listener;
@@ -94,5 +95,27 @@ public class MainActivityModel extends BaseObservable {
         this.search = search;
         searchQuery.onNext(search);
         notifyPropertyChanged(com.example.boxapp3.BR.search);
+    }
+
+    @Bindable
+    public String getMobileCode() {
+        return mobileCode;
+    }
+
+    public void setMobileCode(String mobileCode) {
+        this.mobileCode = mobileCode;
+        notifyPropertyChanged(com.example.boxapp3.BR.mobileCode);
+    }
+
+    @Bindable
+    public boolean getShowModalMobile() {
+        return showModalMobile;
+    }
+
+    public void setShowModalMobile(boolean showModalMobile) {
+        this.showModalMobile = showModalMobile;
+        if(showModalMobile)
+            listener.onModalMobileOpened();
+        notifyPropertyChanged(com.example.boxapp3.BR.showModalMobile);
     }
 }
