@@ -255,6 +255,7 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener, Pla
                 });
                 binding.getRoot().setOnClickListener(v -> {
                     mListener.onChannelClick(item);
+                    mListener.setActualStreamPosition(bindingAdapterPosition);
                     mSharedPreferences.edit().putInt("lastChannelId", bindingAdapterPosition).apply();
                 });
                 binding.getRoot().setOnLongClickListener(v -> {

@@ -11,4 +11,5 @@ public interface PlayerTvActivityListener {
     void onFastForward();
 
     void onEpgClick(EpgDb item, int daysPlayback);
+    void setActualStreamPosition(int actualStreamPosition);
 }
