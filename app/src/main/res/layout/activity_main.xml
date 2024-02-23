@@ -17,40 +17,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_mac_5"
-        android:backgroundTint="#33793FFF"
+        android:background="@drawable/big_bang_tela"
+        android:backgroundTint="#80000000"
         android:backgroundTintMode="src_over"
         tools:context=".views.activities.MainActivity">
-
-        <LinearLayout
-            android:id="@+id/app_logotipo"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="80dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/include_top_bar"
-            app:layout_constraintEnd_toStartOf="@+id/include_top_bar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/include_top_bar">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                app:srcCompat="@drawable/icon_live_tv" />
-
-            <TextView
-                android:id="@+id/app_tipo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/comfortaa_light"
-                android:text="@string/app_name"
-                android:textColor="#FDFCFC"
-                android:textSize="16sp" />
-        </LinearLayout>
 
         <include
             android:id="@+id/include_top_bar"
@@ -59,36 +29,34 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:layout_marginEnd="80dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/app_logotipo"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <include
-            android:id="@+id/include_menu"
-            layout="@layout/menu"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="80dp"
-            app:model="@{model}"
-            app:listener="@{listener}"
-            app:layout_constraintBottom_toBottomOf="@+id/main_active_fragment"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/main_active_fragment" />
 
 
         <FrameLayout
             android:id="@+id/main_active_fragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/include_top_bar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/include_menu"
-            app:layout_constraintTop_toBottomOf="@+id/include_top_bar"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" >
+
+        </FrameLayout>
+
+        <include
+            android:id="@+id/include_menu"
+            layout="@layout/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{listener}"
+            app:model="@{model}" />
 
         <include
             android:id="@+id/include"
@@ -96,11 +64,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="@{model.showModalAdult ? View.VISIBLE : View.GONE}"
-            app:listener="@{listener}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{listener}"
+            tools:visibility="gone" />
 
         <include
             android:id="@+id/modal_exit"
@@ -108,22 +77,24 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="@{model.showModalExit ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:listener="@{listener}"
+            tools:visibility="gone" />
+
+        <include
+            android:id="@+id/include_modal_main"
+            layout="@layout/modal_continuar"
+            android:layout_width="0dp"
+
+            android:layout_height="0dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-    <include
-        android:id="@+id/include_modal_main"
-        layout="@layout/modal_continuar"
-        android:layout_width="0dp"
-        
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/include_modal_loading"
