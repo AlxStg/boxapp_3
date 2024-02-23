@@ -74,6 +74,7 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener, Pla
         mModel = new TvFragmentModel();
         mBinding.include.setModel(mModel);
         mBinding.include.include25.setListener(this);
+        mBinding.include.include25.setIsFavorite(false);
 
         mFavoritesService = new FavoritesService(getContext());
         return mBinding.getRoot();
