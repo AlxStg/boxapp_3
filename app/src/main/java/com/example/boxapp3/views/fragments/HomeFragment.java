@@ -22,17 +22,20 @@ import com.example.boxapp3.databinding.HomeSliderBinding;
 import com.example.boxapp3.databinding.ThumbChannelBinding;
 import com.example.boxapp3.databinding.ThumbMovieBinding;
 import com.example.boxapp3.listeners.activities.MainActivityListener;
+import com.example.boxapp3.listeners.fragments.HomeFragmentListener;
 import com.example.boxapp3.models.fragments.HomeFragmentModel;
 import com.example.iptvsdk.IptvApplication;
 import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
 import com.example.iptvsdk.data.models.xtream.Info;
 import com.example.iptvsdk.data.models.xtream.Info_;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
+import com.example.iptvsdk.ui.favorite.IptvFavorite;
 import com.example.iptvsdk.ui.home.IptvHome;
 import com.example.iptvsdk.ui.home.listener.IptvHomeListener;
 import com.example.iptvsdk.ui.home.models.IptvHomeStreamsModel;
 import com.example.iptvsdk.ui.slider.vod.SliderVod;
 import com.example.iptvsdk.ui.slider.vod.SliderVodListener;
+import com.example.iptvsdk.utils.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,12 +47,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeFragmentListener {
 
     private FragmentHomeBinding mBinding;
     private HomeFragmentModel mModel;
     private MainActivityListener mMainActivityListener;
     private IptvHome mIptvHome;
+    private IptvFavorite mIptvFavorite;
+    private SliderVod sliderVod;
+    private List<Info_> moviesInfo = new ArrayList<>();
+    private Handler moviesInfoHandler = new Handler();
+    private Runnable moviesInfoRunnable;
+    private boolean sliderPaused = false;
 
     public HomeFragment(MainActivityListener mainActivityListener) {
         mMainActivityListener = mainActivityListener;
@@ -62,6 +71,9 @@ public class HomeFragment extends Fragment {
                 R.layout.fragment_home,
                 container,
                 false);
+
+        mIptvFavorite = new IptvFavorite(getContext());
+
         return mBinding.getRoot();
     }
 
@@ -80,6 +92,20 @@ public class HomeFragment extends Fragment {
             public void onGlobalLayout() {
                 mBinding.include2.channelsFavoriteVgv.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 mBinding.include2.channelsFavoriteVgv.requestFocus();
+            }
+        });
+
+        ViewUtils.listenFocus(this, new ViewUtils.FocusListener() {
+            @Override
+            public void onFocus(View view) {
+                int viewId = view.getId();
+                if(sliderVod != null && (viewId == R.id.btn_play_movie || viewId == R.id.fav_icon)) {
+                    sliderVod.stopAutomaticSlide();
+                    sliderPaused = true;
+                } else if(sliderPaused) {
+                    sliderVod.automaticSlide();
+                    sliderPaused = false;
+                }
             }
         });
     }
@@ -122,6 +148,14 @@ public class HomeFragment extends Fragment {
                                         binding.getRoot().setOnClickListener(v -> {
                                             mMainActivityListener.openDetails(item.getId(), item.getType());
                                         });
+                                        binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
+                                            if(keyCode == KeyEvent.KEYCODE_DPAD_UP
+                                                    && bindingAdapterPosition == 0) {
+                                                mMainActivityListener.onGoToSearch();
+                                                return true;
+                                            }
+                                            return false;
+                                        });
                                     }
                                 });
                         getActivity().runOnUiThread(() -> {
@@ -161,6 +195,10 @@ public class HomeFragment extends Fragment {
                                                     mBinding.include2.channelsFavoriteVgv.requestFocus();
                                                     return true;
                                                 }
+                                                if(keyCode == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == KeyEvent.ACTION_DOWN && bindingAdapterPosition == 0) {
+                                                    mMainActivityListener.onGoToSearch();
+                                                    return true;
+                                                }
                                                 return false;
                                             }
                                         });
@@ -179,20 +217,20 @@ public class HomeFragment extends Fragment {
         mIptvHome.loadVodFavorites(true);
     }
 
-    private List<Info_> moviesInfo = new ArrayList<>();
-    private Handler moviesInfoHandler = new Handler();
-    private Runnable moviesInfoRunnable;
 
     private void setupSliderMovies() {
         List<HomeSliderBinding> sliderBindings = generateSliderBinding();
         AtomicInteger position = new AtomicInteger();
-        new SliderVod(getContext(), mBinding.slider, new SliderVodListener() {
+        sliderVod = new SliderVod(getContext(), mBinding.slider, new SliderVodListener() {
             @Override
             public View getItem(StreamXc stream, SliderVod sliderVod) {
                 if (moviesInfoRunnable != null) {
                     moviesInfoHandler.removeCallbacks(moviesInfoRunnable);
                 }
                 HomeSliderBinding mainHomeSliderBinding = sliderBindings.get(position.get());
+                mainHomeSliderBinding.setListener(HomeFragment.this);
+                mainHomeSliderBinding.setMainActivityListener(mMainActivityListener);
+
                 if (moviesInfo.size() > 0) {
                     Optional<Info_> optInfo_ = Stream.of(moviesInfo).filter(x -> x.getStreamId() == stream
                             .getStreamId()).findFirst();
@@ -201,6 +239,16 @@ public class HomeFragment extends Fragment {
                         info.setInfo(optInfo_.get());
                         stream.setInfo(info);
                         mainHomeSliderBinding.setModel(stream);
+                        mIptvFavorite.isFavorite(stream)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnSuccess(isFavorite -> {
+                                    mainHomeSliderBinding.getModel().setFavorite(isFavorite);
+                                })
+                                .doOnError(throwable -> {
+                                    Log.e("SliderVod", "Error to get favorite", throwable);
+                                })
+                                .subscribe();
                         getPosterMovie(info.getInfo().getTmdbId())
                                 .subscribeOn(Schedulers.computation())
                                 .observeOn(AndroidSchedulers.mainThread())
@@ -240,30 +288,6 @@ public class HomeFragment extends Fragment {
                             .subscribe();
                 }
                 mainHomeSliderBinding.setModel(stream);
-                //mainHomeSliderBinding.sliderButtonPlay.setOnClickListener(v -> {
-                //    openDetails(stream.getStreamType(), stream.getStreamId());
-                //});
-                //mainHomeSliderBinding.sliderButtonPlay.setOnFocusChangeListener((v, hasFocus) -> {
-                //    if (hasFocus) {
-                //        sliderVod.stopAutomaticSlide();
-                //    } else {
-                //        sliderVod.automaticSlide();
-                //    }
-                //});
-                mainHomeSliderBinding.btnPlayMovie.setOnKeyListener((v, keyCode, event) -> {
-                    if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                        mBinding.include.vodFacvritesHgv.requestFocus();
-                        return true;
-                    }
-                    return false;
-                });
-                mainHomeSliderBinding.favIcon.setOnKeyListener((v, keyCode, event) -> {
-                    if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                        mBinding.include.vodFacvritesHgv.requestFocus();
-                        return true;
-                    }
-                    return false;
-                });
 
                 sliderBindings.set(position.get(), mainHomeSliderBinding);
                 position.getAndIncrement();
@@ -302,5 +326,18 @@ public class HomeFragment extends Fragment {
             mainHomeSliderBindings.add(mainHomeSliderBinding);
         }
         return mainHomeSliderBindings;
+    }
+
+    @Override
+    public void onFavoriteClick(StreamXc streamXc) {
+        streamXc.setFavorite(!streamXc.isFavorite());
+        mIptvFavorite.toggleFavorite(streamXc)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess(streamXc::setFavorite)
+                .doOnError(throwable -> {
+                    Log.e("HomeFragment", "Error to toggle favorite", throwable);
+                })
+                .subscribe();
     }
 }

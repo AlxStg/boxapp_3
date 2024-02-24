@@ -351,7 +351,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
     @Override
     public void onGoToSearch() {
-        mBinding.includeTopBar.editTextText4.requestFocus();
+        mBinding.includeTopBar.imageView22.requestFocus();
     }
 
     @Override

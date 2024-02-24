@@ -1,6 +1,7 @@
 package com.example.boxapp3.views.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -32,11 +33,11 @@ import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
 public class SeriesDetailsFragment extends Fragment {
-    private FragmentSeriesDetailsBinding binding;
+    private FragmentSeriesDetailsBinding mBinding;
     private SeriesDetailsModel model;
     private IptvSeriesDetails iptvSeriesDetails;
     private MainActivityListener mainActivityListener;
-    private int id;
+    private int id, mEpisode, mSeason;
 
     public SeriesDetailsFragment(int id, MainActivityListener mainActivityListener) {
         this.id = id;
@@ -46,8 +47,8 @@ public class SeriesDetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentSeriesDetailsBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        mBinding = FragmentSeriesDetailsBinding.inflate(inflater, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -69,17 +70,30 @@ public class SeriesDetailsFragment extends Fragment {
             @Override
             public void onAlreadyWatched(int season, int episode) {
                 super.onAlreadyWatched(season, episode);
-                binding.episodes.setSelectedPosition(episode);
-                binding.episodes.scrollToPosition(episode);
-                binding.seasons.setSelectedPosition(season);
-                binding.seasons.scrollToPosition(season);
+                mEpisode = episode;
+                mSeason = season;
+                mBinding.episodes.setSelectedPosition(episode);
+                mBinding.episodes.scrollToPosition(episode);
+
+                mBinding.episodes.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        mBinding.episodes.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        mBinding.episodes.setSelectedPosition(episode);
+                        mBinding.episodes.scrollToPosition(episode);
+                    }
+                });
+
+                mBinding.seasons.setSelectedPosition(season);
+                mBinding.seasons.scrollToPosition(season);
+
             }
         });
         iptvSeriesDetails.getModel(id)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(Schedulers.computation())
                 .doOnSuccess(model -> {
-                    binding.setModel(model);
+                    mBinding.setModel(model);
                 })
                 .doOnError(throwable -> {
                     Log.e("SeriesDetailsFragment", "onViewCreated: ", throwable);
@@ -87,11 +101,11 @@ public class SeriesDetailsFragment extends Fragment {
                 .subscribe();
         setupSeasons();
 
-        binding.episodes.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        mBinding.episodes.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                binding.episodes.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                binding.episodes.requestFocus();
+                mBinding.episodes.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                mBinding.episodes.requestFocus();
             }
         });
     }
@@ -133,11 +147,13 @@ public class SeriesDetailsFragment extends Fragment {
                         });
                         binding.getRoot().setOnClickListener(v -> {
                             mainActivityListener.onPlayEpisode(id, Integer.parseInt(item.getId()));
+                            mEpisode = bindingAdapterPosition;
+                            iptvSeriesDetails.saveSeasonAndEpisode(mSeason, mEpisode);
                         });
                     }
                 });
         getActivity().runOnUiThread(() -> {
-            binding.episodes.setAdapter(adapter);
+            mBinding.episodes.setAdapter(adapter);
         });
     }
 
@@ -173,6 +189,9 @@ public class SeriesDetailsFragment extends Fragment {
                                     binding.setModel(item);
                                     binding.getRoot().setOnClickListener(v -> {
                                         iptvSeriesDetails.loadSeason(item.getSeasonNumber());
+                                        mSeason = bindingAdapterPosition;
+                                        mEpisode = 0;
+                                        iptvSeriesDetails.saveSeasonAndEpisode(mSeason, mEpisode);
                                         selectedPosition = item.getSeasonNumber();
                                         adapter.notifyDataSetChanged();
                                     });
@@ -190,7 +209,17 @@ public class SeriesDetailsFragment extends Fragment {
                                 }
                             });
                     getActivity().runOnUiThread(() -> {
-                        binding.seasons.setAdapter(adapter);
+                        mBinding.seasons.setAdapter(adapter);
+                    });
+                    mBinding.seasons.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            mBinding.seasons.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            new Handler().postDelayed(() -> {
+                                mBinding.seasons.scrollToPosition(mSeason);
+                                mBinding.seasons.setSelectedPosition(mSeason);
+                            }, 1000);
+                        }
                     });
                 })
                 .doOnError(throwable -> {
