@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.boxapp3.BuildConfig;
 import com.example.boxapp3.R;
 import com.example.boxapp3.databinding.ActivityMainBinding;
+import com.example.boxapp3.databinding.ModalMobileBinding;
 import com.example.boxapp3.databinding.ModalSairBinding;
 import com.example.boxapp3.databinding.TopBarBinding;
 import com.example.boxapp3.listeners.activities.MainActivityListener;
@@ -35,6 +36,7 @@ import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.ui.list_streams_categories.ListStreamsCategories;
 import com.example.iptvsdk.ui.mobile.IptvMobile;
 import com.example.iptvsdk.ui.parental.IptvParental;
+import com.example.iptvsdk.utils.ViewUtils;
 
 import java.util.ArrayList;
 
@@ -71,6 +73,23 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
         setupMenu();
         setupSearch();
+
+        ViewUtils.listenFocus(this, new ViewUtils.FocusListener() {
+            @Override
+            public void onFocus(View view) {
+                int viewId = view.getId();
+                if(mModel.getShowModalExit()){
+                    if(viewId != R.id.btn_yes && viewId != R.id.textView43){
+                        ((ModalSairBinding)mBinding.modalExit).btnYes.requestFocus();
+                    }
+                } else if(mModel.getShowModalMobile()){
+                    if(viewId != R.id.btn_yes){
+                        ((ModalMobileBinding)mBinding.includeModalMobile).btnYes.requestFocus();
+                    }
+
+                }
+            }
+        });
 
     }
 
