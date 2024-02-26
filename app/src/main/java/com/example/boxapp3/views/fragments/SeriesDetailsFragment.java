@@ -30,6 +30,7 @@ import java.util.Locale;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class SeriesDetailsFragment extends Fragment {
@@ -37,6 +38,7 @@ public class SeriesDetailsFragment extends Fragment {
     private SeriesDetailsModel model;
     private IptvSeriesDetails iptvSeriesDetails;
     private MainActivityListener mainActivityListener;
+    private GenericAdapter<EpisodeModel, ThumbEpisodeBinding> mEpisodeAdapter;
     private int id, mEpisode, mSeason;
 
     public SeriesDetailsFragment(int id, MainActivityListener mainActivityListener) {
@@ -72,20 +74,6 @@ public class SeriesDetailsFragment extends Fragment {
                 super.onAlreadyWatched(season, episode);
                 mEpisode = episode;
                 mSeason = season;
-                mBinding.episodes.setSelectedPosition(episode);
-                mBinding.episodes.scrollToPosition(episode);
-
-                mBinding.episodes.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        mBinding.episodes.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        mBinding.episodes.setSelectedPosition(episode);
-                        mBinding.episodes.scrollToPosition(episode);
-                    }
-                });
-
-                mBinding.seasons.setSelectedPosition(season);
-                mBinding.seasons.scrollToPosition(season);
 
             }
         });
@@ -111,7 +99,7 @@ public class SeriesDetailsFragment extends Fragment {
     }
 
     private void showEpisodes(List<EpisodeModel> episodes) {
-        GenericAdapter<EpisodeModel, ThumbEpisodeBinding> adapter = new GenericAdapter<>(getContext(),
+        mEpisodeAdapter = new GenericAdapter<>(getContext(),
                 new GenericAdapter.GenericAdapterHelper<EpisodeModel, ThumbEpisodeBinding>() {
                     @Override
                     public ThumbEpisodeBinding createBinding(LayoutInflater inflater, ViewGroup parent) {
@@ -153,8 +141,32 @@ public class SeriesDetailsFragment extends Fragment {
                     }
                 });
         getActivity().runOnUiThread(() -> {
-            mBinding.episodes.setAdapter(adapter);
+            mBinding.episodes.setAdapter(mEpisodeAdapter);
         });
+
+        mEpisodeAdapter.totalItemsObservable
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(integer -> {
+                    if (integer > 0) {
+                        mBinding.episodes.getViewTreeObserver()
+                                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                                    @Override
+                                    public void onGlobalLayout() {
+                                        mBinding.episodes.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                        new Handler().postDelayed(() -> {
+                                            mBinding.episodes.setSelectedPosition(mEpisode);
+                                            mBinding.episodes.scrollToPosition(mEpisode);
+                                            mEpisodeAdapter.handleSelection(mEpisode);
+                                        }, 1000);
+                                    }
+                                });
+                    }
+                })
+                .doOnError(throwable -> {
+                    Log.e("SeriesDetailsFragment", "setupSeasons: ", throwable);
+                })
+                .subscribe();
     }
 
     private void setupSeasons() {
@@ -165,6 +177,7 @@ public class SeriesDetailsFragment extends Fragment {
                     GenericAdapter<SeasonModel, ItemSeasonBinding> adapter =
                             new GenericAdapter<>(getContext(), new GenericAdapter.GenericAdapterHelper<SeasonModel, ItemSeasonBinding>() {
                                 int selectedPosition = 1;
+
                                 @Override
                                 public ItemSeasonBinding createBinding(LayoutInflater inflater, ViewGroup parent) {
                                     return ItemSeasonBinding.inflate(inflater, parent, false);
@@ -183,17 +196,17 @@ public class SeriesDetailsFragment extends Fragment {
 
                                 @Override
                                 public void setModelToItem(ItemSeasonBinding binding, SeasonModel item, int bindingAdapterPosition, GenericAdapter<SeasonModel, ItemSeasonBinding> adapter) {
-                                    if(selectedPosition == item.getSeasonNumber())
+                                    if (selectedPosition == item.getSeasonNumber())
                                         binding.getRoot().setSelected(true);
 
                                     binding.setModel(item);
                                     binding.getRoot().setOnClickListener(v -> {
-                                        iptvSeriesDetails.loadSeason(item.getSeasonNumber());
-                                        mSeason = bindingAdapterPosition;
-                                        mEpisode = 0;
-                                        iptvSeriesDetails.saveSeasonAndEpisode(mSeason, mEpisode);
-                                        selectedPosition = item.getSeasonNumber();
-                                        adapter.notifyDataSetChanged();
+                                        loadEpisodes(item, bindingAdapterPosition, adapter);
+                                    });
+                                    binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
+                                        if (hasFocus) {
+                                            loadEpisodes(item, bindingAdapterPosition, adapter);
+                                        }
                                     });
                                     binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
                                         if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -207,20 +220,44 @@ public class SeriesDetailsFragment extends Fragment {
                                         return false;
                                     });
                                 }
+
+                                private void loadEpisodes(SeasonModel item, int bindingAdapterPosition, GenericAdapter<SeasonModel, ItemSeasonBinding> adapter) {
+                                    iptvSeriesDetails.loadSeason(item.getSeasonNumber());
+                                    mSeason = bindingAdapterPosition;
+                                    //mEpisode = 0;
+                                    //iptvSeriesDetails.saveSeasonAndEpisode(mSeason, mEpisode);
+                                    selectedPosition = item.getSeasonNumber();
+                                    // adapter.notifyDataSetChanged();
+                                }
                             });
                     getActivity().runOnUiThread(() -> {
                         mBinding.seasons.setAdapter(adapter);
                     });
-                    mBinding.seasons.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                        @Override
-                        public void onGlobalLayout() {
-                            mBinding.seasons.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                            new Handler().postDelayed(() -> {
-                                mBinding.seasons.scrollToPosition(mSeason);
-                                mBinding.seasons.setSelectedPosition(mSeason);
-                            }, 1000);
-                        }
-                    });
+                    adapter.totalItemsObservable
+                            .subscribeOn(Schedulers.computation())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnNext(integer -> {
+                                if (integer > 0) {
+                                    mBinding.seasons.getViewTreeObserver()
+                                            .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                                                @Override
+                                                public void onGlobalLayout() {
+                                                    mBinding.seasons.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                                    new Handler().postDelayed(() -> {
+                                                        mBinding.seasons.setSelectedPosition(mSeason);
+                                                        mBinding.seasons.scrollToPosition(mSeason);
+                                                        adapter.handleSelection(mSeason);
+                                                        mBinding.seasons.requestFocus();
+                                                        iptvSeriesDetails.loadSeason(mSeason);
+                                                    }, 1000);
+                                                }
+                                            });
+                                }
+                            })
+                            .doOnError(throwable -> {
+                                Log.e("SeriesDetailsFragment", "setupSeasons: ", throwable);
+                            })
+                            .subscribe();
                 })
                 .doOnError(throwable -> {
                     Log.e("SeriesDetailsFragment", "setupSeasons: ", throwable);
