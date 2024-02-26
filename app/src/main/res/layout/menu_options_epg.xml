@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -14,13 +16,11 @@
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corners_20dp"
-        android:backgroundTintMode="add"
+        android:background="@drawable/rounded_corners_5dp"
+        android:backgroundTint="#33FFFFFF"
         android:padding="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,14 +28,14 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_btn_epg"
-            android:backgroundTint="#66000000"
+            android:backgroundTint="#66FFFFFF"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{() -> listener.onChannelOptionsPlay()}"
             android:padding="10dp"
             android:paddingStart="10dp"
             android:paddingEnd="3dp"
             android:paddingBottom="10dp"
-            android:onClick="@{() -> listener.onChannelOptionsPlay()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -76,14 +76,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_btn_epg"
-            android:backgroundTint="#66000000"
+            android:backgroundTint="#66FFFFFF"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{() -> listener.onChannelOptionsFavorite()}"
             android:padding="10dp"
             android:paddingStart="10dp"
             android:paddingEnd="3dp"
             android:paddingBottom="10dp"
-            android:onClick="@{() -> listener.onChannelOptionsFavorite()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_watch">
 
@@ -122,14 +122,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_btn_epg"
-            android:backgroundTint="#66000000"
+            android:backgroundTint="#66FFFFFF"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{() -> listener.onChannelOptionsEpg()}"
             android:padding="10dp"
             android:paddingStart="10dp"
             android:paddingEnd="3dp"
             android:paddingBottom="10dp"
-            android:onClick="@{() -> listener.onChannelOptionsEpg()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_favorite">
@@ -142,7 +142,7 @@
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/comfortaa_light"
                 android:maxLines="3"
-                android:text="Gua de Programação"
+                android:text="Guia de Programação"
                 android:textAlignment="textStart"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"

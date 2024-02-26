@@ -13,25 +13,12 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/default_background"
         android:backgroundTintMode="add"
         android:paddingStart="200dp">
         <!--ggs-->
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.2" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.45" />
 
         <TextView
             android:id="@+id/textView47"
@@ -43,50 +30,44 @@
             android:visibility="@{model.showNoEpgData ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/include2"
             layout="@layout/scroll_tv_category"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="20dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/include3"
             layout="@layout/scroll_tv_channels"
-            android:layout_width="0dp"
+            android:layout_width="350dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toEndOf="@+id/include2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/include4"
             layout="@layout/scroll_tv_egp"
-            android:layout_width="0dp"
+            android:layout_width="630dp"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="20dp"
             android:visibility="@{model.showEpg ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toEndOf="@+id/include3"
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
@@ -98,7 +79,7 @@
             android:layout_marginBottom="10dp"
             android:visibility="@{model.showChannelOptions ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toEndOf="@+id/include3"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
