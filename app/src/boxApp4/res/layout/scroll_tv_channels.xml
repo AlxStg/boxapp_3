@@ -14,7 +14,9 @@
             android:gravity="center"
             android:minWidth="190dp"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,10 +27,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/geo"
+                android:paddingStart="20dp"
                 android:text="@string/channels"
                 android:textAlignment="textStart"
                 android:textColor="#F44336"
-                android:textSize="24sp"
+                android:textSize="32sp"
                 android:textStyle="bold" />
 
             <androidx.leanback.widget.VerticalGridView
