@@ -8,6 +8,16 @@
                 <variable
                     name="model"
                     type="com.example.iptvsdk.data.models.xtream.StreamXc" />
+
+        <variable
+            name="mainActivityListener"
+            type="com.example.boxapp3.listeners.activities.MainActivityListener" />
+
+        <variable
+            name="listener"
+            type="com.example.boxapp3.listeners.fragments.HomeFragmentListener" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,6 +81,7 @@
                     android:paddingTop="2dp"
                     android:paddingEnd="5dp"
                     android:paddingBottom="2dp"
+                    android:onClick="@{() -> mainActivityListener.openDetails(model.streamId, model.streamType)}"
                     app:layout_constraintStart_toStartOf="@+id/textView16"
                     app:layout_constraintTop_toBottomOf="@+id/genre1">
 
@@ -104,10 +115,11 @@
                     android:background="@drawable/bg_button"
                     android:focusable="true"
                     android:padding="4dp"
+                    android:onClick="@{() -> listener.onFavoriteClick(model)}"
                     app:layout_constraintBottom_toBottomOf="@+id/btn_play_movie"
                     app:layout_constraintStart_toEndOf="@+id/btn_play_movie"
                     app:layout_constraintTop_toTopOf="@+id/btn_play_movie"
-                    app:srcCompat="@drawable/icon_favorite" />
+                    app:loadImageDrawable="@{model.favorite ? @drawable/baseline_favorite_24 : @drawable/icon_favorite}" />
 
                 <TextView
                     android:id="@+id/movie_description"

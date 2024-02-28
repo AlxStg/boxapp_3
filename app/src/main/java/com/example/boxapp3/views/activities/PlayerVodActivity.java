@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
@@ -25,6 +26,7 @@ import com.example.iptvsdk.player.exo.ExoTracks;
 import com.example.iptvsdk.player.exo.IptvExoPlayer;
 import com.example.iptvsdk.ui.player_vod.IptvPlayerVod;
 import com.example.iptvsdk.ui.player_vod.IptvPlayerVodListener;
+import com.example.iptvsdk.utils.ViewUtils;
 
 import java.util.List;
 
@@ -49,9 +51,7 @@ public class PlayerVodActivity extends BaseActivity implements PlayerVodActivity
         super.onCreate(savedInstanceState);
 
 
-
         mBinding = DataBindingUtil.setContentView(this, R.layout.player_movies);
-
 
 
         sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
@@ -133,6 +133,35 @@ public class PlayerVodActivity extends BaseActivity implements PlayerVodActivity
         mModel.setShowController(true, false);
 
         iptvPlayerVod.setSeekbar(mBinding.playerMoviesControl.seekBarMovies);
+
+        ViewUtils.listenFocus(this, new ViewUtils.FocusListener() {
+            @Override
+            public void onFocus(View view) {
+                int viewId = view.getId();
+                if (mModel.isShowTracks()) {
+                    if (viewId != R.id.audio_tracks
+                            && viewId != R.id.subtitle_tracks
+                            && viewId != R.id.btn_back_modal_movies_subtitles
+                            && viewId != R.id.item_track)
+                        mBinding.includeModalSubtLang.audioTracks.requestFocus();
+                } else if (mModel.isShowResumeModal()) {
+                    if (viewId != R.id.btn_yes
+                            && viewId != R.id.btn_no)
+                        mBinding.modalResume.btnYes.requestFocus();
+                } else if(mModel.isShowController()){
+                    if(viewId != R.id.seekBar_movies
+                            && viewId != R.id.imageView15
+                            && viewId != R.id.imageButton
+                            && viewId != R.id.imageView16
+                            && viewId != R.id.imageView18
+                            && viewId != R.id.textView27
+                            && viewId != R.id.btn_config_player_movies
+                            && viewId != R.id.imageView21)
+                        mBinding.playerMoviesControl.imageView16.requestFocus();
+
+                }
+            }
+        });
 
     }
 
@@ -223,7 +252,8 @@ public class PlayerVodActivity extends BaseActivity implements PlayerVodActivity
                 });
         /*if (type == C.TRACK_TYPE_VIDEO)
             mBinding.tracksResolution.setAdapter(adapter);
-        else*/ if (type == C.TRACK_TYPE_AUDIO)
+        else*/
+        if (type == C.TRACK_TYPE_AUDIO)
             mBinding.includeModalSubtLang.audioTracks.setAdapter(adapter);
         else if (type == C.TRACK_TYPE_TEXT)
             mBinding.includeModalSubtLang.subtitleTracks.setAdapter(adapter);

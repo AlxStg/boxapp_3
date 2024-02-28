@@ -35,12 +35,14 @@ public class PlayerTvChannelInfoFragment extends Fragment implements KeyListener
     private PlayerTvActivityListener listener;
     private FragmentTvPlayerChannelInfoBinding mBinding;
     private int streamId;
+    private boolean isZapping;
 
     public PlayerTvChannelInfoFragment(int streamId, IptvLive iptvLive,
-                                       PlayerTvActivityListener listener) {
+                                       boolean isZapping, PlayerTvActivityListener listener) {
         this.streamId = streamId;
         this.listener = listener;
         this.mIptvLive = iptvLive;
+        this.isZapping = isZapping;
     }
 
     @Nullable
@@ -50,8 +52,13 @@ public class PlayerTvChannelInfoFragment extends Fragment implements KeyListener
 
         mBinding.playerControlsTv.setListener(listener);
 
-        mBinding.playerControlsTv.textView23.setFormat24Hour("dd/MM/yyyy - HH:mm");
-        mBinding.playerControlsTv.imageView7.requestFocus();
+        if(!isZapping) {
+            mBinding.playerControlsTv.textView23.setFormat24Hour("dd/MM/yyyy - HH:mm");
+            mBinding.playerControlsTv.imageView7.requestFocus();
+        } else {
+            mBinding.playerControlsTv.getRoot().setVisibility(View.GONE);
+        }
+
 
         return mBinding.getRoot();
     }
@@ -98,6 +105,10 @@ public class PlayerTvChannelInfoFragment extends Fragment implements KeyListener
                                 @Override
                                 public void setModelToItem(PlayerTimelineItemBinding binding, EpgDb item, int bindingAdapterPosition, GenericAdapter<EpgDb, PlayerTimelineItemBinding> adapter) {
                                     binding.setModel(item);
+                                    binding.setDaysPlayback(streamXc.getTvArchiveDuration());
+                                    binding.getRoot().setOnClickListener(v -> {
+                                        listener.onEpgClick(item, streamXc.getTvArchiveDuration());
+                                    });
                                 }
                             });
                     mBinding.playerControlsTv.horizontalScrollView.setAdapter(adapter);

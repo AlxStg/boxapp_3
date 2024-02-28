@@ -26,6 +26,9 @@ import com.example.iptvsdk.ui.live.IptvLive;
 import java.util.Calendar;
 import java.util.Date;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityListener {
 
     private ActivityPlayerTvBinding mBinding;
@@ -39,6 +42,7 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
     private StreamXc stream;
     private SharedPreferences sharedPreferences;
     private boolean isAdult = false;
+    private boolean isZapping = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +59,17 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
         if (streamId == -1) {
             streamId = sharedPreferences.getInt("streamId",
                     -1);
-        }
+        } else
+            mIptvLive.getPositionById(streamId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.computation())
+                    .doOnSuccess(this::setActualStreamPosition)
+                    .subscribe();
         isAdult = getIntent().getBooleanExtra("isAdult", false);
 
 
         mCenterContent = new CenterContent(this, R.id.content,
-                new PlayerTvChannelInfoFragment(streamId, mIptvLive, this));
+                new PlayerTvChannelInfoFragment(streamId, mIptvLive, isZapping, this));
         mCenterContent.removeAllFragments();
 
         registerFragments();
@@ -80,7 +89,7 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
                 sharedPreferences,this,
                 mIptvLive, isAdult));
         mCenterContent.addFragment("channelInfo", new PlayerTvChannelInfoFragment(streamId,
-                mIptvLive, this));
+                mIptvLive, isZapping, this));
     }
 
     @Override
@@ -104,6 +113,23 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
                     return true;
                 }
             }
+            if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP || event.getKeyCode() == KeyEvent.KEYCODE_CHANNEL_UP) {
+                if(isZapping || (!(mCenterContent.getCurrentFragment() instanceof
+                        PlayerTvPanelsFragment) && !(mCenterContent.getCurrentFragment() instanceof
+                        PlayerTvChannelInfoFragment))) {
+                    zapChannel(true);
+                    return true;
+                }
+            }
+
+            if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN || event.getKeyCode() == KeyEvent.KEYCODE_CHANNEL_DOWN) {
+                if(isZapping || (!(mCenterContent.getCurrentFragment() instanceof
+                        PlayerTvPanelsFragment) && !(mCenterContent.getCurrentFragment() instanceof
+                        PlayerTvChannelInfoFragment))) {
+                    zapChannel(false);
+                    return true;
+                }
+            }
         }
 
         return super.dispatchKeyEvent(event);
@@ -119,7 +145,8 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
     };
 
     private void showChannelInfo() {
-        mCenterContent.changeFragement(new PlayerTvChannelInfoFragment(streamId, mIptvLive, this));
+        mCenterContent.changeFragement(new PlayerTvChannelInfoFragment(streamId, mIptvLive,
+                isZapping, this));
         channelInfoHandler.removeCallbacks(channelInfoRunnable);
         channelInfoHandler.postDelayed(channelInfoRunnable, 5000);
     }
@@ -199,5 +226,32 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
                 return;
             }
         }
+    }
+
+    @Override
+    public void setActualStreamPosition(int actualStreamPosition) {
+        mIptvLive.setActualStreamPosition(actualStreamPosition);
+    }
+
+    private Handler zappingClearHandler = new Handler();
+    private Runnable zappingClearRunnable = new Runnable() {
+        @Override
+        public void run() {
+            isZapping = false;
+        }
+    };
+
+    private void zapChannel(boolean isUp){
+        isZapping = true;
+        zappingClearHandler.removeCallbacks(zappingClearRunnable);
+        mIptvLive.zapChannel(isUp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> {
+            Log.e("PlayerTvActivity", "zapChannel: ", throwable);
+        })
+                .doOnSuccess(this::onChannelClick)
+                .subscribe();
+        zappingClearHandler.postDelayed(zappingClearRunnable, 1000);
     }
 }
