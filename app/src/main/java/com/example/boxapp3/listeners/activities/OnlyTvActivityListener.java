@@ -1,8 +1,9 @@
 package com.example.boxapp3.listeners.activities;
 
-public interface MainActivityListener {
-    void openDetails(int id, String type);
+import com.example.iptvsdk.data.models.xtream.StreamXc;
+
+public interface OnlyTvActivityListener {
     void onGoToMenu();
-    void onGoToSearch();
-    void onPlayEpisode(int id, int episodeId);
+    void playChannel(StreamXc stream);
+    void onEpgVisibilityChanged(boolean visible);
 }

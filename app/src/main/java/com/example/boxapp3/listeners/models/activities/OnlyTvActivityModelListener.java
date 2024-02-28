@@ -1,6 +1,6 @@
 package com.example.boxapp3.listeners.models.activities;
 
-public interface MainActivityModelListener {
+public interface OnlyTvActivityModelListener {
     void onMenuClicked(String menu);
     void onParentalPasswordSet();
     void onModalExitCancel();

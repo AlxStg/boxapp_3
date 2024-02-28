@@ -57,6 +57,10 @@ android {
             dimension "layout"
             applicationId "com.example.boxapp3"
         }
+        tunningNew {
+            dimension "layout"
+            applicationId "com.tunningtv.boxapp3"
+        }
         boxApp4 {
             dimension "layout"
             applicationId "com.example.boxapp4"

@@ -1,6 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+        <variable
+            name="model"
+            type="com.example.boxapp3.models.activities.OnlyTvActivityModel" />
+        <variable
+            name="listener"
+            type="com.example.boxapp3.listeners.models.activities.OnlyTvActivityModelListener" />
+        <import type="android.view.View" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="#80000000"
+        android:backgroundTintMode="src_over">
+
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/player_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:resize_mode="fill"
+            app:use_controller="false" />
+
+
+        <include
+            android:id="@+id/include_menu"
+            layout="@layout/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:visibility="@{model.showMenu ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{listener}"
+            app:model="@{model}" />
+
+        <FrameLayout
+            android:id="@+id/main_active_fragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/include_menu"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+        </FrameLayout>
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/modal_enter_adult"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{model.showModalAdult ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{listener}"
+            tools:visibility="gone" />
+
+        <include
+            android:id="@+id/modal_exit"
+            layout="@layout/modal_sair"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{model.showModalExit ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{listener}"
+            tools:visibility="gone" />
+
+        <include
+            android:id="@+id/include_modal_main"
+            layout="@layout/modal_continuar"
+            android:layout_width="0dp"
+
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/include_modal_loading"
+            layout="@layout/modal_loading"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/include_modal_mobile"
+            layout="@layout/modal_mobile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{model.showModalMobile ? View.VISIBLE : View.GONE}"
+            app:model="@{model}"
+            app:listener="@{listener}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

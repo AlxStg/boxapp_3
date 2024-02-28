@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
         ViewUtils.listenFocus(this, new ViewUtils.FocusListener() {
             @Override
-            public void onFocus(View view) {
+            public void onFocus(View view, String viewName) {
                 int viewId = view.getId();
                 if(mModel.getShowModalExit()){
                     if(viewId != R.id.btn_yes && viewId != R.id.textView43){
@@ -238,10 +238,10 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                         mBinding.includeMenu.menu.getWidth(),
                         100,
                         new ArrayList<View>() {{
-                            add(mBinding.includeMenu.btnHomeMenu);
-                            add(mBinding.includeMenu.btnTvMenu);
-                            add(mBinding.includeMenu.btnMoviesMenu);
-                            add(mBinding.includeMenu.btnSeriesMenu);
+                           //add(mBinding.includeMenu.btnHomeMenu);
+                           //add(mBinding.includeMenu.btnTvMenu);
+                           //add(mBinding.includeMenu.btnMoviesMenu);
+                           //add(mBinding.includeMenu.btnSeriesMenu);
                             add(mBinding.includeMenu.btnKidsMenu);
                             add(mBinding.includeMenu.btnSportsMenu);
                             add(mBinding.includeMenu.btnAdultMenu);
@@ -344,18 +344,18 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
     @Override
     public void onGoToMenu() {
         switch (activeMenu) {
-            case "home":
-                mBinding.includeMenu.btnHomeMenu.requestFocus();
-                break;
-            case "live":
-                mBinding.includeMenu.btnTvMenu.requestFocus();
-                break;
-            case "movies":
-                mBinding.includeMenu.btnMoviesMenu.requestFocus();
-                break;
-            case "series":
-                mBinding.includeMenu.btnSeriesMenu.requestFocus();
-                break;
+          //case "home":
+          //    mBinding.includeMenu.btnHomeMenu.requestFocus();
+          //    break;
+          //case "live":
+          //    mBinding.includeMenu.btnTvMenu.requestFocus();
+          //    break;
+          //case "movies":
+          //    mBinding.includeMenu.btnMoviesMenu.requestFocus();
+          //    break;
+          //case "series":
+          //    mBinding.includeMenu.btnSeriesMenu.requestFocus();
+          //    break;
             case "kids":
                 mBinding.includeMenu.btnKidsMenu.requestFocus();
                 break;

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
+import com.example.boxapp3.BuildConfig;
 import com.example.boxapp3.R;
 import com.example.boxapp3.common.GenericUtils;
 import com.example.boxapp3.databinding.ActivitySplashBinding;
@@ -77,7 +78,8 @@ public class SplashActivity extends BaseActivity {
         if(alreayGoToMainActivity)
             return;
         alreayGoToMainActivity = true;
-        Intent intent = new Intent(this, /*PlayerTvActivity.class*/ MainActivity.class);
+        Intent intent = new Intent(this, BuildConfig.FLAVOR.equals("tunningNew") ?
+                OnlyTvActivity.class : MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

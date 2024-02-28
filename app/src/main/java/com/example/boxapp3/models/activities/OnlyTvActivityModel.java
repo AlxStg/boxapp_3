@@ -1,15 +1,17 @@
 package com.example.boxapp3.models.activities;
 
+import android.util.Log;
+
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
-import com.example.boxapp3.listeners.models.activities.MainActivityModelListener;
+import com.example.boxapp3.listeners.models.activities.OnlyTvActivityModelListener;
 
 import io.reactivex.subjects.BehaviorSubject;
 
-public class MainActivityModel extends BaseObservable {
+public class OnlyTvActivityModel extends BaseObservable {
 
-    private boolean showMenu = false;
+    private boolean showMenu = true;
     private boolean showMenuLabels = false;
     private boolean showModalAdult, showModalExit, showModalMobile = false;
     private boolean showSearchInput = false;
@@ -18,9 +20,9 @@ public class MainActivityModel extends BaseObservable {
     private String mobileCode = "";
     public BehaviorSubject<String> searchQuery = BehaviorSubject.create();
 
-    private MainActivityModelListener listener;
+    private OnlyTvActivityModelListener listener;
 
-    public MainActivityModel(MainActivityModelListener listener) {
+    public OnlyTvActivityModel(OnlyTvActivityModelListener listener) {
         this.listener = listener;
     }
 
@@ -51,6 +53,7 @@ public class MainActivityModel extends BaseObservable {
 
     public void setShowMenuLabels(boolean showMenuLabels) {
         this.showMenuLabels = showMenuLabels;
+        Log.d("showMenuLabels", "setShowMenuLabels: " + showMenuLabels);
         notifyPropertyChanged(com.example.boxapp3.BR.showMenuLabels);
     }
 

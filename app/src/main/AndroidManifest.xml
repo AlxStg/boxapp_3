@@ -47,6 +47,9 @@
             android:name=".views.activities.MainActivity"
             android:exported="false" />
         <activity
+            android:name=".views.activities.OnlyTvActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.activities.LoginActivity"
             android:exported="false" />
         <meta-data
