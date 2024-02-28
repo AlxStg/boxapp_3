@@ -102,13 +102,12 @@
             layout="@layout/modal_sair"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="@{model.showModalExit ? View.VISIBLE : View.GONE}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:listener="@{listener}"
-            tools:visibility="gone" />
+            app:listener="@{listener}" />
 
         <include
             android:id="@+id/include_modal_main"
@@ -127,14 +126,13 @@
             layout="@layout/modal_mobile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="@{model.showModalMobile ? View.VISIBLE : View.GONE}"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:listener="@{listener}"
-            app:model="@{model}"
-            tools:visibility="gone" />
+            app:model="@{model}" />
 
 
         <!--    <include layout="@layout/fragment_series" />-->

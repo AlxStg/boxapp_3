@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -7,30 +9,29 @@
             type="com.example.boxapp3.models.activities.PlayerVodActivityModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
 
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/rounded_corners_20dp_black"
-        android:backgroundTint="#000000"
+        android:background="@drawable/rounded_corners_player_channel_info"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageView12"
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="100dp"
             android:layout_marginTop="16dp"
-            android:scaleType="centerCrop"
             android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:loadImage="@{model.streamIcon}" />
+            app:loadImage="@{model.streamIcon}"
+            tools:srcCompat="@drawable/house_capa" />
 
         <TextView
             android:id="@+id/textView13"
@@ -41,11 +42,11 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/geo"
-            android:maxLines="8"
+            android:maxLines="6"
             android:text="@{model.streamDescription}"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="16sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,14 +60,16 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:fontFamily="@font/geo"
+            android:maxLines="2"
             android:text="@{model.streamName}"
             android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:textColor="#F44336"
+            android:textSize="35sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView12"
+            tools:text="Nome" />
 
         <TextView
             android:id="@+id/textView15"
@@ -75,7 +78,7 @@
             android:fontFamily="@font/geo"
             android:text="@{model.duration}"
             android:textColor="#B3FFFFFF"
-            android:textSize="14sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -89,7 +92,7 @@
             android:text="Fic. Científica"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/textView32"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView32"
@@ -105,7 +108,7 @@
             android:text="Ação"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/textView22"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView15" />

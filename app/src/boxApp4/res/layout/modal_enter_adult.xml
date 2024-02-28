@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -11,9 +13,7 @@
         <import type="android.view.View" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,6 +21,7 @@
             android:id="@+id/bg_modal_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +46,7 @@
                 android:fontFamily="@font/geo"
                 android:text="@string/atention_"
                 android:textColor="#FB8B69"
-                android:textSize="24sp"
+                android:textSize="40sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/textView40"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +61,7 @@
                 android:fontFamily="@font/geo"
                 android:text="@string/adult_content"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp"
+                android:textSize="28sp"
                 app:layout_constraintBottom_toTopOf="@+id/textView41"
                 app:layout_constraintEnd_toEndOf="@+id/textView39"
                 app:layout_constraintStart_toStartOf="@+id/textView39"
@@ -73,7 +74,7 @@
                 android:fontFamily="@font/geo"
                 android:text="@string/access_code_required"
                 android:textColor="#8A8A8A"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/editTextText2"
                 app:layout_constraintEnd_toEndOf="@+id/textView39"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -86,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/bg_button_menu"
                 android:clickable="true"
                 android:focusable="true"
                 android:paddingStart="40dp"
@@ -100,7 +101,7 @@
                 android:textStyle="bold"
                 android:onClick="@{() -> listener.onParentalPasswordSet()}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textView43"
+                app:layout_constraintEnd_toStartOf="@+id/btn_cancel_modal_adult_enter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/editTextText3" />
 
@@ -109,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/bg_button_menu"
                 android:clickable="true"
                 android:focusable="true"
                 android:paddingStart="40dp"
