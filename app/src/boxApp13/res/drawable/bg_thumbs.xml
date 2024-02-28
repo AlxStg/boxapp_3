@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-     <item android:state_focused="true"
-         android:drawable="@drawable/bg_focused_rounded_corners_on_pressed_8dp"
-         />
-    <item android:state_pressed="true"
-        android:drawable="@drawable/bg_pressed_rounded_corners_on_pressed_8dp"
-        />
-    <item android:drawable="@drawable/bg_transparent" />
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#33FFE491" />
+            <stroke android:width="1dp" android:color="#FFF7AD" />
+            <corners android:radius="2dp" />
+
+        </shape>
+    </item>
+
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/default_bg_button" />
+            <stroke android:width="1dp" android:color="@color/default_color" />
+            <corners android:radius="2dp" />
+
+        </shape>
+    </item>
+
+
+    <item >
+
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" />
+            <stroke android:width="2dp" android:color="#006B7EFD" />
+            <corners android:radius="0dp" />
+
+        </shape>
+
+    </item>
+
 </selector>
