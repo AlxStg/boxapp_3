@@ -24,7 +24,7 @@
             android:layout_gravity="bottom"
             android:layout_margin="3dp"
             android:background="@drawable/bg_hobbit"
-            app:cardCornerRadius="2dp"
+            app:cardCornerRadius="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,10 +32,10 @@
 
             <ImageView
                 android:id="@+id/thumb_channel_image1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="120dp"
+                android:layout_height="180dp"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 app:loadImage="@{model.image}"
                 tools:srcCompat="@drawable/avatar" />
 

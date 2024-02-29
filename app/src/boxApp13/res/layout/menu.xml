@@ -76,7 +76,7 @@
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="#FFC107"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
             </LinearLayout>
@@ -124,7 +124,7 @@
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="#FFC107"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
             </LinearLayout>
@@ -174,7 +174,7 @@
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="#FFC107"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
             </LinearLayout>
@@ -222,7 +222,7 @@
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="#FFC107"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
             </LinearLayout>
@@ -269,7 +269,7 @@
                     android:text="@string/kids"
                     android:textAlignment="center"
                     android:textColor="#FFC107"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
             </LinearLayout>
@@ -364,7 +364,7 @@
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="#FFC107"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
             </LinearLayout>
