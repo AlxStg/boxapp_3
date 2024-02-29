@@ -36,7 +36,7 @@
                 android:id="@+id/btn_home_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/bg_transparent_on_focus"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
@@ -50,17 +50,22 @@
 
                 <ImageView
                     android:id="@+id/menu_home_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
                     android:layout_marginTop="5dp"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/icon_home" />
+                    android:background="@drawable/bg_button_menu"
+                    android:duplicateParentState="true"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/icon_home"
+                    app:tint="@color/menu_icon_color" />
 
                 <TextView
                     android:id="@+id/label_home_menu"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
+                    android:duplicateParentState="true"
                     android:fontFamily="@font/sulphur_point"
                     android:gravity="center|left"
                     android:shadowColor="#0D000000"
@@ -70,17 +75,17 @@
                     android:text="@string/home"
                     android:textAlignment="center"
                     android:textAllCaps="true"
-                    android:textColor="@color/default_color"
+                    android:textColor="@color/menu_txt_color"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.GONE : View.VISIBLE}" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btn_tv_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/bg_transparent_on_focus"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
@@ -94,17 +99,22 @@
 
                 <ImageView
                     android:id="@+id/menu_tv_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
                     android:layout_marginTop="5dp"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/icon_live_tv" />
+                    android:background="@drawable/bg_button_menu"
+                    android:duplicateParentState="true"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/icon_live_tv"
+                    app:tint="@color/menu_icon_color" />
 
                 <TextView
                     android:id="@+id/label_tv_menu"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:duplicateParentState="true"
                     android:fontFamily="@font/sulphur_point"
                     android:gravity="center|left"
                     android:shadowColor="#0D000000"
@@ -114,17 +124,17 @@
                     android:text="@string/tv"
                     android:textAlignment="center"
                     android:textAllCaps="true"
-                    android:textColor="@color/default_color"
+                    android:textColor="@color/menu_txt_color"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.GONE : View.VISIBLE}" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btn_movies_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/bg_transparent_on_focus"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
@@ -139,17 +149,22 @@
 
                 <ImageView
                     android:id="@+id/menu_filmes_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
                     android:layout_marginTop="5dp"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/icon_movie" />
+                    android:background="@drawable/bg_button_menu"
+                    android:duplicateParentState="true"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/icon_movie"
+                    app:tint="@color/menu_icon_color" />
 
                 <TextView
                     android:id="@+id/menu_label_movies"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:duplicateParentState="true"
                     android:fontFamily="@font/sulphur_point"
                     android:gravity="center"
                     android:shadowColor="#0D000000"
@@ -159,17 +174,18 @@
                     android:text="@string/movies"
                     android:textAlignment="center"
                     android:textAllCaps="true"
-                    android:textColor="@color/default_color"
+                    android:textColor="@color/menu_txt_color"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.GONE : View.VISIBLE}" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btn_series_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/bg_transparent_on_focus"
+
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
@@ -183,17 +199,22 @@
 
                 <ImageView
                     android:id="@+id/menu_series_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
                     android:layout_marginTop="5dp"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/icon_series" />
+                    android:background="@drawable/bg_button_menu"
+                    android:duplicateParentState="true"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/icon_series"
+                    app:tint="@color/menu_icon_color" />
 
                 <TextView
                     android:id="@+id/menu_label_series"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:duplicateParentState="true"
                     android:fontFamily="@font/sulphur_point"
                     android:gravity="center|left"
                     android:shadowColor="#0D000000"
@@ -203,17 +224,18 @@
                     android:text="@string/series"
                     android:textAlignment="center"
                     android:textAllCaps="true"
-                    android:textColor="@color/default_color"
+                    android:textColor="@color/menu_txt_color"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.GONE : View.VISIBLE}" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btn_kids_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/bg_transparent_on_focus"
+
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
@@ -227,17 +249,22 @@
 
                 <ImageView
                     android:id="@+id/menu_infantil_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
                     android:layout_marginTop="5dp"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/icon_kids" />
+                    android:background="@drawable/bg_button_menu"
+                    android:duplicateParentState="true"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/icon_kids"
+                    app:tint="@color/menu_icon_color" />
 
                 <TextView
                     android:id="@+id/menu_label_kids"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:duplicateParentState="true"
                     android:fontFamily="@font/sulphur_point"
                     android:gravity="center|left"
                     android:shadowColor="#0D000000"
@@ -246,18 +273,19 @@
                     android:shadowRadius="5"
                     android:text="@string/kids"
                     android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textColor="@color/default_color"
+                    android:textAllCaps="true"
+                    android:textColor="@color/menu_txt_color"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.GONE : View.VISIBLE}" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btn_sports_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/bg_transparent_on_focus"
+
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
@@ -272,19 +300,24 @@
 
                 <ImageView
                     android:id="@+id/menu_futebol_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="12dp"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/football" />
+                    android:background="@drawable/bg_button_menu"
+                    android:duplicateParentState="true"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/football"
+                    app:tint="@color/menu_icon_color" />
 
                 <TextView
                     android:id="@+id/menu_label_sports"
                     android:layout_width="100dp"
                     android:layout_height="20dp"
                     android:layout_weight="1"
+                    android:duplicateParentState="true"
                     android:fontFamily="@font/sulphur_point"
                     android:gravity="center|left"
                     android:shadowColor="#0D000000"
@@ -297,14 +330,14 @@
                     android:textColor="#FFFFFF"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.GONE : View.VISIBLE}" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btn_adult_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/bg_transparent_on_focus"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
@@ -317,17 +350,22 @@
 
                 <ImageView
                     android:id="@+id/menu_adulto_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
                     android:layout_marginTop="5dp"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/icon_adult" />
+                    android:background="@drawable/bg_button_menu"
+                    android:duplicateParentState="true"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/icon_adult"
+                    app:tint="@color/menu_icon_color" />
 
                 <TextView
                     android:id="@+id/menu_label_adult"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:duplicateParentState="true"
                     android:fontFamily="@font/sulphur_point"
                     android:gravity="center|left"
                     android:shadowColor="#0D000000"
@@ -337,10 +375,10 @@
                     android:text="@string/adult"
                     android:textAlignment="center"
                     android:textAllCaps="false"
-                    android:textColor="@color/default_color"
+                    android:textColor="@color/menu_txt_color"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.GONE : View.VISIBLE}" />
             </LinearLayout>
 
 
