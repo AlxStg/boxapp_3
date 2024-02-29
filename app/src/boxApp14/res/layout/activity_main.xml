@@ -31,15 +31,17 @@
 
         </FrameLayout>
 
-        <SearchView
-            android:id="@+id/searchView"
-            android:layout_width="300dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="40dp"
-            android:maxWidth="300dp"
-            app:layout_constraintBottom_toBottomOf="@+id/include_menu"
+        <include
+            android:id="@+id/include_top_bar"
+            layout="@layout/top_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/include_menu" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:model="@{model}" />
 
         <include
             android:id="@+id/include_menu"
@@ -59,25 +61,23 @@
             layout="@layout/modal_enter_adult"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="@{model.showModalAdult ? View.VISIBLE : View.GONE}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:listener="@{listener}"
-            tools:visibility="gone" />
+            app:listener="@{listener}" />
 
         <include
             android:id="@+id/modal_exit"
             layout="@layout/modal_sair"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="@{model.showModalExit ? View.VISIBLE : View.GONE}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/include_modal_main"
@@ -97,25 +97,15 @@
             layout="@layout/modal_mobile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="@{model.showModalMobile ? View.VISIBLE : View.GONE}"
-            app:model="@{model}"
-            app:listener="@{listener}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <include
-            android:id="@+id/include_top_bar"
-            layout="@layout/top_bar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="80dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{listener}"
             app:model="@{model}" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

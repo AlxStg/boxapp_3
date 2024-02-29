@@ -33,19 +33,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginBottom="5dp"
                 android:fontFamily="@font/sulphur_point"
                 android:text="@{model.tileMoviesAndSeriesFavorite}"
                 android:textAlignment="textStart"
                 android:textColor="@color/default_text"
-                android:textSize="18sp"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 tools:text="Sugested Movies and Séries" />
 
             <androidx.leanback.widget.HorizontalGridView
                 android:id="@+id/vod_facvrites_hgv"
                 android:layout_width="match_parent"
-                android:layout_height="170dp" />
+                android:layout_height="185dp" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
