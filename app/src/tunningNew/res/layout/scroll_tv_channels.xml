@@ -37,7 +37,7 @@
                 android:fadingEdge="vertical"
                 android:fadingEdgeLength="20dp"
                 android:nextFocusLeft="@id/list_categories"
-                android:nextFocusRight="@id/list_epg"
+                android:nextFocusRight="@id/vg_list_epg_date"
                 android:requiresFadingEdge="vertical" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

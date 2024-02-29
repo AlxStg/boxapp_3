@@ -96,8 +96,10 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
             @Override
             public void onFocus(View view, String viewName) {
                 int viewId = view.getId();
-                if(viewName == null)
+                if(viewName == null) {
+                    mModel.setShowMenuLabels(false);
                     return;
+                }
                 mModel.setShowMenuLabels(viewName.equals("btn_home_menu")
                         || viewName.equals("btn_tv_menu")
                         || viewName.equals("btn_movies_menu")

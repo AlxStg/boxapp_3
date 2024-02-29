@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.boxapp3.BuildConfig;
+import com.example.boxapp3.databinding.EpgItemDateBinding;
 import com.example.boxapp3.databinding.FragmentTvBinding;
 import com.example.boxapp3.databinding.ScrollTvCategoryItemBinding;
 import com.example.boxapp3.databinding.ScrollTvChannelItemBinding;
@@ -21,12 +22,17 @@ import com.example.boxapp3.databinding.ScrollTvEpgItemBinding;
 import com.example.boxapp3.listeners.activities.OnlyTvActivityListener;
 import com.example.boxapp3.listeners.fragments.KeyListener;
 import com.example.boxapp3.listeners.fragments.MainFragmentListener;
+import com.example.boxapp3.models.adapters.ItemEpgDateModel;
 import com.example.boxapp3.models.fragments.TvFragmentModel;
 import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
 import com.example.iptvsdk.data.models.EpgDb;
 import com.example.iptvsdk.data.models.xtream.Category;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.ui.live.IptvLive;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -41,6 +47,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
     private TvFragmentModel mModel;
     private Handler categoriesHandler = new Handler();
     private Runnable categoriesRunnable;
+    private String epgChannelId = "";
 
     public OnlyTvPanelsFragment(OnlyTvActivityListener listener) {
         this.listener = listener;
@@ -110,7 +117,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
                         .observeOn(Schedulers.io())
                         .doOnError(th -> Log.e("OnlyTvSearchFragment", "getItem: ", th))
                         .doOnSuccess(epgDb -> {
-                            if(epgDb != null)
+                            if (epgDb != null)
                                 binding.setActualProgram(epgDb.getTitle());
                         })
                         .subscribe();
@@ -126,7 +133,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
                 });
 
                 binding.getRoot().setOnClickListener(v -> {
-                 listener.playChannel(item);
+                    listener.playChannel(item);
                 });
 
                 binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
@@ -146,7 +153,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
     private int epgAlreadyLoaded = -1;
 
     private void loadEpg(StreamXc stream) {
-        if(epgAlreadyLoaded == stream.getStreamId()) return;
+        if (epgAlreadyLoaded == stream.getStreamId()) return;
 
         epgAlreadyLoaded = stream.getStreamId();
 
@@ -197,6 +204,11 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
                             }
                             return false;
                         });
+
+                        binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
+                            if (hasFocus)
+                                selectTodayEpgDateList(item.getStart());
+                        });
                     }
                 });
         getActivity().runOnUiThread(() -> mBinding.include4.listEpg.setAdapter(adapter));
@@ -223,6 +235,90 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
                                 })
                                 .subscribe();
                     }
+                })
+                .subscribe();
+        setupListDays(stream.getEpgChannelId());
+    }
+
+    private void setupListDays(String epgChannelId) {
+        this.epgChannelId = epgChannelId;
+        mIptvLive.getDatesEpg(epgChannelId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(th -> Log.e("TAG", "setupListDays: ", th))
+                .doOnSuccess(dates -> {
+                    GenericAdapter<ItemEpgDateModel, EpgItemDateBinding> adapter =
+                            new GenericAdapter<>(getContext(), new GenericAdapter.GenericAdapterHelper<ItemEpgDateModel, EpgItemDateBinding>() {
+                                @Override
+                                public EpgItemDateBinding createBinding(LayoutInflater inflater, ViewGroup parent) {
+                                    return EpgItemDateBinding.inflate(inflater, parent, false);
+                                }
+
+                                @Override
+                                public Single<ItemEpgDateModel> getItem(int position) {
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                    try {
+                                        Date date = sdf.parse(dates.get(position));
+                                        return Single.just(new ItemEpgDateModel(date));
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    return Single.just(new ItemEpgDateModel(new Date()));
+                                }
+
+                                @Override
+                                public Observable<Integer> getTotalItems() {
+                                    return dates.size() > 0 ? Observable.just(dates.size()) : Observable.just(0);
+                                }
+
+                                @Override
+                                public void setModelToItem(EpgItemDateBinding binding, ItemEpgDateModel item, int bindingAdapterPosition, GenericAdapter<ItemEpgDateModel, EpgItemDateBinding> adapter) {
+                                    binding.setModel(item);
+                                }
+                            });
+                    mBinding.include4.vgListEpgDate.setAdapter(adapter);
+                    selectTodayEpgDateList(new Date());
+                })
+                .subscribe();
+    }
+
+    private void selectTodayEpgDateList(Date date) {
+        Log.d("TAG", "selectTodayEpgDateList: " + date);
+        Single.<Integer>create(emitter -> {
+                    mIptvLive.getDatesEpg(epgChannelId)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnError(th -> Log.e("TAG", "setupListDays: ", th))
+                            .doOnSuccess(dates -> {
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM", Locale.getDefault());
+                                String today = sdf.format(date);
+                                Log.d("TAG", "selectTodayEpgDateList: " + today);
+                                for (int i = 0; i < dates.size(); i++) {
+                                    if (dates.get(i).equals(today)) {
+                                        emitter.onSuccess(i);
+                                        return;
+                                    }
+                                }
+
+                                emitter.onSuccess(dates.size() == 0 ? 0 : dates.size() - 1);
+                            })
+                            .subscribe();
+                })
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(th -> Log.e("TAG", "selectTodayEpgDateList: ", th))
+                .doOnSuccess(position -> {
+                    Log.d("TAG", "selectTodayEpgDateList: " + position);
+                    mBinding.include4.vgListEpgDate.scrollToPosition(position);
+                    mBinding.include4.vgListEpgDate.setSelectedPosition(position);
+                    mBinding.include4.vgListEpgDate.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            mBinding.include4.vgListEpgDate.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            mBinding.include4.vgListEpgDate.scrollToPosition(position);
+                            mBinding.include4.vgListEpgDate.setSelectedPosition(position);
+                        }
+                    });
                 })
                 .subscribe();
     }
@@ -263,7 +359,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
 
                             binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
                                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                                    if(BuildConfig.FLAVOR.equals("boxApp4")) {
+                                    if (BuildConfig.FLAVOR.equals("boxApp4")) {
                                         if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0) {
                                             listener.onGoToMenu();
                                             return true;
@@ -282,11 +378,17 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
-            if (mBinding.include3.listChannels.hasFocus()) {
+            if (mBinding.include3.listChannels.hasFocus() && mModel.isShowEpg()) {
                 showEpgLayout(false);
+                mBinding.include3.listChannels.requestFocus();
+                return true;
+            } else if (mBinding.include3.listChannels.hasFocus() && !mModel.isShowEpg()) {
                 mBinding.include2.listCategories.requestFocus();
                 return true;
             } else if (mBinding.include4.listEpg.hasFocus()) {
+                mBinding.include4.vgListEpgDate.requestFocus();
+                return true;
+            } else if (mBinding.include4.vgListEpgDate.hasFocus()) {
                 mBinding.include3.listChannels.requestFocus();
                 return true;
             }
@@ -294,9 +396,16 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
             if (mBinding.include2.listCategories.hasFocus()) {
                 mBinding.include3.listChannels.requestFocus();
                 return true;
-            } else if (mBinding.include3.listChannels.hasFocus()) {
+            } else if (mBinding.include3.listChannels.hasFocus() && !mModel.isShowEpg()) {
                 showEpgLayout(true);
                 mBinding.include3.listChannels.requestFocus();
+                return true;
+            } else if (mBinding.include3.listChannels.hasFocus() && mModel.isShowEpg()) {
+                mBinding.include4.vgListEpgDate.requestFocus();
+                return true;
+
+            } else if (mBinding.include4.vgListEpgDate.hasFocus()) {
+                mBinding.include4.listEpg.requestFocus();
                 return true;
             }
         }
