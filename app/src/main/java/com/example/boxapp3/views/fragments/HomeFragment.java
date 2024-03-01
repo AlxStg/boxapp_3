@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
+import com.example.boxapp3.BuildConfig;
 import com.example.boxapp3.R;
 import com.example.boxapp3.databinding.FragmentHomeBinding;
 import com.example.boxapp3.databinding.HomeSliderBinding;
@@ -97,7 +98,7 @@ public class HomeFragment extends Fragment implements HomeFragmentListener {
 
         ViewUtils.listenFocus(this, new ViewUtils.FocusListener() {
             @Override
-            public void onFocus(View view) {
+            public void onFocus(View view, String viewName) {
                 int viewId = view.getId();
                 if(sliderVod != null && (viewId == R.id.btn_play_movie || viewId == R.id.fav_icon)) {
                     sliderVod.stopAutomaticSlide();
@@ -149,9 +150,13 @@ public class HomeFragment extends Fragment implements HomeFragmentListener {
                                             mMainActivityListener.openDetails(item.getId(), item.getType());
                                         });
                                         binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
-                                            if(keyCode == KeyEvent.KEYCODE_DPAD_UP
-                                                    && bindingAdapterPosition == 0) {
-                                                mMainActivityListener.onGoToSearch();
+                                            if(keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                                                if(BuildConfig.FLAVOR.equals("boxApp13")){
+                                                    mBinding.slider.requestFocus();
+                                                } else {
+                                                 if(bindingAdapterPosition == 0)
+                                                    mMainActivityListener.onGoToSearch();
+                                                }
                                                 return true;
                                             }
                                             return false;
@@ -195,8 +200,13 @@ public class HomeFragment extends Fragment implements HomeFragmentListener {
                                                     mBinding.include2.channelsFavoriteVgv.requestFocus();
                                                     return true;
                                                 }
-                                                if(keyCode == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == KeyEvent.ACTION_DOWN && bindingAdapterPosition == 0) {
-                                                    mMainActivityListener.onGoToSearch();
+                                                if(keyCode == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == KeyEvent.ACTION_DOWN ) {
+                                                    if(BuildConfig.FLAVOR.equals("boxApp13")){
+                                                        mBinding.slider.requestFocus();
+                                                    } else {
+                                                        if(bindingAdapterPosition == 0)
+                                                            mMainActivityListener.onGoToSearch();
+                                                    }
                                                     return true;
                                                 }
                                                 return false;

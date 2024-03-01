@@ -85,6 +85,7 @@
                     android:focusable="true"
                     android:onClick="@{() -> listener.onFavoriteClick(model)}"
                     android:padding="4dp"
+                    android:nextFocusDown="@id/vod_facvrites_hgv"
                     app:layout_constraintEnd_toEndOf="@+id/btn_play_movie"
                     app:layout_constraintTop_toBottomOf="@+id/btn_play_movie"
                     app:loadImageDrawable="@{model.favorite ? @drawable/baseline_favorite_24 : @drawable/icon_favorite}"

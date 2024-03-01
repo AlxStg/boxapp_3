@@ -63,7 +63,7 @@
                 android:text="@string/are_you_sure"
                 android:textColor="@color/default_color"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@id/textView42"
+                app:layout_constraintBottom_toTopOf="@id/btn_yes"
                 app:layout_constraintEnd_toEndOf="@+id/textView39"
                 app:layout_constraintHorizontal_bias="0.495"
                 app:layout_constraintStart_toStartOf="@+id/textView39"
@@ -109,10 +109,10 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:onClick="@{() -> listener.onModalExitCancel()}"
-                app:layout_constraintBottom_toBottomOf="@+id/textView42"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_yes"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView42"
-                app:layout_constraintTop_toTopOf="@+id/textView42" />
+                app:layout_constraintStart_toEndOf="@+id/btn_yes"
+                app:layout_constraintTop_toTopOf="@+id/btn_yes" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
