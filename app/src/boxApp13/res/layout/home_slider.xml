@@ -43,9 +43,9 @@
                     android:id="@+id/imageView11"
                     android:layout_width="600dp"
                     android:layout_height="0dp"
+                    android:layout_marginStart="100dp"
                     android:adjustViewBounds="true"
                     android:cropToPadding="false"
-                    android:foreground="@drawable/fundo_preto_esmaecido"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -69,33 +69,125 @@
                     android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:fontFamily="@font/aldrich
-"
+                    android:fontFamily="@font/aldrich"
                     android:text="@string/movie"
                     android:textColor="@color/default_color"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toTopOf="@+id/movie_name"
                     app:layout_constraintEnd_toEndOf="@+id/movie_name" />
 
-                <LinearLayout
-                    android:id="@+id/btn_play_movie"
+                <ImageView
+                    android:id="@+id/fav_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_thumbs"
+                    android:focusable="true"
+                    android:onClick="@{() -> listener.onFavoriteClick(model)}"
+                    android:padding="4dp"
+                    android:nextFocusDown="@id/vod_facvrites_hgv"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_play_movie"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_play_movie"
+                    app:loadImageDrawable="@{model.favorite ? @drawable/baseline_favorite_24 : @drawable/icon_favorite}"
+                    app:srcCompat="@drawable/icon_favorite" />
+
+                <TextView
+                    android:id="@+id/movie_description"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/aldrich"
+                    android:maxLines="8"
+                    android:text="@{model.info.info.plot}"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/genre1" />
+
+                <TextView
+                    android:id="@+id/genre1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="80dp"
+                    android:background="@drawable/bg_button"
+                    android:backgroundTintMode="add"
+                    android:fontFamily="@font/aldrich"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingTop="3dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="@{model.info.info.genre}"
+                    android:textColor="#FFE598"
+                    android:textSize="20dp"
+                    app:layout_constraintStart_toStartOf="@+id/movie_description"
+                    app:layout_constraintTop_toTopOf="@+id/movie_name" />
+
+                <TextView
+                    android:id="@+id/genre2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/bg_button"
+                    android:backgroundTint="#000000"
+                    android:backgroundTintMode="add"
+                    android:fontFamily="@font/aldrich"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingTop="3dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="Aventura"
+                    android:textColor="#FDFDFD"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/genre1"
+                    app:layout_constraintStart_toEndOf="@+id/genre1"
+                    app:layout_constraintTop_toTopOf="@+id/genre1" />
+
+                <TextView
+                    android:id="@+id/movie_name"
+                    android:layout_width="450dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginEnd="60dp"
+                    android:fontFamily="@font/aldrich"
+                    android:maxLines="2"
+                    android:text="@{model.name}"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/default_color"
+                    android:textSize="40dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/source_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_name"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_name"
+                    app:loadImage="@{model.info.info.logoProvider}" />
+
+                <LinearLayout
+                    android:id="@+id/btn_play_movie"
+                    android:layout_width="0dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="60dp"
                     android:background="@drawable/bg_thumbs"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
+                    android:onClick="@{() -> mainActivityListener.openDetails(model.streamId, model.streamType)}"
                     android:orientation="horizontal"
                     android:paddingStart="5dp"
                     android:paddingTop="2dp"
                     android:paddingEnd="5dp"
                     android:paddingBottom="2dp"
-                    android:onClick="@{() -> mainActivityListener.openDetails(model.streamId, model.streamType)}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_description">
+                    app:layout_constraintEnd_toEndOf="@+id/source_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/source_icon">
 
                     <ImageView
                         android:id="@+id/imageView8"
@@ -115,114 +207,12 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/aldrich
-"
+                        android:fontFamily="@font/aldrich"
                         android:text="Play"
                         android:textAllCaps="true"
                         android:textColor="@color/default_color"
-                        android:textSize="12sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/fav_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:background="@drawable/bg_thumbs"
-                    android:focusable="true"
-                    android:padding="4dp"
-                    android:onClick="@{() -> listener.onFavoriteClick(model)}"
-                    app:layout_constraintBottom_toBottomOf="@+id/btn_play_movie"
-                    app:layout_constraintStart_toEndOf="@+id/btn_play_movie"
-                    app:layout_constraintTop_toTopOf="@+id/btn_play_movie"
-                    app:srcCompat="@drawable/icon_favorite"
-                    app:loadImageDrawable="@{model.favorite ? @drawable/baseline_favorite_24 : @drawable/icon_favorite}" />
-
-                <TextView
-                    android:id="@+id/movie_description"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="20dp"
-                    android:fontFamily="@font/aldrich
-"
-                    android:maxLines="8"
-                    android:text="@{model.info.info.plot}"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toStartOf="@+id/movie_name"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/genre1" />
-
-                <TextView
-                    android:id="@+id/genre1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_button"
-                    android:backgroundTintMode="add"
-                    android:fontFamily="@font/aldrich
-"
-                    android:gravity="center"
-                    android:paddingStart="10dp"
-                    android:paddingTop="3dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="5dp"
-                    android:text="@{model.info.info.genre}"
-                    android:textColor="#FDFDFD"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/movie_description"
-                    app:layout_constraintTop_toTopOf="@+id/movie_name" />
-
-                <TextView
-                    android:id="@+id/genre2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/bg_button"
-                    android:backgroundTint="#000000"
-                    android:backgroundTintMode="add"
-                    android:fontFamily="@font/aldrich
-"
-                    android:gravity="center"
-                    android:paddingStart="10dp"
-                    android:paddingTop="3dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="5dp"
-                    android:text="Aventura"
-                    android:textColor="#FDFDFD"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/genre1"
-                    app:layout_constraintStart_toEndOf="@+id/genre1"
-                    app:layout_constraintTop_toTopOf="@+id/genre1" />
-
-                <TextView
-                    android:id="@+id/movie_name"
-                    android:layout_width="400dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="80dp"
-                    android:layout_marginEnd="60dp"
-                    android:fontFamily="@font/aldrich
-"
-                    android:maxWidth="300dp"
-                    android:text="@{model.name}"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/default_color"
-                    android:textSize="34sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/movie_description"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/source_icon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="@+id/movie_name"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_name"
-                    app:loadImage="@{model.info.info.logoProvider}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>

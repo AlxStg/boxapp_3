@@ -47,13 +47,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
-                    android:layout_marginTop="50dp"
-                    android:fontFamily="@font/aldrich
-"
+                    android:layout_marginTop="120dp"
+                    android:fontFamily="@font/aldrich"
                     android:text="@{backgroundVodSeriesDataModel.type}"
                     android:textAllCaps="true"
                     android:textColor="@color/default_color"
-                    android:textSize="14sp"
+                    android:textSize="20sp"
                     android:visibility="@{backgroundVodSeriesDataModel.type == null || backgroundVodSeriesDataModel.type.length() == 0 ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -63,13 +62,12 @@
                     android:id="@+id/movie_description"
                     android:layout_width="500dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/aldrich
-"
-                    android:maxLines="5"
+                    android:fontFamily="@font/aldrich"
+                    android:maxLines="7"
                     android:minLines="5"
                     android:text="@{backgroundVodSeriesDataModel.description}"
                     android:textColor="@color/default_text"
-                    android:textSize="14sp"
+                    android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="@+id/movie_name"
                     app:layout_constraintTop_toBottomOf="@+id/movie_name"
                     tools:text="aaaaaaaaa" />
@@ -79,15 +77,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="70dp"
-                    android:fontFamily="@font/aldrich
-"
+                    android:fontFamily="@font/aldrich"
                     android:paddingStart="5dp"
                     android:paddingTop="1dp"
                     android:paddingEnd="5dp"
                     android:paddingBottom="2dp"
                     android:text="@{backgroundVodSeriesDataModel.infos}"
                     android:textColor="@color/default_color"
-                    android:textSize="14sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView16"
                     app:layout_constraintStart_toEndOf="@+id/textView16"
                     app:layout_constraintTop_toTopOf="@+id/textView16"
@@ -100,8 +97,7 @@
                     android:layout_marginStart="10dp"
                     android:background="@drawable/bg_button"
                     android:backgroundTint="#000000"
-                    android:fontFamily="@font/aldrich
-"
+                    android:fontFamily="@font/aldrich"
                     android:paddingStart="5dp"
                     android:paddingTop="1dp"
                     android:paddingEnd="5dp"
@@ -115,14 +111,13 @@
 
                 <TextView
                     android:id="@+id/movie_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="700dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/aldrich
-"
+                    android:fontFamily="@font/aldrich"
                     android:maxLines="1"
                     android:text="@{backgroundVodSeriesDataModel.name}"
                     android:textColor="@color/default_color"
-                    android:textSize="30sp"
+                    android:textSize="40sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView16"
                     app:layout_constraintTop_toBottomOf="@+id/textView16"
@@ -135,7 +130,7 @@
                     android:layout_marginEnd="80dp"
                     android:visibility="@{backgroundVodSeriesDataModel.logoProvider != null &amp;&amp; backgroundVodSeriesDataModel.logoProvider.length() > 0 ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/genre1"
                     app:loadImage="@{backgroundVodSeriesDataModel.logoProvider}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

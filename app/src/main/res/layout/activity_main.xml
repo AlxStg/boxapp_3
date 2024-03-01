@@ -137,13 +137,13 @@
             layout="@layout/modal_mobile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="@{model.showModalMobile ? View.VISIBLE : View.GONE}"
-            app:model="@{model}"
-            app:listener="@{listener}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{listener}"
+            app:model="@{model}" />
 
 
         <!--    <include layout="@layout/fragment_series" />-->
