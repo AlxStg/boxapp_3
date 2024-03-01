@@ -15,8 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/rounded_corners_20dp"
-        android:backgroundTintMode="add">
+        android:background="@drawable/rounded_corners_20dp">
         <!--ggs-->
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -50,10 +49,10 @@
             layout="@layout/scroll_tv_category"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="100dp"
             android:layout_marginEnd="1dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,9 +64,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="100dp"
             android:layout_marginEnd="1dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -79,9 +78,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"

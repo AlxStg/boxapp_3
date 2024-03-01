@@ -46,7 +46,7 @@
                 android:focusableInTouchMode="true"
                 android:onClick="@{(v) -> model.setShowModalMobile(true)}"
                 android:padding="5dp"
-                app:srcCompat="@drawable/icon_cellphone"
+                app:srcCompat="@drawable/cell_phone_svgrepo_com"
                 app:tint="@color/preto_focus_branco" />
         </LinearLayout>
 
