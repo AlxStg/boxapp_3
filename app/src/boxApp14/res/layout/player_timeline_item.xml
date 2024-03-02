@@ -8,6 +8,10 @@
             <variable
                 name="model"
                 type="com.example.iptvsdk.data.models.EpgDb" />
+
+        <variable
+            name="daysPlayback"
+            type="Integer" />
     </data>
 
     <LinearLayout
@@ -91,10 +95,12 @@
             android:layout_gravity="fill_horizontal"
             android:fontFamily="@font/sulphur_point"
             android:gravity="top"
-            android:text="Gravado"
+            android:text="@string/playback"
             android:textAlignment="center"
             android:textColor="#FF5722"
             android:textSize="10sp"
+            app:dateStart="@{model.start}"
+            app:daysPlayback="@{daysPlayback}"
             tools:ignore="RtlCompat" />
 
     </LinearLayout>

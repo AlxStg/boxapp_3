@@ -136,7 +136,7 @@ public class PlayerVodActivity extends BaseActivity implements PlayerVodActivity
 
         ViewUtils.listenFocus(this, new ViewUtils.FocusListener() {
             @Override
-            public void onFocus(View view) {
+            public void onFocus(View view, String viewName) {
                 int viewId = view.getId();
                 if (mModel.isShowTracks()) {
                     if (viewId != R.id.audio_tracks

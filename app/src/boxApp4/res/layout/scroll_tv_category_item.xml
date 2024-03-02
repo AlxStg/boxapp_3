@@ -10,7 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_thumbs"
@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/tv" />
@@ -36,10 +36,12 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/geo"
             android:text="@{model.categoryName}"
+            android:textAllCaps="true"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView6"
             app:layout_constraintStart_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toTopOf="@+id/imageView6" />
+            app:layout_constraintTop_toTopOf="@+id/imageView6"
+            tools:text="FILMES E SÉRIES" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

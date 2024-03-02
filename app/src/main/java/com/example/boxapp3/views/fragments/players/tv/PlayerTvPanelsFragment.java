@@ -398,6 +398,17 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener, Pla
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
+            if(mBinding.include.include3.listChannels.hasFocus()){
+                if(mModel.isShowChannelOptions()){
+                    mBinding.include.include25.btnWatch.requestFocus();
+                    return true;
+                } else {
+                    mBinding.include.include4.listEpg.requestFocus();
+                    return true;
+                }
+            }
+        }
         //if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
         //    if (mBinding.include.include3.listChannels.hasFocus()) {
         //        mBinding.include.include2.listCategories.requestFocus();
@@ -439,5 +450,14 @@ public class PlayerTvPanelsFragment extends Fragment implements KeyListener, Pla
         mModel.setShowEpg(true);
         mModel.setShowChannelOptions(false);
         loadEpg(actualStream);
+        mBinding.include.include4.listEpg.requestFocus();
+
+        mBinding.include.include4.listEpg.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mBinding.include.include4.listEpg.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                mBinding.include.include4.listEpg.requestFocus();
+            }
+        });
     }
 }

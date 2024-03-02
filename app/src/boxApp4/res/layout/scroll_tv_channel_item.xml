@@ -17,7 +17,8 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_thumbs"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:paddingStart="10dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -40,9 +41,9 @@
                 <ImageView
                     android:id="@+id/imageView6"
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
+                    android:layout_height="70dp"
                     android:adjustViewBounds="true"
-                    android:maxWidth="60dp"
+                    android:maxWidth="70dp"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -55,10 +56,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:fontFamily="@font/geo"
                     android:maxLines="2"
                     android:text="@{model.name}"
                     android:textAlignment="textStart"
                     android:textColor="#FFFFFF"
+                    android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView6"
                     app:layout_constraintTop_toTopOf="parent"
