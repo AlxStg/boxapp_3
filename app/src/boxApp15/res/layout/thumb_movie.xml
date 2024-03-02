@@ -13,7 +13,8 @@
         android:id="@+id/thumb_movie2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
         android:background="@drawable/bg_thumbs"
         android:clickable="true"
         android:focusable="true">
@@ -21,10 +22,10 @@
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_gravity="bottom"
-            android:layout_margin="3dp"
-            android:background="@drawable/bg_hobbit"
-            app:cardCornerRadius="20dp"
+            android:layout_margin="5dp"
+            app:cardBackgroundColor="#00FFFFFF"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,28 +38,30 @@
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 app:loadImage="@{model.image}"
-                tools:srcCompat="@drawable/avatar" />
+                tools:srcCompat="@drawable/titanic" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/gradient_botton"
                 android:gravity="bottom"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="invisible">
 
                 <TextView
                     android:id="@+id/textView19"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sulphur_point"
+                    android:fontFamily="@font/comfortaa_light"
                     android:paddingStart="1dp"
                     android:paddingEnd="1dp"
-                    android:paddingBottom="4dp"
+                    android:paddingBottom="5dp"
                     android:text="@{model.name}"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
                     android:textSize="14sp"
-                    tools:text="Avatar" />
+                    android:visibility="visible"
+                    tools:text="Nome" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

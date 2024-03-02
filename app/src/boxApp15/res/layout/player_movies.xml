@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="model"
             type="com.example.boxapp3.models.activities.PlayerVodActivityModel" />
+
         <variable
             name="listener"
             type="com.example.boxapp3.listeners.activities.PlayerVodActivityListener" />
+
         <import type="android.view.View" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/player_movies_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,16 +34,16 @@
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
             android:background="@drawable/rounded_corners_20dp"
+            android:clickable="@{model.showController ? true : false}"
+            android:focusable="@{model.showController ? true : false}"
+            android:onClick="@{() -> listener.onBackActivity()}"
             android:padding="5dp"
             android:src="@drawable/back"
-            android:onClick="@{() -> listener.onBackActivity()}"
             android:visibility="@{model.showController ? View.VISIBLE : View.GONE}"
-            android:focusable="@{model.showController ? true : false}"
-            android:clickable="@{model.showController ? true : false}"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
@@ -48,13 +51,12 @@
             layout="@layout/player_movies_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:visibility="@{ model.showController ? View.VISIBLE : View.GONE }"
-            app:model="@{model}"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{model.showController ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            app:model="@{model}" />
 
         <include
             android:id="@+id/player_movies_control"
@@ -65,12 +67,11 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:visibility="@{ model.showController ? View.VISIBLE : View.GONE }"
-            app:model="@{model}"
-            app:listener="@{listener}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:visibility="visible" />
+            app:listener="@{listener}"
+            app:model="@{model}" />
 
         <include
             android:id="@+id/include_modal_subt_lang"
@@ -79,13 +80,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:visibility="@{model.showTracks ? View.VISIBLE : View.GONE}"
-            app:model="@{model}"
-            app:layout_constraintBottom_toTopOf="@+id/player_movies_control"
-            app:layout_constraintEnd_toStartOf="@+id/movie_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            app:model="@{model}" />
 
+        <include
+            android:id="@+id/include_modal_loading"
+            layout="@layout/modal_loading"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            tools:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{!model.showLoading ? View.GONE : View.VISIBLE}" />
         <include
             android:id="@+id/modal_resume"
             layout="@layout/modal_continuar"

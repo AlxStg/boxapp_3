@@ -16,10 +16,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
-        android:layout_width="500dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:background="#99FFFFFF"
-        android:padding="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_corners_20dp_black"
+        android:backgroundTint="#B36A6A6A"
+        android:backgroundTintMode="multiply"
+        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -27,52 +31,54 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sulphur_point"
+            android:fontFamily="@font/comfortaa_light"
             android:text="@{stream.name}"
-            android:textColor="@color/default_color"
-            android:textSize="20dp"
-            android:visibility="gone"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView12"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Channel Name" />
 
         <ImageView
             android:id="@+id/imageView12"
             android:layout_width="wrap_content"
-            android:layout_height="65dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
             android:adjustViewBounds="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11"
             app:loadImage="@{stream.streamIcon}"
             tools:srcCompat="@drawable/globo_ong" />
 
         <TextView
             android:id="@+id/textView14"
-            android:layout_width="400dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/sulphur_point"
-            android:maxLines="2"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/comfortaa_light"
             android:text="@{epg.title}"
             android:textAlignment="center"
-            android:textColor="@color/default_color"
-            android:textSize="26sp"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11"
-            tools:text="Harri Potter e as Relíquias da Morte - Parte 2" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView12"
+            tools:text="Programa no Ar" />
 
         <TextView
             android:id="@+id/textView15"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sulphur_point"
-            android:textAlignment="center"
-            android:textColor="#5A5A5A"
-            android:textSize="16sp"
+            android:fontFamily="@font/comfortaa_light"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:dateEpgEnd="@{epg.end}"
             app:dateEpgStart="@{epg.start}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,21 +88,22 @@
 
         <TextView
             android:id="@+id/textView13"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:fontFamily="@font/sulphur_point"
-            android:maxLines="7"
+            android:fontFamily="@font/comfortaa_light"
+            android:maxLines="8"
             android:text="@{epg.description}"
             android:textAlignment="center"
-            android:textColor="@color/default_text"
-            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView15"
-            tools:text="On Air - Tv Show Description" />
-
+            tools:text="Descrição do programa sendo exibido no player." />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

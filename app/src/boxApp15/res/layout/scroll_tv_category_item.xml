@@ -12,8 +12,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/bg_btn_epg"
+        android:backgroundTint="#66000000"
         android:clickable="true"
         android:focusable="true"
         android:paddingStart="10dp"
@@ -25,22 +26,21 @@
             android:id="@+id/imageView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tint="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/arrow_right" />
 
         <TextView
-            android:id="@+id/textView45"
+            android:id="@+id/lbl_watch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:fontFamily="@font/sulphur_point"
+            android:fontFamily="@font/comfortaa_light"
             android:text="@{model.categoryName}"
-            android:textColor="@color/default_text"
+            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="@+id/imageView6"
             app:layout_constraintStart_toEndOf="@+id/imageView6"
             app:layout_constraintTop_toTopOf="@+id/imageView6"
-            tools:text="Telecine Emotion 45K" />
+            tools:text="Category Name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -14,15 +14,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/default_background">
+        android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/home_slider"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:cardBackgroundColor="@color/default_background"
-            app:cardCornerRadius="0dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +31,6 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:foreground="@drawable/gradient_left"
                 android:scaleType="centerCrop"
                 app:loadImage="@{backgroundVodSeriesDataModel.image}" />
 
@@ -46,13 +43,13 @@
                     android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginTop="100dp"
-                    android:fontFamily="@font/sulphur_point"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/comfortaa_light"
                     android:text="@{backgroundVodSeriesDataModel.type}"
                     android:textAllCaps="true"
-                    android:textColor="@color/default_color"
-                    android:textSize="18sp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
                     android:visibility="@{backgroundVodSeriesDataModel.type == null || backgroundVodSeriesDataModel.type.length() == 0 ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -60,35 +57,35 @@
 
                 <TextView
                     android:id="@+id/movie_description"
-                    android:layout_width="500dp"
+                    android:layout_width="600dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:fontFamily="@font/sulphur_point"
-                    android:maxLines="6"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:maxLines="5"
                     android:minLines="5"
                     android:text="@{backgroundVodSeriesDataModel.description}"
-                    android:textColor="@color/default_text"
-                    android:textSize="16sp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="@+id/movie_name"
                     app:layout_constraintTop_toBottomOf="@+id/genre1"
-                    tools:text="aaaaaaaaa" />
+                    tools:text="Descrição do filme em exibição no slider" />
 
                 <TextView
                     android:id="@+id/genre1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sulphur_point"
-                    android:maxLines="6"
+                    android:background="@drawable/bg_button"
+                    android:fontFamily="@font/comfortaa_light"
                     android:paddingStart="5dp"
                     android:paddingTop="1dp"
                     android:paddingEnd="5dp"
                     android:paddingBottom="2dp"
                     android:text="@{backgroundVodSeriesDataModel.infos}"
-                    android:textColor="@color/default_color"
+                    android:textColor="#FFFFFF"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/movie_name"
                     app:layout_constraintTop_toBottomOf="@+id/movie_name"
-                    tools:text="2020  |  Ação, Thriller, Crime  |  01:37:21" />
+                    tools:text="2020 | Ação, Drama | 01:29:55" />
 
                 <TextView
                     android:id="@+id/genre2"
@@ -97,7 +94,7 @@
                     android:layout_marginStart="10dp"
                     android:background="@drawable/bg_button"
                     android:backgroundTint="#000000"
-                    android:fontFamily="@font/sulphur_point"
+                    android:fontFamily="@font/comfortaa_light"
                     android:paddingStart="5dp"
                     android:paddingTop="1dp"
                     android:paddingEnd="5dp"
@@ -111,29 +108,37 @@
 
                 <TextView
                     android:id="@+id/movie_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="500dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:fontFamily="@font/sulphur_point"
-                    android:maxWidth="600dp"
+                    android:fontFamily="@font/comfortaa_light"
                     android:maxLines="2"
                     android:text="@{backgroundVodSeriesDataModel.name}"
-                    android:textColor="@color/default_color"
-                    android:textSize="34sp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView16"
                     app:layout_constraintTop_toBottomOf="@+id/textView16"
-                    tools:text="aaaaaaaaaaaaaaaaa" />
+                    tools:text="Nome do Filme em Exibição no Slider" />
 
-                <ImageView
-                    android:id="@+id/source_icon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="80dp"
-                    android:visibility="@{backgroundVodSeriesDataModel.logoProvider != null &amp;&amp; backgroundVodSeriesDataModel.logoProvider.length() > 0 ? View.VISIBLE : View.GONE}"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="24dp"
+                    app:cardBackgroundColor="#00FFFFFF"
+                    app:cardCornerRadius="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:loadImage="@{backgroundVodSeriesDataModel.logoProvider}" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/source_icon"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:visibility="@{backgroundVodSeriesDataModel.logoProvider != null &amp;&amp; backgroundVodSeriesDataModel.logoProvider.length() > 0 ? View.VISIBLE : View.GONE}"
+                        app:loadImage="@{backgroundVodSeriesDataModel.logoProvider}"
+                        tools:srcCompat="@drawable/netflix_logo" />
+                </androidx.cardview.widget.CardView>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
