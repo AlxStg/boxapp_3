@@ -20,50 +20,62 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_mac_5"
-        android:backgroundTint="#33793FFF"
-        android:backgroundTintMode="src_over"
+        android:background="#CAC9C5"
         tools:context=".views.activities.MainActivity">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/default_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/app_logotipo"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@+id/include_top_bar"
-            app:layout_constraintEnd_toStartOf="@+id/include_top_bar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/include_top_bar">
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                app:srcCompat="@drawable/icon_live_tv" />
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/popcorn_logo" />
 
             <TextView
                 android:id="@+id/app_tipo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/comfortaa_light"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/advent_pro_medium"
                 android:text="@string/app_name"
                 android:textColor="#FDFCFC"
-                android:textSize="16sp" />
-        </LinearLayout>
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include
             android:id="@+id/include_top_bar"
             layout="@layout/top_bar"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="80dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/app_logotipo"
             app:layout_constraintTop_toTopOf="parent"
             app:model="@{model}" />
 
@@ -72,10 +84,10 @@
             layout="@layout/menu"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="80dp"
-            app:layout_constraintBottom_toBottomOf="@+id/main_active_fragment"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/main_active_fragment"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout5"
+            app:layout_constraintEnd_toStartOf="@+id/include_top_bar"
+            app:layout_constraintStart_toEndOf="@+id/app_logotipo"
+            app:layout_constraintTop_toTopOf="parent"
             app:listener="@{listener}"
             app:model="@{model}" />
 
@@ -84,13 +96,14 @@
             android:id="@+id/main_active_fragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/include_top_bar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/include_menu"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_top_bar"
             app:layout_constraintVertical_bias="1.0" />
 
