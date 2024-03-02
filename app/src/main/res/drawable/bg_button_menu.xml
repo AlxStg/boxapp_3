@@ -1,48 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:state_pressed="true" android:state_focused="true">
-
-        <shape android:shape="rectangle">
-            <corners android:radius="50dp" />
-            <solid android:color="#4DF44336"/>
-            <stroke android:width="2dp" android:color="#FFFFFF" />
-        </shape>
-    </item>
-
     <item android:state_focused="false" android:state_selected="false">
         <shape android:shape="rectangle">
             <corners android:radius="50dp" />
             <stroke android:width="1dp" android:color="#00FFFFFF" />
-            <solid android:color="#00FFFFFF" />
+            <solid android:color="#26FFFFFF" />
         </shape>
 
     </item>
-    <item android:state_focused="true" android:state_selected="false">
+    <item android:state_focused="true">
         <shape android:shape="rectangle">
             <corners android:radius="50dp" />
-            <stroke android:width="2dp" android:color="#F44336" />
-            <solid android:color="#05979797"/>
+            <stroke android:width="1dp" android:color="#59FFFFFF" />
+            <solid android:color="#1A979797"/>
         </shape>
-
-    </item>
-
-    <item android:state_focused="true" android:state_selected="true">
-        <shape android:shape="rectangle">
-            <corners android:radius="50dp" />
-            <stroke android:width="2dp" android:color="#80FFFFFF" />
-            <solid android:color="#F44336"/>
-        </shape>
-
     </item>
 
     <item android:state_focused="false" android:state_selected="true">
 
         <shape android:shape="rectangle">
             <corners android:radius="50dp" />
-            <solid android:color="#F44336"/>
+            <stroke android:width="0dp" android:color="#00FFFFFF" />
+            <gradient android:angle="45"
+                android:centerColor="#99C780FA"
+                android:endColor="#99F843A6"
+                android:startColor="#990626DF" />
         </shape>
     </item>
-
-
 </selector>
