@@ -150,14 +150,16 @@ public class HomeFragment extends Fragment implements HomeFragmentListener {
                                             mMainActivityListener.openDetails(item.getId(), item.getType());
                                         });
                                         binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
-                                            if(keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                                            if(keyCode == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == KeyEvent.ACTION_DOWN){
                                                 if(BuildConfig.FLAVOR.equals("boxApp13")){
                                                     mBinding.slider.requestFocus();
+                                                    return true;
                                                 } else {
-                                                 if(bindingAdapterPosition == 0)
-                                                    mMainActivityListener.onGoToSearch();
+                                                 if(bindingAdapterPosition == 0) {
+                                                     mMainActivityListener.onGoToSearch();
+                                                     return true;
+                                                 }
                                                 }
-                                                return true;
                                             }
                                             return false;
                                         });

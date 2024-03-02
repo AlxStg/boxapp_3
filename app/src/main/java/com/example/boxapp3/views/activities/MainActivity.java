@@ -378,7 +378,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
             case "sports":
                 mBinding.includeMenu.btnSportsMenu.requestFocus();
                 break;
-            case "adult":
+            case "adults":
                 mBinding.includeMenu.btnAdultMenu.requestFocus();
                 break;
         }
