@@ -15,17 +15,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginBottom="2dp"
-        android:background="@drawable/bg_thumbs"
+        android:background="@drawable/bg_thumbs_app15"
         android:clickable="true"
         android:focusable="true">
 
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_margin="5dp"
+            android:layout_margin="4dp"
+            android:animateLayoutChanges="false"
             app:cardBackgroundColor="#00FFFFFF"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

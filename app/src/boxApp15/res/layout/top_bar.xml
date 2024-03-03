@@ -13,8 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/include_top_bar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="match_parent"
+        android:padding="5dp">
 
         <EditText
             android:id="@+id/editTextText4"
@@ -44,13 +44,15 @@
             android:id="@+id/imageView22"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/search_button_bg"
+            android:background="@drawable/bg_button_app15"
             android:clickable="true"
             android:focusable="true"
             android:onClick="@{(v) -> model.setShowSearchInput(true)}"
             android:padding="5dp"
+            android:tint="@color/button_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView9"
             app:srcCompat="@drawable/search" />
 
         <TextClock
@@ -69,17 +71,19 @@
 
         <ImageView
             android:id="@+id/imageView9"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
+            android:background="@drawable/bg_button_app15"
             android:focusable="auto"
             android:focusableInTouchMode="true"
             android:onClick="@{(v) -> model.setShowModalMobile(true)}"
-            android:padding="5dp"
+            android:padding="10dp"
+            android:tint="@color/button_icon"
+            app:layout_constraintBottom_toTopOf="@+id/imageView22"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText4"
-            app:srcCompat="@drawable/icon_cellphone" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_qr_code_svgrepo_com" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

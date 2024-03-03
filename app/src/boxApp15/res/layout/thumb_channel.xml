@@ -12,8 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/bg_thumbs"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_thumbs_app15"
         android:clickable="true"
         android:focusable="true">
 
@@ -23,7 +23,7 @@
             android:layout_gravity="bottom"
             android:layout_margin="5dp"
             app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:background="@drawable/bg_focused_rounded_corners_on_pressed_8dp"
+                android:background="@drawable/bg_channel_app15"
                 android:backgroundTint="#66FFFFFF"
                 android:backgroundTintMode="screen"
                 android:padding="5dp"

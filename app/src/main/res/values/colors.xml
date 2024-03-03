@@ -6,6 +6,8 @@
     <color name="selected_background">#ffaa3f</color>
     <color name="default_background">#3d3d3d</color>
     <color name="default_color">#7C0101</color>
+    <color name="secondary_color">#FDB851</color>
+    <color name="text_title">#959595</color>
     <color name="tranparent">#00000000</color>
     <color name="cyan">#00F7FF</color>
     <color name="black">#000000</color>
