@@ -145,7 +145,7 @@
             <androidx.leanback.widget.HorizontalGridView
                 android:id="@+id/seasons"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
@@ -158,7 +158,7 @@
             <androidx.leanback.widget.HorizontalGridView
                 android:id="@+id/episodes"
                 android:layout_width="0dp"
-                android:layout_height="130dp"
+                android:layout_height="190dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="1dp"
                 android:layout_marginBottom="24dp"

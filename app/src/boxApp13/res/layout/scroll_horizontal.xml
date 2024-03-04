@@ -42,7 +42,8 @@
             <androidx.leanback.widget.HorizontalGridView
                 android:id="@+id/vod_facvrites_hgv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:nextFocusUp="@id/fav_icon"/>
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -78,20 +78,27 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
             @Override
             public void onFocus(View view, String viewName) {
                 int viewId = view.getId();
-                if(mModel.getShowModalExit()){
-                    if(viewId != R.id.btn_yes && viewId != R.id.textView43){
-                        ((ModalSairBinding)mBinding.modalExit).btnYes.requestFocus();
+                if (mModel.getShowModalExit()) {
+                    if (viewId != R.id.btn_yes && viewId != R.id.textView43) {
+                        ((ModalSairBinding) mBinding.modalExit).btnYes.requestFocus();
                     }
-                } else if(mModel.getShowModalMobile()){
-                    if(viewId != R.id.btn_yes){
-                        ((ModalMobileBinding)mBinding.includeModalMobile).btnYes.requestFocus();
+                } else if (mModel.getShowModalMobile()) {
+                    if (viewId != R.id.btn_yes) {
+                        ((ModalMobileBinding) mBinding.includeModalMobile).btnYes.requestFocus();
                     }
 
+                } else if (mModel.getShowModalAdult()) {
+                    if (viewId != R.id.editTextText2 && viewId != R.id.editTextText3 && viewId
+                            != R.id.textView42 && viewId != R.id.btn_cancel_modal_adult_enter) {
+                        mBinding.include.editTextText2.requestFocus();
+                    }
                 }
             }
         });
 
     }
+
+
 
     private void setupSearch() {
         mModel.searchQuery
@@ -123,8 +130,8 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                 }
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
-                if(((TopBarBinding)mBinding.includeTopBar).editTextText4.hasFocus()){
-                    if(mCenterContent.getCurrentFragment() instanceof SearchFragmentListener){
+                if (((TopBarBinding) mBinding.includeTopBar).editTextText4.hasFocus()) {
+                    if (mCenterContent.getCurrentFragment() instanceof SearchFragmentListener) {
                         ((SearchFragmentListener) mCenterContent.getCurrentFragment()).onFocused();
                         mModel.setShowSearchInput(false);
                         return true;
@@ -182,7 +189,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                     return true;
                 }
 
-                if(mModel.getShowModalMobile()){
+                if (mModel.getShowModalMobile()) {
                     mModel.setShowModalMobile(false);
                     return true;
                 }
@@ -234,7 +241,9 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
             public void onGlobalLayout() {
                 ((View) mBinding.includeMenu.menu).getViewTreeObserver()
                         .removeOnGlobalLayoutListener(this);
-                mIptvMenu.listenMenuFocusAndColapse(MainActivity.this, BuildConfig.FLAVOR, mBinding.includeMenu.menu,
+                mIptvMenu.listenMenuFocusAndColapse(MainActivity.this,
+                        BuildConfig.FLAVOR,
+                        mBinding.includeMenu.menu,
                         mBinding.includeMenu.menu.getWidth(),
                         100,
                         new ArrayList<View>() {{
@@ -268,6 +277,10 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
     @Override
     public void onParentalPasswordSet() {
+        if(mBinding.include.editTextText2.getText() == null || mBinding.include.editTextText2.getText().toString().length() < 4){
+            mBinding.include.textView41.setText(R.string.password_must_have_at_least_4_characters);
+            return;
+        }
         if (mIptvParental.hasPassword()) {
             adultAccessibile = mIptvParental.checkPassword(mBinding.include.editTextText2.getText().toString());
             if (!adultAccessibile) {
@@ -309,15 +322,18 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
     @Override
     public void onSearchIconClicked() {
-        ((TopBarBinding)mBinding.includeTopBar).editTextText4.getViewTreeObserver()
+        ((TopBarBinding) mBinding.includeTopBar).editTextText4.getViewTreeObserver()
                 .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        ((TopBarBinding)mBinding.includeTopBar).editTextText4.getViewTreeObserver()
+                        ((TopBarBinding) mBinding.includeTopBar).editTextText4.getViewTreeObserver()
                                 .removeOnGlobalLayoutListener(this);
-                        ((TopBarBinding)mBinding.includeTopBar).editTextText4.requestFocus();
+                        ((TopBarBinding) mBinding.includeTopBar).editTextText4.requestFocus();
                     }
                 });
+        ((TopBarBinding) mBinding.includeTopBar).editTextText4.setOnFocusChangeListener((v, hasFocus) -> {
+            mModel.setShowSearchInput(hasFocus);
+        });
     }
 
     @Override
@@ -362,7 +378,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
             case "sports":
                 mBinding.includeMenu.btnSportsMenu.requestFocus();
                 break;
-            case "adult":
+            case "adults":
                 mBinding.includeMenu.btnAdultMenu.requestFocus();
                 break;
         }
@@ -384,19 +400,19 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
     @Override
     public void onModalMobileOpened() {
-        if(mIptvMobile == null)
+        if (mIptvMobile == null)
             mIptvMobile = new IptvMobile(this, BuildConfig.IS_MOBILE);
         mBinding.includeModalMobile.getRoot()
-                        .getViewTreeObserver()
-                        .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                            @Override
-                            public void onGlobalLayout() {
-                                mBinding.includeModalMobile.getRoot()
-                                        .getViewTreeObserver()
-                                        .removeOnGlobalLayoutListener(this);
-                                mBinding.includeModalMobile.btnYes.requestFocus();
-                            }
-                        });
+                .getViewTreeObserver()
+                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        mBinding.includeModalMobile.getRoot()
+                                .getViewTreeObserver()
+                                .removeOnGlobalLayoutListener(this);
+                        mBinding.includeModalMobile.btnYes.requestFocus();
+                    }
+                });
         mIptvMobile.getAccessCode()
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
