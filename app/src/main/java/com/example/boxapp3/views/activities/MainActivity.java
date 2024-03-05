@@ -127,12 +127,6 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                             .requestFocus();
                     return true;
                 }
-                if (BuildConfig.FLAVOR.equals("boxApp4"))
-                    if (mBinding.includeMenu.btnAdultMenu.hasFocus()) {
-                        mBinding.searchView.requestFocus();
-                        return true;
-
-                    }
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
                 if (((TopBarBinding) mBinding.includeTopBar).editTextText4.hasFocus()) {
