@@ -151,7 +151,7 @@ public class HomeFragment extends Fragment implements HomeFragmentListener {
                                         });
                                         binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
                                             if(keyCode == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == KeyEvent.ACTION_DOWN){
-                                                if(BuildConfig.FLAVOR.equals("boxApp13")){
+                                                if(BuildConfig.FLAVOR.equals("boxApp13") || BuildConfig.FLAVOR.equals("boxApp4")){
                                                     mBinding.slider.requestFocus();
                                                     return true;
                                                 } else {
@@ -203,8 +203,9 @@ public class HomeFragment extends Fragment implements HomeFragmentListener {
                                                     return true;
                                                 }
                                                 if(keyCode == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == KeyEvent.ACTION_DOWN ) {
-                                                    if(BuildConfig.FLAVOR.equals("boxApp13")){
+                                                    if(BuildConfig.FLAVOR.equals("boxApp13") || BuildConfig.FLAVOR.equals("boxApp4")){
                                                         mBinding.slider.requestFocus();
+                                                        return true;
                                                     } else {
                                                         if(bindingAdapterPosition == 0)
                                                             mMainActivityListener.onGoToSearch();

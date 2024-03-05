@@ -99,7 +99,6 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
     }
 
 
-
     private void setupSearch() {
         mModel.searchQuery
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
@@ -128,6 +127,12 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                             .requestFocus();
                     return true;
                 }
+                if (BuildConfig.FLAVOR.equals("boxApp4"))
+                    if (mBinding.includeMenu.btnAdultMenu.hasFocus()) {
+                        mBinding.searchView.requestFocus();
+                        return true;
+
+                    }
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
                 if (((TopBarBinding) mBinding.includeTopBar).editTextText4.hasFocus()) {
@@ -277,7 +282,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
     @Override
     public void onParentalPasswordSet() {
-        if(mBinding.include.editTextText2.getText() == null || mBinding.include.editTextText2.getText().toString().length() < 4){
+        if (mBinding.include.editTextText2.getText() == null || mBinding.include.editTextText2.getText().toString().length() < 4) {
             mBinding.include.textView41.setText(R.string.password_must_have_at_least_4_characters);
             return;
         }

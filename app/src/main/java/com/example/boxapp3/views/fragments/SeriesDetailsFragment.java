@@ -157,7 +157,7 @@ public class SeriesDetailsFragment extends Fragment {
                                         new Handler().postDelayed(() -> {
                                             mBinding.episodes.setSelectedPosition(mEpisode);
                                             mBinding.episodes.scrollToPosition(mEpisode);
-                                            mEpisodeAdapter.handleSelection(mEpisode);
+//                                            mEpisodeAdapter.handleSelection(mEpisode);
                                         }, 1000);
                                     }
                                 });

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.boxapp3.BuildConfig;
 import com.example.boxapp3.common.ListCategoriesAndStream;
 import com.example.boxapp3.databinding.FragmentVodListBinding;
 import com.example.boxapp3.databinding.ItemListCategoriesBinding;
@@ -73,6 +74,14 @@ public class VodListFragment extends Fragment {
         });
         listStreamsCategories.setOnKeyClickListener((keyCode, event, item, position, adapterPosition) -> {
             if(event.getAction() == KeyEvent.ACTION_DOWN) {
+                if(BuildConfig.FLAVOR.equals("boxApp4")){
+                    if(keyCode == KeyEvent.KEYCODE_DPAD_UP){
+                        if(position == 0){
+                            mainActivityListener.onGoToMenu();
+                            return true;
+                        }
+                    }
+                } else
                 if(keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
                     if(adapterPosition == 0) {
                         mainActivityListener.onGoToMenu();

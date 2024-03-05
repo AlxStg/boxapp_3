@@ -95,7 +95,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:listener="@{listener}" />
+            app:listener="@{listener}"
+            tools:visibility="gone" />
 
         <include
             android:id="@+id/modal_exit"
@@ -107,7 +108,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:listener="@{listener}" />
+            app:listener="@{listener}"
+            tools:visibility="gone" />
 
         <include
             android:id="@+id/include_modal_main"
@@ -132,7 +134,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:listener="@{listener}"
-            app:model="@{model}" />
+            app:model="@{model}"
+            tools:visibility="gone" />
 
 
         <!--    <include layout="@layout/fragment_series" />-->
