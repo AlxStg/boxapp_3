@@ -24,6 +24,7 @@ import com.example.boxapp3.listeners.fragments.KeyListener;
 import com.example.boxapp3.listeners.fragments.MainFragmentListener;
 import com.example.boxapp3.models.adapters.ItemEpgDateModel;
 import com.example.boxapp3.models.fragments.TvFragmentModel;
+import com.example.boxapp3.models.fragments.players.tv.EpgPanelModel;
 import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
 import com.example.iptvsdk.data.models.EpgDb;
 import com.example.iptvsdk.data.models.xtream.Category;
@@ -123,6 +124,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
                         .subscribe();
 
                 binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
+                    mBinding.include4.setModel(new EpgPanelModel());
                     loadEpg(item);
                     //if (epgRunnable != null)
                     //    epgHandler.removeCallbacks(epgRunnable);
@@ -166,7 +168,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
 
                     @Override
                     public Single<EpgDb> getItem(int position) {
-                        return mIptvLive.getEpg(stream, position);
+                       return mIptvLive.getEpg(stream, position);
                     }
 
                     @Override
@@ -206,8 +208,10 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
                         });
 
                         binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
-                            if (hasFocus)
+                            if (hasFocus) {
                                 selectTodayEpgDateList(item.getStart());
+                                showEpgInfo(item);
+                            }
                         });
                     }
                 });
@@ -230,6 +234,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
                                             mBinding.include4.listEpg.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                                             mBinding.include4.listEpg.scrollToPosition(position);
                                             mBinding.include4.listEpg.setSelectedPosition(position);
+                                            showEpgInfo(stream, position);
                                         }
                                     });
                                 })
@@ -238,6 +243,20 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
                 })
                 .subscribe();
         setupListDays(stream.getEpgChannelId());
+    }
+
+    private void showEpgInfo(StreamXc stream, int position){
+        mIptvLive.getEpg(stream, position)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(th -> Log.e("TAG", "showEpgInfo: ", th))
+                .doOnSuccess(this::showEpgInfo)
+                .subscribe();
+    }
+
+    private void showEpgInfo(EpgDb epg){
+        EpgPanelModel model = new EpgPanelModel(epg.getStart(), epg.getEnd(), epg.getTitle(), epg.getDescription());
+        mBinding.include4.setModel(model);
     }
 
     private void setupListDays(String epgChannelId) {

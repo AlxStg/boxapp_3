@@ -3,6 +3,9 @@ package com.example.boxapp3.models.fragments.players.tv;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class EpgPanelModel extends BaseObservable {
     private String duration;
     private String title;
@@ -10,10 +13,20 @@ public class EpgPanelModel extends BaseObservable {
 
     private String selectedMonth;
 
-    public EpgPanelModel(String duration, String title, String description) {
-        this.duration = duration;
+    public EpgPanelModel() {
+        this.description = "";
+        this.title = "";
+        this.duration = "";
+
+    }
+
+    public EpgPanelModel(Date start, Date end, String title, String description) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        this.duration = sdf.format(start) + " - " + sdf.format(end);
         this.title = title;
         this.description = description;
+        sdf = new SimpleDateFormat("MMM");
+        this.selectedMonth = sdf.format(start);
     }
 
     @Bindable
