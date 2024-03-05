@@ -93,7 +93,7 @@
             layout="@layout/menu_options_epg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="1dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:visibility="@{model.showChannelOptions ? View.VISIBLE : View.GONE}"
