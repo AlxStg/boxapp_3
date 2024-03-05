@@ -7,8 +7,8 @@
     <color name="default_background">#3d3d3d</color>
     <color name="default_color">#7C0101</color>
     <color name="secondary_color">#FDB851</color>
-    <color name="bg_amarelado_tranparente">#B3F1E9E4</color>
-    <color name="text_title">#959595</color>
+    <color name="bg_amarelado_tranparente">#66F3E9D9</color>
+    <color name="text_title">#6A6A6A</color>
     <color name="tranparent">#00000000</color>
     <color name="cyan">#00F7FF</color>
     <color name="black">#000000</color>

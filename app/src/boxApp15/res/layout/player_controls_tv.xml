@@ -23,20 +23,9 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/rounded_corners_20dp_black"
-        android:backgroundTint="#B36A6A6A"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.leanback.widget.HorizontalGridView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
         <SeekBar
             android:id="@+id/seekBar_movies"
@@ -45,9 +34,9 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:progress="@{percentageActualProgramme}"
-            android:progressBackgroundTint="#FFFFFF"
-            android:progressTint="#FFFFFF"
-            android:thumbTint="#FFFFFF"
+            android:progressTint="#807C0101"
+            android:thumb="@drawable/play2"
+            android:thumbTint="@color/default_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"

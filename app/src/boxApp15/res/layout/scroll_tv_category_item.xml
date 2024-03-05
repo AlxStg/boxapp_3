@@ -13,8 +13,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/bg_btn_epg"
-        android:backgroundTint="#66000000"
+        android:background="@drawable/bg_epg_button_app15"
         android:clickable="true"
         android:focusable="true"
         android:paddingStart="10dp"
@@ -24,20 +23,26 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="0dp"
+            android:duplicateParentState="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/arrow_right" />
+            app:srcCompat="@drawable/exo_ic_chevron_right"
+            app:tint="@color/epg_labels" />
 
         <TextView
             android:id="@+id/lbl_watch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:fontFamily="@font/comfortaa_light"
+            android:duplicateParentState="true"
+            android:fontFamily="@font/advent_pro_medium"
             android:text="@{model.categoryName}"
-            android:textColor="#FFFFFF"
+            android:textAllCaps="true"
+            android:textColor="@color/epg_labels"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/imageView6"
             app:layout_constraintStart_toEndOf="@+id/imageView6"
             app:layout_constraintTop_toTopOf="@+id/imageView6"

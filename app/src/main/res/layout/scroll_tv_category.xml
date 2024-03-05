@@ -13,7 +13,7 @@
             android:gravity="center"
             android:minWidth="190dp"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +37,8 @@
                 android:layout_marginTop="15dp"
                 android:fadingEdge="vertical"
                 android:fadingEdgeLength="20dp"
-                android:requiresFadingEdge="vertical"
-                android:nextFocusRight="@id/list_channels"/>
+                android:nextFocusRight="@id/list_channels"
+                android:requiresFadingEdge="vertical" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
