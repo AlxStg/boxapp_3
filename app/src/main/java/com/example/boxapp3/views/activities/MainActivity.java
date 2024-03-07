@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
 
         ViewUtils.listenFocus(this, new ViewUtils.FocusListener() {
             @Override
-            public void onFocus(View view) {
+            public void onFocus(View view, String viewName) {
                 int viewId = view.getId();
                 if(mModel.getShowModalExit()){
                     if(viewId != R.id.btn_yes && viewId != R.id.textView43){
@@ -234,7 +234,9 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
             public void onGlobalLayout() {
                 ((View) mBinding.includeMenu.menu).getViewTreeObserver()
                         .removeOnGlobalLayoutListener(this);
-                mIptvMenu.listenMenuFocusAndColapse(BuildConfig.FLAVOR, mBinding.includeMenu.menu,
+                mIptvMenu.listenMenuFocusAndColapse(MainActivity.this,
+                        BuildConfig.FLAVOR,
+                        mBinding.includeMenu.menu,
                         mBinding.includeMenu.menu.getWidth(),
                         100,
                         new ArrayList<View>() {{

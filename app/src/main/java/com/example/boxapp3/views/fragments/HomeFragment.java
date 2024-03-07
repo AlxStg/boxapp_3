@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment implements HomeFragmentListener {
 
         ViewUtils.listenFocus(this, new ViewUtils.FocusListener() {
             @Override
-            public void onFocus(View view) {
+            public void onFocus(View view, String viewName) {
                 int viewId = view.getId();
                 if(sliderVod != null && (viewId == R.id.btn_play_movie || viewId == R.id.fav_icon)) {
                     sliderVod.stopAutomaticSlide();
