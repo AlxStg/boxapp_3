@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +28,10 @@
                 android:id="@+id/imageView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:foreground="@drawable/gradient_black_sides"
                 android:scaleType="centerCrop"
-                app:loadImage="@{model.image}" />
+                app:loadImage="@{model.image}"
+                tools:srcCompat="@drawable/big_bang_tela" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

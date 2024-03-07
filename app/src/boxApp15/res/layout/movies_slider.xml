@@ -5,55 +5,48 @@
 
     <data>
 
-            <variable
-                name="backgroundVodSeriesDataModel"
-                type="com.example.iptvsdk.ui.movies.models.BackgroundVodSeriesDataModel" />
+        <variable
+            name="backgroundVodSeriesDataModel"
+            type="com.example.iptvsdk.ui.movies.models.BackgroundVodSeriesDataModel" />
         <import type="android.view.View" />
         <import type="com.example.iptvsdk.data.models.xtream.StreamXc" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/home_slider"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout6"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="800dp"
+            android:layout_height="0dp"
+            android:foreground="@drawable/gradient_black_sides"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadImage="@{backgroundVodSeriesDataModel.image}"
+            tools:srcCompat="@drawable/big_bang_capa" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:foregroundGravity="top"
-                android:maxWidth="600dp"
-                android:minHeight="700dp"
-                android:scaleType="centerInside"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:loadImage="@{backgroundVodSeriesDataModel.image}"
-                tools:srcCompat="@drawable/divertidamente" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/fundo_preto_esmaecido">
 
             <TextView
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginEnd="32dp"
-                android:fontFamily="@font/advent_pro_medium"
+                android:fontFamily="@font/comfortaa_light"
                 android:text="@{backgroundVodSeriesDataModel.type}"
                 android:textAllCaps="true"
-                android:textColor="@color/text_title"
-                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
                 android:visibility="@{backgroundVodSeriesDataModel.type == null || backgroundVodSeriesDataModel.type.length() == 0 ? View.GONE : View.VISIBLE}"
-                app:layout_constraintEnd_toStartOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Filmes" />
 
@@ -62,14 +55,13 @@
                 android:layout_width="600dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/advent_pro_medium"
+                android:fontFamily="@font/comfortaa_light"
                 android:maxLines="5"
                 android:minLines="5"
                 android:text="@{backgroundVodSeriesDataModel.description}"
-                android:textAlignment="textEnd"
-                android:textColor="@color/text_title"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="@+id/genre1"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/movie_name"
                 app:layout_constraintTop_toBottomOf="@+id/genre1"
                 tools:text="Descrição do filme em exibição no slider" />
 
@@ -77,15 +69,16 @@
                 android:id="@+id/genre1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/advent_pro_medium"
+                android:background="@drawable/bg_button"
+                android:fontFamily="@font/comfortaa_light"
                 android:paddingStart="5dp"
                 android:paddingTop="1dp"
                 android:paddingEnd="5dp"
                 android:paddingBottom="2dp"
                 android:text="@{backgroundVodSeriesDataModel.infos}"
-                android:textColor="@color/search_opaque"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/movie_name"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/movie_name"
                 app:layout_constraintTop_toBottomOf="@+id/movie_name"
                 tools:text="2020 | Ação, Drama | 01:29:55" />
 
@@ -112,25 +105,24 @@
                 android:id="@+id/movie_name"
                 android:layout_width="500dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/advent_pro_medium"
-                android:maxLines="1"
+                android:fontFamily="@font/comfortaa_light"
+                android:maxLines="2"
                 android:text="@{backgroundVodSeriesDataModel.name}"
-                android:textAlignment="textEnd"
-                android:textColor="@color/default_color"
+                android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/textView16"
+                app:layout_constraintStart_toStartOf="@+id/textView16"
                 app:layout_constraintTop_toBottomOf="@+id/textView16"
                 tools:text="Nome do Filme em Exibição no Slider" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
                 app:cardBackgroundColor="#00FFFFFF"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
@@ -143,7 +135,6 @@
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

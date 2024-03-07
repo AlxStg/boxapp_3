@@ -49,11 +49,10 @@
         <include
             android:id="@+id/movie_info"
             layout="@layout/player_movies_info"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
             android:visibility="@{model.showController ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:model="@{model}" />
