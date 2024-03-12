@@ -45,7 +45,7 @@ public class VodListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         iptvMovies = new IptvMovies(getContext());
         binding.setBackgroundVodSeriesDataModel(iptvMovies.getBackgroundVodSeriesDataModel());
-        binding.setType(type);
+        binding.set Type(type);
         setTypeInUi();
         listStreamsCategories = ListCategoriesAndStream.setupLists(getContext(),
                 iptvMovies,
