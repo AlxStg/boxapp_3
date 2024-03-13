@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_weight="1"
-        android:background="@drawable/bg_thumbs"
+        android:background="@drawable/bg_button_season"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/sulphur_point"
@@ -23,6 +23,6 @@
         android:paddingEnd="10dp"
         android:paddingBottom="3dp"
         android:text="@{ @string/season + ` ` + model.seasonNumber }"
-        android:textColor="#FDFDFD"
-        android:textSize="12sp" />
+        android:textColor="@color/label_season_color"
+        android:textSize="18sp" />
 </layout>

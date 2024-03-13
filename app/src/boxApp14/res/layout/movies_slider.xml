@@ -31,7 +31,7 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
+                android:layout_width="1000dp"
                 android:layout_height="wrap_content"
                 android:foreground="@drawable/gradient_left"
                 android:scaleType="centerCrop"
@@ -46,15 +46,16 @@
                     android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="120dp"
+                    android:layout_marginEnd="40dp"
                     android:fontFamily="@font/sulphur_point"
                     android:text="@{backgroundVodSeriesDataModel.type}"
                     android:textAllCaps="true"
                     android:textColor="@color/default_color"
-                    android:textSize="18sp"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
                     android:visibility="@{backgroundVodSeriesDataModel.type == null || backgroundVodSeriesDataModel.type.length() == 0 ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Filmes" />
 
@@ -62,14 +63,15 @@
                     android:id="@+id/movie_description"
                     android:layout_width="500dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/sulphur_point"
                     android:maxLines="6"
                     android:minLines="5"
                     android:text="@{backgroundVodSeriesDataModel.description}"
                     android:textColor="@color/default_text"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/movie_name"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_name"
                     app:layout_constraintTop_toBottomOf="@+id/genre1"
                     tools:text="aaaaaaaaa" />
 
@@ -85,8 +87,8 @@
                     android:paddingBottom="2dp"
                     android:text="@{backgroundVodSeriesDataModel.infos}"
                     android:textColor="@color/default_color"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/movie_name"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_name"
                     app:layout_constraintTop_toBottomOf="@+id/movie_name"
                     tools:text="2020  |  Ação, Thriller, Crime  |  01:37:21" />
 
@@ -115,13 +117,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:fontFamily="@font/sulphur_point"
-                    android:maxWidth="600dp"
+                    android:maxWidth="700dp"
                     android:maxLines="2"
                     android:text="@{backgroundVodSeriesDataModel.name}"
                     android:textColor="@color/default_color"
-                    android:textSize="34sp"
+                    android:textSize="40sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/textView16"
+                    app:layout_constraintEnd_toEndOf="@+id/textView16"
                     app:layout_constraintTop_toBottomOf="@+id/textView16"
                     tools:text="aaaaaaaaaaaaaaaaa" />
 

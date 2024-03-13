@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent=".4" />
+            app:layout_constraintGuide_percent=".45" />
 
         <TextView
             android:id="@+id/textView47"

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -11,9 +13,7 @@
         <import type="android.view.View" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/player_movies_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,8 +24,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:resize_mode="fill"
-            app:use_controller="false" />
+            app:use_controller="false">
+
+            <include
+                android:id="@+id/player_movies_control"
+                layout="@layout/player_controls_movies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="@{ model.showController ? View.VISIBLE : View.GONE }"
+                app:listener="@{listener}"
+                app:model="@{model}" />
+        </androidx.media3.ui.PlayerView>
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -54,22 +72,6 @@
             app:model="@{model}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
-
-        <include
-            android:id="@+id/player_movies_control"
-            layout="@layout/player_controls_movies"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:visibility="@{ model.showController ? View.VISIBLE : View.GONE }"
-            app:model="@{model}"
-            app:listener="@{listener}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             tools:visibility="visible" />
 
         <include

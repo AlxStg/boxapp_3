@@ -72,7 +72,7 @@
                     android:fontFamily="@font/sulphur_point"
                     android:text="@string/movie"
                     android:textColor="@color/default_color"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/movie_name"
                     app:layout_constraintEnd_toEndOf="@+id/movie_name"
                     app:layout_constraintTop_toBottomOf="@+id/source_icon" />
@@ -118,19 +118,19 @@
                         android:text="Play"
                         android:textAllCaps="true"
                         android:textColor="@color/default_color"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <ImageView
                     android:id="@+id/fav_icon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="80dp"
                     android:background="@drawable/bg_thumbs"
                     android:focusable="true"
                     android:onClick="@{() -> listener.onFavoriteClick(model)}"
                     android:padding="4dp"
-                    app:layout_constraintEnd_toEndOf="@+id/movie_description"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_name"
                     app:layout_constraintTop_toBottomOf="@+id/movie_description"
                     app:loadImageDrawable="@{model.favorite ? @drawable/baseline_favorite_24 : @drawable/icon_favorite}"
                     app:srcCompat="@drawable/icon_favorite" />
@@ -145,6 +145,7 @@
                     android:textAlignment="textEnd"
                     android:textColor="@color/default_text"
                     android:textSize="16sp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/movie_name"
                     app:layout_constraintStart_toStartOf="@+id/movie_name"
                     app:layout_constraintTop_toBottomOf="@+id/movie_name"
@@ -163,7 +164,7 @@
                     android:paddingEnd="10dp"
                     android:text="@{model.info.info.genre}"
                     android:textColor="@color/default_text"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView16"
                     app:layout_constraintEnd_toStartOf="@+id/textView16"
                     tools:text="Gênero" />
@@ -201,7 +202,7 @@
                     android:text="@{model.name}"
                     android:textAlignment="textEnd"
                     android:textColor="@color/default_color"
-                    android:textSize="34sp"
+                    android:textSize="42sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView16"

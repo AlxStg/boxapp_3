@@ -25,21 +25,23 @@
             android:id="@+id/imageView6"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:duplicateParentState="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/tv"
-            app:tint="#000000" />
+            app:tint="@color/preto_focus_branco" />
 
         <TextView
             android:id="@+id/textView45"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:duplicateParentState="true"
             android:fontFamily="@font/sulphur_point"
             android:paddingTop="3dp"
             android:text="@{model.categoryName}"
             android:textAllCaps="true"
-            android:textColor="@color/default_text"
+            android:textColor="@color/preto_focus_branco"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView6"
             app:layout_constraintStart_toEndOf="@+id/imageView6"
