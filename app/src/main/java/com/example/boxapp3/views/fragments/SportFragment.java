@@ -151,29 +151,33 @@ public class SportFragment extends Fragment implements MainFragmentListener, Key
                             return false;
                         });
 
-
-
                         if(!alreadySelected[0]){
                             alreadySelected[0] = true;
-                            mIptvSport.getPositionByDate(new Date())
-                                    .subscribeOn(Schedulers.computation())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .doOnError(th -> Log.e("SportFragment", "setModelToItem: ", th))
-                                    .doOnSuccess(position -> {
-                                        mBinding.vgListGames.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                                            @Override
-                                            public void onGlobalLayout() {
-                                                mBinding.vgListGames.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                                                mBinding.vgListGames.setSelectedPosition(position);
-                                                mBinding.vgListGames.scrollToPosition(position);
-                                            }
-                                        });
-                                    })
-                                    .subscribe();
+                            selectPositonGamlistDate(new Date());
                         }
                     }
                 });
         mBinding.vgListGames.setAdapter(adapter);
+    }
+
+    private void selectPositonGamlistDate(Date date) {
+        mIptvSport.getPositionByDate(date)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(th -> Log.e("SportFragment", "setModelToItem: ", th))
+                .doOnSuccess(position -> {
+                    mBinding.vgListGames.setSelectedPosition(position);
+                    mBinding.vgListGames.scrollToPosition(position);
+                    mBinding.vgListGames.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            mBinding.vgListGames.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            mBinding.vgListGames.setSelectedPosition(position);
+                            mBinding.vgListGames.scrollToPosition(position);
+                        }
+                    });
+                })
+                .subscribe();
     }
 
     private void populateDates(int championshipId) {
@@ -217,6 +221,27 @@ public class SportFragment extends Fragment implements MainFragmentListener, Key
                                     @Override
                                     public void setModelToItem(FutebolDataItemBinding binding, String item, int bindingAdapterPosition, GenericAdapter<String, FutebolDataItemBinding> adapter) {
                                         binding.setDate(item);
+                                        binding.textView35.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Single.<Date>create(emitter -> {
+                                                    SimpleDateFormat sdf = new SimpleDateFormat(
+                                                            "yyyy-MM-dd", Locale.getDefault());
+                                                    try {
+                                                        Date date = sdf.parse(dates.get(bindingAdapterPosition));
+                                                        emitter.onSuccess(date);
+                                                    } catch (Exception e) {
+                                                        Log.e("SportFragment", "setModelToItem: ", e);
+                                                    }
+                                                })
+                                                        .subscribeOn(Schedulers.computation())
+                                                        .observeOn(AndroidSchedulers.mainThread())
+                                                        .doOnSuccess(date -> {
+                                                            selectPositonGamlistDate(date);
+                                                        })
+                                                        .subscribe();
+                                            }
+                                        });
                                     }
                                 });
                         mBinding.vgListDays.setAdapter(adapter);
