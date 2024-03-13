@@ -22,14 +22,17 @@ import com.example.boxapp3.databinding.ScrollTvEpgItemBinding;
 import com.example.boxapp3.listeners.activities.OnlyTvActivityListener;
 import com.example.boxapp3.listeners.fragments.KeyListener;
 import com.example.boxapp3.listeners.fragments.MainFragmentListener;
+import com.example.boxapp3.listeners.fragments.OnlyTvPanelsFragmentListener;
 import com.example.boxapp3.models.adapters.ItemEpgDateModel;
 import com.example.boxapp3.models.fragments.TvFragmentModel;
 import com.example.boxapp3.models.fragments.players.tv.EpgPanelModel;
+import com.example.boxapp3.service.ReminderIntentService;
 import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
 import com.example.iptvsdk.data.models.EpgDb;
 import com.example.iptvsdk.data.models.xtream.Category;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.ui.live.IptvLive;
+import com.example.iptvsdk.ui.reminder.IptvReminder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,10 +43,11 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainFragmentListener {
+public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyTvPanelsFragmentListener {
 
     private FragmentTvBinding mBinding;
     private IptvLive mIptvLive;
+    private IptvReminder mIptvReminder;
     private OnlyTvActivityListener listener;
     private TvFragmentModel mModel;
     private Handler categoriesHandler = new Handler();
@@ -59,6 +63,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentTvBinding.inflate(inflater, container, false);
         mIptvLive = new IptvLive(getContext());
+        mIptvReminder = new IptvReminder(getContext());
         mModel = new TvFragmentModel();
 
         mBinding.setModel(mModel);
@@ -168,7 +173,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
 
                     @Override
                     public Single<EpgDb> getItem(int position) {
-                       return mIptvLive.getEpg(stream, position);
+                        return mIptvLive.getEpg(stream, position);
                     }
 
                     @Override
@@ -197,6 +202,15 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
                         binding.setModel(item);
                         binding.setDaysPlayback(stream.getTvArchiveDuration());
 
+                        mIptvReminder.getReminder(item.getTitle(), item.getStart().getTime())
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnError(th -> Log.e("TAG", "loadEpg: ", th))
+                                .doOnSuccess(reminders -> {
+                                    binding.getModel().setHasReminder(reminders != null || reminders.isActive());
+                                })
+                                .subscribe();
+
                         binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
                             if (event.getAction() == KeyEvent.ACTION_DOWN) {
                                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0) {
@@ -211,6 +225,27 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
                             if (hasFocus) {
                                 selectTodayEpgDateList(item.getStart());
                                 showEpgInfo(item);
+                            }
+                        });
+
+                        binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mIptvReminder.getReminder(item.getTitle(), item.getStart().getTime())
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .doOnError(th -> Log.e("TAG", "loadEpg: ", th))
+                                        .doOnSuccess(reminders -> {
+                                            binding.getModel().setHasReminder(reminders == null
+                                                    || !reminders.isActive());
+                                            mIptvReminder.addReminderProgramme(ReminderIntentService.class,
+                                                    stream.getStreamId(),
+                                                    item.getTitle(),
+                                                    item.getStart().getTime(),
+                                                    item.getEnd().getTime(),
+                                                    reminders == null || !reminders.isActive());
+                                        })
+                                        .subscribe();
                             }
                         });
                     }
@@ -245,7 +280,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
         setupListDays(stream.getEpgChannelId());
     }
 
-    private void showEpgInfo(StreamXc stream, int position){
+    private void showEpgInfo(StreamXc stream, int position) {
         mIptvLive.getEpg(stream, position)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -254,7 +289,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
                 .subscribe();
     }
 
-    private void showEpgInfo(EpgDb epg){
+    private void showEpgInfo(EpgDb epg) {
         EpgPanelModel model = new EpgPanelModel(epg.getStart(), epg.getEnd(), epg.getTitle(), epg.getDescription());
         mBinding.include4.setModel(model);
     }
@@ -342,8 +377,10 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
                 .subscribe();
     }
 
+    private int mSelectedCategoryId = -1;
+
     private void setupCategories() {
-        mIptvLive.getCategories(false)
+        mIptvLive.getAllCategories()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(th -> Log.e("TAG", "setupCategories: ", th))
@@ -371,7 +408,12 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
                                 if (categoriesRunnable != null)
                                     categoriesHandler.removeCallbacks(categoriesRunnable);
                                 if (hasFocus) {
-                                    categoriesRunnable = () -> mIptvLive.setCategoryId(Integer.parseInt(item.getCategoryId()));
+                                    categoriesRunnable = () -> {
+                                        listener.onCategorySelected(item);
+                                        mSelectedCategoryId = Integer.parseInt(item.getCategoryId());
+                                        if (!item.isAdult())
+                                            mIptvLive.setCategoryId(mSelectedCategoryId);
+                                    };
                                     categoriesHandler.postDelayed(categoriesRunnable, 1000);
                                 }
                             });
@@ -439,5 +481,10 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, MainF
     @Override
     public View firstFocus() {
         return mBinding.include2.listCategories;
+    }
+
+    @Override
+    public void onCategorySelected(int categoryId) {
+        mIptvLive.setCategoryId(categoryId);
     }
 }

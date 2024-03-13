@@ -58,7 +58,8 @@ public class SplashActivity extends BaseActivity {
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
-        }, false);
+        }, BuildConfig.LOAD_VOD, BuildConfig.LOAD_SERIES, BuildConfig.LOAD_LIVE,
+                BuildConfig.LOAD_EPG, BuildConfig.LOAD_SPORTS, false);
         removerColumnsSaved();
 
     }

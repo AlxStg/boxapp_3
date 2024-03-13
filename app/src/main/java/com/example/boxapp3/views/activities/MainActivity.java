@@ -408,4 +408,5 @@ public class MainActivity extends BaseActivity implements MainActivityListener, 
                 .doOnError(th -> Log.e("MainActivity", "onModalMobileOpened: ", th))
                 .subscribe();
     }
+
 }

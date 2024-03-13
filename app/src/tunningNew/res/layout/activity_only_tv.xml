@@ -75,6 +75,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:listener="@{listener}"
+            app:model="@{model}"
             tools:visibility="gone" />
 
         <include

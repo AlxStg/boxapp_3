@@ -18,24 +18,31 @@ import com.example.boxapp3.databinding.ModalSairBinding;
 import com.example.boxapp3.listeners.activities.OnlyTvActivityListener;
 import com.example.boxapp3.listeners.fragments.KeyListener;
 import com.example.boxapp3.listeners.fragments.MainFragmentListener;
+import com.example.boxapp3.listeners.fragments.OnlyTvPanelsFragmentListener;
 import com.example.boxapp3.listeners.models.activities.OnlyTvActivityModelListener;
 import com.example.boxapp3.models.activities.OnlyTvActivityModel;
 import com.example.boxapp3.views.fragments.OnlyTvPanelsFragment;
 import com.example.boxapp3.views.fragments.OnlyTvSearchFragment;
+import com.example.boxapp3.views.fragments.SportFragment;
 import com.example.boxapp3.views.fragments.TvFragment;
 import com.example.iptvsdk.common.IptvSettings;
 import com.example.iptvsdk.common.centerContent.CenterContent;
 import com.example.iptvsdk.common.menu.IptvMenu;
 import com.example.iptvsdk.common.menu.IptvMenuListener;
+import com.example.iptvsdk.data.models.xtream.Category;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.player.exo.IptvExoPlayer;
 import com.example.iptvsdk.services.StreamPlayedDurationService;
 import com.example.iptvsdk.ui.live.IptvLive;
 import com.example.iptvsdk.ui.mobile.IptvMobile;
 import com.example.iptvsdk.ui.parental.IptvParental;
+import com.example.iptvsdk.ui.reminder.IptvReminder;
 import com.example.iptvsdk.utils.ViewUtils;
 
 import java.util.ArrayList;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListener, OnlyTvActivityModelListener {
 
@@ -44,6 +51,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     private CenterContent mCenterContent;
     private IptvMenu mIptvMenu;
     private IptvParental mIptvParental;
+    private IptvReminder mIpTvReminder;
     private IptvMobile mIptvMobile;
     private IptvExoPlayer mIptvExoPlayer;
     private IptvLive mIptvLive;
@@ -59,6 +67,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     private int streamId;
     private StreamXc stream;
 
+    private Category selectedAdultCategory;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +79,9 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mIptvExoPlayer = new IptvExoPlayer(this, mBinding.playerView);
         mIptvLive = new IptvLive(this);
         mIptvSettings = new IptvSettings(this);
+        mIpTvReminder = new IptvReminder(this);
         mStreamPlayedDurationService = new StreamPlayedDurationService(this);
+        mIptvParental = new IptvParental(this);
 
 
         mModel = new OnlyTvActivityModel(this);
@@ -111,8 +123,21 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
             }
         });
 
+        checkReminder();
+
 //        setupMenu();
         setupContent();
+    }
+
+    private void checkReminder() {
+        mIpTvReminder.checkReminder(this, getIntent())
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(th -> Log.e("MainActivity", "checkReminder: ", th))
+                .doOnSuccess(reminderCallback -> {
+                    Log.d("MainActivity", "checkReminder: " + reminderCallback);
+                })
+                .subscribe();
     }
 
 
@@ -212,6 +237,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
         mCenterContent.addFragment("search", new OnlyTvSearchFragment(this));
         mCenterContent.addFragment("live", new OnlyTvPanelsFragment(this));
+        mCenterContent.addFragment("sports", new SportFragment());
     }
 
     @Override
@@ -239,7 +265,12 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 return;
             }
             mModel.setShowModalAdult(false);
-            mCenterContent.showFragment("adults");
+            if(mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener){
+                ((OnlyTvPanelsFragmentListener) mCenterContent.getCurrentFragment())
+                        .onCategorySelected(Integer.parseInt(selectedAdultCategory.getCategoryId()));
+            }
+
+            //mCenterContent.showFragment("adults");
         } else {
             adultAccessibile = mIptvParental.setPassword(mBinding.include.editTextText2.getText().toString(),
                     mBinding.include.editTextText3.getText().toString());
@@ -248,7 +279,12 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 return;
             }
             mModel.setShowModalAdult(false);
-            mCenterContent.showFragment("adults");
+
+            if(mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener){
+                ((OnlyTvPanelsFragmentListener) mCenterContent.getCurrentFragment())
+                        .onCategorySelected(Integer.parseInt(selectedAdultCategory.getCategoryId()));
+            }
+            //mCenterContent.showFragment("adults");
         }
         mBinding.include.editTextText2.setText("");
         mBinding.include.editTextText3.setText("");
@@ -316,6 +352,29 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     @Override
     public void onEpgVisibilityChanged(boolean visible) {
         mModel.setShowMenu(!visible);
+    }
+
+    @Override
+    public void onCategorySelected(Category category) {
+        selectedAdultCategory = category;
+        if(!category.isAdult()){
+            adultAccessibile = false;
+            return;
+        } else {
+            if (!adultAccessibile) {
+                mBinding.include.setRegisterPassword(!mIptvParental.hasPassword());
+                mModel.setShowModalAdult(true);
+                mBinding.include.editTextText2.requestFocus();
+                return;
+            } else {
+                mModel.setShowModalAdult(false);
+
+                if(mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener){
+                    ((OnlyTvPanelsFragmentListener) mCenterContent.getCurrentFragment())
+                            .onCategorySelected(Integer.parseInt(selectedAdultCategory.getCategoryId()));
+                }
+            }
+        }
     }
 
     @Override

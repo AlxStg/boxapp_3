@@ -55,6 +55,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <service android:name="com.example.boxapp3.service.ReminderIntentService"
+            android:exported="false" />
     </application>
 
 </manifest>

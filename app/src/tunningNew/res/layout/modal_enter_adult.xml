@@ -8,6 +8,9 @@
         <variable
             name="listener"
             type="com.example.boxapp3.listeners.models.activities.OnlyTvActivityModelListener" />
+        <variable
+            name="model"
+            type="com.example.boxapp3.models.activities.OnlyTvActivityModel" />
         <import type="android.view.View" />
     </data>
 
@@ -121,6 +124,7 @@
                 android:textColor="#BDBDBD"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:onClick="@{() -> model.setShowModalAdult(false)}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView42"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView42"
