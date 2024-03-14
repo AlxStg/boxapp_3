@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_weight="1"
-        android:background="@drawable/bg_button"
+        android:background="@drawable/bg_season_app15"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/comfortaa_light"
@@ -24,7 +24,7 @@
         android:paddingEnd="10dp"
         android:paddingBottom="3dp"
         android:text="@{ @string/season + ` ` + model.seasonNumber }"
-        android:textColor="#FDFDFD"
+        android:textColor="@color/season"
         android:textSize="14sp"
         tools:text=" Season 3" />
 </layout>

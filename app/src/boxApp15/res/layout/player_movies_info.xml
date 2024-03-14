@@ -21,8 +21,8 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
+            android:layout_height="0dp"
+            app:cardCornerRadius="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -30,7 +30,7 @@
             <ImageView
                 android:id="@+id/imageView12"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
+                android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:maxHeight="100dp"
                 android:scaleType="fitXY"
@@ -51,22 +51,21 @@
             android:textColor="#BF000000"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView14"
             app:layout_constraintStart_toStartOf="@+id/textView14"
             app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
         <TextView
             android:id="@+id/textView14"
-            android:layout_width="0dp"
+            android:layout_width="900dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/advent_pro_medium"
             android:text="@{model.streamName}"
             android:textAlignment="textStart"
             android:textColor="@color/default_color"
-            android:textSize="38sp"
+            android:textSize="34sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardView2"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Nome do Filme que está sendo exibido" />

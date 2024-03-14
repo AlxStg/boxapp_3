@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:background="@drawable/bg_thumbs"
+        android:background="@drawable/bg_thumbs_app15"
         android:clickable="true"
         android:focusable="true">
 
@@ -26,7 +26,7 @@
             android:layout_gravity="bottom"
             android:layout_margin="4dp"
             android:background="@drawable/bg_hobbit"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="1dp"
             app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -71,13 +71,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:layout_marginBottom="5dp"
+                    android:max="100"
                     android:paddingStart="1dp"
                     android:paddingEnd="1dp"
-                    android:max="100"
-                    android:progressDrawable="@drawable/gradient_progress"
                     android:progress="@{model.percentage}"
-                    android:visibility="@{model.percentage > 0 ? View.VISIBLE : View.GONE }"
-                    />
+                    android:progressBackgroundTint="#B3FFFFFF"
+                    android:progressBackgroundTintMode="src_in"
+                    android:progressTint="#FF5722"
+                    android:visibility="@{model.percentage > 0 ? View.VISIBLE : View.GONE }" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

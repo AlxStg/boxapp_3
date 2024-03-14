@@ -50,7 +50,7 @@
             <ImageView
                 android:id="@+id/imageView12"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
+                android:layout_height="90dp"
                 android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,14 +65,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.8" />
+            app:layout_constraintGuide_percent=".6" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_left2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.2" />
+            app:layout_constraintGuide_percent=".15" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -127,7 +127,7 @@
                 android:text="@{epg.description}"
                 android:textAlignment="center"
                 android:textColor="#4A4A4A"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

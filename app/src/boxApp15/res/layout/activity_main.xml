@@ -113,26 +113,24 @@
             layout="@layout/modal_enter_adult"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="@{model.showModalAdult ? View.VISIBLE : View.GONE}"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:listener="@{listener}"
-            tools:visibility="gone" />
+            app:listener="@{listener}" />
 
         <include
             android:id="@+id/modal_exit"
             layout="@layout/modal_sair"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="@{model.showModalExit ? View.VISIBLE : View.GONE}"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:listener="@{listener}"
-            tools:visibility="gone" />
+            app:listener="@{listener}" />
 
         <include
             android:id="@+id/include_modal_main"
@@ -140,7 +138,7 @@
             android:layout_width="0dp"
 
             android:layout_height="0dp"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -151,7 +149,7 @@
             layout="@layout/modal_mobile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
