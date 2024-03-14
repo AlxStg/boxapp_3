@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -21,12 +24,16 @@ import com.example.boxapp3.listeners.fragments.MainFragmentListener;
 import com.example.boxapp3.listeners.fragments.OnlyTvPanelsFragmentListener;
 import com.example.boxapp3.listeners.models.activities.OnlyTvActivityModelListener;
 import com.example.boxapp3.models.activities.OnlyTvActivityModel;
+import com.example.boxapp3.views.fragments.OnlyTvChannelInfoFragment;
 import com.example.boxapp3.views.fragments.OnlyTvPanelsFragment;
 import com.example.boxapp3.views.fragments.OnlyTvSearchFragment;
 import com.example.boxapp3.views.fragments.SportFragment;
 import com.example.boxapp3.views.fragments.TvFragment;
+import com.example.boxapp3.views.fragments.players.tv.PlayerTvChannelInfoFragment;
+import com.example.boxapp3.views.fragments.players.tv.PlayerTvPanelsFragment;
 import com.example.iptvsdk.common.IptvSettings;
 import com.example.iptvsdk.common.centerContent.CenterContent;
+import com.example.iptvsdk.common.centerContent.EmptyFragment;
 import com.example.iptvsdk.common.menu.IptvMenu;
 import com.example.iptvsdk.common.menu.IptvMenuListener;
 import com.example.iptvsdk.data.models.xtream.Category;
@@ -40,6 +47,7 @@ import com.example.iptvsdk.ui.reminder.IptvReminder;
 import com.example.iptvsdk.utils.ViewUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -89,13 +97,11 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mBinding.setModel(mModel);
         mBinding.setListener(this);
 
-        streamId = sharedPreferences.getInt("streamId", -1);
 
-        if (streamId != -1) {
-            mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
-//            showChannelInfo();
-        }
+        checkReminder();
 
+//        setupMenu();
+        setupContent();
         mIptvMenu = new IptvMenu(new IptvMenuListener() {
             @Override
             public void onMenuColapse(boolean colapse) {
@@ -104,6 +110,13 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
             }
         });
 
+
+        streamId = sharedPreferences.getInt("streamId", -1);
+
+        if (streamId != -1) {
+            mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
+            showChannelInfo();
+        }
         ViewUtils.listenFocus(this, new ViewUtils.FocusListener() {
             @Override
             public void onFocus(View view, String viewName) {
@@ -122,11 +135,6 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                         || viewName.equals("btn_adult_menu"));
             }
         });
-
-        checkReminder();
-
-//        setupMenu();
-        setupContent();
     }
 
     private void checkReminder() {
@@ -138,6 +146,45 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                     Log.d("MainActivity", "checkReminder: " + reminderCallback);
                 })
                 .subscribe();
+    }
+
+    private Handler channelInfoHandler = new Handler();
+    private Runnable channelInfoRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (mCenterContent.getCurrentFragment() instanceof OnlyTvChannelInfoFragment)
+                mCenterContent.removeAllFragments();
+        }
+    };
+
+    private void showChannelInfo() {
+        mModel.setShowMenu(false);
+        mCenterContent.changeFragement(new OnlyTvChannelInfoFragment(streamId, mIptvLive, isZapping,
+                this));
+        channelInfoHandler.removeCallbacks(channelInfoRunnable);
+        channelInfoHandler.postDelayed(channelInfoRunnable, 5000);
+    }
+
+    private Handler zappingClearHandler = new Handler();
+    private Runnable zappingClearRunnable = new Runnable() {
+        @Override
+        public void run() {
+            isZapping = false;
+        }
+    };
+
+    private void zapChannel(boolean isUp){
+        isZapping = true;
+        zappingClearHandler.removeCallbacks(zappingClearRunnable);
+        mIptvLive.zapChannel(isUp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> {
+                    Log.e("PlayerTvActivity", "zapChannel: ", throwable);
+                })
+                .doOnSuccess(this::playChannel)
+                .subscribe();
+        zappingClearHandler.postDelayed(zappingClearRunnable, 1000);
     }
 
 
@@ -178,6 +225,12 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                         return true;
                     }
                 }
+
+                if(isZapping || (!mModel.getShowMenu() && !(mCenterContent.getCurrentFragment() instanceof
+                        OnlyTvChannelInfoFragment))) {
+                    zapChannel(false);
+                    return true;
+                }
             }
 
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
@@ -194,8 +247,29 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                         return true;
                     }
                 }
+
+                if(isZapping || (!mModel.getShowMenu() && !(mCenterContent.getCurrentFragment() instanceof
+                        OnlyTvChannelInfoFragment))) {
+                    zapChannel(true);
+                    return true;
+                }
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_BACK || event.getKeyCode() == KeyEvent.KEYCODE_ESCAPE) {
+                if(mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener){
+                    mCenterContent.removeAllFragments();
+                    mModel.setShowMenu(false);
+                    return true;
+                }
+                if(mCenterContent.getCurrentFragment() instanceof OnlyTvSearchFragment){
+                    mCenterContent.removeAllFragments();
+                    mModel.setShowMenu(false);
+                    return true;
+                }
+                if(mCenterContent.getCurrentFragment() instanceof OnlyTvChannelInfoFragment){
+                    mCenterContent.removeAllFragments();
+                    mModel.setShowMenu(false);
+                    return true;
+                }
                 if (mModel.getShowModalAdult()) {
                     mBinding.include.editTextText2.setText("");
                     mBinding.include.editTextText3.setText("");
@@ -224,6 +298,15 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 }
                 return true;
             }
+            if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                if (mCenterContent.getCurrentFragment() instanceof EmptyFragment) {
+                    showChannelInfo();
+                    return true;
+                } else if(mCenterContent.getCurrentFragment() instanceof OnlyTvChannelInfoFragment){
+                    mCenterContent.changeFragement(new OnlyTvPanelsFragment(this));
+                    mModel.setShowMenu(true);
+                }
+            }
         }
 
         return super.dispatchKeyEvent(event);
@@ -233,7 +316,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mCenterContent = new CenterContent(this,
                 R.id.main_active_fragment,
                 new OnlyTvPanelsFragment(this));
-        mCenterContent.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
+//        mCenterContent.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
 
         mCenterContent.addFragment("search", new OnlyTvSearchFragment(this));
         mCenterContent.addFragment("live", new OnlyTvPanelsFragment(this));
@@ -341,12 +424,15 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
     @Override
     public void playChannel(StreamXc stream) {
+        mModel.setShowMenu(false);
+        mCenterContent.removeAllFragments();
+
         this.stream = stream;
         this.streamId = stream.getStreamId();
         mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
         sharedPreferences.edit().putInt("streamId", streamId).apply();
         mStreamPlayedDurationService.insertOrUpdate(streamId, mIptvExoPlayer.getCurrentPosition(), StreamXc.TYPE_STREAM_LIVE);
-
+        showChannelInfo();
     }
 
     @Override
@@ -378,6 +464,21 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     }
 
     @Override
+    public void onPlayback(int streamId, Date dateStart) {
+        mModel.setShowMenu(false);
+        mCenterContent.removeAllFragments();
+
+        String urlPlayback = mIptvLive.generatePlaybacklUrl(this, String.valueOf(streamId), dateStart);
+        mIptvExoPlayer.play(urlPlayback);
+    }
+
+    @Override
+    public void onShowPanels() {
+        mModel.setShowMenu(true);
+        mCenterContent.changeFragement(new OnlyTvPanelsFragment(this));
+    }
+
+    @Override
     public void onModalMobileOpened() {
         if(mIptvMobile == null)
             mIptvMobile = new IptvMobile(this, BuildConfig.IS_MOBILE);
@@ -401,4 +502,40 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 .doOnError(th -> Log.e("MainActivity", "onModalMobileOpened: ", th))
                 .subscribe();
     }
+
+    TranslateAnimation animation;
+    TranslateAnimation animation2;
+    private void showLoadingBalls(boolean show){
+        ImageView bounceBallImageBlue = mBinding.loading.bounceBallBlue;
+        ImageView bounceBallImageOrange = mBinding.loading.bounceBallOrange;
+        if(!show && animation != null && animation2 != null){
+            animation.cancel();
+            animation2.cancel();
+            bounceBallImageBlue.setVisibility(View.GONE);
+            bounceBallImageOrange.setVisibility(View.GONE);
+            return;
+        }
+        int parentWidth = ((View) bounceBallImageBlue.getParent()).getWidth();
+        // Create a TranslateAnimation
+        // The parameters are (fromXDelta, toXDelta, fromYDelta, toYDelta)
+        // We want to move the ball from the left side of the screen (0) to the middle of the screen (half of the parent view's width)
+        // The Y position remains constant, so both fromYDelta and toYDelta are 0
+        animation = new TranslateAnimation(-1*(parentWidth / 2 - bounceBallImageBlue.getWidth()), parentWidth / 2 - bounceBallImageBlue.getWidth(), 0, 0);
+        animation2 = new TranslateAnimation(parentWidth / 2 - bounceBallImageBlue.getWidth(), -1*(parentWidth / 2 - bounceBallImageBlue.getWidth()), 0, 0);
+        // Set the duration of the animation
+        animation.setDuration(1000); // 1000 milliseconds = 1 second
+        // Set the animation to repeat indefinitely
+        animation.setRepeatCount(Animation.INFINITE);
+        // Set the animation to repeat in reverse so the ball goes back to its original position
+        animation.setRepeatMode(Animation.REVERSE);
+        animation2.setDuration(1000); // 1000 milliseconds = 1 second
+        // Set the animation to repeat indefinitely
+        animation2.setRepeatCount(Animation.INFINITE);
+        // Set the animation to repeat in reverse so the ball goes back to its original position
+        animation2.setRepeatMode(Animation.REVERSE);
+        // Start the animation
+        bounceBallImageBlue.startAnimation(animation);
+        bounceBallImageOrange.startAnimation(animation2);
+    }
+
 }

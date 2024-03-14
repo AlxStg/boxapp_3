@@ -31,6 +31,7 @@ import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
 import com.example.iptvsdk.data.models.EpgDb;
 import com.example.iptvsdk.data.models.xtream.Category;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
+import com.example.iptvsdk.ui.favorite.IptvFavorite;
 import com.example.iptvsdk.ui.live.IptvLive;
 import com.example.iptvsdk.ui.reminder.IptvReminder;
 
@@ -48,6 +49,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
     private FragmentTvBinding mBinding;
     private IptvLive mIptvLive;
     private IptvReminder mIptvReminder;
+    private IptvFavorite mIptvFavorite;
     private OnlyTvActivityListener listener;
     private TvFragmentModel mModel;
     private Handler categoriesHandler = new Handler();
@@ -64,6 +66,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
         mBinding = FragmentTvBinding.inflate(inflater, container, false);
         mIptvLive = new IptvLive(getContext());
         mIptvReminder = new IptvReminder(getContext());
+        mIptvFavorite = new IptvFavorite(getContext());
         mModel = new TvFragmentModel();
 
         mBinding.setModel(mModel);
@@ -141,6 +144,22 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
 
                 binding.getRoot().setOnClickListener(v -> {
                     listener.playChannel(item);
+                });
+
+                binding.getRoot().setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        binding.getModel().setFavorite(!binding.getModel().isFavorite());
+                        mIptvFavorite.toggleFavorite(item)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnError(th -> Log.e("TAG", "onLongClick: ", th))
+                                .doOnSuccess(aBoolean -> {
+                                    binding.getModel().setFavorite(aBoolean);
+                                })
+                                .subscribe();
+                        return true;
+                    }
                 });
 
                 binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
@@ -231,21 +250,27 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                         binding.getRoot().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                mIptvReminder.getReminder(item.getTitle(), item.getStart().getTime())
-                                        .subscribeOn(Schedulers.io())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .doOnError(th -> Log.e("TAG", "loadEpg: ", th))
-                                        .doOnSuccess(reminders -> {
-                                            binding.getModel().setHasReminder(reminders == null
-                                                    || !reminders.isActive());
-                                            mIptvReminder.addReminderProgramme(ReminderIntentService.class,
-                                                    stream.getStreamId(),
-                                                    item.getTitle(),
-                                                    item.getStart().getTime(),
-                                                    item.getEnd().getTime(),
-                                                    reminders == null || !reminders.isActive());
-                                        })
-                                        .subscribe();
+                                if (item.isPlayback(stream.getTvArchiveDuration())) {
+                                    listener.onPlayback(stream.getStreamId(), item.getStart());
+                                    return;
+                                }
+
+                                if (item.endAfterNow())
+                                    mIptvReminder.getReminder(item.getTitle(), item.getStart().getTime())
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .doOnError(th -> Log.e("TAG", "loadEpg: ", th))
+                                            .doOnSuccess(reminders -> {
+                                                binding.getModel().setHasReminder(reminders == null
+                                                        || !reminders.isActive());
+                                                mIptvReminder.addReminderProgramme(ReminderIntentService.class,
+                                                        stream.getStreamId(),
+                                                        item.getTitle(),
+                                                        item.getStart().getTime(),
+                                                        item.getEnd().getTime(),
+                                                        reminders == null || !reminders.isActive());
+                                            })
+                                            .subscribe();
                             }
                         });
                     }

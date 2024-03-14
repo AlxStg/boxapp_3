@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="stream"
+            type="com.example.iptvsdk.data.models.xtream.StreamXc" />
+
+        <variable
+            name="percentageActualProgramme"
+            type="Integer" />
+
+        <variable
+            name="epg"
+            type="com.example.iptvsdk.data.models.EpgDb" />
+
+        <variable
+            name="listener"
+            type="com.example.boxapp3.listeners.activities.OnlyTvActivityListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/default_background"
+            android:backgroundTint="#B31B1B1B"
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="200dp"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:paddingEnd="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:loadImage="@{stream.streamIcon}"
+                tools:srcCompat="@drawable/hbo" />
+
+            <androidx.leanback.widget.HorizontalGridView
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="0dp"
+                android:layout_height="90dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView12" />
+
+            <SeekBar
+                android:id="@+id/seekBar_movies"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:progress="@{percentageActualProgramme}"
+                android:progressBackgroundTint="#FFFFFF"
+                android:progressTint="@color/default_primary_color"
+                android:thumbTint="#FFFFFF"
+                app:layout_constraintEnd_toStartOf="@+id/textView25"
+                app:layout_constraintStart_toEndOf="@+id/textView24"
+                app:layout_constraintTop_toBottomOf="@+id/textView65" />
+
+            <TextClock
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/seekBar_movies"
+                app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
+                tools:text="24/11/2023  -  08:21" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:date="@{epg.start}"
+                app:format="@{`HH:mm`}"
+                app:layout_constraintBottom_toBottomOf="@+id/seekBar_movies"
+                app:layout_constraintStart_toEndOf="@+id/imageView12"
+                app:layout_constraintTop_toTopOf="@+id/seekBar_movies"
+                tools:text="08:00" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:date="@{epg.end}"
+                app:format="@{`HH:mm`}"
+                app:layout_constraintBottom_toBottomOf="@+id/seekBar_movies"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/seekBar_movies"
+                tools:text="09:00" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_btn_player_tv"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{() -> listener.onShowPanels()}"
+                android:padding="2dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/textView30"
+                app:layout_constraintEnd_toStartOf="@+id/textView30"
+                app:layout_constraintTop_toTopOf="@+id/textView30"
+                app:srcCompat="@drawable/baseline_density_small_24" />
+
+            <ImageView
+                android:id="@+id/imageView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/bg_btn_player_tv"
+                android:clickable="true"
+                android:focusable="true"
+                android:nextFocusLeft="@id/imageView7"
+                android:nextFocusRight="@id/imageView16"
+                android:padding="2dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView16"
+                app:layout_constraintEnd_toStartOf="@+id/imageView16"
+                app:layout_constraintTop_toTopOf="@+id/imageView16"
+                app:srcCompat="@drawable/button_rewind" />
+
+            <ImageView
+                android:id="@+id/imageView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_player_tv"
+                android:clickable="true"
+                android:focusable="true"
+                android:nextFocusLeft="@id/imageView15"
+                android:nextFocusRight="@id/imageView18"
+                android:padding="2dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
+                app:srcCompat="@drawable/lb_ic_play" />
+
+            <ImageView
+                android:id="@+id/imageView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:background="@drawable/bg_btn_player_tv"
+                android:clickable="true"
+                android:focusable="true"
+                android:nextFocusLeft="@id/imageView16"
+                android:nextFocusRight="@id/imageView18"
+                android:padding="2dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView16"
+                app:layout_constraintStart_toEndOf="@+id/imageView16"
+                app:layout_constraintTop_toTopOf="@+id/imageView16"
+                app:srcCompat="@drawable/button_forward" />
+
+            <ImageView
+                android:id="@+id/imageView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_player_tv"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView18"
+                app:layout_constraintTop_toTopOf="@+id/imageView16"
+                app:srcCompat="@drawable/button_epg" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="top"
+                android:text="@string/minus_10_s"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/imageView15"
+                app:layout_constraintStart_toStartOf="@+id/imageView15"
+                app:layout_constraintTop_toBottomOf="@+id/imageView15"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="top"
+                android:text="EPG"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/textView69"
+                app:layout_constraintTop_toBottomOf="@+id/textView69"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="top"
+                android:text="@string/play"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/imageView16"
+                app:layout_constraintStart_toStartOf="@+id/imageView16"
+                app:layout_constraintTop_toBottomOf="@+id/imageView16"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="top"
+                android:text="@string/plus_10_s"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/imageView18"
+                app:layout_constraintStart_toStartOf="@+id/imageView18"
+                app:layout_constraintTop_toBottomOf="@+id/imageView18"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="top"
+                android:text="@string/epg"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/imageView19"
+                app:layout_constraintStart_toStartOf="@+id/imageView19"
+                app:layout_constraintTop_toBottomOf="@+id/imageView19"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/textView65"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.format(`%02d`, stream.num)}"
+                android:textColor="#FFFFFF"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
+                app:layout_constraintTop_toTopOf="@+id/imageView12" />
+
+            <TextView
+                android:id="@+id/textView66"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@{epg.title}"
+
+                android:textColor="#FFFFFF"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView65"
+                app:layout_constraintStart_toEndOf="@+id/textView65"
+                app:layout_constraintTop_toTopOf="@+id/textView65"
+                tools:text="EPG Title" />
+
+            <TextView
+                android:id="@+id/textView67"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Agora: "
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
+                app:layout_constraintTop_toBottomOf="@+id/seekBar_movies" />
+
+            <TextView
+                android:id="@+id/textView68"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView67"
+                app:layout_constraintStart_toEndOf="@+id/textView67"
+                app:layout_constraintTop_toTopOf="@+id/textView67"
+                tools:text="Supernatural" />
+
+            <TextView
+                android:id="@+id/textView69"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
+                app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
+                tools:text="Flash" />
+
+            <TextView
+                android:id="@+id/textView70"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Depois: "
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView69"
+                app:layout_constraintEnd_toStartOf="@+id/textView69"
+                app:layout_constraintTop_toTopOf="@+id/textView69" />
+
+            <ImageView
+                android:id="@+id/imageView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/textView67"
+                app:layout_constraintTop_toBottomOf="@+id/textView67"
+                app:srcCompat="@drawable/arrow_left" />
+
+            <ImageView
+                android:id="@+id/imageView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imageView28"
+                app:layout_constraintTop_toTopOf="@+id/imageView28"
+                app:srcCompat="@drawable/arrow_right" />
+
+            <TextView
+                android:id="@+id/textView71"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Função Seleção"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView29"
+                app:layout_constraintStart_toEndOf="@+id/imageView29"
+                app:layout_constraintTop_toTopOf="@+id/imageView29" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

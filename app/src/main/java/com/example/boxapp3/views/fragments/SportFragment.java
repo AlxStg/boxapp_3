@@ -242,6 +242,18 @@ public class SportFragment extends Fragment implements MainFragmentListener, Key
                                                         .subscribe();
                                             }
                                         });
+                                        binding.textView35.setOnKeyListener(new View.OnKeyListener() {
+                                            @Override
+                                            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                                                if(event.getAction() == KeyEvent.ACTION_DOWN) {
+                                                    if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0) {
+                                                        mBinding.include.hgListChampionships.requestFocus();
+                                                        return true;
+                                                    }
+                                                }
+                                                return false;
+                                            }
+                                        });
                                     }
                                 });
                         mBinding.vgListDays.setAdapter(adapter);
