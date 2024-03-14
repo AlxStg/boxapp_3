@@ -126,7 +126,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
             @Override
             public void onFocus(View view, String viewName) {
                 int viewId = view.getId();
-                if(viewName == null) {
+                if (viewName == null) {
                     mModel.setShowMenuLabels(false);
                     return;
                 }
@@ -169,7 +169,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
             @Override
             public void onPlaybackStateChanged(int playbackState) {
-                if(playbackState == Player.STATE_READY)
+                if (playbackState == Player.STATE_READY)
                     showLoadingBalls(false);
             }
 
@@ -220,7 +220,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         }
     };
 
-    private void zapChannel(boolean isUp){
+    private void zapChannel(boolean isUp) {
         isZapping = true;
         zappingClearHandler.removeCallbacks(zappingClearRunnable);
         mIptvLive.zapChannel(isUp)
@@ -273,7 +273,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                     }
                 }
 
-                if(isZapping || !mModel.getShowMenu()) {
+                if (isZapping || !mModel.getShowMenu()) {
                     zapChannel(false);
                     return true;
                 }
@@ -294,23 +294,23 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                     }
                 }
 
-                if(isZapping || !mModel.getShowMenu()) {
+                if (isZapping || !mModel.getShowMenu()) {
                     zapChannel(true);
                     return true;
                 }
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_BACK || event.getKeyCode() == KeyEvent.KEYCODE_ESCAPE) {
-                if(mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener){
+                if (mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener) {
                     mCenterContent.removeAllFragments();
                     mModel.setShowMenu(false);
                     return true;
                 }
-                if(mCenterContent.getCurrentFragment() instanceof OnlyTvSearchFragment){
+                if (mCenterContent.getCurrentFragment() instanceof OnlyTvSearchFragment) {
                     mCenterContent.removeAllFragments();
                     mModel.setShowMenu(false);
                     return true;
                 }
-                if(mCenterContent.getCurrentFragment() instanceof OnlyTvChannelInfoFragment){
+                if (mCenterContent.getCurrentFragment() instanceof OnlyTvChannelInfoFragment) {
                     mCenterContent.removeAllFragments();
                     mModel.setShowMenu(false);
                     return true;
@@ -327,27 +327,23 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                     return true;
                 }
 
-                if(mModel.getShowModalMobile()){
+                if (mModel.getShowModalMobile()) {
                     mModel.setShowModalMobile(false);
                     return true;
                 }
 
-                if (mCenterContent.hasFragmentToBack()) {
-                    mCenterContent.backFragment();
-                } else {
-                    mModel.setShowModalExit(true);
-                    new Handler().postDelayed(() -> {
-                        if (mModel.getShowModalExit())
-                            ((ModalSairBinding) mBinding.modalExit).btnYes.requestFocus();
-                    }, 1000);
-                }
+                mModel.setShowModalExit(true);
+                new Handler().postDelayed(() -> {
+                    if (mModel.getShowModalExit())
+                        ((ModalSairBinding) mBinding.modalExit).btnYes.requestFocus();
+                }, 1000);
                 return true;
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 if (mCenterContent.getCurrentFragment() instanceof EmptyFragment) {
                     showChannelInfo();
                     return true;
-                } else if(mCenterContent.getCurrentFragment() instanceof OnlyTvChannelInfoFragment){
+                } else if (mCenterContent.getCurrentFragment() instanceof OnlyTvChannelInfoFragment) {
                     mCenterContent.changeFragement(new OnlyTvPanelsFragment(this));
                     mModel.setShowMenu(true);
                 }
@@ -381,6 +377,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 mBinding.include.editTextText2.requestFocus();
                 return;
             }
+        } else if (menu.equals("exit")) {
+            mModel.setShowModalExit(true);
         } else adultAccessibile = false;
         mCenterContent.showFragment(menu);
     }
@@ -394,7 +392,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 return;
             }
             mModel.setShowModalAdult(false);
-            if(mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener){
+            if (mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener) {
                 ((OnlyTvPanelsFragmentListener) mCenterContent.getCurrentFragment())
                         .onCategorySelected(Integer.parseInt(selectedAdultCategory.getCategoryId()));
             }
@@ -409,7 +407,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
             }
             mModel.setShowModalAdult(false);
 
-            if(mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener){
+            if (mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener) {
                 ((OnlyTvPanelsFragmentListener) mCenterContent.getCurrentFragment())
                         .onCategorySelected(Integer.parseInt(selectedAdultCategory.getCategoryId()));
             }
@@ -444,18 +442,18 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     @Override
     public void onGoToMenu() {
         switch (activeMenu) {
-           //case "home":
-           //    mBinding.includeMenu.btnHomeMenu.requestFocus();
-           //    break;
-           //case "live":
-           //    mBinding.includeMenu.btnTvMenu.requestFocus();
-           //    break;
-           //case "movies":
-           //    mBinding.includeMenu.btnMoviesMenu.requestFocus();
-           //    break;
-           //case "series":
-           //    mBinding.includeMenu.btnSeriesMenu.requestFocus();
-           //    break;
+            //case "home":
+            //    mBinding.includeMenu.btnHomeMenu.requestFocus();
+            //    break;
+            //case "live":
+            //    mBinding.includeMenu.btnTvMenu.requestFocus();
+            //    break;
+            //case "movies":
+            //    mBinding.includeMenu.btnMoviesMenu.requestFocus();
+            //    break;
+            //case "series":
+            //    mBinding.includeMenu.btnSeriesMenu.requestFocus();
+            //    break;
             case "kids":
                 mBinding.includeMenu.btnKidsMenu.requestFocus();
                 break;
@@ -491,7 +489,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     @Override
     public void onCategorySelected(Category category) {
         selectedAdultCategory = category;
-        if(!category.isAdult()){
+        if (!category.isAdult()) {
             adultAccessibile = false;
             return;
         } else {
@@ -503,7 +501,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
             } else {
                 mModel.setShowModalAdult(false);
 
-                if(mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener){
+                if (mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener) {
                     ((OnlyTvPanelsFragmentListener) mCenterContent.getCurrentFragment())
                             .onCategorySelected(Integer.parseInt(selectedAdultCategory.getCategoryId()));
                 }
@@ -528,7 +526,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
     @Override
     public void onModalMobileOpened() {
-        if(mIptvMobile == null)
+        if (mIptvMobile == null)
             mIptvMobile = new IptvMobile(this, BuildConfig.IS_MOBILE);
         mBinding.includeModalMobile.getRoot()
                 .getViewTreeObserver()
@@ -553,11 +551,12 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
     TranslateAnimation animation;
     TranslateAnimation animation2;
-    private void showLoadingBalls(boolean show){
+
+    private void showLoadingBalls(boolean show) {
         mModel.setShowLoadingPlayer(show);
         ImageView bounceBallImageBlue = mBinding.loading.bounceBallBlue;
         ImageView bounceBallImageOrange = mBinding.loading.bounceBallOrange;
-        if(!show && animation != null && animation2 != null){
+        if (!show && animation != null && animation2 != null) {
             animation.cancel();
             animation2.cancel();
             bounceBallImageBlue.setVisibility(View.GONE);
@@ -569,8 +568,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         // The parameters are (fromXDelta, toXDelta, fromYDelta, toYDelta)
         // We want to move the ball from the left side of the screen (0) to the middle of the screen (half of the parent view's width)
         // The Y position remains constant, so both fromYDelta and toYDelta are 0
-        animation = new TranslateAnimation(-1*(parentWidth / 2 - bounceBallImageBlue.getWidth()), parentWidth / 2 - bounceBallImageBlue.getWidth(), 0, 0);
-        animation2 = new TranslateAnimation(parentWidth / 2 - bounceBallImageBlue.getWidth(), -1*(parentWidth / 2 - bounceBallImageBlue.getWidth()), 0, 0);
+        animation = new TranslateAnimation(-1 * (parentWidth / 2 - bounceBallImageBlue.getWidth()), parentWidth / 2 - bounceBallImageBlue.getWidth(), 0, 0);
+        animation2 = new TranslateAnimation(parentWidth / 2 - bounceBallImageBlue.getWidth(), -1 * (parentWidth / 2 - bounceBallImageBlue.getWidth()), 0, 0);
         // Set the duration of the animation
         animation.setDuration(1000); // 1000 milliseconds = 1 second
         // Set the animation to repeat indefinitely
