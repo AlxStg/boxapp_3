@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.media3.common.Player;
 
 import com.example.boxapp3.BuildConfig;
 import com.example.boxapp3.R;
@@ -24,6 +25,7 @@ import com.example.boxapp3.listeners.fragments.MainFragmentListener;
 import com.example.boxapp3.listeners.fragments.OnlyTvPanelsFragmentListener;
 import com.example.boxapp3.listeners.models.activities.OnlyTvActivityModelListener;
 import com.example.boxapp3.models.activities.OnlyTvActivityModel;
+import com.example.boxapp3.views.fragments.MobileAppFragment;
 import com.example.boxapp3.views.fragments.OnlyTvChannelInfoFragment;
 import com.example.boxapp3.views.fragments.OnlyTvPanelsFragment;
 import com.example.boxapp3.views.fragments.OnlyTvSearchFragment;
@@ -38,6 +40,8 @@ import com.example.iptvsdk.common.menu.IptvMenu;
 import com.example.iptvsdk.common.menu.IptvMenuListener;
 import com.example.iptvsdk.data.models.xtream.Category;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
+import com.example.iptvsdk.player.exo.ExoPlayerListener;
+import com.example.iptvsdk.player.exo.ExoTracks;
 import com.example.iptvsdk.player.exo.IptvExoPlayer;
 import com.example.iptvsdk.services.StreamPlayedDurationService;
 import com.example.iptvsdk.ui.live.IptvLive;
@@ -48,6 +52,7 @@ import com.example.iptvsdk.utils.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -135,6 +140,45 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                         || viewName.equals("btn_adult_menu"));
             }
         });
+
+        mIptvExoPlayer.setExoPlayerListener(new ExoPlayerListener() {
+            @Override
+            public void isPlaying(boolean isPlaying) {
+
+            }
+
+            @Override
+            public void changeTrack(List<ExoTracks> tracks) {
+
+            }
+
+            @Override
+            public void totalDuration(long duration) {
+
+            }
+
+            @Override
+            public void currentDuration(long duration) {
+
+            }
+
+            @Override
+            public void endOfStream() {
+
+            }
+
+            @Override
+            public void onPlaybackStateChanged(int playbackState) {
+                if(playbackState == Player.STATE_READY)
+                    showLoadingBalls(false);
+            }
+
+            @Override
+            public void onBandwithSpeedChanged(long speed) {
+                mModel.setSpeed(mIptvExoPlayer.getSpeedFormatted(speed));
+            }
+        });
+        showLoadingBalls(true);
     }
 
     private void checkReminder() {
@@ -152,13 +196,16 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     private Runnable channelInfoRunnable = new Runnable() {
         @Override
         public void run() {
-            if (mCenterContent.getCurrentFragment() instanceof OnlyTvChannelInfoFragment)
+            if (mCenterContent.getCurrentFragment() instanceof OnlyTvChannelInfoFragment) {
                 mCenterContent.removeAllFragments();
+                mModel.setShowSpeed(false);
+            }
         }
     };
 
     private void showChannelInfo() {
         mModel.setShowMenu(false);
+        mModel.setShowSpeed(true);
         mCenterContent.changeFragement(new OnlyTvChannelInfoFragment(streamId, mIptvLive, isZapping,
                 this));
         channelInfoHandler.removeCallbacks(channelInfoRunnable);
@@ -226,8 +273,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                     }
                 }
 
-                if(isZapping || (!mModel.getShowMenu() && !(mCenterContent.getCurrentFragment() instanceof
-                        OnlyTvChannelInfoFragment))) {
+                if(isZapping || !mModel.getShowMenu()) {
                     zapChannel(false);
                     return true;
                 }
@@ -248,8 +294,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                     }
                 }
 
-                if(isZapping || (!mModel.getShowMenu() && !(mCenterContent.getCurrentFragment() instanceof
-                        OnlyTvChannelInfoFragment))) {
+                if(isZapping || !mModel.getShowMenu()) {
                     zapChannel(true);
                     return true;
                 }
@@ -321,6 +366,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mCenterContent.addFragment("search", new OnlyTvSearchFragment(this));
         mCenterContent.addFragment("live", new OnlyTvPanelsFragment(this));
         mCenterContent.addFragment("sports", new SportFragment());
+        mCenterContent.addFragment("mobile", new MobileAppFragment());
     }
 
     @Override
@@ -427,6 +473,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mModel.setShowMenu(false);
         mCenterContent.removeAllFragments();
 
+        showLoadingBalls(true);
+
         this.stream = stream;
         this.streamId = stream.getStreamId();
         mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
@@ -506,6 +554,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     TranslateAnimation animation;
     TranslateAnimation animation2;
     private void showLoadingBalls(boolean show){
+        mModel.setShowLoadingPlayer(show);
         ImageView bounceBallImageBlue = mBinding.loading.bounceBallBlue;
         ImageView bounceBallImageOrange = mBinding.loading.bounceBallOrange;
         if(!show && animation != null && animation2 != null){

@@ -72,6 +72,11 @@ public class OnlyTvSearchFragment extends Fragment {
             @Override
             public void setModelToItem(ScrollTvChannelItemBinding binding, StreamXc item, int bindingAdapterPosition, GenericAdapter<StreamXc, ScrollTvChannelItemBinding> adapter) {
                 binding.setModel(item);
+
+                binding.getRoot().setOnClickListener(v -> {
+                    listener.playChannel(item);
+                });
+
                 mIptvLive.getActualEpg(item)
                         .subscribeOn(Schedulers.io())
                         .observeOn(Schedulers.io())

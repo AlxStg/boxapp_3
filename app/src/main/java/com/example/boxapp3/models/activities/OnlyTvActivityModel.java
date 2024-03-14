@@ -15,9 +15,12 @@ public class OnlyTvActivityModel extends BaseObservable {
     private boolean showMenuLabels = false;
     private boolean showModalAdult, showModalExit, showModalMobile = false;
     private boolean showSearchInput = false;
+    private boolean showLoadingPlayer = false;
+    private boolean showSpeed = false;
     private String actualMenu = "home";
     private String search = "";
     private String mobileCode = "";
+    private String speed = "";
     public BehaviorSubject<String> searchQuery = BehaviorSubject.create();
 
     private OnlyTvActivityModelListener listener;
@@ -120,5 +123,37 @@ public class OnlyTvActivityModel extends BaseObservable {
         if(showModalMobile)
             listener.onModalMobileOpened();
         notifyPropertyChanged(com.example.boxapp3.BR.showModalMobile);
+    }
+
+    @Bindable
+    public boolean getShowLoadingPlayer() {
+        return showLoadingPlayer;
+    }
+
+    public void setShowLoadingPlayer(boolean showLoadingPlayer) {
+        this.showLoadingPlayer = showLoadingPlayer;
+        notifyPropertyChanged(com.example.boxapp3.BR.showLoadingPlayer);
+    }
+
+    @Bindable
+    public boolean getShowSpeed() {
+        return showSpeed;
+    }
+
+    public void setShowSpeed(boolean showSpeed) {
+        this.showSpeed = showSpeed;
+        if(!showSpeed)
+            setSpeed("");
+        notifyPropertyChanged(com.example.boxapp3.BR.showSpeed);
+    }
+
+    @Bindable
+    public String getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(String speed) {
+        this.speed = speed;
+        notifyPropertyChanged(com.example.boxapp3.BR.speed);
     }
 }

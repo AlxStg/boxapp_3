@@ -32,7 +32,7 @@
             android:id="@+id/constraintLayout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="@{ model.showLoadingPlayer ? View.VISIBLE : View.GONE }"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="gone">
@@ -45,14 +45,14 @@
                 android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:rotateImage="@{true}"
                 app:srcCompat="@drawable/net_speed_icon" />
-<!--            app:rotateImage="@{true}"-->
 
             <TextView
                 android:id="@+id/textView40"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{ `00kbps` }"
+                android:text="@{ model.speed }"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
@@ -68,7 +68,7 @@
             layout="@layout/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="@{model.showLoadingPlayer ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
