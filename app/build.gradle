@@ -20,6 +20,11 @@ android {
         buildConfigField("Boolean", "LOGIN_URL", "false")
         buildConfigField("Boolean", "LOGIN_MAG", "false")
         buildConfigField("Boolean", "LOGIN_XC_DATA", "false")
+        buildConfigField("Boolean", "LOAD_VOD", "true")
+        buildConfigField("Boolean", "LOAD_SERIES", "true")
+        buildConfigField("Boolean", "LOAD_LIVE", "true")
+        buildConfigField("Boolean", "LOAD_EPG", "true")
+        buildConfigField("Boolean", "LOAD_SPORTS", "false")
         multiDexEnabled = true
     }
 
@@ -53,6 +58,14 @@ android {
     flavorDimensions "layout"
 
     productFlavors {
+        boxApp1 {
+            dimension "layout"
+            applicationId "com.example.boxapp1"
+        }
+        boxApp2 {
+            dimension "layout"
+            applicationId "com.example.boxapp2"
+        }
         boxApp3 {
             dimension "layout"
             applicationId "com.example.boxapp3"
@@ -60,6 +73,10 @@ android {
         boxApp4 {
             dimension "layout"
             applicationId "com.example.boxapp4"
+        }
+        boxApp5 {
+            dimension "layout"
+            applicationId "com.example.boxapp5"
         }
         boxApp13 {
             dimension "layout"
