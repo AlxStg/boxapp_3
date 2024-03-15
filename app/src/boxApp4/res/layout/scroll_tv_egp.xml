@@ -29,7 +29,7 @@
                 android:text="@string/guide"
                 android:textAlignment="textStart"
                 android:textColor="#F44336"
-                android:textSize="24sp"
+                android:textSize="32sp"
                 android:textStyle="bold" />
 
             <androidx.leanback.widget.VerticalGridView

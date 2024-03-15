@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.example.iptvsdk.data.models.EpgDb" />
+
+        <variable
+            name="daysPlayback"
+            type="Integer" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_btn_epg"
+        android:backgroundTintMode="add"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="8dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/comfortaa_light"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:date="@{model.start}"
+                app:format="@{`HH:mm`}"
+                tools:text="06:00" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/comfortaa_light"
+                android:text="  -  "
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/comfortaa_light"
+                android:textAlignment="textEnd"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:date="@{model.end}"
+                app:format="@{`HH:mm`}"
+                tools:text="06:50" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:paddingStart="5dp"
+                android:text="@string/playback"
+                android:textAlignment="center"
+                android:textColor="#F44336"
+                android:textSize="13sp"
+                app:dateStart="@{model.start}"
+                app:daysPlayback="@{daysPlayback}"
+                tools:ignore="RtlCompat" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comfortaa_light"
+            android:gravity="center"
+            android:maxLines="2"
+            android:minLines="2"
+            android:text="@{model.title}"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</layout>

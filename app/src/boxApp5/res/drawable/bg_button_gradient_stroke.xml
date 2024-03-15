@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Larger shape with gradient acting as the stroke -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="45"
+                android:endColor="#99E91E63"
+                android:centerColor="#99C26FFD"
+                android:startColor="#990621BC" />
+            <corners android:radius="50dp" />
+        </shape>
+    </item>
+    <!-- Smaller shape with solid color -->
+    <item android:top="0dp" android:right="0dp" android:bottom="0dp" android:left="0dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#80FFFFFF" />
+            <corners android:radius="50dp" />
+        </shape>
+    </item>
+</layer-list>

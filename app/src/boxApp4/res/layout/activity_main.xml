@@ -75,7 +75,7 @@
 
         <include
             android:id="@+id/include_menu"
-            layout="@layout/menu_4"
+            layout="@layout/menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/searchView"
@@ -103,11 +103,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="@{model.showModalExit ? View.VISIBLE : View.GONE}"
-            app:listener="@{listener}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{listener}"
+            tools:visibility="gone" />
 
         <include
             android:id="@+id/include_modal_main"
@@ -127,12 +128,13 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="@{model.showModalMobile ? View.VISIBLE : View.GONE}"
-            app:model="@{model}"
-            app:listener="@{listener}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{listener}"
+            app:model="@{model}"
+            tools:visibility="gone" />
 
 
         <!--    <include layout="@layout/fragment_series" />-->

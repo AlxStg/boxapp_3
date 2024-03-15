@@ -1,0 +1,40 @@
+<resources>
+    <string name="browse_title">Videos de Tu Empresa</string>
+    <string name="related_movies">Videos Relacionados</string>
+    <string name="grid_view">Vista en Cuadrícula</string>
+    <string name="error_fragment">Fragmento de Error</string>
+    <string name="personal_settings">Configuración Personal</string>
+    <string name="watch_trailer_1">Ver avance</string>
+    <string name="watch_trailer_2">GRATIS</string>
+    <string name="rent_1">Alquilar por Día</string>
+    <string name="rent_2">Desde $1.99</string>
+    <string name="buy_1">Comprar y Poseer</string>
+    <string name="buy_2">A $9.99</string>
+    <string name="movie">Película</string>
+    <string name="pause">Pausar</string>
+    <string name="play">Reproducir</string>
+
+    <!-- Mensajes de Error -->
+    <string name="error_fragment_message">Se produjo un error</string>
+    <string name="dismiss_error">Descartar</string>
+    <string name="loading_data">Cargando datos</string>
+    <string name="login_error">Error de Inicio de Sesión</string>
+    <string name="an_error_occurred_while_trying_to_login_please_try_again_later">Se produjo un error al intentar iniciar sesión. Por favor, inténtalo de nuevo más tarde.</string>
+    <string name="search">Buscar</string>
+    <string name="home">Inicio</string>
+    <string name="movies">Películas</string>
+    <string name="tv_shows">Programas de TV</string>
+    <string name="my_list">Mi Lista</string>
+    <string name="switch_profile">Cambiar Perfil</string>
+    <string name="leave">Salir</string>
+    <string name="also_watch">También ver</string>
+    <string name="loading_movie_data_try_again_in_moments">Cargando datos de la película, inténtalo de nuevo en momentos</string>
+    <string name="favorite_error">Error al Favorito</string>
+    <string name="occurred_an_error_to_add_this_movie_to_favorites">Se produjo un error al agregar esta película a favoritos</string>
+    <string name="occurred_an_error_to_remove_this_movie_to_favorites">Se produjo un error al eliminar esta película de favoritos</string>
+    <string name="season_s">Temporada %1$s</string>
+    <string name="seasons">Temporadas</string>
+    <string name="audio">Audio</string>
+    <string name="subtitle">Subtítulo</string>
+    <string name="resolution">Resolución</string>
+</resources>

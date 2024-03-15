@@ -10,4 +10,6 @@
     <color name="cyan">#00F7FF</color>
     <color name="black">#000000</color>
     <color name="live_epg_text">#FF5722</color>
+
+    <color name="default_color">#FFC107</color>
 </resources>

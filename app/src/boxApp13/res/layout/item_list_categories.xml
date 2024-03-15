@@ -37,12 +37,13 @@
                 android:text="@{model.name}"
                 android:textAlignment="center"
                 android:textColor="@color/default_color"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <androidx.leanback.widget.HorizontalGridView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="190dp" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

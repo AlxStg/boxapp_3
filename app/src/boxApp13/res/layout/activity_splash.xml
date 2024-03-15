@@ -8,12 +8,15 @@
         android:layout_height="match_parent"
         android:background="@color/default_background">
 
-        <include
-            layout="@layout/modal_loading"
+        <ImageView
+            android:id="@+id/imageView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rotatingAnimation="@{2000}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/loading_process_svgrepo_com" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

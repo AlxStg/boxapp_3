@@ -7,7 +7,6 @@ import java.util.List;
 
 
 public class App extends IptvApplication {
-
     public App() {
         super(BuildConfig.APPLICATION_ID,
                 BuildConfig.VERSION_NAME,

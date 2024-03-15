@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-                <variable
-                    name="model"
-                    type="com.example.iptvsdk.data.models.xtream.StreamXc" />
+        <variable
+            name="model"
+            type="com.example.iptvsdk.data.models.xtream.StreamXc" />
+
+        <variable
+            name="mainActivityListener"
+            type="com.example.boxapp3.listeners.activities.MainActivityListener" />
+
+        <variable
+            name="listener"
+            type="com.example.boxapp3.listeners.fragments.HomeFragmentListener" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -81,6 +91,7 @@
                     android:paddingTop="2dp"
                     android:paddingEnd="5dp"
                     android:paddingBottom="2dp"
+                    android:onClick="@{() -> mainActivityListener.openDetails(model.streamId, model.streamType)}"
                     app:layout_constraintBottom_toBottomOf="@+id/fav_icon"
                     app:layout_constraintEnd_toStartOf="@+id/fav_icon"
                     app:layout_constraintTop_toTopOf="@+id/fav_icon">
@@ -118,9 +129,11 @@
                     android:background="@drawable/bg_thumbs"
                     android:focusable="true"
                     android:padding="4dp"
+                    android:onClick="@{() -> listener.onFavoriteClick(model)}"
                     app:layout_constraintEnd_toEndOf="@+id/movie_description"
                     app:layout_constraintTop_toBottomOf="@+id/movie_description"
-                    app:srcCompat="@drawable/icon_favorite" />
+                    app:srcCompat="@drawable/icon_favorite"
+                    app:loadImageDrawable="@{model.favorite ? @drawable/baseline_favorite_24 : @drawable/icon_favorite}" />
 
                 <TextView
                     android:id="@+id/movie_description"

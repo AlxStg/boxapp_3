@@ -58,6 +58,14 @@ android {
     flavorDimensions "layout"
 
     productFlavors {
+        boxApp1 {
+            dimension "layout"
+            applicationId "com.example.boxapp1"
+        }
+        boxApp2 {
+            dimension "layout"
+            applicationId "com.example.boxapp2"
+        }
         boxApp3 {
             dimension "layout"
             applicationId "com.example.boxapp3"
@@ -72,6 +80,10 @@ android {
         boxApp4 {
             dimension "layout"
             applicationId "com.example.boxapp4"
+        }
+        boxApp5 {
+            dimension "layout"
+            applicationId "com.example.boxapp5"
         }
         boxApp13 {
             dimension "layout"

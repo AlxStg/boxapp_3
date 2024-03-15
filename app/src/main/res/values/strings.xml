@@ -79,11 +79,13 @@
     <string name="are_you_sure">Are you sure?</string>
     <string name="add_to_favorites">Add to favorites</string>
     <string name="remove_from_favorites">Remove from Favorites</string>
-    <string name="search_results">Search results</string>
+    <string name="search_results">Search results for:  </string>
     <string name="search_movies_series_or_live_tv">Search movies, series or live TV...</string>
     <string name="mobile_access">Mobile Access</string>
     <string name="download_our_app_scanning_the_qr_code_below_and_enter_the_code_on_the_screen">Download our app scanning the QR code below and enter the code on the screen.</string>
     <string name="enter_channel_name_to_search">Enter channel name to search...</string>
     <string name="date">Date</string>
     <string name="loading">Loading...</string>
+    <string name="password_must_have_at_least_4_characters">Password must have at least 4 characters</string>
+    <string name="watch">Watch</string>
 </resources>
