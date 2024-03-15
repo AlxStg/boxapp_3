@@ -286,7 +286,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="@{epg.title}"
+            android:text="@{stream.name}"
 
             android:textColor="#FFFFFF"
             android:textSize="26sp"
@@ -316,6 +316,7 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:text="@{epg.title}"
             app:layout_constraintBottom_toBottomOf="@+id/textView67"
             app:layout_constraintStart_toEndOf="@+id/textView67"
             app:layout_constraintTop_toTopOf="@+id/textView67"
@@ -329,6 +330,7 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:text="@{``}"
             app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
             app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
             tools:text="Flash" />
