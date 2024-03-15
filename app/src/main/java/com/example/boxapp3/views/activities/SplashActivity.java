@@ -58,8 +58,7 @@ public class SplashActivity extends BaseActivity {
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
-        }, BuildConfig.LOAD_VOD, BuildConfig.LOAD_SERIES, BuildConfig.LOAD_LIVE,
-                BuildConfig.LOAD_EPG, BuildConfig.LOAD_SPORTS, false);
+        }, false);
         removerColumnsSaved();
 
     }
@@ -79,7 +78,7 @@ public class SplashActivity extends BaseActivity {
         if(alreayGoToMainActivity)
             return;
         alreayGoToMainActivity = true;
-        Intent intent = new Intent(this, BuildConfig.FLAVOR.equals("tunningNew") ?
+        Intent intent = new Intent(this, BuildConfig.ONLY_TV ?
                 OnlyTvActivity.class : MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

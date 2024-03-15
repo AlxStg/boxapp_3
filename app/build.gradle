@@ -25,6 +25,7 @@ android {
         buildConfigField("Boolean", "LOAD_LIVE", "true")
         buildConfigField("Boolean", "LOAD_EPG", "true")
         buildConfigField("Boolean", "LOAD_SPORTS", "false")
+        buildConfigField("Boolean", "ONLY_TV", "false")
         multiDexEnabled = true
     }
 
@@ -73,6 +74,15 @@ android {
         tunningNew {
             dimension "layout"
             applicationId "com.tunningtv.boxapp3"
+            buildConfigField("Boolean", "ONLY_TV", "true")
+            buildConfigField("Boolean", "LOAD_VOD", "false")
+            buildConfigField("Boolean", "LOAD_SERIES", "false")
+            buildConfigField("Boolean", "LOAD_SPORTS", "true")
+        }
+        tiger1 {
+            dimension "layout"
+            applicationId "com.example.appiptv1"
+            buildConfigField("Boolean", "ONLY_TV", "true")
             buildConfigField("Boolean", "LOAD_VOD", "false")
             buildConfigField("Boolean", "LOAD_SERIES", "false")
             buildConfigField("Boolean", "LOAD_SPORTS", "true")

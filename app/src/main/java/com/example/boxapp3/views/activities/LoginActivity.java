@@ -36,8 +36,7 @@ public class LoginActivity extends BaseActivity {
             public void onSigninSuccess(Context context) {
                 super.onSigninSuccess(context);
             }
-        }, BuildConfig.LOAD_VOD, BuildConfig.LOAD_SERIES, BuildConfig.LOAD_LIVE,
-                BuildConfig.LOAD_EPG, BuildConfig.LOAD_SPORTS, false);
+        }, false);
 
         if(BuildConfig.LOGIN_XC_DATA)
             mModel.setType(IptvSignIn.LOGIN_TYPE_XC_DATA);
