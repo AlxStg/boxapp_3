@@ -50,9 +50,12 @@ import com.example.iptvsdk.ui.parental.IptvParental;
 import com.example.iptvsdk.ui.reminder.IptvReminder;
 import com.example.iptvsdk.utils.ViewUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -81,6 +84,9 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     private StreamXc stream;
 
     private Category selectedAdultCategory;
+
+    TranslateAnimation animation;
+    TranslateAnimation animation2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -294,7 +300,10 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                     }
                 }
 
-                if (isZapping || !mModel.getShowMenu()) {
+            if (isZapping || (!mModel.getShowMenu() && !(mCenterContent.getCurrentFragment()
+                    instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
+                    instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
+                    instanceof MobileAppFragment))) {
                     zapChannel(true);
                     return true;
                 }
@@ -356,7 +365,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     private void setupContent() {
         mCenterContent = new CenterContent(this,
                 R.id.main_active_fragment,
-                new OnlyTvPanelsFragment(this));
+                new EmptyFragment());
 //        mCenterContent.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
 
         mCenterContent.addFragment("search", new OnlyTvSearchFragment(this));
@@ -392,6 +401,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 return;
             }
             mModel.setShowModalAdult(false);
+            saveLimitAdult();
             if (mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener) {
                 ((OnlyTvPanelsFragmentListener) mCenterContent.getCurrentFragment())
                         .onCategorySelected(Integer.parseInt(selectedAdultCategory.getCategoryId()));
@@ -406,6 +416,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 return;
             }
             mModel.setShowModalAdult(false);
+            saveLimitAdult();
 
             if (mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener) {
                 ((OnlyTvPanelsFragmentListener) mCenterContent.getCurrentFragment())
@@ -476,8 +487,20 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         this.stream = stream;
         this.streamId = stream.getStreamId();
         mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
+        mIptvLive.isStreamAdult(streamId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess(isAdult -> {
+                    if (!isAdult) {
+                        mStreamPlayedDurationService.insertOrUpdate(streamId, mIptvExoPlayer.getCurrentPosition(), StreamXc.TYPE_STREAM_LIVE);
+                    }
+                })
+                .doOnError(throwable -> {
+                    Log.e("PlayerTvActivity", "playChannel: ", throwable);
+                })
+                .subscribe();
         sharedPreferences.edit().putInt("streamId", streamId).apply();
-        mStreamPlayedDurationService.insertOrUpdate(streamId, mIptvExoPlayer.getCurrentPosition(), StreamXc.TYPE_STREAM_LIVE);
+
         showChannelInfo();
     }
 
@@ -549,41 +572,62 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 .subscribe();
     }
 
-    TranslateAnimation animation;
-    TranslateAnimation animation2;
-
     private void showLoadingBalls(boolean show) {
         mModel.setShowLoadingPlayer(show);
-        ImageView bounceBallImageBlue = mBinding.loading.bounceBallBlue;
-        ImageView bounceBallImageOrange = mBinding.loading.bounceBallOrange;
-        if (!show && animation != null && animation2 != null) {
-            animation.cancel();
-            animation2.cancel();
-            bounceBallImageBlue.setVisibility(View.GONE);
-            bounceBallImageOrange.setVisibility(View.GONE);
-            return;
-        }
-        int parentWidth = ((View) bounceBallImageBlue.getParent()).getWidth();
-        // Create a TranslateAnimation
-        // The parameters are (fromXDelta, toXDelta, fromYDelta, toYDelta)
-        // We want to move the ball from the left side of the screen (0) to the middle of the screen (half of the parent view's width)
-        // The Y position remains constant, so both fromYDelta and toYDelta are 0
-        animation = new TranslateAnimation(-1 * (parentWidth / 2 - bounceBallImageBlue.getWidth()), parentWidth / 2 - bounceBallImageBlue.getWidth(), 0, 0);
-        animation2 = new TranslateAnimation(parentWidth / 2 - bounceBallImageBlue.getWidth(), -1 * (parentWidth / 2 - bounceBallImageBlue.getWidth()), 0, 0);
-        // Set the duration of the animation
-        animation.setDuration(1000); // 1000 milliseconds = 1 second
-        // Set the animation to repeat indefinitely
-        animation.setRepeatCount(Animation.INFINITE);
-        // Set the animation to repeat in reverse so the ball goes back to its original position
-        animation.setRepeatMode(Animation.REVERSE);
-        animation2.setDuration(1000); // 1000 milliseconds = 1 second
-        // Set the animation to repeat indefinitely
-        animation2.setRepeatCount(Animation.INFINITE);
-        // Set the animation to repeat in reverse so the ball goes back to its original position
-        animation2.setRepeatMode(Animation.REVERSE);
-        // Start the animation
-        bounceBallImageBlue.startAnimation(animation);
-        bounceBallImageOrange.startAnimation(animation2);
+        mBinding.loading.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mBinding.loading.getRoot().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                ImageView bounceBallImageBlue = mBinding.loading.bounceBallBlue;
+                ImageView bounceBallImageOrange = mBinding.loading.bounceBallOrange;
+                int parentWidth = ((View) bounceBallImageBlue.getParent()).getWidth();
+
+                if (show) {
+                    // Verifica se a animação já está em andamento
+                    if (animation != null && !animation.hasEnded()) {
+                        // Se sim, reinicie a animação
+                        animation.cancel();
+                        animation2.cancel();
+                    }
+
+                    // Crie as animações apenas se estiverem nulas ou terminadas
+                    if (animation == null || animation.hasEnded()) {
+                        animation = new TranslateAnimation(-1 * (parentWidth / 2 - bounceBallImageBlue.getWidth()), parentWidth / 2 - bounceBallImageBlue.getWidth(), 0, 0);
+                        animation.setDuration(1000);
+                        animation.setRepeatCount(Animation.INFINITE);
+                        animation.setRepeatMode(Animation.REVERSE);
+                    }
+                    if (animation2 == null || animation2.hasEnded()) {
+                        animation2 = new TranslateAnimation(parentWidth / 2 - bounceBallImageBlue.getWidth(), -1 * (parentWidth / 2 - bounceBallImageBlue.getWidth()), 0, 0);
+                        animation2.setDuration(1000);
+                        animation2.setRepeatCount(Animation.INFINITE);
+                        animation2.setRepeatMode(Animation.REVERSE);
+                    }
+
+                    bounceBallImageBlue.startAnimation(animation);
+                    bounceBallImageOrange.startAnimation(animation2);
+                } else {
+                    // Se show for falso, cancelar a animação
+                    if (animation != null) {
+                        animation.cancel();
+                    }
+                    if (animation2 != null) {
+                        animation2.cancel();
+                    }
+                }
+            }
+        });
+    }
+
+    private void saveLimitAdult(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.MINUTE, 2);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String date = sdf.format(calendar.getTime());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("limitAdult", date);
+        editor.apply();
     }
 
 }

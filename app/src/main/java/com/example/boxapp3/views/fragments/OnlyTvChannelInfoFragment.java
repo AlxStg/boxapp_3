@@ -75,6 +75,16 @@ public class OnlyTvChannelInfoFragment extends Fragment {
                                 Log.e("PlayerTvChannelInfo", "Error getting epg", throwable);
                             })
                             .subscribe();
+                    mIptvLive.getNextEpg(streamXc)
+                            .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                            .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+                            .doOnSuccess(epgDb -> {
+                                mBinding.setNextEpg(epgDb);
+                            })
+                            .doOnError(throwable -> {
+                                Log.e("PlayerTvChannelInfo", "Error getting next epg", throwable);
+                            })
+                            .subscribe();
                 })
                 .doOnError(throwable -> {
                     Log.e("PlayerTvChannelInfo", "Error getting channel", throwable);

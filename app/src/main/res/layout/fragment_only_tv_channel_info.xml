@@ -18,6 +18,10 @@
             type="com.example.iptvsdk.data.models.EpgDb" />
 
         <variable
+            name="nextEpg"
+            type="com.example.iptvsdk.data.models.EpgDb" />
+
+        <variable
             name="listener"
             type="com.example.boxapp3.listeners.activities.OnlyTvActivityListener" />
     </data>
@@ -277,7 +281,7 @@
                 android:id="@+id/textView65"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.format(`%02d`, stream.num)}"
+                android:text="@{stream.num > 0 ? String.format(`%02d`, stream.num) : ``}"
                 android:textColor="#FFFFFF"
                 android:textSize="34sp"
                 android:textStyle="bold"
@@ -333,6 +337,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:text="@{nextEpg.title}"
                 app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
                 app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
                 tools:text="Flash" />

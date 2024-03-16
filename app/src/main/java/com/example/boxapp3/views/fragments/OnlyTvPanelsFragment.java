@@ -1,5 +1,6 @@
 package com.example.boxapp3.views.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -35,7 +36,9 @@ import com.example.iptvsdk.ui.favorite.IptvFavorite;
 import com.example.iptvsdk.ui.live.IptvLive;
 import com.example.iptvsdk.ui.reminder.IptvReminder;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -55,6 +58,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
     private Handler categoriesHandler = new Handler();
     private Runnable categoriesRunnable;
     private String epgChannelId = "";
+    private SharedPreferences mSharedPreferences;
 
     public OnlyTvPanelsFragment(OnlyTvActivityListener listener) {
         this.listener = listener;
@@ -81,6 +85,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mSharedPreferences = getContext().getSharedPreferences("app", 0);
         setupCategories();
         setupChannels();
     }
@@ -97,18 +102,21 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
             @Override
             public Single<StreamXc> getItem(int position) {
                 Single<StreamXc> channel = mIptvLive.getChannels(position);
-                if (position == 0 && !loadedFirstEpg) {
-                    loadedFirstEpg = true;
-                    channel.subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doOnError(th -> {
-                                loadedFirstEpg = false;
-                                Log.e("TAG", "getItem: ", th);
-                            })
-                            .doOnSuccess(streamXc -> {
-                                loadEpg(streamXc);
-                            })
-                            .subscribe();
+                if(position == 0) {
+                    selectChannelPosition();
+                    if (!loadedFirstEpg) {
+                        loadedFirstEpg = true;
+                        channel.subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnError(th -> {
+                                    loadedFirstEpg = false;
+                                    Log.e("TAG", "getItem: ", th);
+                                })
+                                .doOnSuccess(streamXc -> {
+                                    loadEpg(streamXc);
+                                })
+                                .subscribe();
+                    }
                 }
                 return channel;
             }
@@ -134,16 +142,12 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                 binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
                     mBinding.include4.setModel(new EpgPanelModel());
                     loadEpg(item);
-                    //if (epgRunnable != null)
-                    //    epgHandler.removeCallbacks(epgRunnable);
-                    //epgRunnable = () -> {
-                    //    Log.d("TAG", "setModelToItem: " + item.getTvArchiveDuration());
-                    //};
-                    //epgHandler.postDelayed(epgRunnable, 1000);
                 });
 
                 binding.getRoot().setOnClickListener(v -> {
                     listener.playChannel(item);
+                    mSharedPreferences.edit().putInt("streamId", item.getStreamId()).apply();
+                    saveListPostion("listChannels", bindingAdapterPosition, item.getName());
                 });
 
                 binding.getRoot().setOnLongClickListener(new View.OnLongClickListener() {
@@ -174,6 +178,33 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
             }
         });
         mBinding.include3.listChannels.setAdapter(adapter);
+        selectChannelPosition();
+    }
+
+    private void selectChannelPosition() {
+        int streamId = mSharedPreferences.getInt("streamId", -1);
+        if (streamId != -1)
+          mIptvLive.getPositionByStreamId(streamId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                  .doOnError(th -> Log.e("TAG", "setupChannels: ", th))
+                        .doOnSuccess(position -> {
+                            Log.d("TAG", "selectChannelPosition: " + position);
+                            mBinding.include3.listChannels.scrollToPosition(position);
+                            mBinding.include3.listChannels.setSelectedPosition(position);
+                            ((GenericAdapter<StreamXc, ScrollTvChannelItemBinding>) mBinding.include3.listChannels.getAdapter()).handleSelection(position);
+
+                            mBinding.include3.listChannels.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                                @Override
+                                public void onGlobalLayout() {
+                                    mBinding.include3.listChannels.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                    mBinding.include3.listChannels.scrollToPosition(position);
+                                    mBinding.include3.listChannels.setSelectedPosition(position);
+                                    ((GenericAdapter<StreamXc, ScrollTvChannelItemBinding>) mBinding.include3.listChannels.getAdapter()).handleSelection(position);
+                                }
+                            });
+                        })
+                        .subscribe();
     }
 
     private int epgAlreadyLoaded = -1;
@@ -321,6 +352,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
 
     private void setupListDays(String epgChannelId) {
         this.epgChannelId = epgChannelId;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         mIptvLive.getDatesEpg(epgChannelId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -335,7 +367,6 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
 
                                 @Override
                                 public Single<ItemEpgDateModel> getItem(int position) {
-                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                     try {
                                         Date date = sdf.parse(dates.get(position));
                                         return Single.just(new ItemEpgDateModel(date));
@@ -353,10 +384,20 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                 @Override
                                 public void setModelToItem(EpgItemDateBinding binding, ItemEpgDateModel item, int bindingAdapterPosition, GenericAdapter<ItemEpgDateModel, EpgItemDateBinding> adapter) {
                                     binding.setModel(item);
+                                    binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
+                                        if (hasFocus) {
+                                            try {
+                                                selectTodayEpgDateList(sdf.parse(dates.get(bindingAdapterPosition)));
+                                            } catch (ParseException e) {
+                                                Log.e("TAG", "setModelToItem: ", e);
+                                            }
+                                        }
+                                    });
                                 }
                             });
                     mBinding.include4.vgListEpgDate.setAdapter(adapter);
                     selectTodayEpgDateList(new Date());
+
                 })
                 .subscribe();
     }
@@ -373,7 +414,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                 String today = sdf.format(date);
                                 Log.d("TAG", "selectTodayEpgDateList: " + today);
                                 for (int i = 0; i < dates.size(); i++) {
-                                    if (dates.get(i).equals(today)) {
+                                    if (sdf.format(dates.get(i)).equals(today)) {
                                         emitter.onSuccess(i);
                                         return;
                                     }
@@ -398,6 +439,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                             mBinding.include4.vgListEpgDate.setSelectedPosition(position);
                         }
                     });
+                    ((GenericAdapter<ItemEpgDateModel, EpgItemDateBinding>) mBinding.include4.vgListEpgDate.getAdapter()).handleSelection(position);
                 })
                 .subscribe();
     }
@@ -438,6 +480,9 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                         mSelectedCategoryId = Integer.parseInt(item.getCategoryId());
                                         if (!item.isAdult())
                                             mIptvLive.setCategoryId(mSelectedCategoryId);
+                                        mBinding.include2.listCategories.setSelectedPosition(bindingAdapterPosition);
+                                        saveListPostion("listCategories", bindingAdapterPosition, item.getCategoryName());
+                                        adapter.handleSelection(bindingAdapterPosition);
                                     };
                                     categoriesHandler.postDelayed(categoriesRunnable, 1000);
                                 }
@@ -457,6 +502,33 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                         }
                     });
                     mBinding.include2.listCategories.setAdapter(adapter);
+                    if (getListPosition("listCategories") != -1)
+                        mBinding.include2.listCategories.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                mBinding.include2.listCategories.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                mIptvLive.isCategoryAdultByName(getLastItem("listCategories"))
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .doOnError(th -> Log.e("TAG", "setupCategories: ", th))
+                                        .doOnSuccess(isAdult -> {
+                                            if (isAdult) {
+                                                if (isLimitAdult()) {
+                                                    mIptvLive.setCategoryByName(getLastItem("listCategories"));
+                                                    mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
+                                                    mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
+                                                    ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));
+                                                }
+                                            } else {
+                                                mIptvLive.setCategoryByName(getLastItem("listCategories"));
+                                                mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
+                                                mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
+                                                ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));
+                                            }
+                                        })
+                                        .subscribe();
+                            }
+                        });
                 })
                 .subscribe();
     }
@@ -511,5 +583,44 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
     @Override
     public void onCategorySelected(int categoryId) {
         mIptvLive.setCategoryId(categoryId);
+    }
+
+    private void saveListPostion(String list, int position, String itemName) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putInt(list, position);
+        editor.putString(list + "lastItem", itemName);
+        editor.apply();
+    }
+
+    private int getListPosition(String list) {
+        return mSharedPreferences.getInt(list, -1);
+    }
+
+    private String getLastItem(String list) {
+        return mSharedPreferences.getString(list + "lastItem", "");
+    }
+
+    private void saveLimitAdult() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.MINUTE, 10);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String date = sdf.format(calendar.getTime());
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString("limitAdult", date);
+        editor.apply();
+    }
+
+    private boolean isLimitAdult() {
+        String limit = mSharedPreferences.getString("limitAdult", "");
+        if (limit.isEmpty()) return false;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        try {
+            Date date = sdf.parse(limit);
+            return date.after(new Date());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
