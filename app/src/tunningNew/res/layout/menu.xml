@@ -19,7 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@color/default_background">
+        android:background="#E60E0000">
 
         <LinearLayout
             android:id="@+id/app_logotipo"
@@ -38,7 +38,8 @@
                 android:layout_height="30dp"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
-                android:src="@drawable/logo_top_menu" />
+                android:src="@drawable/logo_top_menu"
+                android:visibility="gone" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,14 +60,14 @@
                 android:id="@+id/btn_home_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button_menu2"
+                android:background="@drawable/bg_scroll_tv_item"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
+                android:nextFocusDown="@id/btn_tv_menu"
                 android:onClick="@{ () -> listener.onMenuClicked(`search`) }"
                 android:orientation="horizontal"
                 android:tag="search"
-                android:nextFocusDown="@id/btn_tv_menu"
                 app:layout_constraintBottom_toTopOf="@+id/btn_tv_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,8 +82,8 @@
                     android:layout_marginEnd="10dp"
                     android:adjustViewBounds="true"
                     android:duplicateParentState="true"
-                    app:srcCompat="@drawable/icon_search_tunning"
-                    app:tint="@color/menu_icon_color" />
+                    app:srcCompat="@drawable/a_icon_search_svgrepo_com"
+                    app:tint="@color/lbl_scroll_color" />
 
                 <TextView
                     android:id="@+id/label_home_menu"
@@ -90,7 +91,7 @@
                     android:layout_height="wrap_content"
 
                     android:layout_weight="1"
-                    android:background="@drawable/bg_button_menu"
+
                     android:duplicateParentState="true"
 
                     android:paddingStart="20dp"
@@ -99,7 +100,7 @@
                     android:paddingBottom="10dp"
                     android:text="Pesquisar"
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/lbl_scroll_color"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
@@ -109,15 +110,15 @@
                 android:id="@+id/btn_tv_menu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button_menu2"
+                android:background="@drawable/bg_scroll_tv_item"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
+                android:nextFocusUp="@id/btn_home_menu"
+                android:nextFocusDown="@id/btn_movies_menu"
                 android:onClick="@{ () -> listener.onMenuClicked(`live`) }"
                 android:orientation="horizontal"
                 android:tag="live"
-                android:nextFocusUp="@id/btn_home_menu"
-                android:nextFocusDown="@id/btn_movies_menu"
                 app:layout_constraintBottom_toTopOf="@+id/btn_movies_menu"
 
                 app:layout_constraintEnd_toEndOf="parent"
@@ -133,15 +134,15 @@
                     android:layout_marginEnd="10dp"
                     android:adjustViewBounds="true"
                     android:duplicateParentState="true"
-                    app:srcCompat="@drawable/tv"
-                    app:tint="@color/menu_icon_color" />
+                    app:srcCompat="@drawable/a_icon_tv_television_old_vintage_svgrepo_com"
+                    app:tint="@color/lbl_scroll_color" />
 
                 <TextView
                     android:id="@+id/label_tv_menu"
                     android:layout_width="135dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_button_menu"
+
                     android:duplicateParentState="true"
 
                     android:paddingStart="20dp"
@@ -150,7 +151,7 @@
                     android:paddingBottom="10dp"
                     android:text="Ao vivo"
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/lbl_scroll_color"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
@@ -158,18 +159,18 @@
 
             <LinearLayout
                 android:id="@+id/btn_movies_menu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_button_menu2"
+                android:layout_width="186dp"
+                android:layout_height="43dp"
+                android:background="@drawable/bg_scroll_tv_item"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="49dp"
+                android:nextFocusUp="@id/btn_tv_menu"
+                android:nextFocusDown="@id/btn_series_menu"
                 android:onClick="@{ () -> listener.onMenuClicked(`sports`) }"
                 android:orientation="horizontal"
                 android:tag="sports"
-                android:nextFocusUp="@id/btn_tv_menu"
-                android:nextFocusDown="@id/btn_series_menu"
                 app:layout_constraintBottom_toTopOf="@+id/btn_series_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -184,8 +185,8 @@
                     android:layout_marginEnd="10dp"
                     android:adjustViewBounds="true"
                     android:duplicateParentState="true"
-                    app:srcCompat="@drawable/icon_soccer_tunning"
-                    app:tint="@color/menu_icon_color" />
+                    app:srcCompat="@drawable/a_icon_soccer_arena_svgrepo_com"
+                    app:tint="@color/lbl_scroll_color" />
 
                 <TextView
                     android:id="@+id/menu_label_movies"
@@ -193,7 +194,7 @@
                     android:layout_height="wrap_content"
 
                     android:layout_weight="1"
-                    android:background="@drawable/bg_button_menu"
+
                     android:duplicateParentState="true"
 
                     android:paddingStart="20dp"
@@ -202,7 +203,7 @@
                     android:paddingBottom="10dp"
                     android:text="Futebol"
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/lbl_scroll_color"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
@@ -212,15 +213,15 @@
                 android:id="@+id/btn_series_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button_menu2"
+                android:background="@drawable/bg_scroll_tv_item"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
+                android:nextFocusUp="@id/btn_movies_menu"
+                android:nextFocusDown="@id/btn_kids_menu"
                 android:onClick="@{ () -> listener.onMenuClicked(`mobile`) }"
                 android:orientation="horizontal"
                 android:tag="mobile"
-                android:nextFocusDown="@id/btn_kids_menu"
-                android:nextFocusUp="@id/btn_movies_menu"
                 app:layout_constraintBottom_toTopOf="@+id/btn_kids_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -235,8 +236,8 @@
                     android:layout_marginEnd="10dp"
                     android:adjustViewBounds="true"
                     android:duplicateParentState="true"
-                    app:srcCompat="@drawable/icon_mobile_tunning"
-                    app:tint="@color/menu_icon_color" />
+                    app:srcCompat="@drawable/a_icon_cell_phone_svgrepo_com"
+                    app:tint="@color/lbl_scroll_color" />
 
                 <TextView
                     android:id="@+id/menu_label_series"
@@ -244,7 +245,6 @@
                     android:layout_height="wrap_content"
 
                     android:layout_weight="1"
-                    android:background="@drawable/bg_button_menu"
                     android:duplicateParentState="true"
 
                     android:paddingStart="20dp"
@@ -253,7 +253,7 @@
                     android:paddingBottom="10dp"
                     android:text="Aplicativo"
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/lbl_scroll_color"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
@@ -267,12 +267,12 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
+                android:nextFocusUp="@id/btn_series_menu"
+                android:nextFocusDown="@id/btn_adult_menu"
                 android:onClick="@{ () -> listener.onMenuClicked(`lock`) }"
                 android:orientation="horizontal"
                 android:tag="lock"
                 android:visibility="gone"
-                android:nextFocusUp="@id/btn_series_menu"
-                android:nextFocusDown="@id/btn_adult_menu"
                 app:layout_constraintBottom_toTopOf="@+id/btn_sports_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -361,7 +361,7 @@
                 android:id="@+id/btn_adult_menu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button_menu2"
+                android:background="@drawable/bg_scroll_tv_item"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
@@ -381,8 +381,8 @@
                     android:layout_marginEnd="10dp"
                     android:adjustViewBounds="true"
                     android:duplicateParentState="true"
-                    app:srcCompat="@drawable/icon_clock_tunning"
-                    app:tint="@color/menu_icon_color" />
+                    app:srcCompat="@drawable/a_icon_note_svgrepo_com"
+                    app:tint="@color/lbl_scroll_color" />
 
                 <TextView
                     android:id="@+id/menu_label_adult"
@@ -390,7 +390,6 @@
                     android:layout_height="wrap_content"
 
                     android:layout_weight="1"
-                    android:background="@drawable/bg_button_menu"
                     android:duplicateParentState="true"
 
                     android:paddingStart="20dp"
@@ -399,7 +398,7 @@
                     android:paddingBottom="10dp"
                     android:text="Lembrete"
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/lbl_scroll_color"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
@@ -409,7 +408,7 @@
                 android:id="@+id/btn_sair"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button_menu2"
+                android:background="@drawable/bg_scroll_tv_item"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
@@ -429,8 +428,8 @@
                     android:layout_marginEnd="10dp"
                     android:adjustViewBounds="true"
                     android:duplicateParentState="true"
-                    app:srcCompat="@drawable/icon_leave_tunning"
-                    app:tint="@color/menu_icon_color" />
+                    app:srcCompat="@drawable/a_icon_door_svgrepo_com"
+                    app:tint="@color/lbl_scroll_color" />
 
                 <TextView
                     android:id="@+id/menu_sair_adult"
@@ -438,7 +437,7 @@
                     android:layout_height="wrap_content"
 
                     android:layout_weight="1"
-                    android:background="@drawable/bg_button_menu"
+
                     android:duplicateParentState="true"
 
                     android:paddingStart="20dp"
@@ -447,12 +446,32 @@
                     android:paddingBottom="10dp"
                     android:text="Sair"
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/lbl_scroll_color"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
             </LinearLayout>
 
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:background="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

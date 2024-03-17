@@ -24,9 +24,9 @@
         android:clickable="true"
         android:focusable="true"
         android:paddingStart="20dp"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         android:paddingEnd="20dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="5dp">
 
         <TextView
             android:id="@+id/textView46"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/playback"
-            android:textColor="@color/default_secondary_color"
+            android:textColor="@color/default_primary_color"
             android:textSize="14dp"
             app:dateStart="@{model.start}"
             app:daysPlayback="@{daysPlayback}"
@@ -76,7 +76,7 @@
             android:maxLines="2"
             android:text="@{model.title}"
             android:textAlignment="viewStart"
-            android:textColor="@color/menu_scrol_item_color"
+            android:textColor="@color/lbl_scroll_color"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -89,7 +89,7 @@
             android:id="@+id/linearLayout16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_button"
+            android:background="@drawable/bg_scroll_tv_item"
             android:clickable="true"
             android:duplicateParentState="true"
             android:focusable="true"
@@ -108,6 +108,8 @@
                 android:id="@+id/imageView25"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:duplicateParentState="true"
+                android:tint="@color/lbl_scroll_color"
                 app:loadImageDrawable="@{model.isPlayback(daysPlayback) ? @drawable/play_circle : @drawable/add_circle}" />
 
             <TextView
@@ -115,8 +117,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
+                android:duplicateParentState="true"
                 android:text="@{model.isPlayback(daysPlayback) ? `Assistir` :!model.hasReminder ? `Lembrete` : `Remover lembrete`}"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/lbl_scroll_color"
                 android:textSize="16dp" />
         </LinearLayout>
 

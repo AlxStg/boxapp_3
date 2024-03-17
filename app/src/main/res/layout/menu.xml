@@ -22,7 +22,7 @@
             android:id="@+id/menu"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:background="@drawable/rounded_corners_20dp"
+            android:background="#000000"
             android:gravity="center"
             android:maxWidth="180dp"
             android:orientation="vertical"
