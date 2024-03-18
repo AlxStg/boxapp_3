@@ -29,6 +29,7 @@ import com.example.boxapp3.views.fragments.MobileAppFragment;
 import com.example.boxapp3.views.fragments.OnlyTvChannelInfoFragment;
 import com.example.boxapp3.views.fragments.OnlyTvPanelsFragment;
 import com.example.boxapp3.views.fragments.OnlyTvSearchFragment;
+import com.example.boxapp3.views.fragments.RemindersListFragment;
 import com.example.boxapp3.views.fragments.SportFragment;
 import com.example.boxapp3.views.fragments.TvFragment;
 import com.example.boxapp3.views.fragments.players.tv.PlayerTvChannelInfoFragment;
@@ -415,6 +416,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mCenterContent.addFragment("live", new OnlyTvPanelsFragment(this));
         mCenterContent.addFragment("sports", new SportFragment());
         mCenterContent.addFragment("mobile", new MobileAppFragment());
+        mCenterContent.addFragment("remember", new RemindersListFragment());
     }
 
     @Override
@@ -611,6 +613,20 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     @Override
     public void modalReminderSportClose() {
         mModel.setShowModalRememberSport(false);
+    }
+
+    private Handler menuFocusHandler = new Handler();
+    private Runnable menuFocusRunnable;
+    @Override
+    public void onMenuFocused(String menuName) {
+        if(menuFocusRunnable != null)
+            menuFocusHandler.removeCallbacks(menuFocusRunnable);
+
+        menuFocusRunnable = () -> {
+         onMenuClicked(menuName);
+        };
+
+        menuFocusHandler.postDelayed(menuFocusRunnable, 1000);
     }
 
     @Override
