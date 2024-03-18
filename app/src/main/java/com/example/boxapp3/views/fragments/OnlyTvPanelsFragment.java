@@ -22,7 +22,6 @@ import com.example.boxapp3.databinding.ScrollTvChannelItemBinding;
 import com.example.boxapp3.databinding.ScrollTvEpgItemBinding;
 import com.example.boxapp3.listeners.activities.OnlyTvActivityListener;
 import com.example.boxapp3.listeners.fragments.KeyListener;
-import com.example.boxapp3.listeners.fragments.MainFragmentListener;
 import com.example.boxapp3.listeners.fragments.OnlyTvPanelsFragmentListener;
 import com.example.boxapp3.models.adapters.ItemEpgDateModel;
 import com.example.boxapp3.models.fragments.TvFragmentModel;
@@ -30,6 +29,7 @@ import com.example.boxapp3.models.fragments.players.tv.EpgPanelModel;
 import com.example.boxapp3.service.ReminderIntentService;
 import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
 import com.example.iptvsdk.data.models.EpgDb;
+import com.example.iptvsdk.data.models.Reminders;
 import com.example.iptvsdk.data.models.xtream.Category;
 import com.example.iptvsdk.data.models.xtream.StreamXc;
 import com.example.iptvsdk.ui.favorite.IptvFavorite;
@@ -290,16 +290,12 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                     mIptvReminder.getReminder(item.getTitle(), item.getStart().getTime())
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
-                                            .doOnError(th -> Log.e("TAG", "loadEpg: ", th))
+                                            .doOnError(th -> {
+                                                Log.e("TAG", "loadEpg: ", th);
+                                                toggleFavortes(null, binding, stream, item);
+                                            })
                                             .doOnSuccess(reminders -> {
-                                                binding.getModel().setHasReminder(reminders == null
-                                                        || !reminders.isActive());
-                                                mIptvReminder.addReminderProgramme(ReminderIntentService.class,
-                                                        stream.getStreamId(),
-                                                        item.getTitle(),
-                                                        item.getStart().getTime(),
-                                                        item.getEnd().getTime(),
-                                                        reminders == null || !reminders.isActive());
+                                                toggleFavortes(reminders, binding, stream, item);
                                             })
                                             .subscribe();
                             }
@@ -334,6 +330,19 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                 })
                 .subscribe();
         setupListDays(stream.getEpgChannelId());
+    }
+
+    private void toggleFavortes(Reminders reminders, ScrollTvEpgItemBinding binding,
+                                StreamXc stream, EpgDb item) {
+        binding.getModel().setHasReminder(reminders == null
+                || !reminders.isActive());
+        mIptvReminder.addReminderProgramme(ReminderIntentService.class,
+                stream.getStreamId(),
+                stream.getStreamIcon(),
+                item.getTitle(),
+                item.getStart().getTime(),
+                item.getEnd().getTime(),
+                reminders == null || !reminders.isActive());
     }
 
     private void showEpgInfo(StreamXc stream, int position) {

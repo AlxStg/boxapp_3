@@ -176,6 +176,32 @@
             app:model="@{model}"
             tools:visibility="gone" />
 
+        <include
+            android:id="@+id/include_modal_remember"
+            layout="@layout/modal_lembrete"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{model.showModalRemember ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{listener}"
+            tools:visibility="gone" />
+
+        <include
+            android:id="@+id/include_modal_remember_sport"
+            layout="@layout/modal_lembrete_esporte"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{model.showModalRememberSport ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{listener}"
+            tools:visibility="gone" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

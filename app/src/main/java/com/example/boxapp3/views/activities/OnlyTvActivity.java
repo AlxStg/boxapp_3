@@ -144,6 +144,19 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                         || viewName.equals("btn_sports_menu")
                         || viewName.equals("btn_sair")
                         || viewName.equals("btn_adult_menu"));
+
+                if(mModel.getShowModalRemember()){
+                    if(!viewName.equals("btn_yes_remember") && !viewName.equals("btn_no_remember")) {
+                        mBinding.includeModalRemember.btnYesRemember.requestFocus();
+                        return;
+                    }
+                }
+                if(mModel.getShowModalRememberSport()){
+                    if(!viewName.equals("btn_yes_modal_soccer")){
+                        mBinding.includeModalRememberSport.btnYesModalSoccer.requestFocus();
+                        return;
+                    }
+                }
             }
         });
 
@@ -193,7 +206,18 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(th -> Log.e("MainActivity", "checkReminder: ", th))
                 .doOnSuccess(reminderCallback -> {
-                    Log.d("MainActivity", "checkReminder: " + reminderCallback);
+                    if (reminderCallback != null && (reminderCallback.isReminder || reminderCallback.isSport))
+                        if (!reminderCallback.isSport) {
+                            mBinding.includeModalRemember.setModel(reminderCallback);
+                            mModel.setShowModalRemember(true);
+                            mIpTvReminder.removeReminder(reminderCallback.epgTitle,
+                                    reminderCallback.epgStart);
+                        } else {
+                            mBinding.includeModalRememberSport.setModel(reminderCallback);
+                            mModel.setShowModalRememberSport(true);
+                            mIpTvReminder.removeReminder(reminderCallback.sportName,
+                                    reminderCallback.epgStart);
+                        }
                 })
                 .subscribe();
     }
@@ -256,6 +280,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 }
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
+                if(mModel.getShowModalExit() || mModel.getShowModalMobile() || mModel.getShowModalRemember() || mModel.getShowModalRememberSport())
+                    return super.dispatchKeyEvent(event);
                 if (mModel.getShowModalAdult()) {
                     if (mBinding.include.editTextText2.hasFocus()) {
                         if (!mIptvParental.hasPassword())
@@ -279,13 +305,18 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                     }
                 }
 
-                if (isZapping || !mModel.getShowMenu()) {
+                if (isZapping || (!mModel.getShowMenu() && !(mCenterContent.getCurrentFragment()
+                        instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof MobileAppFragment))) {
                     zapChannel(false);
                     return true;
                 }
             }
 
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
+                if(mModel.getShowModalExit() || mModel.getShowModalMobile() || mModel.getShowModalRemember() || mModel.getShowModalRememberSport())
+                    return super.dispatchKeyEvent(event);
                 if (mModel.getShowModalAdult()) {
                     if (mBinding.include.editTextText3.hasFocus()) {
                         mBinding.include.editTextText2.requestFocus();
@@ -300,10 +331,10 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                     }
                 }
 
-            if (isZapping || (!mModel.getShowMenu() && !(mCenterContent.getCurrentFragment()
-                    instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
-                    instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
-                    instanceof MobileAppFragment))) {
+                if (isZapping || (!mModel.getShowMenu() && !(mCenterContent.getCurrentFragment()
+                        instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof MobileAppFragment))) {
                     zapChannel(true);
                     return true;
                 }
@@ -341,6 +372,16 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                     return true;
                 }
 
+                if (mModel.getShowModalRemember()) {
+                    mModel.setShowModalRemember(false);
+                    return true;
+                }
+
+                if (mModel.getShowModalRememberSport()) {
+                    mModel.setShowModalRememberSport(false);
+                    return true;
+                }
+
                 mModel.setShowModalExit(true);
                 new Handler().postDelayed(() -> {
                     if (mModel.getShowModalExit())
@@ -349,6 +390,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 return true;
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                if(mModel.getShowModalExit() || mModel.getShowModalMobile() || mModel.getShowModalRemember() || mModel.getShowModalRememberSport())
+                    return super.dispatchKeyEvent(event);
                 if (mCenterContent.getCurrentFragment() instanceof EmptyFragment) {
                     showChannelInfo();
                     return true;
@@ -548,6 +591,29 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     }
 
     @Override
+    public void modalReminderWatch(int streamId) {
+        mModel.setShowModalRemember(false);
+        mIptvLive.getChannel(streamId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess(this::playChannel)
+                .doOnError(throwable -> {
+                    Log.e("PlayerTvActivity", "modalReminderWatch: ", throwable);
+                })
+                .subscribe();
+    }
+
+    @Override
+    public void modalReminderClose() {
+        mModel.setShowModalRemember(false);
+    }
+
+    @Override
+    public void modalReminderSportClose() {
+        mModel.setShowModalRememberSport(false);
+    }
+
+    @Override
     public void onModalMobileOpened() {
         if (mIptvMobile == null)
             mIptvMobile = new IptvMobile(this, BuildConfig.IS_MOBILE);
@@ -619,7 +685,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         });
     }
 
-    private void saveLimitAdult(){
+    private void saveLimitAdult() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.MINUTE, 2);

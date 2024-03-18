@@ -13,7 +13,8 @@ public class OnlyTvActivityModel extends BaseObservable {
 
     private boolean showMenu = true;
     private boolean showMenuLabels = false;
-    private boolean showModalAdult, showModalExit, showModalMobile = false;
+    private boolean showModalAdult, showModalExit, showModalMobile, showModalRemember,
+            showModalRememberSport = false;
     private boolean showSearchInput = false;
     private boolean showLoadingPlayer = false;
     private boolean showSpeed = false;
@@ -155,5 +156,25 @@ public class OnlyTvActivityModel extends BaseObservable {
     public void setSpeed(String speed) {
         this.speed = speed;
         notifyPropertyChanged(com.example.boxapp3.BR.speed);
+    }
+
+    @Bindable
+    public boolean getShowModalRemember() {
+        return showModalRemember;
+    }
+
+    public void setShowModalRemember(boolean showModalRemember) {
+        this.showModalRemember = showModalRemember;
+        notifyPropertyChanged(com.example.boxapp3.BR.showModalRemember);
+    }
+
+    @Bindable
+    public boolean getShowModalRememberSport() {
+        return showModalRememberSport;
+    }
+
+    public void setShowModalRememberSport(boolean showModalRememberSport) {
+        this.showModalRememberSport = showModalRememberSport;
+        notifyPropertyChanged(com.example.boxapp3.BR.showModalRememberSport);
     }
 }

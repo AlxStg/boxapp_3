@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
 
 
-                android:text="@{model.homeScore + ``}"
+                android:text="@{(model.homeScore > 0 ? model.homeScore : 0) + ``}"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
@@ -161,7 +161,7 @@
                 android:layout_height="wrap_content"
 
 
-                android:text="@{model.awayScore + ``}"
+                android:text="@{(model.awayScore > 0 ? model.awayScore : 0) + ``}"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"

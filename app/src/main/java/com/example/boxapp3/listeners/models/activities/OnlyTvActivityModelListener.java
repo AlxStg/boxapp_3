@@ -8,4 +8,8 @@ public interface OnlyTvActivityModelListener {
     void onModalMobileConfirm();
     void onSearchIconClicked();
     void onModalMobileOpened();
+
+    void modalReminderWatch(int streamId);
+    void modalReminderClose();
+    void modalReminderSportClose();
 }

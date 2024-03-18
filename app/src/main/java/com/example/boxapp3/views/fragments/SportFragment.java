@@ -18,7 +18,11 @@ import com.example.boxapp3.databinding.FutebolItemLinhaCampeonatosBinding;
 import com.example.boxapp3.databinding.LinhaJogoBinding;
 import com.example.boxapp3.listeners.fragments.KeyListener;
 import com.example.boxapp3.listeners.fragments.MainFragmentListener;
+import com.example.boxapp3.service.ReminderIntentService;
+import com.example.boxapp3.views.activities.OnlyTvActivity;
 import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
+import com.example.iptvsdk.data.models.Reminders;
+import com.example.iptvsdk.ui.reminder.IptvReminder;
 import com.example.iptvsdk.ui.sports.IptvSport;
 import com.example.iptvsdk.ui.sports.SportItemModel;
 
@@ -34,6 +38,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SportFragment extends Fragment implements MainFragmentListener, KeyListener {
 
     private IptvSport mIptvSport;
+    private IptvReminder mIptvReminder;
     private FragmentSportBinding mBinding;
 
     @Nullable
@@ -48,6 +53,7 @@ public class SportFragment extends Fragment implements MainFragmentListener, Key
         super.onViewCreated(view, savedInstanceState);
 
         mIptvSport = new IptvSport(getContext());
+        mIptvReminder = new IptvReminder(getContext());
 
         populateDates(-1);
         populateChampionships();
@@ -150,6 +156,40 @@ public class SportFragment extends Fragment implements MainFragmentListener, Key
                             }
                             return false;
                         });
+                        mIptvReminder.getReminder(item.getName(), item.getTime())
+                                .subscribeOn(Schedulers.computation())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnError(th -> {
+                                    Log.e("SportFragment", "setModelToItem: ", th);
+                                        binding.textView50.setText("Lembrar");
+
+                                })
+                                .doOnSuccess(reminders -> {
+                                    if (reminders != null && reminders.isActive()) {
+                                        binding.textView50.setText("Remover");
+                                    } else {
+                                        binding.textView50.setText("Lembrar");
+                                    }
+                                })
+                                .subscribe();
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM HH:mm", Locale.getDefault());
+
+                    binding.textView50.setOnClickListener(v -> {
+                        if(item.isFuture()){
+                            mIptvReminder.getReminder(item.getHome() + " X " + item.getAway(), item.getTime())
+                                    .subscribeOn(Schedulers.computation())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .doOnError(th -> {
+                                        Log.e("SportFragment", "setModelToItem: ", th);
+                                        rememberClicked(binding, item, null, sdf);
+                                    })
+                                    .doOnSuccess(reminders -> {
+                                        rememberClicked(binding, item, reminders, sdf);
+                                    })
+                                    .subscribe();
+                        }
+                    });
 
                         if(!alreadySelected[0]){
                             alreadySelected[0] = true;
@@ -158,6 +198,22 @@ public class SportFragment extends Fragment implements MainFragmentListener, Key
                     }
                 });
         mBinding.vgListGames.setAdapter(adapter);
+    }
+
+    private void rememberClicked(LinhaJogoBinding binding, SportItemModel item, Reminders reminders, SimpleDateFormat sdf) {
+        if(binding.textView50.getText().toString().equals("Lembrar")){
+            binding.textView50.setText("Remover");
+        } else {
+            binding.textView50.setText("Lembrar");
+        }
+        if (reminders == null || !reminders.isActive()) {
+            mIptvReminder.addReminderSport(ReminderIntentService.class,
+                    (double) item.getTime(),
+                    item.getHome() + " X " + item.getAway(), item.getAway(), sdf.format(new Date(item.getTime())),
+                    item.getHomeLogo(), item.getAwayLogo());
+        } else {
+            mIptvReminder.inactiveReminder(item.getHome(), item.getTime());
+        }
     }
 
     private void selectPositonGamlistDate(Date date) {

@@ -127,7 +127,7 @@
 
         <include
             android:id="@+id/include_modal_lembrete"
-            layout="@layout/modal_lembrete"
+            layout="@layout/modal_lembrete_esporte"
             android:layout_width="0dp"
             android:layout_height="0dp"
 
