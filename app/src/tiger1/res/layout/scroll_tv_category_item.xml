@@ -29,7 +29,7 @@
             android:layout_marginEnd="10dp"
             android:text="@{model.categoryName}"
             android:textAllCaps="true"
-            android:textColor="@color/menu_scrol_item_color"
+            android:textColor="@drawable/lbl_scroll_color"
             android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

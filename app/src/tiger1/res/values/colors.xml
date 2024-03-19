@@ -4,9 +4,9 @@
     <color name="fastlane_background">#0096a6</color>
     <color name="search_opaque">#ffaa3f</color>
     <color name="selected_background">#ffaa3f</color>
-    <color name="default_background">#D924222B</color>
+    <color name="default_background">#000000</color>
     <color name="default_secondary_color">#FB953C</color>
-    <color name="default_primary_color">#FF5722</color>
+    <color name="default_primary_color">#FF0000</color>
     <color name="tranparent">#00000000</color>
     <color name="cyan">#00F7FF</color>
     <color name="black">#000000</color>
