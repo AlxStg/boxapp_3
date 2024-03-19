@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    >
 
     <data>
 
@@ -59,19 +59,20 @@
                 android:id="@+id/btn_home_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="130dp"
                 android:background="@drawable/bg_button_menu2"
                 android:clickable="@{model.menuEnabled}"
                 android:focusable="@{model.menuEnabled}"
                 android:gravity="center"
+                android:nextFocusDown="@id/btn_tv_menu"
                 android:onClick="@{ () -> listener.onMenuClicked(`search`) }"
                 android:orientation="horizontal"
                 android:tag="search"
-                android:nextFocusDown="@id/btn_tv_menu"
-                app:onFocus="@{() -> listener.onMenuFocused(`search`)}"
                 app:layout_constraintBottom_toTopOf="@+id/btn_tv_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:onFocus="@{() -> listener.onMenuFocused(`search`)}"
                 app:selected="@{model.actualMenu.equals(`search`) }">
 
                 <ImageView
@@ -103,7 +104,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.GONE'}" />
             </LinearLayout>
 
             <LinearLayout
@@ -155,7 +156,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.GONE}" />
             </LinearLayout>
 
             <LinearLayout
@@ -208,7 +209,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.GONE}" />
             </LinearLayout>
 
             <LinearLayout
@@ -260,7 +261,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.GONE}" />
             </LinearLayout>
 
             <LinearLayout
@@ -312,7 +313,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.GONE}" />
             </LinearLayout>
 
             <LinearLayout
@@ -359,7 +360,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.GONE}" />
             </LinearLayout>
 
             <LinearLayout
@@ -408,13 +409,14 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.GONE}" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btn_sair"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="110dp"
                 android:background="@drawable/bg_button_menu2"
                 android:clickable="@{model.menuEnabled}"
                 android:focusable="@{model.menuEnabled}"
@@ -456,7 +458,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.INVISIBLE}" />
+                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.GONE}" />
             </LinearLayout>
 
 

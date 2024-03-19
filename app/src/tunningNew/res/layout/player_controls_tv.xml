@@ -24,18 +24,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="165dp"
         android:layout_marginBottom="10dp"
         android:background="@color/default_background"
         android:backgroundTint="#B31B1B1B"
-        android:padding="20dp"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/imageView12"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:paddingEnd="20dp"
@@ -111,14 +111,14 @@
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:background="@drawable/bg_btn_player_tv"
             android:clickable="true"
             android:focusable="true"
             android:onClick="@{() -> listener.onShowPanels()}"
-            android:padding="2dp"
+            android:padding="5dp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/textView30"
             app:layout_constraintEnd_toStartOf="@+id/textView30"
@@ -313,10 +313,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:text="@{epg.title}"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="@{epg.title}"
             app:layout_constraintBottom_toBottomOf="@+id/textView67"
             app:layout_constraintStart_toEndOf="@+id/textView67"
             app:layout_constraintTop_toTopOf="@+id/textView67"
@@ -327,10 +327,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:text="@{``}"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="@{``}"
             app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
             app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
             tools:text="Flash" />
@@ -375,6 +375,29 @@
             app:layout_constraintBottom_toBottomOf="@+id/imageView29"
             app:layout_constraintStart_toEndOf="@+id/imageView29"
             app:layout_constraintTop_toTopOf="@+id/imageView29" />
+
+        <TextView
+            android:id="@+id/textView75"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="60dp"
+            android:text="Favorito"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+            app:layout_constraintEnd_toStartOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+        <ImageView
+            android:id="@+id/imageView33"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="8dp"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView75"
+            app:layout_constraintEnd_toStartOf="@+id/textView75"
+            app:layout_constraintTop_toTopOf="@+id/textView75"
+            tools:srcCompat="@drawable/icon_favorite" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
