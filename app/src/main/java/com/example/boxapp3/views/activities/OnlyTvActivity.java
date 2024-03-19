@@ -254,7 +254,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     private void zapChannel(boolean isUp) {
         isZapping = true;
         zappingClearHandler.removeCallbacks(zappingClearRunnable);
-        mIptvLive.zapChannel(isUp)
+        mIptvLive.zapChannel(sharedPreferences.getInt("streamId", -1), isUp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> {
@@ -269,6 +269,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            if(!mModel.getMenuEnabled())
+                mModel.setMenuEnabled(true);
             if (mCenterContent.getCurrentFragment() instanceof KeyListener) {
                 if (((KeyListener) mCenterContent.getCurrentFragment()).dispatchKeyEvent(event))
                     return true;
@@ -397,7 +399,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                     showChannelInfo();
                     return true;
                 } else if (mCenterContent.getCurrentFragment() instanceof OnlyTvChannelInfoFragment) {
-                    mCenterContent.changeFragement(new OnlyTvPanelsFragment(this));
+                    mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
                     mModel.setShowMenu(true);
                 }
             }
@@ -413,7 +415,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 //        mCenterContent.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
 
         mCenterContent.addFragment("search", new OnlyTvSearchFragment(this));
-        mCenterContent.addFragment("live", new OnlyTvPanelsFragment(this));
+        mCenterContent.addFragment("live", new OnlyTvPanelsFragment(this, mIptvLive));
         mCenterContent.addFragment("sports", new SportFragment());
         mCenterContent.addFragment("mobile", new MobileAppFragment());
         mCenterContent.addFragment("remember", new RemindersListFragment());
@@ -589,7 +591,12 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     @Override
     public void onShowPanels() {
         mModel.setShowMenu(true);
-        mCenterContent.changeFragement(new OnlyTvPanelsFragment(this));
+        mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
+    }
+
+    @Override
+    public void onChangeMenuEnabled(boolean enabled) {
+        mModel.setMenuEnabled(enabled);
     }
 
     @Override

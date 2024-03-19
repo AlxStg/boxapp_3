@@ -60,15 +60,15 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
     private String epgChannelId = "";
     private SharedPreferences mSharedPreferences;
 
-    public OnlyTvPanelsFragment(OnlyTvActivityListener listener) {
+    public OnlyTvPanelsFragment(OnlyTvActivityListener listener, IptvLive iptvLive) {
         this.listener = listener;
+        this.mIptvLive = iptvLive;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentTvBinding.inflate(inflater, container, false);
-        mIptvLive = new IptvLive(getContext());
         mIptvReminder = new IptvReminder(getContext());
         mIptvFavorite = new IptvFavorite(getContext());
         mModel = new TvFragmentModel();
@@ -77,7 +77,6 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
 
         mModel.setShowEpg(false);
         mModel.setShowChannelOptions(false);
-
 
         return mBinding.getRoot();
     }
@@ -88,6 +87,18 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
         mSharedPreferences = getContext().getSharedPreferences("app", 0);
         setupCategories();
         setupChannels();
+
+        listener.onChangeMenuEnabled(false);
+
+        mBinding.include3.listChannels.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if(mBinding.include3.listChannels.getAdapter() != null && mBinding.include3.listChannels.getAdapter().getItemCount() > 0)
+                    mBinding.include3.listChannels.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                mBinding.include3.listChannels.requestFocus();
+            }
+        });
     }
 
     private boolean loadedFirstEpg = false;
@@ -103,7 +114,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
             public Single<StreamXc> getItem(int position) {
                 Single<StreamXc> channel = mIptvLive.getChannels(position);
                 if(position == 0) {
-                    selectChannelPosition();
+                    //selectChannelPosition();
                     if (!loadedFirstEpg) {
                         loadedFirstEpg = true;
                         channel.subscribeOn(Schedulers.io())
@@ -179,6 +190,12 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
         });
         mBinding.include3.listChannels.setAdapter(adapter);
         selectChannelPosition();
+        mIptvLive.getTotalChannels()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(th -> Log.e("TAG", "setupChannels: ", th))
+                .doOnNext(i -> selectChannelPosition())
+                .subscribe();
     }
 
     private void selectChannelPosition() {

@@ -18,6 +18,7 @@ public class OnlyTvActivityModel extends BaseObservable {
     private boolean showSearchInput = false;
     private boolean showLoadingPlayer = false;
     private boolean showSpeed = false;
+    private boolean menuEnabled = false;
     private String actualMenu = "home";
     private String search = "";
     private String mobileCode = "";
@@ -176,5 +177,15 @@ public class OnlyTvActivityModel extends BaseObservable {
     public void setShowModalRememberSport(boolean showModalRememberSport) {
         this.showModalRememberSport = showModalRememberSport;
         notifyPropertyChanged(com.example.boxapp3.BR.showModalRememberSport);
+    }
+
+    @Bindable
+    public boolean getMenuEnabled() {
+        return menuEnabled;
+    }
+
+    public void setMenuEnabled(boolean menuEnabled) {
+        this.menuEnabled = menuEnabled;
+        notifyPropertyChanged(com.example.boxapp3.BR.menuEnabled);
     }
 }

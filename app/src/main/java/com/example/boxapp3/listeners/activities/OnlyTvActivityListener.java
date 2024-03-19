@@ -12,4 +12,5 @@ public interface OnlyTvActivityListener {
     void onCategorySelected(Category category);
     void onPlayback(int streamId, Date dateStart);
     void onShowPanels();
+    void onChangeMenuEnabled(boolean enabled);
 }

@@ -244,7 +244,7 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
     private void zapChannel(boolean isUp){
         isZapping = true;
         zappingClearHandler.removeCallbacks(zappingClearRunnable);
-        mIptvLive.zapChannel(isUp)
+        mIptvLive.zapChannel(sharedPreferences.getInt("streamId", -1), isUp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> {
