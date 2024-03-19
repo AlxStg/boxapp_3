@@ -281,7 +281,7 @@
                 android:id="@+id/textView65"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{stream.num > 0 ? String.format(`%02d`, stream.num) : ``}"
+                android:text="@{stream.num > 0 ? String.format(`%03d`, stream.num) : ``}"
                 android:textColor="#FFFFFF"
                 android:textSize="34sp"
                 android:textStyle="bold"
