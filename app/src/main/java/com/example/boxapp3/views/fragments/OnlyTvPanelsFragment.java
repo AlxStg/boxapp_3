@@ -59,10 +59,17 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
     private Runnable categoriesRunnable;
     private String epgChannelId = "";
     private SharedPreferences mSharedPreferences;
+    private boolean showEpg = false;
 
     public OnlyTvPanelsFragment(OnlyTvActivityListener listener, IptvLive iptvLive) {
         this.listener = listener;
         this.mIptvLive = iptvLive;
+    }
+
+    public OnlyTvPanelsFragment(OnlyTvActivityListener listener, IptvLive iptvLive, boolean showEpg) {
+        this.listener = listener;
+        this.mIptvLive = iptvLive;
+        this.showEpg = showEpg;
     }
 
     @Nullable
@@ -210,6 +217,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                             mBinding.include3.listChannels.scrollToPosition(position);
                             mBinding.include3.listChannels.setSelectedPosition(position);
                             ((GenericAdapter<StreamXc, ScrollTvChannelItemBinding>) mBinding.include3.listChannels.getAdapter()).handleSelection(position);
+                            openEpgIfRequested(streamId);
 
                             mBinding.include3.listChannels.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                                 @Override
@@ -218,10 +226,26 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                     mBinding.include3.listChannels.scrollToPosition(position);
                                     mBinding.include3.listChannels.setSelectedPosition(position);
                                     ((GenericAdapter<StreamXc, ScrollTvChannelItemBinding>) mBinding.include3.listChannels.getAdapter()).handleSelection(position);
+                                    openEpgIfRequested(streamId);
                                 }
                             });
                         })
                         .subscribe();
+    }
+
+    private void openEpgIfRequested(int streamId) {
+        if(showEpg){
+            mIptvLive.getChannel(streamId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnError(th -> Log.e("TAG", "openEpgIfRequested: ", th))
+                    .doOnSuccess(streamXc -> {
+                        loadEpg(streamXc);
+                        showEpgLayout(true);
+                        mBinding.include4.listEpg.requestFocus();
+                    })
+                    .subscribe();
+        }
     }
 
     private int epgAlreadyLoaded = -1;

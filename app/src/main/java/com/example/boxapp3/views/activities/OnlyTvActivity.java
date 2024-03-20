@@ -31,9 +31,6 @@ import com.example.boxapp3.views.fragments.OnlyTvPanelsFragment;
 import com.example.boxapp3.views.fragments.OnlyTvSearchFragment;
 import com.example.boxapp3.views.fragments.RemindersListFragment;
 import com.example.boxapp3.views.fragments.SportFragment;
-import com.example.boxapp3.views.fragments.TvFragment;
-import com.example.boxapp3.views.fragments.players.tv.PlayerTvChannelInfoFragment;
-import com.example.boxapp3.views.fragments.players.tv.PlayerTvPanelsFragment;
 import com.example.iptvsdk.common.IptvSettings;
 import com.example.iptvsdk.common.centerContent.CenterContent;
 import com.example.iptvsdk.common.centerContent.EmptyFragment;
@@ -52,7 +49,6 @@ import com.example.iptvsdk.ui.reminder.IptvReminder;
 import com.example.iptvsdk.utils.ViewUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -311,7 +307,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 if (isZapping || (!mModel.getShowMenu() && !(mCenterContent.getCurrentFragment()
                         instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
-                        instanceof MobileAppFragment))) {
+                        instanceof MobileAppFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof OnlyTvChannelInfoFragment))) {
                     zapChannel(false);
                     return true;
                 }
@@ -337,7 +334,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 if (isZapping || (!mModel.getShowMenu() && !(mCenterContent.getCurrentFragment()
                         instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
-                        instanceof MobileAppFragment))) {
+                        instanceof MobileAppFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof OnlyTvChannelInfoFragment))) {
                     zapChannel(true);
                     return true;
                 }
@@ -600,6 +598,19 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     }
 
     @Override
+    public void onShowEpg() {
+        mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive, true));
+    }
+
+    @Override
+    public void onBtnFocused() {
+        if(channelInfoHandler == null || channelInfoRunnable == null)
+            return;
+        channelInfoHandler.removeCallbacks(channelInfoRunnable);
+        channelInfoHandler.postDelayed(channelInfoRunnable, 5000);
+    }
+
+    @Override
     public void modalReminderWatch(int streamId) {
         mModel.setShowModalRemember(false);
         mIptvLive.getChannel(streamId)
@@ -625,7 +636,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     private Handler menuFocusHandler = new Handler();
     private Runnable menuFocusRunnable;
     @Override
-    public void onMenuFocused(String menuName) {
+    public void onCanMenuFocused(String menuName) {
         if(menuFocusRunnable != null)
             menuFocusHandler.removeCallbacks(menuFocusRunnable);
 

@@ -19,6 +19,7 @@ public class OnlyTvActivityModel extends BaseObservable {
     private boolean showLoadingPlayer = false;
     private boolean showSpeed = false;
     private boolean menuEnabled = false;
+    private boolean seekbarEnabled = false;
     private String actualMenu = "home";
     private String search = "";
     private String mobileCode = "";

@@ -23,7 +23,19 @@
 
         <variable
             name="listener"
+            type="com.example.boxapp3.listeners.fragments.OnlyTvChannelInfoFragmentListener" />
+
+        <variable
+            name="activityListener"
             type="com.example.boxapp3.listeners.activities.OnlyTvActivityListener" />
+
+        <variable
+            name="seekbarCanFocus"
+            type="Boolean" />
+
+        <variable
+            name="isFavorite"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="60dp"
-                android:text="Favorito"
+                android:text="@{isFavorite ? `Favorito` : `Adicionar aos Favoritos`}"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView7"
@@ -80,6 +92,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="20dp"
+                android:clickable="@{seekbarCanFocus}"
+                android:focusable="@{seekbarCanFocus}"
                 android:progress="@{percentageActualProgramme}"
                 android:progressBackgroundTint="#FFFFFF"
                 android:progressTint="@color/default_primary_color"
@@ -137,13 +151,16 @@
                 android:background="@drawable/bg_btn_player_tv"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="@{() -> listener.onShowPanels()}"
+                android:nextFocusLeft="@id/textView71"
+                android:nextFocusRight="@id/imageView7"
+                android:nextFocusUp="@id/seekBar_movies"
+                android:onClick="@{() -> listener.onFavoriteClicked()}"
                 android:padding="5dp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/textView75"
                 app:layout_constraintEnd_toStartOf="@+id/textView75"
                 app:layout_constraintTop_toTopOf="@+id/textView75"
-                app:srcCompat="@drawable/baseline_favorite_24" />
+                app:loadImageDrawable="@{isFavorite ? @drawable/baseline_favorite_24 : @drawable/icon_favorite}" />
 
             <ImageView
                 android:id="@+id/imageView7"
@@ -154,7 +171,9 @@
                 android:background="@drawable/bg_btn_player_tv"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="@{() -> listener.onShowPanels()}"
+                android:nextFocusLeft="@id/imageView72"
+                android:nextFocusUp="@id/seekBar_movies"
+                android:onClick="@{() -> activityListener.onShowEpg()}"
                 android:padding="5dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toStartOf="@+id/textView30"
@@ -406,6 +425,10 @@
                 android:id="@+id/textView71"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:nextFocusRight="@id/imageView72"
+                android:nextFocusUp="@id/seekBar_movies"
                 android:text="Função Seleção"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"

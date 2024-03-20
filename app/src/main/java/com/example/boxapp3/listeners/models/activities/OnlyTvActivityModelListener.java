@@ -12,5 +12,5 @@ public interface OnlyTvActivityModelListener {
     void modalReminderWatch(int streamId);
     void modalReminderClose();
     void modalReminderSportClose();
-    void onMenuFocused(String menuName);
+    void onCanMenuFocused(String menuName);
 }
