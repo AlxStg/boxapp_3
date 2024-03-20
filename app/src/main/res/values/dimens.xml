@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="with_channel_list_normal">350dp</dimen>
+    <dimen name="with_channel_list_opened">550dp</dimen>
+</resources>
