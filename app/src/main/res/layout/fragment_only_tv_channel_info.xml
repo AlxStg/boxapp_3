@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="60dp"
-                android:text="@{isFavorite ? `Favorito` : `Adicionar aos Favoritos`}"
+                android:text="@{isFavorite ? `Favorito` : `Favoritar`}"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView7"

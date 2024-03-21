@@ -29,6 +29,7 @@ import com.example.boxapp3.views.fragments.MobileAppFragment;
 import com.example.boxapp3.views.fragments.OnlyTvChannelInfoFragment;
 import com.example.boxapp3.views.fragments.OnlyTvPanelsFragment;
 import com.example.boxapp3.views.fragments.OnlyTvSearchFragment;
+import com.example.boxapp3.views.fragments.ParentalFragment;
 import com.example.boxapp3.views.fragments.RemindersListFragment;
 import com.example.boxapp3.views.fragments.SportFragment;
 import com.example.iptvsdk.common.IptvSettings;
@@ -122,9 +123,15 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         streamId = sharedPreferences.getInt("streamId", -1);
 
         if (streamId != -1) {
+            mModel.setShowMenu(false);
             mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
             showChannelInfo();
+        } else {
+            mModel.setShowMenu(true);
+            mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
         }
+
+
         ViewUtils.listenFocus(this, new ViewUtils.FocusListener() {
             @Override
             public void onFocus(View view, String viewName) {
@@ -308,7 +315,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                         instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof MobileAppFragment) && !(mCenterContent.getCurrentFragment()
-                        instanceof OnlyTvChannelInfoFragment))) {
+                        instanceof OnlyTvChannelInfoFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof ParentalFragment))) {
                     zapChannel(false);
                     return true;
                 }
@@ -335,7 +343,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                         instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof MobileAppFragment) && !(mCenterContent.getCurrentFragment()
-                        instanceof OnlyTvChannelInfoFragment))) {
+                        instanceof OnlyTvChannelInfoFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof ParentalFragment))) {
                     zapChannel(true);
                     return true;
                 }
@@ -417,6 +426,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mCenterContent.addFragment("sports", new SportFragment());
         mCenterContent.addFragment("mobile", new MobileAppFragment());
         mCenterContent.addFragment("remember", new RemindersListFragment());
+
     }
 
     @Override
@@ -562,9 +572,11 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
             return;
         } else {
             if (!adultAccessibile) {
-                mBinding.include.setRegisterPassword(!mIptvParental.hasPassword());
-                mModel.setShowModalAdult(true);
-                mBinding.include.editTextText2.requestFocus();
+                mModel.setMenuEnabled(false);
+                mCenterContent.changeFragement(new ParentalFragment(this));
+                //mBinding.include.setRegisterPassword(!mIptvParental.hasPassword());
+                //mModel.setShowModalAdult(true);
+                //mBinding.include.editTextText2.requestFocus();
                 return;
             } else {
                 mModel.setShowModalAdult(false);
@@ -611,6 +623,17 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     }
 
     @Override
+    public void onAllowAdultContent() {
+        mModel.setShowModalAdult(false);
+        saveLimitAdult();
+        mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
+        if (mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener) {
+            ((OnlyTvPanelsFragmentListener) mCenterContent.getCurrentFragment())
+                    .onCategorySelected(Integer.parseInt(selectedAdultCategory.getCategoryId()));
+        }
+    }
+
+    @Override
     public void modalReminderWatch(int streamId) {
         mModel.setShowModalRemember(false);
         mIptvLive.getChannel(streamId)
@@ -637,6 +660,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     private Runnable menuFocusRunnable;
     @Override
     public void onCanMenuFocused(String menuName) {
+        if(!mModel.getMenuEnabled())
+            return;
         if(menuFocusRunnable != null)
             menuFocusHandler.removeCallbacks(menuFocusRunnable);
 

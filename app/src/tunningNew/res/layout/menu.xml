@@ -38,7 +38,8 @@
                 android:layout_height="30dp"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
-                android:src="@drawable/logo_top_menu" />
+                android:src="@drawable/logo_top_menu"
+                android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.GONE}"/>
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -104,7 +105,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.GONE'}" />
+                    android:visibility="@{model.showMenuLabels ? View.VISIBLE : View.GONE}" />
             </LinearLayout>
 
             <LinearLayout

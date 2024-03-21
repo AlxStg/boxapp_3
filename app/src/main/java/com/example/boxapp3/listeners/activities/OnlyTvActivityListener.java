@@ -15,4 +15,5 @@ public interface OnlyTvActivityListener {
     void onChangeMenuEnabled(boolean enabled);
     void onShowEpg();
     void onBtnFocused();
+    void onAllowAdultContent();
 }
