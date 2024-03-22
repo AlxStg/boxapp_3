@@ -41,7 +41,7 @@ import com.example.iptvsdk.utils.ViewUtils;
 import java.util.ArrayList;
 
 
-public class MainActivity extends BaseActivity implements MainActivityListener, MainActivityModelListener {
+public class MainActivity extends com.example.boxapp3.views.activities.CustomMainActivity implements MainActivityListener, MainActivityModelListener {
 
     private ActivityMainBinding mBinding;
 
