@@ -2,6 +2,7 @@ package com.example.boxapp3.views.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -74,6 +75,11 @@ public class SplashActivity extends BaseActivity {
         if(BuildConfig.FLAVOR.equals("tunningNew")){
             showLoadingBalls(true);
         }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("limitAdult");
+        editor.apply();
 
     }
 

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent=".48"
-            app:percentage="@{model.showEpg ? .97f : .5f }"/>
+            app:percentage="@{model.showEpg ? .97f : .6f }"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -69,6 +69,7 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/imageView27"
@@ -117,9 +118,10 @@
                 android:id="@+id/imageView27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:visibility="@{ !model.showEpg ? View.VISIBLE : View.GONE }"
                 app:layout_constraintBottom_toBottomOf="@+id/include3"
-                app:layout_constraintStart_toStartOf="@+id/include4"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/include3"
                 app:srcCompat="@drawable/arrow_epg" />
         </androidx.constraintlayout.widget.ConstraintLayout>

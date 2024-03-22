@@ -100,7 +100,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
         mBinding.include3.listChannels.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                if(mBinding.include3.listChannels.getAdapter() != null && mBinding.include3.listChannels.getAdapter().getItemCount() > 0)
+                if (mBinding.include3.listChannels.getAdapter() != null && mBinding.include3.listChannels.getAdapter().getItemCount() > 0)
                     mBinding.include3.listChannels.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
                 mBinding.include3.listChannels.requestFocus();
@@ -120,7 +120,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
             @Override
             public Single<StreamXc> getItem(int position) {
                 Single<StreamXc> channel = mIptvLive.getChannels(position);
-                if(position == 0) {
+                if (position == 0) {
                     //selectChannelPosition();
                     if (!loadedFirstEpg) {
                         loadedFirstEpg = true;
@@ -164,7 +164,8 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
 
                 binding.getRoot().setOnClickListener(v -> {
                     listener.playChannel(item);
-                    mSharedPreferences.edit().putInt("streamId", item.getStreamId()).apply();
+                    if (!item.isAdult())
+                        mSharedPreferences.edit().putInt("streamId", item.getStreamId()).apply();
                     saveListPostion("listChannels", bindingAdapterPosition, item.getName());
                 });
 
@@ -208,33 +209,33 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
     private void selectChannelPosition() {
         int streamId = mSharedPreferences.getInt("streamId", -1);
         if (streamId != -1)
-          mIptvLive.getPositionByStreamId(streamId)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                  .doOnError(th -> Log.e("TAG", "setupChannels: ", th))
-                        .doOnSuccess(position -> {
-                            Log.d("TAG", "selectChannelPosition: " + position);
-                            mBinding.include3.listChannels.scrollToPosition(position);
-                            mBinding.include3.listChannels.setSelectedPosition(position);
-                            ((GenericAdapter<StreamXc, ScrollTvChannelItemBinding>) mBinding.include3.listChannels.getAdapter()).handleSelection(position);
-                            openEpgIfRequested(streamId);
+            mIptvLive.getPositionByStreamId(streamId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnError(th -> Log.e("TAG", "setupChannels: ", th))
+                    .doOnSuccess(position -> {
+                        Log.d("TAG", "selectChannelPosition: " + position);
+                        mBinding.include3.listChannels.scrollToPosition(position);
+                        mBinding.include3.listChannels.setSelectedPosition(position);
+                        ((GenericAdapter<StreamXc, ScrollTvChannelItemBinding>) mBinding.include3.listChannels.getAdapter()).handleSelection(position);
+                        openEpgIfRequested(streamId);
 
-                            mBinding.include3.listChannels.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                                @Override
-                                public void onGlobalLayout() {
-                                    mBinding.include3.listChannels.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                                    mBinding.include3.listChannels.scrollToPosition(position);
-                                    mBinding.include3.listChannels.setSelectedPosition(position);
-                                    ((GenericAdapter<StreamXc, ScrollTvChannelItemBinding>) mBinding.include3.listChannels.getAdapter()).handleSelection(position);
-                                    openEpgIfRequested(streamId);
-                                }
-                            });
-                        })
-                        .subscribe();
+                        mBinding.include3.listChannels.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                mBinding.include3.listChannels.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                mBinding.include3.listChannels.scrollToPosition(position);
+                                mBinding.include3.listChannels.setSelectedPosition(position);
+                                ((GenericAdapter<StreamXc, ScrollTvChannelItemBinding>) mBinding.include3.listChannels.getAdapter()).handleSelection(position);
+                                openEpgIfRequested(streamId);
+                            }
+                        });
+                    })
+                    .subscribe();
     }
 
     private void openEpgIfRequested(int streamId) {
-        if(showEpg){
+        if (showEpg) {
             mIptvLive.getChannel(streamId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -568,9 +569,14 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                                     mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
                                                     mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
                                                     ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));
+                                                } else {
+                                                    mIptvLive.setCategoryByName(getContext().getString(com.example.iptvsdk.R.string.all));
+                                                    mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
+                                                    mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
+                                                    ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));
                                                 }
                                             } else {
-                                                mIptvLive.setCategoryByName(getLastItem("listCategories"));
+                                                mIptvLive.setCategoryByName(getContext().getString(com.example.iptvsdk.R.string.all));
                                                 mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
                                                 mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
                                                 ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));

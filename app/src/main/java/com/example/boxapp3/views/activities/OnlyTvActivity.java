@@ -542,19 +542,19 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         this.stream = stream;
         this.streamId = stream.getStreamId();
         mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
-        mIptvLive.isStreamAdult(streamId)
+        mIptvLive.getChannel(streamId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(isAdult -> {
-                    if (!isAdult) {
+                .doOnSuccess(streamXc -> {
+                    if (!streamXc.isAdult()) {
                         mStreamPlayedDurationService.insertOrUpdate(streamId, mIptvExoPlayer.getCurrentPosition(), StreamXc.TYPE_STREAM_LIVE);
+                        sharedPreferences.edit().putInt("streamId", streamId).apply();
                     }
                 })
                 .doOnError(throwable -> {
                     Log.e("PlayerTvActivity", "playChannel: ", throwable);
                 })
                 .subscribe();
-        sharedPreferences.edit().putInt("streamId", streamId).apply();
 
         showChannelInfo();
     }

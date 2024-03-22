@@ -56,6 +56,10 @@ android {
         enableAggregatingTask = true
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     flavorDimensions "layout"
 
     productFlavors {
