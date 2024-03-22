@@ -6,7 +6,7 @@
     <color name="selected_background">#ffaa3f</color>
     <color name="default_background">#000000</color>
     <color name="default_secondary_color">#FB953C</color>
-    <color name="default_primary_color">#FF0000</color>
+    <color name="default_primary_color">#00072B</color>
     <color name="tranparent">#00000000</color>
     <color name="cyan">#00F7FF</color>
     <color name="black">#000000</color>
