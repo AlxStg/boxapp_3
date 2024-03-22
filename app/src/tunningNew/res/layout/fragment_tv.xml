@@ -13,95 +13,116 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@color/default_background"
-        android:backgroundTintMode="add"
-        android:paddingStart="20dp">
-        <!--ggs-->
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView47"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_epg_data"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:visibility="@{model.showNoEpgData ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".48"
+            app:percentage="@{model.showEpg ? .97f : .6f }"/>
 
-        <include
-            android:id="@+id/include2"
-            layout="@layout/scroll_tv_category"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:visibility="@{!model.showEpg ? View.VISIBLE : View.GONE}"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="36dp"
+            android:background="@color/default_background"
+            android:backgroundTintMode="add"
+            android:paddingStart="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent">
+            <!--ggs-->
 
-        <include
-            android:id="@+id/include3"
-            layout="@layout/scroll_tv_channels"
-            android:layout_width="350dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/include2"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView47"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_epg_data"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:visibility="@{model.showNoEpgData ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/include4"
-            layout="@layout/scroll_tv_egp"
-            android:layout_width="630dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="20dp"
-            android:visibility="@{model.showEpg ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/include3"
-            app:layout_constraintTop_toTopOf="parent" />
+            <include
+                android:id="@+id/include2"
+                layout="@layout/scroll_tv_category"
+                android:layout_width="250dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="@{!model.showEpg ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
-        <include
-            android:id="@+id/include25"
-            layout="@layout/menu_options_epg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:visibility="@{model.showChannelOptions ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/include3"
-            app:layout_constraintTop_toTopOf="parent" />
+            <include
+                android:id="@+id/include3"
+                layout="@layout/scroll_tv_channels"
+                android:layout_width="350dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/include2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_width="@{model.showEpg ? @dimen/with_channel_list_opened : @dimen/with_channel_list_normal}" />
 
-        <ImageView
-            android:id="@+id/imageView28"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{ model.showEpg ? View.VISIBLE : View.GONE }"
-            app:layout_constraintBottom_toBottomOf="@+id/include3"
-            app:layout_constraintEnd_toStartOf="@+id/include3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/include3"
-            app:srcCompat="@drawable/arrow_channel_list" />
+            <include
+                android:id="@+id/include4"
+                layout="@layout/scroll_tv_egp"
+                android:layout_width="630dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="@{model.showEpg ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/include3"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView27"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{ !model.showEpg ? View.VISIBLE : View.GONE }"
-            app:layout_constraintBottom_toBottomOf="@+id/include3"
-            app:layout_constraintStart_toStartOf="@+id/include4"
-            app:layout_constraintTop_toTopOf="@+id/include3"
-            app:srcCompat="@drawable/arrow_epg" />
+            <include
+                android:id="@+id/include25"
+                layout="@layout/menu_options_epg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="@{model.showChannelOptions ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/include3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:visibility="@{ model.showEpg ? View.VISIBLE : View.GONE }"
+                app:layout_constraintBottom_toBottomOf="@+id/include3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/include3"
+                app:srcCompat="@drawable/arrow_channel_list" />
+
+            <ImageView
+                android:id="@+id/imageView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:visibility="@{ !model.showEpg ? View.VISIBLE : View.GONE }"
+                app:layout_constraintBottom_toBottomOf="@+id/include3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/include3"
+                app:srcCompat="@drawable/arrow_epg" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

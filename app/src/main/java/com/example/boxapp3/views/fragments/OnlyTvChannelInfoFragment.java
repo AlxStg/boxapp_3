@@ -2,37 +2,38 @@ package com.example.boxapp3.views.fragments;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.boxapp3.databinding.FragmentOnlyTvChannelInfoBinding;
-import com.example.boxapp3.databinding.PlayerControlsTvBinding;
-import com.example.boxapp3.databinding.PlayerTimelineItemBinding;
 import com.example.boxapp3.listeners.activities.OnlyTvActivityListener;
-import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
-import com.example.iptvsdk.data.models.EpgDb;
+import com.example.boxapp3.listeners.fragments.KeyListener;
+import com.example.boxapp3.listeners.fragments.OnlyTvChannelInfoFragmentListener;
+import com.example.iptvsdk.data.models.xtream.StreamXc;
+import com.example.iptvsdk.ui.favorite.IptvFavorite;
 import com.example.iptvsdk.ui.live.IptvLive;
 import com.example.iptvsdk.utils.DateUtils;
+import com.example.iptvsdk.utils.ViewUtils;
 
 import java.util.Date;
 
-import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class OnlyTvChannelInfoFragment extends Fragment {
+public class OnlyTvChannelInfoFragment extends Fragment implements KeyListener, OnlyTvChannelInfoFragmentListener {
 
     private IptvLive mIptvLive;
+    private IptvFavorite mIptvFavorite;
     private OnlyTvActivityListener listener;
     private FragmentOnlyTvChannelInfoBinding mBinding;
     private int streamId;
+    private StreamXc stream;
     private boolean isZapping;
 
 
@@ -42,13 +43,14 @@ public class OnlyTvChannelInfoFragment extends Fragment {
         this.listener = listener;
         this.mIptvLive = iptvLive;
         this.isZapping = isZapping;
+        this.listener = listener;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentOnlyTvChannelInfoBinding.inflate(inflater, container, false);
-        mBinding.setListener(listener);
+        mBinding.setListener(this);
         mBinding.textView23.setFormat24Hour("dd/MM/yyyy - HH:mm:ss");
         return mBinding.getRoot();
     }
@@ -57,12 +59,24 @@ public class OnlyTvChannelInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mIptvFavorite = new IptvFavorite(getContext());
 
         mIptvLive.getChannel(streamId)
                 .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                 .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
                 .doOnSuccess(streamXc -> {
+                    this.stream = streamXc;
                     mBinding.setStream(streamXc);
+                    mIptvFavorite.isFavorite(streamXc)
+                            .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                            .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+                            .doOnSuccess(aBoolean -> {
+                                mBinding.setIsFavorite(aBoolean);
+                            })
+                            .doOnError(throwable -> {
+                                Log.e("PlayerTvChannelInfo", "Error getting favorite", throwable);
+                            })
+                            .subscribe();
                     mIptvLive.getActualEpg(streamXc)
                             .subscribeOn(io.reactivex.schedulers.Schedulers.io())
                             .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
@@ -90,5 +104,59 @@ public class OnlyTvChannelInfoFragment extends Fragment {
                     Log.e("PlayerTvChannelInfo", "Error getting channel", throwable);
                 })
                 .subscribe();
+
+        mBinding.setSeekbarCanFocus(false);
+        mBinding.textView71.requestFocus();
+
+        ViewUtils.listenFocus(this, (view1, viewName) -> {
+            if(view1 != null) {
+                if(view1.getId() == mBinding.imageView72.getId()
+                        || view1.getId() == mBinding.imageView7.getId()) {
+                    listener.onBtnFocused();
+                }
+            }
+
+        });
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if(!mBinding.getSeekbarCanFocus())
+            mBinding.setSeekbarCanFocus(true);
+        if(event.getAction() == KeyEvent.ACTION_DOWN) {
+            if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                if (mBinding.imageView72.hasFocus()){
+                    onFavoriteClicked();
+                    return true;
+                }
+                if(mBinding.imageView7.hasFocus()){
+                    listener.onShowEpg();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void onFavoriteClicked() {
+        if(stream == null)
+            return;
+        mBinding.setIsFavorite(!mBinding.getIsFavorite());
+        mIptvFavorite.toggleFavorite(stream)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess(aBoolean -> {
+                    mBinding.setIsFavorite(aBoolean);
+                })
+                .doOnError(throwable -> {
+                    Log.e("PlayerTvChannelInfo", "Error toggling favorite", throwable);
+                })
+                .subscribe();
+    }
+
+    @Override
+    public void onEpgClicked() {
+
     }
 }

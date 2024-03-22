@@ -23,22 +23,47 @@
 
         <variable
             name="listener"
+            type="com.example.boxapp3.listeners.fragments.OnlyTvChannelInfoFragmentListener" />
+
+        <variable
+            name="activityListener"
             type="com.example.boxapp3.listeners.activities.OnlyTvActivityListener" />
+
+        <variable
+            name="seekbarCanFocus"
+            type="Boolean" />
+
+        <variable
+            name="isFavorite"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@color/default_background"
             android:backgroundTint="#B31B1B1B"
-            android:padding="20dp"
+            android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/textView75"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="60dp"
+                android:text="@{isFavorite ? `Favorito` : `Favoritar`}"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                app:layout_constraintEnd_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toTopOf="@+id/imageView7" />
 
             <ImageView
                 android:id="@+id/imageView12"
@@ -67,6 +92,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="20dp"
+                android:clickable="@{seekbarCanFocus}"
+                android:focusable="@{seekbarCanFocus}"
                 android:progress="@{percentageActualProgramme}"
                 android:progressBackgroundTint="#FFFFFF"
                 android:progressTint="@color/default_primary_color"
@@ -117,19 +144,40 @@
                 tools:text="09:00" />
 
             <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/imageView72"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/bg_btn_player_tv"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="@{() -> listener.onShowPanels()}"
-                android:padding="2dp"
+                android:nextFocusLeft="@id/textView71"
+                android:nextFocusRight="@id/imageView7"
+                android:nextFocusUp="@id/seekBar_movies"
+                android:onClick="@{() -> listener.onFavoriteClicked()}"
+                android:padding="5dp"
                 android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@+id/textView30"
+                app:layout_constraintBottom_toBottomOf="@+id/textView75"
+                app:layout_constraintEnd_toStartOf="@+id/textView75"
+                app:layout_constraintTop_toTopOf="@+id/textView75"
+                app:loadImageDrawable="@{isFavorite ? @drawable/baseline_favorite_24 : @drawable/icon_favorite}" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_btn_player_tv"
+                android:clickable="true"
+                android:focusable="true"
+                android:nextFocusLeft="@id/imageView72"
+                android:nextFocusUp="@id/seekBar_movies"
+                android:onClick="@{() -> activityListener.onShowEpg()}"
+                android:padding="5dp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toStartOf="@+id/textView30"
-                app:layout_constraintTop_toTopOf="@+id/textView30"
+                app:layout_constraintTop_toBottomOf="@+id/textView70"
                 app:srcCompat="@drawable/baseline_density_small_24" />
 
             <ImageView
@@ -216,16 +264,15 @@
                 android:id="@+id/textView30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
                 android:gravity="top"
                 android:text="EPG"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
                 app:layout_constraintEnd_toEndOf="@+id/textView69"
-                app:layout_constraintTop_toBottomOf="@+id/textView69"
+                app:layout_constraintTop_toTopOf="@+id/imageView7"
                 tools:ignore="RtlCompat" />
 
             <TextView
@@ -283,7 +330,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{stream.num > 0 ? String.format(`%03d`, stream.num) : ``}"
                 android:textColor="#FFFFFF"
-                android:textSize="34sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
                 app:layout_constraintTop_toTopOf="@+id/imageView12" />
@@ -296,7 +343,7 @@
                 android:text="@{stream.name}"
 
                 android:textColor="#FFFFFF"
-                android:textSize="26sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textView65"
                 app:layout_constraintStart_toEndOf="@+id/textView65"
@@ -307,10 +354,11 @@
                 android:id="@+id/textView67"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
                 android:text="Agora: "
                 android:textColor="#FFFFFF"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
                 app:layout_constraintTop_toBottomOf="@+id/seekBar_movies" />
@@ -320,10 +368,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:text="@{epg.title}"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textView67"
                 app:layout_constraintStart_toEndOf="@+id/textView67"
                 app:layout_constraintTop_toTopOf="@+id/textView67"
@@ -333,11 +381,12 @@
                 android:id="@+id/textView69"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="8dp"
                 android:text="@{nextEpg.title}"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
                 app:layout_constraintTop_toBottomOf="@+id/seekBar_movies"
                 tools:text="Flash" />
@@ -349,7 +398,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="Depois: "
                 android:textColor="#FFFFFF"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textView69"
                 app:layout_constraintEnd_toStartOf="@+id/textView69"
@@ -359,7 +408,7 @@
                 android:id="@+id/imageView28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="@+id/textView67"
                 app:layout_constraintTop_toBottomOf="@+id/textView67"
                 app:srcCompat="@drawable/arrow_left" />
@@ -376,6 +425,10 @@
                 android:id="@+id/textView71"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:nextFocusRight="@id/imageView72"
+                android:nextFocusUp="@id/seekBar_movies"
                 android:text="Função Seleção"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"

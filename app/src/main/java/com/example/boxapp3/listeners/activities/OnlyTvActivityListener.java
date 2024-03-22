@@ -13,4 +13,8 @@ public interface OnlyTvActivityListener {
     void onPlayback(int streamId, Date dateStart);
     void onShowPanels();
     void onChangeMenuEnabled(boolean enabled);
+    void onShowEpg();
+    void onBtnFocused();
+    void onAllowAdultContent();
+    void onShowChannelPanels();
 }

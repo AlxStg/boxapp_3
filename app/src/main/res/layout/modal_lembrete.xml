@@ -92,7 +92,6 @@
                 android:textStyle="bold"
                 android:onClick="@{() ->  listener.modalReminderWatch(model.streamId)}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_yes_remember"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout11" />
 

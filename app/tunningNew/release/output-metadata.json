@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.tunningtv.boxapp3",
+  "applicationId": "com.tuning.app",
   "variantName": "tunningNewRelease",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 1,
-      "versionName": "1.0",
+      "versionCode": 20,
+      "versionName": "2.0.0",
       "outputFile": "app-tunningNew-release.apk"
     }
   ],

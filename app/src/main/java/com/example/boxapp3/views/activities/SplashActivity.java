@@ -2,6 +2,7 @@ package com.example.boxapp3.views.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -66,6 +67,11 @@ public class SplashActivity extends CustomSplashActivity {
         }, false);
         removerColumnsSaved();
 
+
+        SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("limitAdult");
+        editor.apply();
 
     }
 
