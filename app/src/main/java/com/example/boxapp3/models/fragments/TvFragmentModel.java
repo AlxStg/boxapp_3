@@ -3,12 +3,23 @@ package com.example.boxapp3.models.fragments;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import com.example.boxapp3.listeners.models.fragments.TvFragmentModelListener;
+
 public class TvFragmentModel extends BaseObservable {
 
     private boolean showNoEpgData = false;
 
     private boolean showEpg = false;
     private boolean showChannelOptions = true;
+
+    private TvFragmentModelListener listener;
+
+    public TvFragmentModel() {
+    }
+
+    public TvFragmentModel(TvFragmentModelListener listener) {
+        this.listener = listener;
+    }
 
     @Bindable
     public boolean isShowNoEpgData() {

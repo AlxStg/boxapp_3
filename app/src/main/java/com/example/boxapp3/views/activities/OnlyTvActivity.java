@@ -634,6 +634,12 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     }
 
     @Override
+    public void onShowChannelPanels() {
+        mModel.setShowMenu(true);
+        mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
+    }
+
+    @Override
     public void modalReminderWatch(int streamId) {
         mModel.setShowModalRemember(false);
         mIptvLive.getChannel(streamId)

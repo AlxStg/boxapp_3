@@ -23,6 +23,7 @@ import com.example.boxapp3.databinding.ScrollTvEpgItemBinding;
 import com.example.boxapp3.listeners.activities.OnlyTvActivityListener;
 import com.example.boxapp3.listeners.fragments.KeyListener;
 import com.example.boxapp3.listeners.fragments.OnlyTvPanelsFragmentListener;
+import com.example.boxapp3.listeners.models.fragments.TvFragmentModelListener;
 import com.example.boxapp3.models.adapters.ItemEpgDateModel;
 import com.example.boxapp3.models.fragments.TvFragmentModel;
 import com.example.boxapp3.models.fragments.players.tv.EpgPanelModel;
@@ -78,7 +79,12 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
         mBinding = FragmentTvBinding.inflate(inflater, container, false);
         mIptvReminder = new IptvReminder(getContext());
         mIptvFavorite = new IptvFavorite(getContext());
-        mModel = new TvFragmentModel();
+        mModel = new TvFragmentModel(new TvFragmentModelListener() {
+            @Override
+            public void onShowEpg(boolean showEpg) {
+//                changeStartConstraintChannel(showEpg);
+            }
+        });
 
         mBinding.setModel(mModel);
 
@@ -214,6 +220,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(th -> Log.e("TAG", "setupChannels: ", th))
                     .doOnSuccess(position -> {
+                        if(position == -1) return;
                         Log.d("TAG", "selectChannelPosition: " + position);
                         mBinding.include3.listChannels.scrollToPosition(position);
                         mBinding.include3.listChannels.setSelectedPosition(position);
