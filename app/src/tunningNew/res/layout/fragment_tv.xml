@@ -14,8 +14,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF">
+        android:layout_height="match_parent">
         <!--ggs-->
 
         <TextView
@@ -33,39 +32,35 @@
         <include
             android:id="@+id/include2"
             layout="@layout/scroll_tv_category"
-            android:layout_width="wrap_content"
+            android:layout_width="350dp"
             android:layout_height="0dp"
-            android:layout_marginTop="2dp"
             android:visibility="@{!model.showEpg ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
 
         <include
             android:id="@+id/include3"
             layout="@layout/scroll_tv_channels"
-            android:layout_width="350dp"
+            android:layout_width="510dp"
             android:layout_height="0dp"
-            android:layout_marginTop="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView28"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
         <include
             android:id="@+id/include4"
             layout="@layout/scroll_tv_egp"
             android:layout_width="630dp"
             android:layout_height="0dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
             android:visibility="@{model.showEpg ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/include3"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/include25"
@@ -84,7 +79,7 @@
             android:id="@+id/imageView28"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:background="#000"
+            android:background="@color/bg_cinza_60"
             android:visibility="@{ model.showEpg ? View.VISIBLE : View.GONE }"
             app:layout_constraintBottom_toBottomOf="@+id/include3"
             app:layout_constraintStart_toEndOf="@+id/include2"
@@ -96,7 +91,7 @@
             android:id="@+id/imageView27"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:background="#000"
+            android:background="@color/bg_cinza_60"
             android:visibility="@{ !model.showEpg ? View.VISIBLE : View.GONE }"
             app:layout_constraintBottom_toBottomOf="@+id/include3"
             app:layout_constraintStart_toEndOf="@+id/include3"

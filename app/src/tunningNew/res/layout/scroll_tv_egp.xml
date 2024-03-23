@@ -15,7 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000"
+        android:background="@color/bg_cinza_60"
+        android:backgroundTint="#1A000000"
         android:backgroundTintMode="add">
 
         <LinearLayout
@@ -47,7 +48,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:text="Duração:  "
-                    android:textColor="@color/default_primary_color"
+                    android:textColor="#03A9F4"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -84,7 +85,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:text="Programa:  "
-                    android:textColor="@color/default_primary_color"
+                    android:textColor="#03A9F4"
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
@@ -114,36 +115,73 @@
                 android:textSize="16dp" />
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout17"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bar1"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#BFFFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/textView58"
-                android:layout_width="match_parent"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
                 android:text="@{model.selectedMonth}"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/default_primary_color"
+                android:textColor="@color/exo_white"
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/vg_list_epg_date"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout7"
+                app:layout_constraintStart_toEndOf="@+id/bar1"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="mar" />
 
             <androidx.leanback.widget.VerticalGridView
                 android:id="@+id/vg_list_epg_date"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:nextFocusLeft="@id/list_channels"
                 android:nextFocusRight="@id/list_epg"
-                android:padding="15dp" />
-        </LinearLayout>
+                android:padding="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView58"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView58">
+
+            </androidx.leanback.widget.VerticalGridView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout7"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#BFFFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -163,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/guide"
                 android:textAlignment="textStart"
-                android:textColor="@color/default_primary_color"
+                android:textColor="#03A9F4"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

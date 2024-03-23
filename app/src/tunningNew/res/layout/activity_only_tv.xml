@@ -91,27 +91,39 @@
         <include
             android:id="@+id/include_menu"
             layout="@layout/menu"
-            android:layout_width="wrap_content"
+            android:layout_width="350dp"
             android:layout_height="0dp"
-            android:visibility="@{model.showMenu ? View.VISIBLE : View.GONE}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout11"
             app:listener="@{listener}"
             app:model="@{model}" />
 
+        <FrameLayout
+            android:id="@+id/main_active_fragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/include_menu"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+        </FrameLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout11"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:background="#000000"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:id="@+id/linearLayout192"
-                android:layout_width="60dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/bg_button"
@@ -125,8 +137,8 @@
 
                 <ImageView
                     android:id="@+id/imageView342"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
@@ -150,7 +162,7 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout19"
-                android:layout_width="60dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="32dp"
                 android:background="@drawable/bg_button"
@@ -164,16 +176,16 @@
 
                 <ImageView
                     android:id="@+id/imageView34"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
+                    android:duplicateParentState="true"
                     app:srcCompat="@drawable/icon_television_tv_svgrepo_com"
-                    app:tint="@color/topbar_icon"
-                    android:duplicateParentState="true" />
+                    app:tint="@color/topbar_icon" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -191,29 +203,19 @@
                 android:id="@+id/imageView32"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/bg_button"
                 android:clickable="true"
-                android:rotation="90"
+                android:focusable="true"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:rotation="0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/lb_ic_more"
-                android:focusable="true" />
+                app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <FrameLayout
-            android:id="@+id/main_active_fragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/include_menu"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout11"
-            app:layout_constraintVertical_bias="1.0">
-
-        </FrameLayout>
 
         <include
             android:id="@+id/include"
