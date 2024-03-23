@@ -120,16 +120,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         });
 
 
-        streamId = sharedPreferences.getInt("streamId", -1);
-
-        if (streamId != -1) {
-            mModel.setShowMenu(false);
-            mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
-            showChannelInfo();
-        } else {
-            mModel.setShowMenu(true);
-            mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
-        }
+        playPreviousStream();
 
 
         ViewUtils.listenFocus(this, new ViewUtils.FocusListener() {
@@ -202,6 +193,19 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
             }
         });
         showLoadingBalls(true);
+    }
+
+    private void playPreviousStream() {
+        streamId = sharedPreferences.getInt("streamId", -1);
+
+        if (streamId != -1) {
+            mModel.setShowMenu(false);
+            mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
+            showChannelInfo();
+        } else {
+            mModel.setShowMenu(true);
+            mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
+        }
     }
 
     private void checkReminder() {
@@ -315,7 +319,9 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                         instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof MobileAppFragment) && !(mCenterContent.getCurrentFragment()
-                        instanceof OnlyTvChannelInfoFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof OnlyTvChannelInfoFragment &&
+                        !((OnlyTvChannelInfoFragment)mCenterContent.getCurrentFragment()).canMoveDown())
+                        && !(mCenterContent.getCurrentFragment()
                         instanceof ParentalFragment))) {
                     zapChannel(false);
                     return true;
@@ -343,7 +349,9 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                         instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof MobileAppFragment) && !(mCenterContent.getCurrentFragment()
-                        instanceof OnlyTvChannelInfoFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof OnlyTvChannelInfoFragment &&
+                        !((OnlyTvChannelInfoFragment)mCenterContent.getCurrentFragment()).canMoveUp())
+                        && !(mCenterContent.getCurrentFragment()
                         instanceof ParentalFragment))) {
                     zapChannel(true);
                     return true;
@@ -534,6 +542,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
     @Override
     public void playChannel(StreamXc stream) {
+        if(stream == null)
+            return;
         mModel.setShowMenu(false);
         mCenterContent.removeAllFragments();
 
@@ -761,4 +771,44 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         editor.apply();
     }
 
+    private void clearAdultLimit() {
+        if(sharedPreferences == null)
+            sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("limitAdult");
+        editor.apply();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mIptvExoPlayer != null)
+            mIptvExoPlayer.onStart();
+        clearAdultLimit();
+        playPreviousStream();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mIptvExoPlayer != null)
+            mIptvExoPlayer.onResume();
+        clearAdultLimit();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mIptvExoPlayer != null)
+            mIptvExoPlayer.onPause();
+        clearAdultLimit();
+    }
+
+@Override
+    protected void onStop() {
+        super.onStop();
+        if(mIptvExoPlayer != null)
+            mIptvExoPlayer.onStop();
+        clearAdultLimit();
+    }
 }

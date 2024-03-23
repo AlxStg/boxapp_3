@@ -13,6 +13,7 @@ import android.view.ViewTreeObserver;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.boxapp3.BuildConfig;
 import com.example.boxapp3.databinding.EpgItemDateBinding;
@@ -115,6 +116,8 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
     }
 
     private boolean loadedFirstEpg = false;
+    private final Handler loadEpgHandler = new Handler();
+    private Runnable loadEpgRunnable;
 
     private void setupChannels() {
         GenericAdapter<StreamXc, ScrollTvChannelItemBinding> adapter = new GenericAdapter<>(getContext(), new GenericAdapter.GenericAdapterHelper<StreamXc, ScrollTvChannelItemBinding>() {
@@ -151,7 +154,10 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
             }
 
             @Override
-            public void setModelToItem(ScrollTvChannelItemBinding binding, StreamXc item, int bindingAdapterPosition, GenericAdapter<StreamXc, ScrollTvChannelItemBinding> adapter) {
+            public void setModelToItem(ScrollTvChannelItemBinding binding, StreamXc item,
+                                       int bindingAdapterPosition,
+                                       GenericAdapter<StreamXc, ScrollTvChannelItemBinding> adapter) {
+                Log.d("TAG", "position: " + bindingAdapterPosition);
                 binding.setModel(item);
                 mIptvLive.getActualEpg(item)
                         .subscribeOn(Schedulers.io())
@@ -165,7 +171,13 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
 
                 binding.getRoot().setOnFocusChangeListener((v, hasFocus) -> {
                     mBinding.include4.setModel(new EpgPanelModel());
-                    loadEpg(item);
+                    binding.setFocused(hasFocus);
+                    if (loadEpgRunnable != null)
+                        loadEpgHandler.removeCallbacks(loadEpgRunnable);
+
+                    loadEpgRunnable = () -> loadEpg(item);
+
+                    loadEpgHandler.postDelayed(loadEpgRunnable, 1000);
                 });
 
                 binding.getRoot().setOnClickListener(v -> {
@@ -214,13 +226,13 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
 
     private void selectChannelPosition() {
         int streamId = mSharedPreferences.getInt("streamId", -1);
-        if (streamId != -1)
+        if (streamId != -1) {
             mIptvLive.getPositionByStreamId(streamId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(th -> Log.e("TAG", "setupChannels: ", th))
                     .doOnSuccess(position -> {
-                        if(position == -1) return;
+                        if (position == -1) return;
                         Log.d("TAG", "selectChannelPosition: " + position);
                         mBinding.include3.listChannels.scrollToPosition(position);
                         mBinding.include3.listChannels.setSelectedPosition(position);
@@ -239,6 +251,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                         });
                     })
                     .subscribe();
+        }
     }
 
     private void openEpgIfRequested(int streamId) {
@@ -259,7 +272,8 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
     private int epgAlreadyLoaded = -1;
 
     private void loadEpg(StreamXc stream) {
-        if (epgAlreadyLoaded == stream.getStreamId()) return;
+        if (stream == null || epgAlreadyLoaded == stream.getStreamId()) return;
+
 
         epgAlreadyLoaded = stream.getStreamId();
 
@@ -285,11 +299,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .doOnError(th -> Log.e("TAG", "getTotalItems: ", th))
                                 .doOnNext(integer -> {
-                                    if (integer == 0) {
-                                        mModel.setShowNoEpgData(true);
-                                    } else {
-                                        mModel.setShowNoEpgData(false);
-                                    }
+                                    mModel.setShowNoEpgData(integer == 0);
                                 })
                                 .subscribe();
 
@@ -298,6 +308,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
 
                     @Override
                     public void setModelToItem(ScrollTvEpgItemBinding binding, EpgDb item, int bindingAdapterPosition, GenericAdapter<EpgDb, ScrollTvEpgItemBinding> adapter) {
+                        if (item == null) return;
                         binding.setModel(item);
                         binding.setDaysPlayback(stream.getTvArchiveDuration());
 
@@ -306,7 +317,8 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .doOnError(th -> Log.e("TAG", "loadEpg: ", th))
                                 .doOnSuccess(reminders -> {
-                                    binding.getModel().setHasReminder(reminders != null || reminders.isActive());
+                                    binding.getModel().setHasReminder(reminders != null &&
+                                            reminders.isActive());
                                 })
                                 .subscribe();
 
@@ -351,7 +363,9 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                         });
                     }
                 });
-        getActivity().runOnUiThread(() -> mBinding.include4.listEpg.setAdapter(adapter));
+        FragmentActivity activity = getActivity();
+        if (activity != null)
+            activity.runOnUiThread(() -> mBinding.include4.listEpg.setAdapter(adapter));
 
         adapter.totalItemsObservable
                 .subscribeOn(Schedulers.io())

@@ -93,6 +93,8 @@
                 android:textColor="#FFFFFF"
                 android:textColorHint="#919191"
                 android:textSize="20sp"
+                android:focusable="false"
+                android:clickable="false"
                 app:layout_constraintBottom_toTopOf="@id/keyboard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
