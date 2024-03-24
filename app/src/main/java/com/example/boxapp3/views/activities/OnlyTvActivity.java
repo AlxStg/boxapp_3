@@ -100,6 +100,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mStreamPlayedDurationService = new StreamPlayedDurationService(this);
         mIptvParental = new IptvParental(this);
 
+        mIptvLive.setCategoryId(sharedPreferences.getInt("listCategories", 0));
 
         mModel = new OnlyTvActivityModel(this);
 
@@ -261,12 +262,13 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
     private Handler zappingClearHandler = new Handler();
     private Runnable zappingClearRunnable;
+    private StreamXc zappedStream;
 
     private void zapChannel(boolean isUp) {
         isZapping = true;
         if (zappingClearRunnable != null)
             zappingClearHandler.removeCallbacks(zappingClearRunnable);
-        mIptvLive.zapChannel(isUp)
+        mIptvLive.zapChannel(isUp, zappedStream != null ? zappedStream.getStreamId() : streamId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> {
@@ -274,19 +276,22 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 })
                 .doOnSuccess(streamXc -> {
                     if (streamXc != null) {
+                        Log.d("PlayerTvActivity", "zapChannel: " + streamXc.getStreamId());
+                        zappedStream = streamXc;
                         showChannelInfo(streamXc.getStreamId());
                         zappingClearRunnable = new Runnable() {
                             @Override
                             public void run() {
                                 isZapping = false;
-                                playChannel(streamXc);
+                                if (zappedStream != null)
+                                    playChannel(zappedStream);
                             }
                         };
+                        zappingClearHandler.postDelayed(zappingClearRunnable, 2000);
                     }
 
                 })
                 .subscribe();
-        zappingClearHandler.postDelayed(zappingClearRunnable, 2000);
     }
 
 
