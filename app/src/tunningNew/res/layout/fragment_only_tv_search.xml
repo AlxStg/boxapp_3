@@ -14,8 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="#D924222B"
-        android:paddingStart="175dp">
+        android:background="@color/bg_cinza_60">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -66,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pesquisar"
-                android:textColor="#FF5722"
+                android:textColor="@color/default_secondary_color"
                 android:textSize="34sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"

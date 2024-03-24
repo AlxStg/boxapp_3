@@ -93,12 +93,13 @@
             layout="@layout/menu"
             android:layout_width="350dp"
             android:layout_height="0dp"
-            android:visibility="gone"
+            android:visibility="@{model.showMenu ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout11"
             app:listener="@{listener}"
             app:model="@{model}" />
+<!--        android:visibility="@{model.showMenu ? View.VISIBLE : View.GONE}"-->
 
         <FrameLayout
             android:id="@+id/main_active_fragment"
