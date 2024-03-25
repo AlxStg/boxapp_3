@@ -17,4 +17,6 @@ public interface OnlyTvActivityListener {
     void onBtnFocused();
     void onAllowAdultContent();
     void onShowChannelPanels();
+
+    void openDetails(int id, String type);
 }

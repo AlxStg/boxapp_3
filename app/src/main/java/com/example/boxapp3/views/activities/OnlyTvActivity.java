@@ -29,6 +29,7 @@ import com.example.boxapp3.views.fragments.MobileAppFragment;
 import com.example.boxapp3.views.fragments.OnlyTvChannelInfoFragment;
 import com.example.boxapp3.views.fragments.OnlyTvPanelsFragment;
 import com.example.boxapp3.views.fragments.OnlyTvSearchFragment;
+import com.example.boxapp3.views.fragments.OnlyTvVodListFragment;
 import com.example.boxapp3.views.fragments.ParentalFragment;
 import com.example.boxapp3.views.fragments.RemindersListFragment;
 import com.example.boxapp3.views.fragments.SportFragment;
@@ -456,6 +457,10 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mCenterContent.addFragment("sports", new SportFragment());
         mCenterContent.addFragment("mobile", new MobileAppFragment());
         mCenterContent.addFragment("remember", new RemindersListFragment());
+        mCenterContent.addFragment("movies", new OnlyTvVodListFragment(StreamXc.TYPE_STREAM_VOD,
+                this));
+        mCenterContent.addFragment("series", new OnlyTvVodListFragment(StreamXc.TYPE_STREAM_SERIES,
+                this));
 
     }
 
@@ -669,6 +674,27 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     public void onShowChannelPanels() {
         mModel.setShowMenu(true);
         mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
+    }
+
+    @Override
+    public void openDetails(int id, String type) {
+       //Fragment fragment = null;
+       //if (type.equals(StreamXc.TYPE_STREAM_LIVE)) {
+       //    Intent intent = new Intent(this, PlayerTvActivity.class);
+       //    intent.putExtra("streamId", id);
+       //    startActivity(intent);
+       //} else if (type.equals(StreamXc.TYPE_STREAM_ADULTS)) {
+       //    Intent intent = new Intent(this, PlayerTvActivity.class);
+       //    intent.putExtra("streamId", id);
+       //    intent.putExtra("isAdult", true);
+       //    startActivity(intent);
+       //} else if (type.equals(StreamXc.TYPE_STREAM_VOD) || type.equals("kids")) {
+       //    fragment = new MovieDetailsFragment(id, this);
+       //} else if (type.equals(StreamXc.TYPE_STREAM_SERIES)) {
+       //    fragment = new SeriesDetailsFragment(id, this);
+       //}
+       //if (fragment != null)
+       //    mCenterContent.changeFragement(fragment);
     }
 
     @Override
