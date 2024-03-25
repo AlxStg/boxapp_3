@@ -19,7 +19,6 @@ import com.example.boxapp3.databinding.LinhaJogoBinding;
 import com.example.boxapp3.listeners.fragments.KeyListener;
 import com.example.boxapp3.listeners.fragments.MainFragmentListener;
 import com.example.boxapp3.service.ReminderIntentService;
-import com.example.boxapp3.views.activities.OnlyTvActivity;
 import com.example.iptvsdk.common.generic_adapter.GenericAdapter;
 import com.example.iptvsdk.data.models.Reminders;
 import com.example.iptvsdk.ui.reminder.IptvReminder;
