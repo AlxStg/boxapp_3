@@ -100,7 +100,14 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mStreamPlayedDurationService = new StreamPlayedDurationService(this);
         mIptvParental = new IptvParental(this);
 
-        mIptvLive.setCategoryId(sharedPreferences.getInt("listCategories", -1));
+        mIptvLive.getCategoryIdByPosition(sharedPreferences.getInt("listCategories", -1))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> {
+                    Log.e("OnlyTvActivity", "onCreate: ", throwable);
+                })
+                .doOnSuccess(id -> mIptvLive.setCategoryId(id))
+                .subscribe();
 
         mModel = new OnlyTvActivityModel(this);
 
@@ -669,6 +676,11 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     public void onShowChannelPanels() {
         mModel.setShowMenu(true);
         mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
+    }
+
+    @Override
+    public void onZapStreamChanged(StreamXc stream) {
+        zappedStream = stream;
     }
 
     @Override

@@ -182,6 +182,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
 
                 binding.getRoot().setOnClickListener(v -> {
                     listener.playChannel(item);
+                    listener.onZapStreamChanged(item);
                     if (!item.isAdult())
                         mSharedPreferences.edit().putInt("streamId", item.getStreamId()).apply();
                     saveListPostion("listChannels", bindingAdapterPosition, item.getName());
@@ -554,7 +555,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                         if (!item.isAdult())
                                             mIptvLive.setCategoryId(mSelectedCategoryId);
                                         mBinding.include2.listCategories.setSelectedPosition(bindingAdapterPosition);
-                                        saveListPostion("listCategories", mSelectedCategoryId, item.getCategoryName());
+                                        saveListPostion("listCategories", bindingAdapterPosition, item.getCategoryName());
                                         adapter.handleSelection(bindingAdapterPosition);
                                     };
                                     categoriesHandler.postDelayed(categoriesRunnable, 1000);
@@ -575,11 +576,11 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                         }
                     });
                     mBinding.include2.listCategories.setAdapter(adapter);
-                    if (getListPosition("listCategories") != -1) {
                         mBinding.include2.listCategories.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                             @Override
                             public void onGlobalLayout() {
                                 mBinding.include2.listCategories.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                if (getListPosition("listCategories") != -1) {
                                 mIptvLive.isCategoryAdultByName(getLastItem("listCategories"))
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
@@ -587,7 +588,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                         .doOnSuccess(isAdult -> {
                                             if (isAdult) {
                                                 if (isLimitAdult()) {
-                                                    mIptvLive.setCategoryByName(getLastItem("listCategories"));
+                                                    mIptvLive.setCategoryId(Integer.parseInt(getLastItem("listCategories")));
                                                     mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
                                                     mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
                                                     ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));
@@ -605,9 +606,13 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                             }
                                         })
                                         .subscribe();
+                            } else {
+
+                                    mBinding.include2.listCategories.scrollToPosition(0);
+                                    mBinding.include2.listCategories.setSelectedPosition(0);
+                                }
                             }
                         });
-                    }
                 })
                 .subscribe();
     }
