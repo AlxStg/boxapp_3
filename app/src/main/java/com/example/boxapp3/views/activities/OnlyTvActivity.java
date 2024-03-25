@@ -101,7 +101,14 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mStreamPlayedDurationService = new StreamPlayedDurationService(this);
         mIptvParental = new IptvParental(this);
 
-        mIptvLive.setCategoryId(sharedPreferences.getInt("listCategories", -1));
+        mIptvLive.getCategoryIdByPosition(sharedPreferences.getInt("listCategories", -1))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> {
+                    Log.e("OnlyTvActivity", "onCreate: ", throwable);
+                })
+                .doOnSuccess(id -> mIptvLive.setCategoryId(id))
+                .subscribe();
 
         mModel = new OnlyTvActivityModel(this);
 
@@ -137,6 +144,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                         || viewName.equals("btn_tv_menu")
                         || viewName.equals("btn_movies_menu")
                         || viewName.equals("btn_series_menu")
+                        || viewName.equals("btn_seriestv_menu")
+                        || viewName.equals("btn_filmes_menu")
                         || viewName.equals("btn_kids_menu")
                         || viewName.equals("btn_sports_menu")
                         || viewName.equals("btn_sair")
@@ -340,6 +349,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
                 if (isZapping || (!mModel.getShowMenu() && !(mCenterContent.getCurrentFragment()
                         instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof OnlyTvVodListFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof MobileAppFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof OnlyTvChannelInfoFragment &&
@@ -370,6 +380,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
                 if (isZapping || (!mModel.getShowMenu() && !(mCenterContent.getCurrentFragment()
                         instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof OnlyTvVodListFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof MobileAppFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof OnlyTvChannelInfoFragment &&
@@ -457,7 +468,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mCenterContent.addFragment("sports", new SportFragment());
         mCenterContent.addFragment("mobile", new MobileAppFragment());
         mCenterContent.addFragment("remember", new RemindersListFragment());
-        mCenterContent.addFragment("movies", new OnlyTvVodListFragment(StreamXc.TYPE_STREAM_VOD,
+        mCenterContent.addFragment("filmes", new OnlyTvVodListFragment(StreamXc.TYPE_STREAM_VOD,
                 this));
         mCenterContent.addFragment("series", new OnlyTvVodListFragment(StreamXc.TYPE_STREAM_SERIES,
                 this));
@@ -695,6 +706,10 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
        //}
        //if (fragment != null)
        //    mCenterContent.changeFragement(fragment);
+    }
+
+    public void onZapStreamChanged(StreamXc stream) {
+        zappedStream = stream;
     }
 
     @Override

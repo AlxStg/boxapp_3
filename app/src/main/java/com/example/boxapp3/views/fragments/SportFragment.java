@@ -142,6 +142,7 @@ public class SportFragment extends Fragment implements MainFragmentListener, Key
 
                     @Override
                     public void setModelToItem(LinhaJogoBinding binding, SportItemModel item, int bindingAdapterPosition, GenericAdapter<SportItemModel, LinhaJogoBinding> adapter) {
+                        if(item == null) return;
                         binding.setModel(item);
                         binding.textView50.setOnKeyListener((v, keyCode, event) -> {
                             if (event.getAction() == KeyEvent.ACTION_DOWN) {

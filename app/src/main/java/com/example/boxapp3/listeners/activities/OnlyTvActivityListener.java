@@ -19,4 +19,5 @@ public interface OnlyTvActivityListener {
     void onShowChannelPanels();
 
     void openDetails(int id, String type);
+    void onZapStreamChanged(StreamXc stream);
 }

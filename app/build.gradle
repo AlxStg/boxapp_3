@@ -81,8 +81,8 @@ android {
             versionCode 20
             versionName "2.0.0"
             buildConfigField("Boolean", "ONLY_TV", "true")
-            buildConfigField("Boolean", "LOAD_VOD", "false")
-            buildConfigField("Boolean", "LOAD_SERIES", "false")
+            buildConfigField("Boolean", "LOAD_VOD", "true")
+            buildConfigField("Boolean", "LOAD_SERIES", "true")
             buildConfigField("Boolean", "LOAD_SPORTS", "true")
         }
         tiger1 {
