@@ -11,6 +11,9 @@
         <variable
             name="actualProgram"
             type="String" />
+        <variable
+            name="focused"
+            type="Boolean" />
         <import type="com.example.iptvsdk.common.IptvSettings" />
         <import type="android.view.View" />
     </data>
@@ -57,8 +60,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:duplicateParentState="true"
-            android:maxLines="2"
+            android:maxLines="1"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:text="@{model.name}"
+            android:selected="@{focused}"
             android:textAlignment="textStart"
             android:textAllCaps="true"
             android:textColor="#FFFFFF"
@@ -107,6 +115,12 @@
             android:textAlignment="textStart"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
+            android:maxLines="1"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:selected="@{focused}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/lbl_watch"
             app:layout_constraintStart_toStartOf="@+id/lbl_watch"

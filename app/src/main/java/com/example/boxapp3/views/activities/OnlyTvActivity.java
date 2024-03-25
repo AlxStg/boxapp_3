@@ -100,6 +100,14 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mStreamPlayedDurationService = new StreamPlayedDurationService(this);
         mIptvParental = new IptvParental(this);
 
+        mIptvLive.getCategoryIdByPosition(sharedPreferences.getInt("listCategories", -1))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> {
+                    Log.e("OnlyTvActivity", "onCreate: ", throwable);
+                })
+                .doOnSuccess(id -> mIptvLive.setCategoryId(id))
+                .subscribe();
 
         mModel = new OnlyTvActivityModel(this);
 
@@ -120,16 +128,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         });
 
 
-        streamId = sharedPreferences.getInt("streamId", -1);
-
-        if (streamId != -1) {
-            mModel.setShowMenu(false);
-            mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
-            showChannelInfo();
-        } else {
-            mModel.setShowMenu(true);
-            mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
-        }
+        playPreviousStream();
 
 
         ViewUtils.listenFocus(this, new ViewUtils.FocusListener() {
@@ -149,14 +148,14 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                         || viewName.equals("btn_sair")
                         || viewName.equals("btn_adult_menu"));
 
-                if(mModel.getShowModalRemember()){
-                    if(!viewName.equals("btn_yes_remember") && !viewName.equals("btn_no_remember")) {
+                if (mModel.getShowModalRemember()) {
+                    if (!viewName.equals("btn_yes_remember") && !viewName.equals("btn_no_remember")) {
                         mBinding.includeModalRemember.btnYesRemember.requestFocus();
                         return;
                     }
                 }
-                if(mModel.getShowModalRememberSport()){
-                    if(!viewName.equals("btn_yes_modal_soccer")){
+                if (mModel.getShowModalRememberSport()) {
+                    if (!viewName.equals("btn_yes_modal_soccer")) {
                         mBinding.includeModalRememberSport.btnYesModalSoccer.requestFocus();
                         return;
                     }
@@ -204,6 +203,19 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         showLoadingBalls(true);
     }
 
+    private void playPreviousStream() {
+        streamId = sharedPreferences.getInt("streamId", -1);
+
+        if (streamId != -1) {
+            mModel.setShowMenu(false);
+            mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
+            showChannelInfo();
+        } else {
+            mModel.setShowMenu(true);
+            mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
+        }
+    }
+
     private void checkReminder() {
         mIpTvReminder.checkReminder(this, getIntent())
                 .subscribeOn(Schedulers.computation())
@@ -246,33 +258,54 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         channelInfoHandler.postDelayed(channelInfoRunnable, 5000);
     }
 
+    private void showChannelInfo(int streamId) {
+        mModel.setShowMenu(false);
+        mModel.setShowSpeed(true);
+        mCenterContent.changeFragement(new OnlyTvChannelInfoFragment(streamId, mIptvLive, isZapping,
+                this));
+        channelInfoHandler.removeCallbacks(channelInfoRunnable);
+        channelInfoHandler.postDelayed(channelInfoRunnable, 5000);
+    }
+
     private Handler zappingClearHandler = new Handler();
-    private Runnable zappingClearRunnable = new Runnable() {
-        @Override
-        public void run() {
-            isZapping = false;
-        }
-    };
+    private Runnable zappingClearRunnable;
+    private StreamXc zappedStream;
 
     private void zapChannel(boolean isUp) {
         isZapping = true;
-        zappingClearHandler.removeCallbacks(zappingClearRunnable);
-        mIptvLive.zapChannel(sharedPreferences.getInt("streamId", -1), isUp)
+        if (zappingClearRunnable != null)
+            zappingClearHandler.removeCallbacks(zappingClearRunnable);
+        mIptvLive.zapChannel(isUp, zappedStream != null ? zappedStream.getStreamId() : streamId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> {
                     Log.e("PlayerTvActivity", "zapChannel: ", throwable);
                 })
-                .doOnSuccess(this::playChannel)
+                .doOnSuccess(streamXc -> {
+                    if (streamXc != null) {
+                        Log.d("PlayerTvActivity", "zapChannel: " + streamXc.getStreamId());
+                        zappedStream = streamXc;
+                        showChannelInfo(streamXc.getStreamId());
+                        zappingClearRunnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                isZapping = false;
+                                if (zappedStream != null)
+                                    playChannel(zappedStream);
+                            }
+                        };
+                        zappingClearHandler.postDelayed(zappingClearRunnable, 2000);
+                    }
+
+                })
                 .subscribe();
-        zappingClearHandler.postDelayed(zappingClearRunnable, 1000);
     }
 
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            if(!mModel.getMenuEnabled())
+            if (!mModel.getMenuEnabled())
                 mModel.setMenuEnabled(true);
             if (mCenterContent.getCurrentFragment() instanceof KeyListener) {
                 if (((KeyListener) mCenterContent.getCurrentFragment()).dispatchKeyEvent(event))
@@ -286,7 +319,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 }
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
-                if(mModel.getShowModalExit() || mModel.getShowModalMobile() || mModel.getShowModalRemember() || mModel.getShowModalRememberSport())
+                if (mModel.getShowModalExit() || mModel.getShowModalMobile() || mModel.getShowModalRemember() || mModel.getShowModalRememberSport())
                     return super.dispatchKeyEvent(event);
                 if (mModel.getShowModalAdult()) {
                     if (mBinding.include.editTextText2.hasFocus()) {
@@ -315,7 +348,9 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                         instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof MobileAppFragment) && !(mCenterContent.getCurrentFragment()
-                        instanceof OnlyTvChannelInfoFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof OnlyTvChannelInfoFragment &&
+                        !((OnlyTvChannelInfoFragment) mCenterContent.getCurrentFragment()).canMoveDown())
+                        && !(mCenterContent.getCurrentFragment()
                         instanceof ParentalFragment))) {
                     zapChannel(false);
                     return true;
@@ -323,7 +358,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
             }
 
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
-                if(mModel.getShowModalExit() || mModel.getShowModalMobile() || mModel.getShowModalRemember() || mModel.getShowModalRememberSport())
+                if (mModel.getShowModalExit() || mModel.getShowModalMobile() || mModel.getShowModalRemember() || mModel.getShowModalRememberSport())
                     return super.dispatchKeyEvent(event);
                 if (mModel.getShowModalAdult()) {
                     if (mBinding.include.editTextText3.hasFocus()) {
@@ -343,7 +378,9 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                         instanceof OnlyTvPanelsFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof SportFragment) && !(mCenterContent.getCurrentFragment()
                         instanceof MobileAppFragment) && !(mCenterContent.getCurrentFragment()
-                        instanceof OnlyTvChannelInfoFragment) && !(mCenterContent.getCurrentFragment()
+                        instanceof OnlyTvChannelInfoFragment &&
+                        !((OnlyTvChannelInfoFragment) mCenterContent.getCurrentFragment()).canMoveUp())
+                        && !(mCenterContent.getCurrentFragment()
                         instanceof ParentalFragment))) {
                     zapChannel(true);
                     return true;
@@ -400,7 +437,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                 return true;
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                if(mModel.getShowModalExit() || mModel.getShowModalMobile() || mModel.getShowModalRemember() || mModel.getShowModalRememberSport())
+                if (mModel.getShowModalExit() || mModel.getShowModalMobile() || mModel.getShowModalRemember() || mModel.getShowModalRememberSport())
                     return super.dispatchKeyEvent(event);
                 if (mCenterContent.getCurrentFragment() instanceof EmptyFragment) {
                     showChannelInfo();
@@ -534,6 +571,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
     @Override
     public void playChannel(StreamXc stream) {
+        if (stream == null)
+            return;
         mModel.setShowMenu(false);
         mCenterContent.removeAllFragments();
 
@@ -616,7 +655,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
     @Override
     public void onBtnFocused() {
-        if(channelInfoHandler == null || channelInfoRunnable == null)
+        if (channelInfoHandler == null || channelInfoRunnable == null)
             return;
         channelInfoHandler.removeCallbacks(channelInfoRunnable);
         channelInfoHandler.postDelayed(channelInfoRunnable, 5000);
@@ -637,6 +676,11 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     public void onShowChannelPanels() {
         mModel.setShowMenu(true);
         mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
+    }
+
+    @Override
+    public void onZapStreamChanged(StreamXc stream) {
+        zappedStream = stream;
     }
 
     @Override
@@ -664,15 +708,16 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
     private Handler menuFocusHandler = new Handler();
     private Runnable menuFocusRunnable;
+
     @Override
     public void onCanMenuFocused(String menuName) {
-        if(!mModel.getMenuEnabled())
+        if (!mModel.getMenuEnabled())
             return;
-        if(menuFocusRunnable != null)
+        if (menuFocusRunnable != null)
             menuFocusHandler.removeCallbacks(menuFocusRunnable);
 
         menuFocusRunnable = () -> {
-         onMenuClicked(menuName);
+            onMenuClicked(menuName);
         };
 
         menuFocusHandler.postDelayed(menuFocusRunnable, 1000);
@@ -761,4 +806,44 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         editor.apply();
     }
 
+    private void clearAdultLimit() {
+        if (sharedPreferences == null)
+            sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("limitAdult");
+        editor.apply();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mIptvExoPlayer != null)
+            mIptvExoPlayer.onStart();
+        clearAdultLimit();
+        playPreviousStream();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mIptvExoPlayer != null)
+            mIptvExoPlayer.onResume();
+        clearAdultLimit();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mIptvExoPlayer != null)
+            mIptvExoPlayer.onPause();
+        clearAdultLimit();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mIptvExoPlayer != null)
+            mIptvExoPlayer.onStop();
+        clearAdultLimit();
+    }
 }

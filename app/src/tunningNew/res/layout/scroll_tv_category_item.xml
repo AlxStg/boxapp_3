@@ -7,6 +7,10 @@
         <variable
             name="model"
             type="com.example.iptvsdk.data.models.xtream.Category" />
+
+        <variable
+            name="focused"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +36,12 @@
             android:textColor="@color/menu_scrol_item_color"
             android:textSize="22sp"
             android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:selected="@{focused}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

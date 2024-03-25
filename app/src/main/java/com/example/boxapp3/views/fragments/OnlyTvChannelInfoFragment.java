@@ -138,6 +138,14 @@ public class OnlyTvChannelInfoFragment extends Fragment implements KeyListener, 
         return false;
     }
 
+    public boolean canMoveUp(){
+        return !(mBinding.imageView72.hasFocus() || mBinding.imageView7.hasFocus() || mBinding.textView71.hasFocus());
+    }
+
+    public boolean canMoveDown(){
+        return !mBinding.seekBarMovies.hasFocus();
+    }
+
     @Override
     public void onFavoriteClicked() {
         if(stream == null)

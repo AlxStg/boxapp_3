@@ -17,4 +17,5 @@ public interface OnlyTvActivityListener {
     void onBtnFocused();
     void onAllowAdultContent();
     void onShowChannelPanels();
+    void onZapStreamChanged(StreamXc stream);
 }
