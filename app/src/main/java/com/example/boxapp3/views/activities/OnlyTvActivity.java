@@ -100,7 +100,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mStreamPlayedDurationService = new StreamPlayedDurationService(this);
         mIptvParental = new IptvParental(this);
 
-        mIptvLive.setCategoryId(sharedPreferences.getInt("listCategories", 0));
+        mIptvLive.setCategoryId(sharedPreferences.getInt("listCategories", -1));
 
         mModel = new OnlyTvActivityModel(this);
 
