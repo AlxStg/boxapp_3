@@ -60,7 +60,7 @@
                 android:id="@+id/btn_home_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="130dp"
+                android:layout_marginTop="60dp"
                 android:background="@drawable/bg_button_menu2"
                 android:clickable="@{model.menuEnabled}"
                 android:focusable="@{model.menuEnabled}"
@@ -116,17 +116,17 @@
                 android:clickable="@{model.menuEnabled}"
                 android:focusable="@{model.menuEnabled}"
                 android:gravity="center_vertical"
+                android:nextFocusUp="@id/btn_home_menu"
+                android:nextFocusDown="@id/btn_movies_menu"
                 android:onClick="@{ () -> listener.onMenuClicked(`live`) }"
                 android:orientation="horizontal"
                 android:tag="live"
-                android:nextFocusUp="@id/btn_home_menu"
-                android:nextFocusDown="@id/btn_movies_menu"
-                app:onFocus="@{() -> listener.onCanMenuFocused(`live`)}"
-                app:layout_constraintBottom_toTopOf="@+id/btn_movies_menu"
 
+                app:layout_constraintBottom_toTopOf="@+id/btn_movies_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_home_menu"
+                app:onFocus="@{() -> listener.onCanMenuFocused(`live`)}"
                 app:selected="@{model.actualMenu.equals(`live`) }">
 
                 <ImageView
@@ -173,11 +173,11 @@
                 android:onClick="@{ () -> listener.onMenuClicked(`filmes`) }"
                 android:orientation="horizontal"
                 android:tag="filmes"
-                app:layout_constraintBottom_toTopOf="@+id/btn_series_menu"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btn_seriestv_menu"
 
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_tv_menu"
+                app:layout_constraintTop_toBottomOf="@+id/btn_movies_menu"
                 app:onFocus="@{() -> listener.onCanMenuFocused(`filmes`)}"
                 app:selected="@{model.actualMenu.equals(`filmes`) }">
 
@@ -225,11 +225,11 @@
                 android:onClick="@{ () -> listener.onMenuClicked(`series`) }"
                 android:orientation="horizontal"
                 android:tag="series"
-                app:layout_constraintBottom_toTopOf="@id/btn_filmes_menu"
-                app:layout_constraintEnd_toEndOf="parent"
 
+                app:layout_constraintBottom_toTopOf="@+id/btn_series_menu"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_series_menu"
+                app:layout_constraintTop_toBottomOf="@+id/btn_filmes_menu"
                 app:onFocus="@{() -> listener.onCanMenuFocused(`series`)}"
                 app:selected="@{model.actualMenu.equals(`series`) }">
 
@@ -278,10 +278,10 @@
                 android:onClick="@{ () -> listener.onMenuClicked(`sports`) }"
                 android:orientation="horizontal"
                 android:tag="sports"
-                app:layout_constraintBottom_toTopOf="@+id/btn_series_menu"
+                app:layout_constraintBottom_toTopOf="@+id/btn_filmes_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_series_menu"
+                app:layout_constraintTop_toBottomOf="@+id/btn_tv_menu"
                 app:onFocus="@{() -> listener.onCanMenuFocused(`sports`)}"
                 app:selected="@{model.actualMenu.equals(`sports`)}">
 
@@ -325,16 +325,16 @@
                 android:clickable="@{model.menuEnabled}"
                 android:focusable="@{model.menuEnabled}"
                 android:gravity="center_vertical"
+                android:nextFocusUp="@id/btn_movies_menu"
+                android:nextFocusDown="@id/btn_kids_menu"
                 android:onClick="@{ () -> listener.onMenuClicked(`mobile`) }"
                 android:orientation="horizontal"
                 android:tag="mobile"
-                android:nextFocusDown="@id/btn_kids_menu"
-                android:nextFocusUp="@id/btn_movies_menu"
-                app:onFocus="@{() -> listener.onCanMenuFocused(`mobile`)}"
-                app:layout_constraintBottom_toTopOf="@+id/btn_kids_menu"
+                app:layout_constraintBottom_toTopOf="@+id/btn_adult_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_movies_menu"
+                app:layout_constraintTop_toBottomOf="@+id/btn_seriestv_menu"
+                app:onFocus="@{() -> listener.onCanMenuFocused(`mobile`)}"
                 app:selected="@{model.actualMenu.equals(`mobile`)}">
 
                 <ImageView
@@ -479,11 +479,11 @@
                 android:onClick="@{ () -> listener.onMenuClicked(`remember`) }"
                 android:orientation="horizontal"
                 android:tag="remember"
-                app:onFocus="@{() -> listener.onCanMenuFocused(`remember`)}"
                 app:layout_constraintBottom_toTopOf="@+id/btn_sair"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_kids_menu">
+                app:layout_constraintTop_toBottomOf="@+id/btn_kids_menu"
+                app:onFocus="@{() -> listener.onCanMenuFocused(`remember`)}">
 
                 <ImageView
                     android:id="@+id/menu_adulto_icon"
@@ -521,7 +521,7 @@
                 android:id="@+id/btn_sair"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="110dp"
+                android:layout_marginBottom="60dp"
                 android:background="@drawable/bg_button_menu2"
                 android:clickable="@{model.menuEnabled}"
                 android:focusable="@{model.menuEnabled}"
@@ -532,7 +532,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_adult_menu">
+                app:layout_constraintTop_toBottomOf="@+id/btn_adult_menu">
 
                 <ImageView
                     android:id="@+id/menu_sair_icon"

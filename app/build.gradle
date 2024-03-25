@@ -77,7 +77,7 @@ android {
         }
         tunningNew {
             dimension "layout"
-            applicationId "com.tuning.app"
+            applicationId "com.tuning.vod"
             versionCode 20
             versionName "2.0.0"
             buildConfigField("Boolean", "ONLY_TV", "true")
