@@ -212,8 +212,12 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
             mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
             showChannelInfo();
         } else {
-            if (!BuildConfig.FLAVOR.equals("tiger1"))
+            if (!BuildConfig.FLAVOR.equals("tiger1")) {
                 mModel.setShowMenu(true);
+            } else {
+                mModel.setShowTopBar(true);
+                mModel.setShowMenu(false);
+            }
             mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
         }
     }
