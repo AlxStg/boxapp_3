@@ -117,10 +117,7 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
         mBinding.setListener(this);
 
 
-        checkReminder();
 
-//        setupMenu();
-        setupContent();
         mIptvMenu = new IptvMenu(new IptvMenuListener() {
             @Override
             public void onMenuColapse(boolean colapse) {
@@ -128,9 +125,6 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
                 mModel.setShowMenuLabels(!colapse);
             }
         });
-
-
-        playPreviousStream();
 
 
         ViewUtils.listenFocus(this, new ViewUtils.FocusListener() {
@@ -203,6 +197,11 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
             }
         });
         showLoadingBalls(true);
+
+        checkReminder();
+//        setupMenu();
+        setupContent();
+        playPreviousStream();
     }
 
     private void playPreviousStream() {
@@ -227,11 +226,17 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
                 .doOnSuccess(reminderCallback -> {
                     if (reminderCallback != null && (reminderCallback.isReminder || reminderCallback.isSport))
                         if (!reminderCallback.isSport) {
+                            mCenterContent.removeAllFragments();
+                            mModel.setShowMenu(false);
+                            mModel.setShowTopBar(false);
                             mBinding.includeModalRemember.setModel(reminderCallback);
                             mModel.setShowModalRemember(true);
                             mIpTvReminder.removeReminder(reminderCallback.epgTitle,
                                     reminderCallback.epgStart);
                         } else {
+                            mCenterContent.removeAllFragments();
+                            mModel.setShowMenu(false);
+                            mModel.setShowTopBar(false);
                             mBinding.includeModalRememberSport.setModel(reminderCallback);
                             mModel.setShowModalRememberSport(true);
                             mIpTvReminder.removeReminder(reminderCallback.sportName,
