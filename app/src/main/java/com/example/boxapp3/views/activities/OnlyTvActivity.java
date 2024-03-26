@@ -612,7 +612,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         } else {
             if (!adultAccessibile) {
                 mModel.setMenuEnabled(false);
-                mCenterContent.changeFragement(new ParentalFragment(this));
+                mCenterContent.changeFragement(new ParentalFragment(this, Integer
+                        .parseInt(category.getCategoryId())));
                 //mBinding.include.setRegisterPassword(!mIptvParental.hasPassword());
                 //mModel.setShowModalAdult(true);
                 //mBinding.include.editTextText2.requestFocus();

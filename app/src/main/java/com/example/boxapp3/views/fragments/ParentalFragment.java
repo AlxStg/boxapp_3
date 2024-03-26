@@ -24,6 +24,7 @@ import com.example.iptvsdk.data.models.xtream.Category;
 import com.example.iptvsdk.ui.live.IptvLive;
 import com.example.iptvsdk.ui.parental.IptvParental;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -39,9 +40,11 @@ public class ParentalFragment extends Fragment implements ParentalFragmentListen
     private Handler categoriesHandler = new Handler();
     private Runnable categoriesRunnable;
     private SharedPreferences mSharedPreferences;
+    private int mCategoryId;
 
-    public ParentalFragment(OnlyTvActivityListener activityListener) {
+    public ParentalFragment(OnlyTvActivityListener activityListener, int categoryId) {
         mActivityListener = activityListener;
+        mCategoryId = categoryId;
     }
 
     @Nullable
@@ -94,7 +97,14 @@ public class ParentalFragment extends Fragment implements ParentalFragmentListen
                 if (mModel.getPassword().equals(mModel.getConfirmPassword())) {
                     boolean setted = mIptvParental.setPassword(mModel.getPassword(), mModel.getConfirmPassword());
                     if (setted)
-                        mActivityListener.onAllowAdultContent();
+                        saveListPostion(mCategoryId)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnError(th -> Log.e("TAG", "onPasswordSet: ", th))
+                                .doOnComplete(() -> {
+                                    mActivityListener.onAllowAdultContent();
+                                })
+                                .subscribe();
                     else {
                         mModel.setMessage("Erro ao criar senha");
                         mModel.setStep(0);
@@ -106,7 +116,14 @@ public class ParentalFragment extends Fragment implements ParentalFragmentListen
             }
         } else {
             if (mIptvParental.checkPassword(mModel.getPassword())) {
-                mActivityListener.onAllowAdultContent();
+                saveListPostion(mCategoryId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnError(th -> Log.e("TAG", "onPasswordSet: ", th))
+                        .doOnComplete(() -> {
+                            mActivityListener.onAllowAdultContent();
+                        })
+                        .subscribe();
             } else {
                 mModel.setMessage("Senha incorreta");
             }
@@ -177,6 +194,24 @@ public class ParentalFragment extends Fragment implements ParentalFragmentListen
                         });
                 })
                 .subscribe();
+    }
+
+    private Completable saveListPostion(int categoryId) {
+        return Completable.create(emitter -> {
+            mIptvLive.getAllCategories()
+                    .subscribeOn(Schedulers.io())
+                    .doOnError(th -> Log.e("TAG", "setupCategories: ", th))
+                    .doOnSuccess(categories -> {
+                        for (int i = 0; i < categories.size(); i++) {
+                            if (categories.get(i).getCategoryId().equals(String.valueOf(categoryId))) {
+                                saveListPostion("listCategories", i, categories.get(i).getCategoryName());
+                                emitter.onComplete();
+                                break;
+                            }
+                        }
+                    })
+                    .subscribe();
+        });
     }
 
     private void saveListPostion(String list, int position, String itemName) {

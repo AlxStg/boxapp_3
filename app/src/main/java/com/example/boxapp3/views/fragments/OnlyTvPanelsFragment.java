@@ -588,7 +588,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                         .doOnSuccess(isAdult -> {
                                             if (isAdult) {
                                                 if (isLimitAdult()) {
-                                                    mIptvLive.setCategoryId(Integer.parseInt(getLastItem("listCategories")));
+                                                    mIptvLive.setCategoryByName(getLastItem("listCategories"));
                                                     mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
                                                     mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
                                                     ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));
