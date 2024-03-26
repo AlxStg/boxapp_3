@@ -83,7 +83,7 @@
                     android:adjustViewBounds="true"
                     android:duplicateParentState="true"
                     app:srcCompat="@drawable/a_icon_search_svgrepo_com"
-                    app:tint="@drawable/lbl_scroll_color" />
+                    app:tint="@color/lbl_scroll_color" />
 
                 <TextView
                     android:id="@+id/label_home_menu"
@@ -100,7 +100,7 @@
                     android:paddingBottom="10dp"
                     android:text="Pesquisar"
                     android:textAllCaps="false"
-                    android:textColor="@drawable/lbl_scroll_color"
+                    android:textColor="@color/lbl_scroll_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -134,7 +134,7 @@
                     android:adjustViewBounds="true"
                     android:duplicateParentState="true"
                     app:srcCompat="@drawable/a_icon_tv_television_old_vintage_svgrepo_com"
-                    app:tint="@drawable/lbl_scroll_color" />
+                    app:tint="@color/lbl_scroll_color" />
 
                 <TextView
                     android:id="@+id/label_tv_menu"
@@ -150,7 +150,7 @@
                     android:paddingBottom="10dp"
                     android:text="Ao vivo"
                     android:textAllCaps="false"
-                    android:textColor="@drawable/lbl_scroll_color"
+                    android:textColor="@color/lbl_scroll_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -184,7 +184,7 @@
                     android:adjustViewBounds="true"
                     android:duplicateParentState="true"
                     app:srcCompat="@drawable/a_icon_soccer_arena_svgrepo_com"
-                    app:tint="@drawable/lbl_scroll_color" />
+                    app:tint="@color/lbl_scroll_color" />
 
                 <TextView
                     android:id="@+id/menu_label_movies"
@@ -201,7 +201,7 @@
                     android:paddingBottom="10dp"
                     android:text="Futebol"
                     android:textAllCaps="false"
-                    android:textColor="@drawable/lbl_scroll_color"
+                    android:textColor="@color/lbl_scroll_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -234,7 +234,7 @@
                     android:adjustViewBounds="true"
                     android:duplicateParentState="true"
                     app:srcCompat="@drawable/a_icon_cell_phone_svgrepo_com"
-                    app:tint="@drawable/lbl_scroll_color" />
+                    app:tint="@color/lbl_scroll_color" />
 
                 <TextView
                     android:id="@+id/menu_label_series"
@@ -250,7 +250,7 @@
                     android:paddingBottom="10dp"
                     android:text="Aplicativo"
                     android:textAllCaps="false"
-                    android:textColor="@drawable/lbl_scroll_color"
+                    android:textColor="@color/lbl_scroll_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -376,7 +376,7 @@
                     android:adjustViewBounds="true"
                     android:duplicateParentState="true"
                     app:srcCompat="@drawable/a_icon_note_svgrepo_com"
-                    app:tint="@drawable/lbl_scroll_color" />
+                    app:tint="@color/lbl_scroll_color" />
 
                 <TextView
                     android:id="@+id/menu_label_adult"
@@ -392,7 +392,7 @@
                     android:paddingBottom="10dp"
                     android:text="Lembrete"
                     android:textAllCaps="false"
-                    android:textColor="@drawable/lbl_scroll_color"
+                    android:textColor="@color/lbl_scroll_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -423,7 +423,7 @@
                     android:adjustViewBounds="true"
                     android:duplicateParentState="true"
                     app:srcCompat="@drawable/a_icon_door_svgrepo_com"
-                    app:tint="@drawable/lbl_scroll_color" />
+                    app:tint="@color/lbl_scroll_color" />
 
                 <TextView
                     android:id="@+id/menu_sair_adult"
@@ -440,7 +440,7 @@
                     android:paddingBottom="10dp"
                     android:text="Sair"
                     android:textAllCaps="false"
-                    android:textColor="@drawable/lbl_scroll_color"
+                    android:textColor="@color/lbl_scroll_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
