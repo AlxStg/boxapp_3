@@ -39,7 +39,7 @@
                     android:id="@+id/txt_idioma"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_light"
+
                     android:text="@string/audio"
                     android:textColor="#FBFBFB"
                     android:textSize="20sp"
@@ -74,7 +74,7 @@
                     android:id="@+id/Legendas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_light"
+
                     android:text="@string/subtitle"
                     android:textColor="#FBFBFB"
                     android:textSize="20sp"
@@ -129,7 +129,7 @@
                     android:id="@+id/textView37"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_light"
+
                     android:text="Voltar"
                     android:textColor="#FFFFFF"
                     android:textSize="14sp"

@@ -23,7 +23,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:text="@string/tv_categories"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -7,11 +8,11 @@
             type="com.example.boxapp3.listeners.KeyboardCustomListener" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bloqueio"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#000000">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -92,8 +93,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
+                        android:onClick="@{() -> listener.onKeyPressed(1 + ``)}"
                         android:text="1"
-                    android:onClick="@{() -> listener.onKeyPressed(1 + ``)}"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
@@ -109,8 +110,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="2"
                         android:onClick="@{() -> listener.onKeyPressed(2 + ``)}"
+                        android:text="2"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -125,8 +126,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="3"
                         android:onClick="@{() -> listener.onKeyPressed(3 + ``)}"
+                        android:text="3"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -140,8 +141,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="4"
                         android:onClick="@{() -> listener.onKeyPressed(4 + ``)}"
+                        android:text="4"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -155,8 +156,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="5"
                         android:onClick="@{() -> listener.onKeyPressed(5 + ``)}"
+                        android:text="5"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -170,8 +171,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="6"
                         android:onClick="@{() -> listener.onKeyPressed(6 + ``)}"
+                        android:text="6"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -185,8 +186,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="7"
                         android:onClick="@{() -> listener.onKeyPressed(7 + ``)}"
+                        android:text="7"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -200,8 +201,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="8"
                         android:onClick="@{() -> listener.onKeyPressed(8 + ``)}"
+                        android:text="8"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -215,8 +216,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="9"
                         android:onClick="@{() -> listener.onKeyPressed(9 + ``)}"
+                        android:text="9"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -230,8 +231,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="0"
                         android:onClick="@{() -> listener.onKeyPressed(0 + ``)}"
+                        android:text="0"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -256,8 +257,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="Q"
                         android:onClick="@{() -> listener.onKeyPressed(`Q`)}"
+                        android:text="Q"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -271,8 +272,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="W"
                         android:onClick="@{() -> listener.onKeyPressed(`W`)}"
+                        android:text="W"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -286,8 +287,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="E"
                         android:onClick="@{() -> listener.onKeyPressed(`E`)}"
+                        android:text="E"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -301,8 +302,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="R"
                         android:onClick="@{() -> listener.onKeyPressed(`R`)}"
+                        android:text="R"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -316,8 +317,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="T"
                         android:onClick="@{() -> listener.onKeyPressed(`T`)}"
+                        android:text="T"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -331,8 +332,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="Y"
                         android:onClick="@{() -> listener.onKeyPressed(`Y`)}"
+                        android:text="Y"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -346,8 +347,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="U"
                         android:onClick="@{() -> listener.onKeyPressed(`U`)}"
+                        android:text="U"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -361,8 +362,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="I"
                         android:onClick="@{() -> listener.onKeyPressed(`I`)}"
+                        android:text="I"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -376,8 +377,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="O"
                         android:onClick="@{() -> listener.onKeyPressed(`O`)}"
+                        android:text="O"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -391,8 +392,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="P"
                         android:onClick="@{() -> listener.onKeyPressed(`P`)}"
+                        android:text="P"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -417,8 +418,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="A"
                         android:onClick="@{() -> listener.onKeyPressed(`A`)}"
+                        android:text="A"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -432,8 +433,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="S"
                         android:onClick="@{() -> listener.onKeyPressed(`S`)}"
+                        android:text="S"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -447,8 +448,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="D"
                         android:onClick="@{() -> listener.onKeyPressed(`D`)}"
+                        android:text="D"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -462,8 +463,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="F"
                         android:onClick="@{() -> listener.onKeyPressed(`F`)}"
+                        android:text="F"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -477,8 +478,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="G"
                         android:onClick="@{() -> listener.onKeyPressed(`G`)}"
+                        android:text="G"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -492,8 +493,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="H"
                         android:onClick="@{() -> listener.onKeyPressed(`H`)}"
+                        android:text="H"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -506,8 +507,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="J"
                         android:onClick="@{() -> listener.onKeyPressed(`J`)}"
+                        android:text="J"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -521,8 +522,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="K"
                         android:onClick="@{() -> listener.onKeyPressed(`K`)}"
+                        android:text="K"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -535,8 +536,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="L"
                         android:onClick="@{() -> listener.onKeyPressed(`L`)}"
+                        android:text="L"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -550,8 +551,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="Ç"
                         android:onClick="@{() -> listener.onKeyPressed(`Ç`)}"
+                        android:text="Ç"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -578,8 +579,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="Z"
                         android:onClick="@{() -> listener.onKeyPressed(`Z`)}"
+                        android:text="Z"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -593,8 +594,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="X"
                         android:onClick="@{() -> listener.onKeyPressed(`X`)}"
+                        android:text="X"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -608,8 +609,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="C"
                         android:onClick="@{() -> listener.onKeyPressed(`C`)}"
+                        android:text="C"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -623,8 +624,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="V"
                         android:onClick="@{() -> listener.onKeyPressed(`V`)}"
+                        android:text="V"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -636,8 +637,8 @@
                         android:layout_marginStart="5dp"
                         android:background="@drawable/bg_button_teclado"
                         android:gravity="center"
-                        android:text="B"
                         android:onClick="@{() -> listener.onKeyPressed(`B`)}"
+                        android:text="B"
                         android:textColor="#FFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -651,8 +652,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="N"
                         android:onClick="@{() -> listener.onKeyPressed(`N`)}"
+                        android:text="N"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
@@ -667,8 +668,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="M"
                         android:onClick="@{() -> listener.onKeyPressed(`M`)}"
+                        android:text="M"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />

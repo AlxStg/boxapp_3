@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="LEMBRETE!"
-                android:textColor="@color/default_secondary_color"
+                android:textColor="@color/default_primary_color"
                 android:textSize="34sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/textView40"

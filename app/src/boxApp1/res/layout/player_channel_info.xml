@@ -31,7 +31,7 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/comfortaa_light"
+
             android:text="@{stream.name}"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
@@ -60,7 +60,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
-            android:fontFamily="@font/comfortaa_light"
+
             android:text="@{epg.title}"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
@@ -75,7 +75,7 @@
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/comfortaa_light"
+
             android:textColor="#FFFFFF"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -94,7 +94,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:fontFamily="@font/comfortaa_light"
+
             android:maxLines="8"
             android:text="@{epg.description}"
             android:textAlignment="center"

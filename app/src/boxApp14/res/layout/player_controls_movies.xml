@@ -50,7 +50,7 @@
             android:id="@+id/textView24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/comfortaa_light"
+
             android:text="@{model.actualPosition}"
             android:textColor="#FFFFFF"
             app:layout_constraintStart_toStartOf="@+id/seekBar_movies"
@@ -60,7 +60,7 @@
             android:id="@+id/textView25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/comfortaa_light"
+
             android:text="@{model.duration}"
             android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="@+id/seekBar_movies"
@@ -115,7 +115,7 @@
             android:id="@+id/textView26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/comfortaa_light"
+
             android:gravity="top"
             android:text="-15s"
             android:textAlignment="center"
@@ -130,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:fontFamily="@font/comfortaa_light"
+
             android:gravity="top"
             tools:text="Pause"
             android:text="@{!model.isPlaying ? @string/play : @string/pause}"
@@ -146,7 +146,7 @@
             android:id="@+id/textView28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/comfortaa_light"
+
             android:gravity="top"
             android:text="+15s"
             android:textAlignment="center"
@@ -174,7 +174,7 @@
             android:id="@+id/textView36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/comfortaa_light"
+
             android:text="@string/audio_subtitle"
             android:textColor="#FFFFFF"
             android:textSize="14sp"

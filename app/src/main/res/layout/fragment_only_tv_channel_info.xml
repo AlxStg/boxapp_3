@@ -248,7 +248,7 @@
                 android:id="@+id/textView26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:gravity="top"
                 android:text="@string/minus_10_s"
                 android:textAlignment="center"
@@ -279,7 +279,7 @@
                 android:id="@+id/textView27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:gravity="top"
                 android:text="@string/play"
                 android:textAlignment="center"
@@ -295,7 +295,7 @@
                 android:id="@+id/textView28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:gravity="top"
                 android:text="@string/plus_10_s"
                 android:textAlignment="center"
@@ -311,7 +311,7 @@
                 android:id="@+id/textView29"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:gravity="top"
                 android:text="@string/epg"
                 android:textAlignment="center"

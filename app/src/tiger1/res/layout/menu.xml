@@ -19,7 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="#E60E0000">
+        android:background="#FC000000">
 
         <LinearLayout
             android:id="@+id/app_logotipo"
@@ -116,14 +116,14 @@
                 android:nextFocusUp="@id/btn_home_menu"
                 android:nextFocusDown="@id/btn_movies_menu"
                 android:onClick="@{ () -> listener.onMenuClicked(`live`) }"
-                app:selected="@{model.actualMenu.equals(`live`) }"
                 android:orientation="horizontal"
                 android:tag="live"
                 app:layout_constraintBottom_toTopOf="@+id/btn_movies_menu"
-
                 app:layout_constraintEnd_toEndOf="parent"
+
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_home_menu">
+                app:layout_constraintTop_toBottomOf="@+id/btn_home_menu"
+                app:selected="@{model.actualMenu.equals(`live`) }">
 
                 <ImageView
                     android:id="@+id/menu_tv_icon"
@@ -401,6 +401,7 @@
                 android:id="@+id/btn_sair"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
                 android:background="@drawable/bg_scroll_tv_item"
                 android:clickable="true"
                 android:focusable="true"
@@ -448,17 +449,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:background="#FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="2dp"
+            android:layout_width="1dp"
             android:layout_height="0dp"
             android:background="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"

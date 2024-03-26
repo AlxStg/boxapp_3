@@ -15,18 +15,21 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/bg_linha_jogo"
         android:clickable="@{!model.future}"
         android:focusable="@{!model.future}"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <LinearLayout
             android:id="@+id/linearLayout9"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="24dp"
             android:gravity="start|center_vertical"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -41,14 +44,13 @@
 
             <TextView
                 android:id="@+id/textView49"
-                android:layout_width="200dp
-"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:text="@{model.championship}"
                 android:textAlignment="textStart"
-                android:textColor="#F44336"
+                android:textColor="@color/default_primary_color"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -59,6 +61,7 @@
                 android:background="@drawable/bg_btn_lembrete"
                 android:clickable="@{model.future}"
                 android:focusable="@{model.future}"
+                android:gravity="center"
                 android:paddingStart="10dp"
                 android:paddingTop="5dp"
                 android:paddingEnd="10dp"
@@ -75,7 +78,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/linearLayout9"
             app:layout_constraintTop_toTopOf="parent">
