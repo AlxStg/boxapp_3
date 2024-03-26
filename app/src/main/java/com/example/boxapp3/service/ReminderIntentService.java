@@ -29,8 +29,7 @@ public class ReminderIntentService extends com.example.iptvsdk.services.Reminder
         mReminderService.getReminder(title, intent.getDoubleExtra("epgStart", 0))
                 .doOnSuccess(reminders -> {
                     if (reminders != null && reminders.isActive()){
-                        Intent i = new Intent(getApplicationContext(), BuildConfig.FLAVOR.equals("tunningNew")
-                                || BuildConfig.FLAVOR.equals("tiger1") ?
+                        Intent i = new Intent(getApplicationContext(), BuildConfig.ONLY_TV ?
                                 OnlyTvActivity.class : MainActivity.class);
                         i = IptvReminder.passData(intent, i);
 

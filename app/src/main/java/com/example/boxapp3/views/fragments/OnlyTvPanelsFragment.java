@@ -569,7 +569,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                             listener.onGoToMenu();
                                             return true;
                                         }
-                                    } else if(BuildConfig.FLAVOR.equals("tiger1")) {
+                                    } else if(BuildConfig.ONLY_TV_MENU_TOP) {
                                         if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0) {
                                             listener.onGoToChannelTopBar();
                                             return true;

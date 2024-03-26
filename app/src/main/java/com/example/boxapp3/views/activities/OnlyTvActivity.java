@@ -212,7 +212,7 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
             mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
             showChannelInfo();
         } else {
-            if (!BuildConfig.FLAVOR.equals("tiger1")) {
+            if (!BuildConfig.ONLY_TV_MENU_TOP) {
                 mModel.setShowMenu(true);
             } else {
                 mModel.setShowTopBar(true);
@@ -456,7 +456,7 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
                     return true;
                 } else if (mCenterContent.getCurrentFragment() instanceof OnlyTvChannelInfoFragment) {
                     mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
-                    if (!BuildConfig.FLAVOR.equals("tiger1"))
+                    if (!BuildConfig.ONLY_TV_MENU_TOP)
                         mModel.setShowMenu(true);
                 }
             }
@@ -477,7 +477,7 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
         mCenterContent.addFragment("mobile", new MobileAppFragment());
         mCenterContent.addFragment("remember", new RemindersListFragment());
 
-        if (BuildConfig.FLAVOR.equals("tiger1")) {
+        if (BuildConfig.ONLY_TV_MENU_TOP) {
             setCenterContent(mBinding, mModel, mCenterContent);
         }
 
@@ -617,7 +617,7 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
 
     @Override
     public void onEpgVisibilityChanged(boolean visible) {
-        if (!BuildConfig.FLAVOR.equals("tiger1"))
+        if (!BuildConfig.ONLY_TV_MENU_TOP)
             mModel.setShowMenu(!visible);
     }
 
@@ -657,7 +657,7 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
 
     @Override
     public void onShowPanels() {
-        if (!BuildConfig.FLAVOR.equals("tiger1"))
+        if (!BuildConfig.ONLY_TV_MENU_TOP)
             mModel.setShowMenu(true);
         mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
     }

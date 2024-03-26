@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.example.boxapp3.models.fragments.players.tv.EpgPanelModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_cinza_60"
+        android:backgroundTint="#1A000000"
+        android:backgroundTintMode="add">
+
+        <LinearLayout
+            android:id="@+id/linearLayout18"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout17"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView262"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="10dp"
+                    app:srcCompat="@drawable/icon_ampulheta" />
+
+                <TextView
+                    android:id="@+id/duracao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Duração:  "
+                    android:textColor="@color/default_secondary_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView622"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:text="@{model.duration}"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView26"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="10dp"
+                    app:srcCompat="@drawable/icon_live_tv" />
+
+                <TextView
+                    android:id="@+id/textView61"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Programa:  "
+                    android:textColor="@color/default_secondary_color"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView62"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:text="@{model.title}"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView63"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:maxLines="4"
+                android:text="@{model.description}"
+                android:textColor="#FFFFFF"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout17"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bar1"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#BFFFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView58"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="@{model.selectedMonth}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/default_secondary_color"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/vg_list_epg_date"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout7"
+                app:layout_constraintStart_toEndOf="@+id/bar1"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="mar" />
+
+            <androidx.leanback.widget.VerticalGridView
+                android:id="@+id/vg_list_epg_date"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="10dp"
+                android:nextFocusLeft="@id/list_channels"
+                android:nextFocusRight="@id/list_epg"
+                android:padding="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView58"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView58">
+
+            </androidx.leanback.widget.VerticalGridView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout7"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#BFFFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:minWidth="190dp"
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout17"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout18">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/guide"
+                android:textAlignment="textStart"
+                android:textColor="@color/default_secondary_color"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.leanback.widget.VerticalGridView
+                android:id="@+id/list_epg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:fadingEdge="vertical"
+                android:fadingEdgeLength="20dp"
+                android:nextFocusLeft="@id/vg_list_epg_date"
+                android:nextFocusUp="@id/list_epg"
+                android:nextFocusDown="@id/list_epg"
+                android:requiresFadingEdge="vertical" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

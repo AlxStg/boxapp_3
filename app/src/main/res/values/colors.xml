@@ -12,4 +12,6 @@
     <color name="live_epg_text">#FF5722</color>
 
     <color name="exo_error_message_background_color">#00FFFFFF</color>
+
+    <color name="bg_cinza_60">#CC252525</color>
 </resources>

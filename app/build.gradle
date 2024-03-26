@@ -26,6 +26,7 @@ android {
         buildConfigField("Boolean", "LOAD_EPG", "true")
         buildConfigField("Boolean", "LOAD_SPORTS", "false")
         buildConfigField("Boolean", "ONLY_TV", "false")
+        buildConfigField("Boolean", "ONLY_TV_MENU_TOP", "false")
         multiDexEnabled = true
     }
 
@@ -89,6 +90,16 @@ android {
             dimension "layout"
             applicationId "com.example.appiptv1"
             buildConfigField("Boolean", "ONLY_TV", "true")
+            buildConfigField("Boolean", "ONLY_TV_MENU_TOP", "true")
+            buildConfigField("Boolean", "LOAD_VOD", "false")
+            buildConfigField("Boolean", "LOAD_SERIES", "false")
+            buildConfigField("Boolean", "LOAD_SPORTS", "true")
+        }
+        tunBlue {
+            dimension "layout"
+            applicationId "com.example.appiptv2"
+            buildConfigField("Boolean", "ONLY_TV", "true")
+            buildConfigField("Boolean", "ONLY_TV_MENU_TOP", "true")
             buildConfigField("Boolean", "LOAD_VOD", "false")
             buildConfigField("Boolean", "LOAD_SERIES", "false")
             buildConfigField("Boolean", "LOAD_SPORTS", "true")
