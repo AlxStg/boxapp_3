@@ -18,4 +18,7 @@ public interface OnlyTvActivityListener {
     void onAllowAdultContent();
     void onShowChannelPanels();
     void onZapStreamChanged(StreamXc stream);
+    void onGoToChannelTopBar();
+    void onGoToSportTopBar();
+    void onGoToMenuTopBar();
 }

@@ -25,6 +25,7 @@ public class OnlyTvActivityModel extends BaseObservable {
     private String mobileCode = "";
     private String speed = "";
     public BehaviorSubject<String> searchQuery = BehaviorSubject.create();
+    private boolean showTopBar = false;
 
     private OnlyTvActivityModelListener listener;
 
@@ -188,5 +189,25 @@ public class OnlyTvActivityModel extends BaseObservable {
     public void setMenuEnabled(boolean menuEnabled) {
         this.menuEnabled = menuEnabled;
         notifyPropertyChanged(com.example.boxapp3.BR.menuEnabled);
+    }
+
+    @Bindable
+    public boolean getSeekbarEnabled() {
+        return seekbarEnabled;
+    }
+
+    public void setSeekbarEnabled(boolean seekbarEnabled) {
+        this.seekbarEnabled = seekbarEnabled;
+        notifyPropertyChanged(com.example.boxapp3.BR.seekbarEnabled);
+    }
+
+    @Bindable
+    public boolean getShowTopBar() {
+        return showTopBar;
+    }
+
+    public void setShowTopBar(boolean showTopBar) {
+        this.showTopBar = showTopBar;
+        notifyPropertyChanged(com.example.boxapp3.BR.showTopBar);
     }
 }

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="model"
             type="com.example.boxapp3.models.activities.OnlyTvActivityModel" />
+
         <variable
             name="listener"
             type="com.example.boxapp3.listeners.models.activities.OnlyTvActivityModelListener" />
+
         <import type="android.view.View" />
     </data>
 
@@ -26,7 +29,7 @@
             android:layout_height="match_parent"
             android:visibility="visible"
             app:resize_mode="fill"
-            app:use_controller="false" >
+            app:use_controller="false">
 
         </androidx.media3.ui.PlayerView>
 
@@ -105,9 +108,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#000000"
+            android:visibility="@{model.showTopBar ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+            <!--          -->
 
             <LinearLayout
                 android:id="@+id/linearLayout192"
@@ -119,6 +124,8 @@
                 android:focusable="true"
                 android:gravity="bottom"
                 android:orientation="vertical"
+                android:onClick="@{ () -> listener.onTopbarSoccerClicked() }"
+                app:selected="@{model.actualMenu.equals(`sports`) }"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/linearLayout19"
                 app:layout_constraintTop_toTopOf="parent">
@@ -158,6 +165,8 @@
                 android:focusable="true"
                 android:gravity="bottom"
                 android:orientation="vertical"
+                android:onClick="@{ () -> listener.onTopbarChannelClicked() }"
+                app:selected="@{model.actualMenu.equals(`live`) }"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView32"
                 app:layout_constraintTop_toTopOf="parent">
@@ -171,9 +180,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
+                    android:duplicateParentState="true"
                     app:srcCompat="@drawable/icon_television_tv_svgrepo_com"
-                    app:tint="@drawable/topbar_icon"
-                    android:duplicateParentState="true" />
+                    app:tint="@drawable/topbar_icon" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -193,12 +202,13 @@
                 android:layout_height="0dp"
                 android:background="@drawable/bg_button"
                 android:clickable="true"
+                android:focusable="true"
                 android:rotation="90"
+                android:onClick="@{ () -> listener.onToggleMenu() }"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/lb_ic_more"
-                android:focusable="true" />
+                app:srcCompat="@drawable/lb_ic_more" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -280,6 +290,31 @@
             app:model="@{model}"
             tools:visibility="gone" />
 
+        <include
+            android:id="@+id/include_modal_remember"
+            layout="@layout/modal_lembrete"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{model.showModalRemember ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{listener}"
+            tools:visibility="gone" />
+
+        <include
+            android:id="@+id/include_modal_remember_sport"
+            layout="@layout/modal_lembrete_esporte"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{model.showModalRememberSport ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:listener="@{listener}"
+            tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

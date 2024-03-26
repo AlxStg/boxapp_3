@@ -11,4 +11,6 @@
     <color name="cyan">#00F7FF</color>
     <color name="black">#000000</color>
     <color name="live_epg_text">#FF5722</color>
+    <color name="exo_error_message_background_color">#00FFFFFF</color>
+    <color name="exo_rounded_rectangle">#00FFFFFF</color>
 </resources>

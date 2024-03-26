@@ -206,10 +206,10 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
 
                 binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                       //if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0) {
-                       //    listener.onGoToMenu();
-                       //    return true;
-                       //}
+                      if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0) {
+                          listener.onGoToChannelTopBar();
+                          return true;
+                      }
                     }
                     return false;
                 });
@@ -569,6 +569,11 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                             listener.onGoToMenu();
                                             return true;
                                         }
+                                    } else if(BuildConfig.FLAVOR.equals("tiger1")) {
+                                        if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0) {
+                                            listener.onGoToChannelTopBar();
+                                            return true;
+                                        }
                                     }
                                 }
                                 return false;
@@ -588,7 +593,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                         .doOnSuccess(isAdult -> {
                                             if (isAdult) {
                                                 if (isLimitAdult()) {
-                                                    mIptvLive.setCategoryId(Integer.parseInt(getLastItem("listCategories")));
+                                                    mIptvLive.setCategoryByName(getLastItem("listCategories"));
                                                     mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
                                                     mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
                                                     ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));

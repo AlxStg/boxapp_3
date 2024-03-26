@@ -13,4 +13,8 @@ public interface OnlyTvActivityModelListener {
     void modalReminderClose();
     void modalReminderSportClose();
     void onCanMenuFocused(String menuName);
+    void onToggleMenu();
+
+    void onTopbarChannelClicked();
+    void onTopbarSoccerClicked();
 }

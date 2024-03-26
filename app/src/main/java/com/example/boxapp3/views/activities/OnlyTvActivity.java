@@ -25,6 +25,7 @@ import com.example.boxapp3.listeners.fragments.MainFragmentListener;
 import com.example.boxapp3.listeners.fragments.OnlyTvPanelsFragmentListener;
 import com.example.boxapp3.listeners.models.activities.OnlyTvActivityModelListener;
 import com.example.boxapp3.models.activities.OnlyTvActivityModel;
+import com.example.boxapp3.views.actvities.CustomOnlyTvActivity;
 import com.example.boxapp3.views.fragments.MobileAppFragment;
 import com.example.boxapp3.views.fragments.OnlyTvChannelInfoFragment;
 import com.example.boxapp3.views.fragments.OnlyTvPanelsFragment;
@@ -58,7 +59,8 @@ import java.util.Locale;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListener, OnlyTvActivityModelListener {
+public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivityListener,
+        OnlyTvActivityModelListener {
 
     private ActivityOnlyTvBinding mBinding;
     private OnlyTvActivityModel mModel;
@@ -211,7 +213,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
             mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
             showChannelInfo();
         } else {
-            mModel.setShowMenu(true);
+            if (!BuildConfig.FLAVOR.equals("tiger1"))
+                mModel.setShowMenu(true);
             mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
         }
     }
@@ -444,7 +447,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
                     return true;
                 } else if (mCenterContent.getCurrentFragment() instanceof OnlyTvChannelInfoFragment) {
                     mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
-                    mModel.setShowMenu(true);
+                    if (!BuildConfig.FLAVOR.equals("tiger1"))
+                        mModel.setShowMenu(true);
                 }
             }
         }
@@ -463,6 +467,10 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         mCenterContent.addFragment("sports", new SportFragment());
         mCenterContent.addFragment("mobile", new MobileAppFragment());
         mCenterContent.addFragment("remember", new RemindersListFragment());
+
+        if (BuildConfig.FLAVOR.equals("tiger1")) {
+            setCenterContent(mBinding, mModel, mCenterContent);
+        }
 
     }
 
@@ -600,7 +608,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
     @Override
     public void onEpgVisibilityChanged(boolean visible) {
-        mModel.setShowMenu(!visible);
+        if (!BuildConfig.FLAVOR.equals("tiger1"))
+            mModel.setShowMenu(!visible);
     }
 
     @Override
@@ -612,7 +621,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         } else {
             if (!adultAccessibile) {
                 mModel.setMenuEnabled(false);
-                mCenterContent.changeFragement(new ParentalFragment(this));
+                mCenterContent.changeFragement(new ParentalFragment(this, Integer.parseInt(category.getCategoryId())));
                 //mBinding.include.setRegisterPassword(!mIptvParental.hasPassword());
                 //mModel.setShowModalAdult(true);
                 //mBinding.include.editTextText2.requestFocus();
@@ -639,7 +648,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
     @Override
     public void onShowPanels() {
-        mModel.setShowMenu(true);
+        if (!BuildConfig.FLAVOR.equals("tiger1"))
+            mModel.setShowMenu(true);
         mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
     }
 
@@ -665,7 +675,7 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     public void onAllowAdultContent() {
         mModel.setShowModalAdult(false);
         saveLimitAdult();
-        mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
+        mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive, false));
         if (mCenterContent.getCurrentFragment() instanceof OnlyTvPanelsFragmentListener) {
             ((OnlyTvPanelsFragmentListener) mCenterContent.getCurrentFragment())
                     .onCategorySelected(Integer.parseInt(selectedAdultCategory.getCategoryId()));
@@ -674,13 +684,29 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
 
     @Override
     public void onShowChannelPanels() {
-        mModel.setShowMenu(true);
+        if (!BuildConfig.FLAVOR.equals("tiger1"))
+            mModel.setShowMenu(true);
         mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive));
     }
 
     @Override
     public void onZapStreamChanged(StreamXc stream) {
         zappedStream = stream;
+    }
+
+    @Override
+    public void onGoToChannelTopBar() {
+        super.onGoToChannelTopBar(mBinding);
+    }
+
+    @Override
+    public void onGoToSportTopBar() {
+        super.onGoToSportTopBar(mBinding);
+    }
+
+    @Override
+    public void onGoToMenuTopBar() {
+        super.onGoToMenuTopBar(mBinding);
     }
 
     @Override
@@ -721,6 +747,23 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
         };
 
         menuFocusHandler.postDelayed(menuFocusRunnable, 1000);
+    }
+
+    @Override
+    public void onToggleMenu() {
+        mModel.setShowMenu(!mModel.getShowMenu());
+    }
+
+    @Override
+    public void onTopbarChannelClicked() {
+        onMenuClicked("live");
+        mModel.setShowMenu(false);
+    }
+
+    @Override
+    public void onTopbarSoccerClicked() {
+        onMenuClicked("sports");
+        mModel.setShowMenu(false);
     }
 
     @Override
