@@ -805,6 +805,8 @@ public class OnlyTvActivity extends BaseActivity implements OnlyTvActivityListen
     }
 
     private void clearAdultLimit() {
+        zappedStreamId = -1;
+        mIptvLive.setCategoryId(-1);
         if (sharedPreferences == null)
             sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
