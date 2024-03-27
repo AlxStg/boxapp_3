@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:text="@string/atention"
                 android:textColor="#FB8B69"
                 android:textSize="34sp"
@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:text="@string/you_re_about_to_leave_the_app"
                 android:textColor="#8A8A8A"
                 android:textSize="24sp"
@@ -69,7 +69,7 @@
                 android:id="@+id/textView41"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:text="@string/are_you_sure"
                 android:textColor="#8A8A8A"
                 android:textSize="24sp"

@@ -74,7 +74,7 @@ public class OnlyTvSearchFragment extends Fragment {
                 binding.setModel(item);
 
                 binding.getRoot().setOnClickListener(v -> {
-                    listener.playChannel(item);
+                    listener.playChannel(item.getStreamId());
                 });
 
                 mIptvLive.getActualEpg(item)

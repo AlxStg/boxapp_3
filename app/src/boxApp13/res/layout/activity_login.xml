@@ -42,7 +42,7 @@
                 android:id="@+id/title_user_pass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:text="LOGIN"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
@@ -52,7 +52,7 @@
                 android:id="@+id/subtitle_user_pass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:text="User name and password required."
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
@@ -153,7 +153,7 @@
                 android:id="@+id/textView39"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:text="@string/mag_login"
                 android:textAllCaps="true"
                 android:textColor="#FFFFFF"
@@ -164,7 +164,7 @@
                 android:id="@+id/textView41"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:text="Mac adress required."
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
@@ -269,7 +269,7 @@
                 android:id="@+id/url_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:text="AUTHENTICATION"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
@@ -279,7 +279,7 @@
                 android:id="@+id/url_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:text="URL required."
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />

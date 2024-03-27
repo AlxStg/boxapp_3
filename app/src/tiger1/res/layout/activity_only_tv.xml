@@ -114,6 +114,16 @@
             app:layout_constraintTop_toTopOf="parent">
             <!--          -->
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCFFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <LinearLayout
                 android:id="@+id/linearLayout192"
                 android:layout_width="60dp"
@@ -301,7 +311,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:listener="@{listener}"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
 
         <include
             android:id="@+id/include_modal_remember_sport"
@@ -314,7 +324,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:listener="@{listener}"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

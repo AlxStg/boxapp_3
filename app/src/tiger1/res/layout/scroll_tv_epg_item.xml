@@ -76,7 +76,7 @@
             android:maxLines="2"
             android:text="@{model.title}"
             android:textAlignment="viewStart"
-            android:textColor="@drawable/lbl_scroll_color"
+            android:textColor="@color/lbl_scroll_color"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -109,7 +109,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:duplicateParentState="true"
-                android:tint="@drawable/lbl_scroll_color"
+                android:tint="@color/lbl_scroll_color"
                 app:loadImageDrawable="@{model.isPlayback(daysPlayback) ? @drawable/play_circle : @drawable/add_circle}" />
 
             <TextView
@@ -119,7 +119,7 @@
                 android:layout_marginStart="7dp"
                 android:duplicateParentState="true"
                 android:text="@{model.isPlayback(daysPlayback) ? `Assistir` :!model.hasReminder ? `Lembrete` : `Remover lembrete`}"
-                android:textColor="@drawable/lbl_scroll_color"
+                android:textColor="@color/lbl_scroll_color"
                 android:textSize="16dp" />
         </LinearLayout>
 

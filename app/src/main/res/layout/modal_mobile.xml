@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:text="@string/mobile_access"
                 android:textColor="#FB8B69"
                 android:textSize="34sp"
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:text="@string/download_our_app_scanning_the_qr_code_below_and_enter_the_code_on_the_screen"
                 android:textColor="#8A8A8A"
                 android:textSize="24sp"
@@ -81,7 +81,7 @@
                 android:id="@+id/textView41"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_light"
+
                 android:textColor="#8A8A8A"
                 android:textSize="48sp"
                 android:text="@{model.mobileCode}"

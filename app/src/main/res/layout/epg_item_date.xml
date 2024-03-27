@@ -9,33 +9,36 @@
             type="com.example.boxapp3.models.adapters.ItemEpgDateModel" />
         <import type="android.view.View" />
     </data>
-        <LinearLayout
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_scroll_tv_item"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView59"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/bg_scroll_tv_item"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:text="@{model.date}"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView59"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{model.date}"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="16dp" />
-
-            <TextView
-                android:id="@+id/textView60"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{model.day}"
-                android:textAllCaps="true"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView60"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{model.day}"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 </layout>

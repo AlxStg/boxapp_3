@@ -81,7 +81,6 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
     private boolean isZapping = false;
 
     private int streamId;
-    private StreamXc stream;
 
     private Category selectedAdultCategory;
 
@@ -262,51 +261,52 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
     };
 
     private void showChannelInfo() {
+        channelInfoHandler.removeCallbacks(channelInfoRunnable);
         mModel.setShowMenu(false);
         mModel.setShowSpeed(true);
-        mCenterContent.changeFragement(new OnlyTvChannelInfoFragment(streamId, mIptvLive, isZapping,
+        mCenterContent.changeFragement(new OnlyTvChannelInfoFragment(zappedStreamId != -1 ?
+                zappedStreamId : streamId, mIptvLive, isZapping,
                 this));
-        channelInfoHandler.removeCallbacks(channelInfoRunnable);
         channelInfoHandler.postDelayed(channelInfoRunnable, 5000);
     }
 
     private void showChannelInfo(int streamId) {
+        channelInfoHandler.removeCallbacks(channelInfoRunnable);
         mModel.setShowMenu(false);
         mModel.setShowSpeed(true);
         mCenterContent.changeFragement(new OnlyTvChannelInfoFragment(streamId, mIptvLive, isZapping,
                 this));
-        channelInfoHandler.removeCallbacks(channelInfoRunnable);
         channelInfoHandler.postDelayed(channelInfoRunnable, 5000);
     }
 
     private Handler zappingClearHandler = new Handler();
     private Runnable zappingClearRunnable;
-    private StreamXc zappedStream;
+    private int zappedStreamId = -1;
 
     private void zapChannel(boolean isUp) {
         isZapping = true;
         if (zappingClearRunnable != null)
             zappingClearHandler.removeCallbacks(zappingClearRunnable);
-        mIptvLive.zapChannel(isUp, zappedStream != null ? zappedStream.getStreamId() : streamId)
+        mIptvLive.zapChannel(isUp, zappedStreamId != -1 ? zappedStreamId : streamId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> {
                     Log.e("PlayerTvActivity", "zapChannel: ", throwable);
                 })
-                .doOnSuccess(streamXc -> {
-                    if (streamXc != null) {
-                        Log.d("PlayerTvActivity", "zapChannel: " + streamXc.getStreamId());
-                        zappedStream = streamXc;
-                        showChannelInfo(streamXc.getStreamId());
+                .doOnSuccess(id -> {
+                    if (id != null) {
+                        Log.d("PlayerTvActivity", "zapChannel: " + id);
+                        zappedStreamId = id;
+                        showChannelInfo(id);
                         zappingClearRunnable = new Runnable() {
                             @Override
                             public void run() {
                                 isZapping = false;
-                                if (zappedStream != null)
-                                    playChannel(zappedStream);
+                                if (zappedStreamId != -1)
+                                    playChannel(zappedStreamId, false);
                             }
                         };
-                        zappingClearHandler.postDelayed(zappingClearRunnable, 2000);
+                        zappingClearHandler.postDelayed(zappingClearRunnable, 500);
                     }
 
                 })
@@ -449,6 +449,7 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
                 return true;
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                isZapping = false;
                 if (mModel.getShowModalExit() || mModel.getShowModalMobile() || mModel.getShowModalRemember() || mModel.getShowModalRememberSport())
                     return super.dispatchKeyEvent(event);
                 if (mCenterContent.getCurrentFragment() instanceof EmptyFragment) {
@@ -587,16 +588,18 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
     }
 
     @Override
-    public void playChannel(StreamXc stream) {
-        if (stream == null)
+    public void playChannel(int streamId) {
+        playChannel(streamId, true);
+    }
+
+    public void playChannel(int streamId, boolean showChannelInfo) {
+        if (streamId <= 0)
             return;
         mModel.setShowMenu(false);
         mCenterContent.removeAllFragments();
 
         showLoadingBalls(true);
 
-        this.stream = stream;
-        this.streamId = stream.getStreamId();
         mIptvExoPlayer.play(streamId, mIptvSettings.getStreamExtension(), StreamXc.TYPE_STREAM_LIVE);
         mIptvLive.getChannel(streamId)
                 .subscribeOn(Schedulers.io())
@@ -612,7 +615,8 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
                 })
                 .subscribe();
 
-        showChannelInfo();
+        if (showChannelInfo)
+            showChannelInfo(streamId);
     }
 
     @Override
@@ -630,7 +634,8 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
         } else {
             if (!adultAccessibile) {
                 mModel.setMenuEnabled(false);
-                mCenterContent.changeFragement(new ParentalFragment(this, Integer.parseInt(category.getCategoryId())));
+                mCenterContent.changeFragement(new ParentalFragment(this, Integer
+                        .parseInt(category.getCategoryId())));
                 //mBinding.include.setRegisterPassword(!mIptvParental.hasPassword());
                 //mModel.setShowModalAdult(true);
                 //mBinding.include.editTextText2.requestFocus();
@@ -700,7 +705,7 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
 
     @Override
     public void onZapStreamChanged(StreamXc stream) {
-        zappedStream = stream;
+        zappedStreamId = stream.getStreamId();
     }
 
     @Override
@@ -721,14 +726,7 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
     @Override
     public void modalReminderWatch(int streamId) {
         mModel.setShowModalRemember(false);
-        mIptvLive.getChannel(streamId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(this::playChannel)
-                .doOnError(throwable -> {
-                    Log.e("PlayerTvActivity", "modalReminderWatch: ", throwable);
-                })
-                .subscribe();
+        playChannel(streamId);
     }
 
     @Override
@@ -859,6 +857,8 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
     }
 
     private void clearAdultLimit() {
+        zappedStreamId = -1;
+        mIptvLive.setCategoryId(-1);
         if (sharedPreferences == null)
             sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

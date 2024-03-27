@@ -14,8 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="#D924222B"
-        android:paddingStart="175dp">
+        android:background="#D924222B">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -66,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pesquisar"
-                android:textColor="#FF5722"
+                android:textColor="#F44336"
                 android:textSize="34sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +85,7 @@
 
             <androidx.leanback.widget.VerticalGridView
                 android:id="@+id/rv_resultados_pesquisa"
-                android:layout_width="400dp"
+                android:layout_width="500dp"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Tunning</string>
+    <string name="app_name" translatable="false">TV</string>
     <string name="title_activity_player">Leanback Activity_player</string>
     <string name="browse_title">Videos by Your Company</string>
     <string name="related_movies">Related Videos</string>

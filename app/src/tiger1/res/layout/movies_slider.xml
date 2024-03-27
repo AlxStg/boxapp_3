@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="32dp"
-                    android:fontFamily="@font/comfortaa_light"
+
                     android:text="@{backgroundVodSeriesDataModel.type}"
                     android:textAllCaps="true"
                     android:textColor="#FFFFFF"
@@ -60,7 +60,7 @@
                     android:layout_width="600dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/comfortaa_light"
+
                     android:maxLines="5"
                     android:minLines="5"
                     android:text="@{backgroundVodSeriesDataModel.description}"
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_button"
-                    android:fontFamily="@font/comfortaa_light"
+
                     android:paddingStart="5dp"
                     android:paddingTop="1dp"
                     android:paddingEnd="5dp"
@@ -94,7 +94,7 @@
                     android:layout_marginStart="10dp"
                     android:background="@drawable/bg_button"
                     android:backgroundTint="#000000"
-                    android:fontFamily="@font/comfortaa_light"
+
                     android:paddingStart="5dp"
                     android:paddingTop="1dp"
                     android:paddingEnd="5dp"
@@ -110,7 +110,7 @@
                     android:id="@+id/movie_name"
                     android:layout_width="500dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_light"
+
                     android:maxLines="2"
                     android:text="@{backgroundVodSeriesDataModel.name}"
                     android:textColor="#FFFFFF"

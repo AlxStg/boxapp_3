@@ -12,16 +12,15 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="#D924222B"
-        android:paddingStart="175dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout9"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:background="#E6000000"
             android:padding="20dp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -66,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pesquisar"
-                android:textColor="#FF5722"
+                android:textColor="@color/default_primary_color"
                 android:textSize="34sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +75,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout10"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:visibility="@{model.search.length() > 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -84,13 +83,26 @@
             app:layout_constraintStart_toEndOf="@id/constraintLayout9"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout14"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.leanback.widget.VerticalGridView
                 android:id="@+id/rv_resultados_pesquisa"
-                android:layout_width="400dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:background="#D9000000"
+                android:paddingStart="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/constraintLayout14"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
         </androidx.constraintlayout.widget.ConstraintLayout>
