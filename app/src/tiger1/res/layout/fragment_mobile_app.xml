@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
      <data>
 
@@ -8,9 +10,7 @@
                  type="String" />
      </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/default_background"
         android:backgroundTintMode="add"
         android:layout_width="600dp"
@@ -21,11 +21,12 @@
             android:id="@+id/tiutlo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Aproveite os canais TunningLive també pelo celular!"
+            android:text="Aproveite nossos canais também pelo celular!"
             android:textAlignment="center"
             android:textColor="@color/default_primary_color"
             android:textSize="30sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/subtitulo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,6 +41,7 @@
             android:textAlignment="center"
             android:textColor="@color/default_primary_color"
             android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/constraintLayout8"
             app:layout_constraintEnd_toEndOf="@+id/tiutlo"
             app:layout_constraintStart_toStartOf="@+id/tiutlo"
             app:layout_constraintTop_toBottomOf="@+id/tiutlo" />
@@ -56,7 +58,8 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/codigo"
             app:layout_constraintEnd_toEndOf="@+id/subtitulo"
-            app:layout_constraintStart_toStartOf="@+id/subtitulo" />
+            app:layout_constraintStart_toStartOf="@+id/subtitulo"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout8" />
 
         <TextView
             android:id="@+id/codigo"
