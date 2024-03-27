@@ -7,7 +7,7 @@ import java.util.Date;
 
 public interface OnlyTvActivityListener {
     void onGoToMenu();
-    void playChannel(StreamXc stream);
+    void playChannel(int streamId);
     void onEpgVisibilityChanged(boolean visible);
     void onCategorySelected(Category category);
     void onPlayback(int streamId, Date dateStart);
