@@ -115,6 +115,7 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
         mBinding.setModel(mModel);
         mBinding.setListener(this);
 
+        super.setBinding(mBinding, mModel);
 
 
         mIptvMenu = new IptvMenu(new IptvMenuListener() {

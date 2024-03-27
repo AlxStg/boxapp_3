@@ -16,6 +16,18 @@ import com.example.iptvsdk.common.centerContent.CenterContentListener;
 
 public class CustomOnlyTvActivity  extends BaseActivity {
 
+    private ActivityOnlyTvBinding mBinding;
+    private OnlyTvActivityModel mModel;
+
+    protected void setBinding(ActivityOnlyTvBinding mBinding, OnlyTvActivityModel mModel) {
+        this.mBinding = mBinding;
+        this.mModel = mModel;
+
+        mBinding.imageView32.setOnClickListener(v -> {
+            mModel.setShowMenu(!mModel.getShowMenu());
+        });
+    }
+
     protected void setCenterContent(ActivityOnlyTvBinding mBinding, OnlyTvActivityModel mModel, CenterContent centerContent) {
         mBinding.constraintLayout11.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
