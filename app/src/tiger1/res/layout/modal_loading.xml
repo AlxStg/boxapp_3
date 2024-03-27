@@ -11,16 +11,12 @@
         android:layout_height="match_parent"
         android:background="#26000000">
 
-        <ImageView
-            android:id="@+id/imageView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="3dp"
+        <include
+            layout="@layout/loading"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:rotatingAnimation="@{2000}"
-            app:srcCompat="@drawable/loading_svgrepo_com__1_" />
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
