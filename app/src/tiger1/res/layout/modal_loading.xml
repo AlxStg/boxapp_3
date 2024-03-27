@@ -21,6 +21,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:rotatingAnimation="@{2000}"
-            app:srcCompat="@drawable/load_svgrepo_com" />
+            app:srcCompat="@drawable/loading_svgrepo_com__1_" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
