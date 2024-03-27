@@ -26,7 +26,6 @@ import com.example.iptvsdk.ui.live.IptvLive;
 import java.util.Calendar;
 import java.util.Date;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityListener {
@@ -243,15 +242,15 @@ public class PlayerTvActivity extends BaseActivity implements PlayerTvActivityLi
 
     private void zapChannel(boolean isUp){
         isZapping = true;
-        zappingClearHandler.removeCallbacks(zappingClearRunnable);
-        mIptvLive.zapChannel(isUp, streamId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> {
-            Log.e("PlayerTvActivity", "zapChannel: ", throwable);
-        })
-                .doOnSuccess(this::onChannelClick)
-                .subscribe();
-        zappingClearHandler.postDelayed(zappingClearRunnable, 1000);
+       //zappingClearHandler.removeCallbacks(zappingClearRunnable);
+       //mIptvLive.zapChannel(isUp, streamId)
+       //        .subscribeOn(Schedulers.io())
+       //        .observeOn(AndroidSchedulers.mainThread())
+       //        .doOnError(throwable -> {
+       //    Log.e("PlayerTvActivity", "zapChannel: ", throwable);
+       //})
+       //        .doOnSuccess(this::onChannelClick)
+       //        .subscribe();
+       //zappingClearHandler.postDelayed(zappingClearRunnable, 1000);
     }
 }
