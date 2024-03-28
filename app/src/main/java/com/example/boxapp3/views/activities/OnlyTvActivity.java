@@ -116,7 +116,6 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
         mBinding.setListener(this);
 
 
-
         mIptvMenu = new IptvMenu(new IptvMenuListener() {
             @Override
             public void onMenuColapse(boolean colapse) {
@@ -142,6 +141,13 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
                         || viewName.equals("btn_sports_menu")
                         || viewName.equals("btn_sair")
                         || viewName.equals("btn_adult_menu"));
+
+                if(mModel.getShowModalExit()){
+                    if(!viewName.equals("btn_yes") && !viewName.equals("textView43")){
+                        ((ModalSairBinding) mBinding.modalExit).btnYes.requestFocus();
+                        return;
+                    }
+                }
 
                 if (mModel.getShowModalRemember()) {
                     if (!viewName.equals("btn_yes_remember") && !viewName.equals("btn_no_remember")) {
@@ -473,7 +479,9 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
 //        mCenterContent.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
 
         mCenterContent.addFragment("search", new OnlyTvSearchFragment(this));
-        mCenterContent.addFragment("live", new OnlyTvPanelsFragment(this, mIptvLive));
+        mCenterContent.addFragment("live", new OnlyTvPanelsFragment(this, mIptvLive,
+                false, BuildConfig.ONLY_TV && BuildConfig.FLAVOR.equals("tiger1")
+                && mModel.getShowMenu()));
         mCenterContent.addFragment("sports", new SportFragment());
         mCenterContent.addFragment("mobile", new MobileAppFragment());
         mCenterContent.addFragment("remember", new RemindersListFragment());
@@ -486,6 +494,7 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
 
     @Override
     public void onMenuClicked(String menu) {
+        mModel.setCanTopBarFocused(false);
         mModel.setActualMenu(menu);
         activeMenu = menu;
 
@@ -499,7 +508,13 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
         } else if (menu.equals("exit")) {
             mModel.setShowModalExit(true);
         } else adultAccessibile = false;
-        mCenterContent.showFragment(menu);
+        if (menu.equals("live"))
+            mCenterContent.changeFragement(new OnlyTvPanelsFragment(this, mIptvLive,
+                    false, !(BuildConfig.ONLY_TV && BuildConfig.FLAVOR.equals("tiger1")
+                    && mModel.getShowMenu())));
+        else
+            mCenterContent.showFragment(menu);
+        mModel.setShowTopBar(true);
     }
 
     @Override
@@ -721,6 +736,11 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
     @Override
     public void onGoToMenuTopBar() {
         super.onGoToMenuTopBar(mBinding);
+    }
+
+    @Override
+    public void onShowSport() {
+        mCenterContent.changeFragement(new SportFragment());
     }
 
     @Override

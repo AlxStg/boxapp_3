@@ -62,6 +62,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
     private String epgChannelId = "";
     private SharedPreferences mSharedPreferences;
     private boolean showEpg = false;
+    private boolean enabledAutoSelection = true;
 
     public OnlyTvPanelsFragment(OnlyTvActivityListener listener, IptvLive iptvLive) {
         this.listener = listener;
@@ -72,6 +73,14 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
         this.listener = listener;
         this.mIptvLive = iptvLive;
         this.showEpg = showEpg;
+    }
+
+    public OnlyTvPanelsFragment(OnlyTvActivityListener listener, IptvLive iptvLive, boolean showEpg,
+                                boolean enabledAutoSelection) {
+        this.listener = listener;
+        this.mIptvLive = iptvLive;
+        this.showEpg = showEpg;
+        this.enabledAutoSelection = enabledAutoSelection;
     }
 
     @Nullable
@@ -104,6 +113,7 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
 
         listener.onChangeMenuEnabled(false);
 
+        if(enabledAutoSelection)
         mBinding.include3.listChannels.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -206,11 +216,11 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
 
                 binding.getRoot().setOnKeyListener((v, keyCode, event) -> {
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                      if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0
-                      && BuildConfig.FLAVOR.equals("tiger1")) {
-                          listener.onGoToChannelTopBar();
-                          return true;
-                      }
+                        if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0
+                                && BuildConfig.FLAVOR.equals("tiger1")) {
+                            listener.onGoToChannelTopBar();
+                            return true;
+                        }
                         //if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0) {
                         //    listener.onGoToMenu();
                         //    return true;
@@ -222,13 +232,15 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
         });
         mBinding.include3.listChannels.setAdapter(adapter);
 
-        selectChannelPosition();
-        mIptvLive.getTotalChannels()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(th -> Log.e("TAG", "setupChannels: ", th))
-                .doOnNext(i -> selectChannelPosition())
-                .subscribe();
+        if (enabledAutoSelection) {
+            selectChannelPosition();
+            mIptvLive.getTotalChannels()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnError(th -> Log.e("TAG", "setupChannels: ", th))
+                    .doOnNext(i -> selectChannelPosition())
+                    .subscribe();
+        }
     }
 
     private void selectChannelPosition() {
@@ -590,9 +602,10 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                             listener.onGoToMenu();
                                             return true;
                                         }
-                                    } else if(BuildConfig.FLAVOR.equals("tiger1")) {
+                                    } else if (BuildConfig.FLAVOR.equals("tiger1")) {
                                         if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0) {
-                                            listener.onGoToChannelTopBar();
+                                            mBinding.include2.btnSport.requestFocus();
+                                            //listener.onGoToChannelTopBar();
                                             return true;
                                         }
                                     }
@@ -602,45 +615,63 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                         }
                     });
                     mBinding.include2.listCategories.setAdapter(adapter);
-                    mBinding.include2.listCategories.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                        @Override
-                        public void onGlobalLayout() {
-                            mBinding.include2.listCategories.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                            if (getListPosition("listCategories") != -1) {
-                                mIptvLive.isCategoryAdultByName(getLastItem("listCategories"))
-                                        .subscribeOn(Schedulers.io())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .doOnError(th -> Log.e("TAG", "setupCategories: ", th))
-                                        .doOnSuccess(isAdult -> {
-                                            if (isAdult) {
-                                                if (isLimitAdult()) {
-                                                    mIptvLive.setCategoryByName(getLastItem("listCategories"));
-                                                    mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
-                                                    mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
-                                                    ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));
-                                                } else {
-                                                    mIptvLive.setCategoryByName(getContext().getString(com.example.iptvsdk.R.string.all));
-                                                    mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
-                                                    mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
-                                                    ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));
-                                                }
-                                            } else {
-                                                mIptvLive.setCategoryByName(getLastItem("listCategories"));
-                                                mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
-                                                mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
-                                                ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));
-                                            }
-                                        })
-                                        .subscribe();
-                            } else {
-
-                                mBinding.include2.listCategories.scrollToPosition(0);
-                                mBinding.include2.listCategories.setSelectedPosition(0);
-                            }
-                        }
-                    });
+                    if (enabledAutoSelection)
+                        selectCategoryPosition();
                 })
                 .subscribe();
+        mBinding.include2.btnSport.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                    listener.onGoToChannelTopBar();
+                    return true;
+                }
+                return false;
+            }
+        });
+        mBinding.include2.btnSport.setOnClickListener(v -> {
+            listener.onShowSport();
+        });
+    }
+
+    private void selectCategoryPosition() {
+        mBinding.include2.listCategories.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mBinding.include2.listCategories.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                if (getListPosition("listCategories") != -1) {
+                    mIptvLive.isCategoryAdultByName(getLastItem("listCategories"))
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnError(th -> Log.e("TAG", "setupCategories: ", th))
+                            .doOnSuccess(isAdult -> {
+                                if (isAdult) {
+                                    if (isLimitAdult()) {
+                                        mIptvLive.setCategoryByName(getLastItem("listCategories"));
+                                        mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
+                                        mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
+                                        ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));
+                                    } else {
+                                        mIptvLive.setCategoryByName(getContext().getString(com.example.iptvsdk.R.string.all));
+                                        mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
+                                        mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
+                                        ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));
+                                    }
+                                } else {
+                                    mIptvLive.setCategoryByName(getLastItem("listCategories"));
+                                    mBinding.include2.listCategories.scrollToPosition(getListPosition("listCategories"));
+                                    mBinding.include2.listCategories.setSelectedPosition(getListPosition("listCategories"));
+                                    ((GenericAdapter<Category, ScrollTvCategoryItemBinding>) mBinding.include2.listCategories.getAdapter()).handleSelection(getListPosition("listCategories"));
+                                }
+                            })
+                            .subscribe();
+                } else {
+
+                    mBinding.include2.listCategories.scrollToPosition(0);
+                    mBinding.include2.listCategories.setSelectedPosition(0);
+                }
+            }
+        });
     }
 
     @Override
