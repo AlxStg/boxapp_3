@@ -604,7 +604,8 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                                         }
                                     } else if (BuildConfig.FLAVOR.equals("tiger1")) {
                                         if (keyCode == KeyEvent.KEYCODE_DPAD_UP && bindingAdapterPosition == 0) {
-                                            listener.onGoToChannelTopBar();
+                                            mBinding.include2.btnSport.requestFocus();
+                                            //listener.onGoToChannelTopBar();
                                             return true;
                                         }
                                     }
@@ -618,6 +619,19 @@ public class OnlyTvPanelsFragment extends Fragment implements KeyListener, OnlyT
                         selectCategoryPosition();
                 })
                 .subscribe();
+        mBinding.include2.btnSport.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                    listener.onGoToChannelTopBar();
+                    return true;
+                }
+                return false;
+            }
+        });
+        mBinding.include2.btnSport.setOnClickListener(v -> {
+            listener.onShowSport();
+        });
     }
 
     private void selectCategoryPosition() {

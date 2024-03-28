@@ -739,6 +739,11 @@ public class OnlyTvActivity extends CustomOnlyTvActivity implements OnlyTvActivi
     }
 
     @Override
+    public void onShowSport() {
+        mCenterContent.changeFragement(new SportFragment());
+    }
+
+    @Override
     public void modalReminderWatch(int streamId) {
         mModel.setShowModalRemember(false);
         playChannel(streamId);

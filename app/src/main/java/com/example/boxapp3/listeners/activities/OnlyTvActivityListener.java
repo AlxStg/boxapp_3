@@ -21,4 +21,5 @@ public interface OnlyTvActivityListener {
     void onGoToChannelTopBar();
     void onGoToSportTopBar();
     void onGoToMenuTopBar();
+    void onShowSport();
 }
