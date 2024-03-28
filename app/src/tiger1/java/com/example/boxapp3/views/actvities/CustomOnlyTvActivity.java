@@ -32,11 +32,11 @@ public class CustomOnlyTvActivity  extends BaseActivity {
                                         instanceof ParentalFragment;
                         mModel.setShowTopBar(showTopBar);
 
-                        mBinding.imageView32.setSelected(mModel.getShowMenu());
-                        if(!mModel.getShowMenu() && !(fragment instanceof SportFragment))
-                            mBinding.linearLayout19.setSelected(true);
-                        if(!mModel.getShowMenu() && fragment instanceof SportFragment)
-                            mBinding.linearLayout192.setSelected(true);
+                       mBinding.imageView32.setSelected(mModel.getShowMenu());
+                       if(!mModel.getShowMenu() && !(fragment instanceof SportFragment))
+                           mBinding.linearLayout19.setSelected(true);
+                       if(!mModel.getShowMenu() && fragment instanceof SportFragment)
+                           mBinding.linearLayout192.setSelected(true);
                     }
                 });
             }

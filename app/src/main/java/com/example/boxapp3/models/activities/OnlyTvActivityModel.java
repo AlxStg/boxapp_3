@@ -19,6 +19,7 @@ public class OnlyTvActivityModel extends BaseObservable {
     private boolean showLoadingPlayer = false;
     private boolean showSpeed = false;
     private boolean menuEnabled = false;
+    private boolean canTopBarFocused = true;
     private boolean seekbarEnabled = false;
     private String actualMenu = "home";
     private String search = "";
@@ -209,5 +210,15 @@ public class OnlyTvActivityModel extends BaseObservable {
     public void setShowTopBar(boolean showTopBar) {
         this.showTopBar = showTopBar;
         notifyPropertyChanged(com.example.boxapp3.BR.showTopBar);
+    }
+
+    @Bindable
+    public boolean getCanTopBarFocused() {
+        return canTopBarFocused;
+    }
+
+    public void setCanTopBarFocused(boolean canTopBarFocused) {
+        this.canTopBarFocused = canTopBarFocused;
+        notifyPropertyChanged(com.example.boxapp3.BR.canTopBarFocused);
     }
 }

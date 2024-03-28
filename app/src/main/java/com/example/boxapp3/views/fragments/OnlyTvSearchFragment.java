@@ -50,6 +50,12 @@ public class OnlyTvSearchFragment extends Fragment {
         return mBinding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        mBinding.tecladoPesquisa.requestFocus();
+    }
+
     private void setupList() {
         GenericAdapter<StreamXc, ScrollTvChannelItemBinding> adapter =
                 new GenericAdapter<>(getContext(), new GenericAdapter
